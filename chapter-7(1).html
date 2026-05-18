@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chapter VII — Three Men in a Boat</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg-deep:       #1F120A;
+  --bg-base:       #2B1A0F;
+  --bg-mid:        #3A2418;
+  --bg-warm:       #4D2F1F;
+  --bg-card:       #3A2418;
+
+  --ink:           #F0DFC4;
+  --ink-bright:    #FAF0E0;
+  --ink-soft:      #D4BFA0;
+  --ink-faded:     #B19A7C;
+
+  --gold:          #D4A574;
+  --gold-bright:   #E8C99A;
+  --brass:         #C9A86B;
+  --rust:          #B8723F;
+  --copper:        #B8923F;
+
+  --phrase-bg:     rgba(212, 165, 116, 0.10);
+  --phrase-bg-hover: rgba(212, 165, 116, 0.22);
+  --word-hover:    rgba(232, 201, 154, 0.14);
+  --active-bg:     #D4A574;
+
+  --rule:          rgba(212, 165, 116, 0.18);
+  --rule-strong:   rgba(212, 165, 116, 0.35);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg-base);
+  color: var(--ink);
+  font-family: 'Lora', Georgia, 'Times New Roman', serif;
+  font-size: 18px;
+  line-height: 1.85;
+  background-image:
+    radial-gradient(ellipse 70% 50% at 50% 0%, rgba(212, 165, 116, 0.12), transparent 60%),
+    radial-gradient(ellipse 50% 40% at 15% 30%, rgba(184, 114, 63, 0.08), transparent 60%),
+    radial-gradient(ellipse 50% 40% at 85% 70%, rgba(232, 201, 154, 0.06), transparent 60%),
+    radial-gradient(ellipse 70% 50% at 50% 100%, rgba(184, 114, 63, 0.08), transparent 60%);
+  background-attachment: fixed;
+  min-height: 100vh;
+  padding: 0 0 80px;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Subtle paper-grain noise on top */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.35;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.3  0 0 0 0 0.2  0 0 0 0 0.1  0 0 0 0.35 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+
+.container {
+  position: relative;
+  z-index: 2;
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 64px 32px 0;
+}
+
+.ornament {
+  text-align: center;
+  color: var(--gold);
+  font-size: 1.2rem;
+  letter-spacing: 1em;
+  padding-left: 1em;
+  margin-bottom: 32px;
+  opacity: 0;
+  animation: rise 0.9s 0.05s ease forwards;
+}
+
+.eyebrow {
+  text-align: center;
+  font-family: 'Fraunces', serif;
+  font-weight: 300;
+  font-style: italic;
+  font-size: 0.92rem;
+  letter-spacing: 0.42em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 14px;
+  padding-left: 0.42em;
+  opacity: 0;
+  animation: rise 0.9s 0.2s ease forwards;
+}
+
+.chapter-num {
+  text-align: center;
+  font-family: 'Fraunces', serif;
+  font-weight: 300;
+  font-size: 1rem;
+  letter-spacing: 0.5em;
+  text-transform: uppercase;
+  color: var(--ink-faded);
+  margin-bottom: 30px;
+  padding-left: 0.5em;
+  opacity: 0;
+  animation: rise 0.9s 0.35s ease forwards;
+}
+
+h1.chapter-title {
+  text-align: center;
+  font-family: 'Fraunces', serif;
+  font-weight: 400;
+  font-style: italic;
+  font-size: clamp(2.2rem, 5.2vw, 3.2rem);
+  line-height: 1.18;
+  color: var(--ink-bright);
+  margin-bottom: 26px;
+  letter-spacing: -0.005em;
+  opacity: 0;
+  animation: rise 1s 0.5s ease forwards;
+  text-shadow: 0 1px 30px rgba(212, 165, 116, 0.18);
+}
+
+.author {
+  text-align: center;
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  font-weight: 400;
+  color: var(--gold-bright);
+  font-size: 1.05rem;
+  margin-bottom: 28px;
+  opacity: 0;
+  animation: rise 1s 0.7s ease forwards;
+}
+
+.divider {
+  text-align: center;
+  color: var(--gold);
+  font-size: 1.45rem;
+  margin: 28px 0 32px;
+}
+
+.tip {
+  text-align: center;
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  color: var(--gold);
+  font-size: 0.92rem;
+  padding: 14px 22px;
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+  margin-bottom: 52px;
+  letter-spacing: 0.06em;
+  opacity: 0;
+  animation: rise 1s 0.9s ease forwards;
+}
+
+p {
+  margin-bottom: 1.35em;
+  text-align: justify;
+  hyphens: auto;
+  word-spacing: 0.02em;
+}
+
+.first-para::first-letter {
+  font-family: 'Fraunces', serif;
+  font-weight: 500;
+  font-size: 4.6rem;
+  float: left;
+  line-height: 0.86;
+  padding: 6px 12px 0 0;
+  color: var(--gold-bright);
+  font-style: italic;
+  text-shadow: 0 2px 20px rgba(232, 201, 154, 0.3);
+}
+
+/* Clickable: every word is clickable, but no visible underline by default
+   to keep reading clean. Only phrases get a subtle background tint so the
+   reader knows to tap the whole unit. Hover reveals interactivity. */
+
+.w {
+  position: relative;
+  cursor: pointer;
+  transition: color 0.18s ease, background-color 0.18s ease, text-shadow 0.18s ease;
+  padding: 0 1px;
+  border-radius: 3px;
+  display: inline;
+  -webkit-tap-highlight-color: transparent;
+}
+.w:hover {
+  background: var(--word-hover);
+  color: var(--gold-bright);
+  text-shadow: 0 0 12px rgba(232, 201, 154, 0.18);
+}
+
+.w.phrase {
+  background: var(--phrase-bg);
+  padding: 0 4px;
+  border-radius: 3px;
+  box-shadow: inset 0 -1px 0 rgba(212, 165, 116, 0.28);
+}
+.w.phrase:hover {
+  background: var(--phrase-bg-hover);
+  color: var(--gold-bright);
+  box-shadow: inset 0 -1px 0 rgba(232, 201, 154, 0.55);
+}
+
+.w.active,
+.w.phrase.active {
+  background: var(--active-bg);
+  color: var(--bg-deep) !important;
+  text-shadow: none;
+  box-shadow: 0 2px 14px rgba(212, 165, 116, 0.32);
+}
+
+/* Tooltip — cream pill on chocolate background, inverted for warmth */
+.tooltip {
+  position: absolute;
+  bottom: calc(100% + 10px);
+  left: 50%;
+  transform: translateX(-50%) translateY(6px);
+  background: var(--ink-bright);
+  color: var(--bg-deep);
+  font-family: 'Lora', serif;
+  font-size: 0.86rem;
+  font-style: normal;
+  font-weight: 500;
+  white-space: nowrap;
+  padding: 9px 16px;
+  border-radius: 6px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.22s ease, transform 0.22s ease;
+  z-index: 100;
+  box-shadow:
+    0 14px 36px rgba(0, 0, 0, 0.55),
+    0 2px 8px rgba(0, 0, 0, 0.35),
+    0 0 0 1px rgba(212, 165, 116, 0.18);
+  line-height: 1.4;
+  letter-spacing: 0.01em;
+  max-width: 280px;
+}
+.tooltip::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -7px;
+  border: 7px solid transparent;
+  border-top-color: var(--ink-bright);
+  filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.35));
+}
+.w.active .tooltip {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* Legend */
+.legend {
+  display: flex;
+  justify-content: center;
+  gap: 36px;
+  margin: 50px 0 14px;
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  color: var(--gold);
+  font-size: 0.92rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.swatch {
+  display: inline-block;
+  padding: 1px 7px;
+  font-family: 'Lora', serif;
+  font-style: normal;
+  font-size: 0.85rem;
+  color: var(--ink);
+  font-weight: 500;
+  border-radius: 3px;
+}
+.sw-word {
+  background: var(--word-hover);
+}
+.sw-phrase {
+  background: var(--phrase-bg);
+  box-shadow: inset 0 -1px 0 rgba(212, 165, 116, 0.45);
+  padding: 1px 8px;
+}
+
+.end {
+  text-align: center;
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  font-size: 1.55rem;
+  color: var(--gold);
+  margin: 54px 0 24px;
+  letter-spacing: 0.25em;
+  padding-left: 0.25em;
+}
+
+.listen-btn {
+  display: block;
+  margin: 16px auto 0;
+  padding: 11px 32px;
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  font-size: 0.95rem;
+  background: transparent;
+  color: var(--gold);
+  border: 1px solid var(--gold);
+  border-radius: 100px;
+  cursor: pointer;
+  letter-spacing: 0.18em;
+  text-transform: lowercase;
+  transition: all 0.3s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+.listen-btn:hover {
+  background: var(--gold);
+  color: var(--bg-deep);
+  letter-spacing: 0.22em;
+  box-shadow: 0 6px 24px rgba(212, 165, 116, 0.28);
+}
+.listen-btn:active { transform: translateY(1px); }
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 600px) {
+  .container { padding: 44px 22px 0; }
+  body { font-size: 17px; line-height: 1.78; }
+  .legend { flex-direction: column; gap: 14px; align-items: center; margin-top: 40px; }
+  .tooltip { white-space: normal; max-width: 220px; text-align: center; }
+  h1.chapter-title { font-size: 2.1rem; }
+  .first-para::first-letter { font-size: 3.8rem; }
+  .ornament { font-size: 1rem; letter-spacing: 0.7em; }
+  .chapter-num { letter-spacing: 0.4em; font-size: 0.9rem; }
+  p { text-align: left; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, .ornament, .eyebrow, .chapter-num, h1.chapter-title, .author, .tip {
+    animation: none !important;
+    opacity: 1 !important;
+  }
+  .w, .tooltip, .listen-btn { transition: none; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="ornament">✦ ✦ ✦</div>
+  <div class="eyebrow">Three Men in a Boat</div>
+  <div class="chapter-num">Chapter Seven</div>
+  <h1 class="chapter-title">Of Tombs and Loud Blazers</h1>
+  <p class="author">— Jerome K. Jerome —</p>
+  <div class="divider">❦</div>
+  <div class="tip">tap any word to reveal its meaning &amp; hear the sound</div>
+
+  <p class="first-para"><span class="w" data-tr="это">It</span> <span class="w" data-tr="было">was</span> <span class="w" data-tr="пока / в то время как">while</span> <span class="w phrase" data-tr="проходя через">passing through</span> <span class="w" data-tr="Моулси (название)">Moulsey</span> <span class="w" data-tr="шлюз">Lock</span> <span class="w" data-tr="что">that</span> <span class="w" data-tr="Гаррис">Harris</span> <span class="w" data-tr="рассказал">told</span> <span class="w" data-tr="мне">me</span> <span class="w" data-tr="о / про">about</span> <span class="w" data-tr="своём">his</span> <span class="w" data-tr="лабиринт">maze</span> <span class="w" data-tr="случай / опыт">experience</span>. <span class="w" data-tr="это">It</span> <span class="w phrase" data-tr="заняло у нас некоторое время">took us some time</span> <span class="w" data-tr="чтобы">to</span> <span class="w phrase" data-tr="пройти (через шлюз)">pass through</span>, <span class="w" data-tr="так как">as</span> <span class="w" data-tr="мы">we</span> <span class="w" data-tr="были">were</span> <span class="w" data-tr="опред. артикль">the</span> <span class="w" data-tr="единственная">only</span> <span class="w" data-tr="лодка">boat</span>, <span class="w" data-tr="и">and</span> <span class="w" data-tr="он (шлюз)">it</span> <span class="w" data-tr="есть / является">is</span> <span class="w" data-tr="неопр. артикль">a</span> <span class="w" data-tr="большой">big</span> <span class="w" data-tr="шлюз">lock</span>.</p>
+  <p class=""><span class="w" data-tr="я">I</span> <span class="w" data-tr="-сь (вспом. для have stood)">have</span> <span class="w" data-tr="стоял">stood</span> <span class="w" data-tr="и">and</span> <span class="w" data-tr="наблюдал">watched</span> <span class="w" data-tr="за ним">it</span>. <span class="w" data-tr="опред. артикль">The</span> <span class="w" data-tr="река">river</span> <span class="w" data-tr="предоставляет">affords</span> <span class="w" data-tr="неопр. артикль">a</span> <span class="w" data-tr="хорошую">good</span> <span class="w" data-tr="возможность">opportunity</span> <span class="w" data-tr="для">for</span> <span class="w" data-tr="одежды / нарядов">dress</span>. <span class="w phrase" data-tr="хоть раз в кои-то веки">For once in a way</span>, <span class="w" data-tr="мы">we</span> <span class="w" data-tr="мужчины">men</span> <span class="w phrase" data-tr="можем / в состоянии">are able to</span> <span class="w" data-tr="показать">show</span> <span class="w" data-tr="наш">our</span> <span class="w" data-tr="вкус">taste</span> <span class="w" data-tr="в">in</span> <span class="w" data-tr="цветах">colours</span>. <span class="w" data-tr="я">I</span> <span class="w" data-tr="всегда">always</span> <span class="w" data-tr="люблю">like</span> <span class="w" data-tr="немного">a</span> <span class="w" data-tr="немного">little</span> <span class="w" data-tr="красного">red</span> <span class="w" data-tr="в">in</span> <span class="w" data-tr="моих">my</span> <span class="w" data-tr="вещах">things</span>— <span class="w" data-tr="красное">red</span> <span class="w" data-tr="и">and</span> <span class="w" data-tr="чёрное">black</span>. <span class="w" data-tr="ты / вы">You</span> <span class="w" data-tr="знаешь">know</span> <span class="w" data-tr="мои">my</span> <span class="w" data-tr="волосы">hair</span> <span class="w" data-tr="-">is</span> <span class="w phrase" data-tr="золотисто-каштановые">golden brown</span>, <span class="w" data-tr="и">and</span> <span class="w" data-tr="неопр. артикль">a</span> <span class="w" data-tr="тёмно-">dark</span> <span class="w" data-tr="красный">red</span> <span class="w" data-tr="подходит к ним">matches</span> <span class="w" data-tr="к ним">it</span> <span class="w" data-tr="прекрасно">beautifully</span>. <span class="w" data-tr="я">I</span> <span class="w" data-tr="люблю">like</span> <span class="w" data-tr="неопр. артикль">a</span> <span class="w" data-tr="красный">red</span> <span class="w" data-tr="шёлковый">silk</span> <span class="w" data-tr="платок">handkerchief</span> <span class="w" data-tr="вокруг">round</span> <span class="w" data-tr="опред. артикль">the</span> <span class="w" data-tr="талии">waist</span>— <span class="w" data-tr="неопр. артикль">a</span> <span class="w" data-tr="платок">handkerchief</span> <span class="w" data-tr="выглядит">looks</span> <span class="w" data-tr="настолько">so</span> <span class="w" data-tr="намного">much</span> <span class="w" data-tr="лучше">better</span> <span class="w" data-tr="чем">than</span> <span class="w" data-tr="неопр. артикль">a</span> <span class="w" data-tr="ремень">belt</span>.</p>
+  <p class=""><span class="w" data-tr="Гаррис">Harris</span> <span class="w" data-tr="всегда">always</span> <span class="w phrase" data-tr="придерживается">keeps to</span> <span class="w" data-tr="оттенков">shades</span> <span class="w" data-tr="и">and</span> <span class="w" data-tr="смесей / сочетаний">mixtures</span> <span class="w" data-tr="-">of</span> <span class="w" data-tr="оранжевого">orange</span> <span class="w" data-tr="или">or</span> <span class="w" data-tr="жёлтого">yellow</span>, <span class="w" data-tr="но">but</span> <span class="w" data-tr="я">I</span> <span class="w" data-tr="не">don't</span> <span class="w" data-tr="думаю">think</span> <span class="w" data-tr="он">he</span> <span class="w" data-tr="-">is</span> <span class="w phrase" data-tr="вовсе / сколько-нибудь">at all</span> <span class="w" data-tr="мудр">wise</span> <span class="w" data-tr="в">in</span> <span class="w" data-tr="этом">this</span>. <span class="w" data-tr="его">His</span> <span class="w" data-tr="цвет лица">complexion</span> <span class="w" data-tr="слишком">is</span> <span class="w" data-tr="слишком">too</span> <span class="w" data-tr="тёмный">dark</span> <span class="w" data-tr="для">for</span> <span class="w" data-tr="жёлтых тонов">yellows</span>. <span class="w" data-tr="жёлтые тона">Yellows</span> <span class="w" data-tr="не">don't</span> <span class="w" data-tr="идут">suit</span> <span class="w" data-tr="ему">him</span>; <span class="w" data-tr="там">there</span> <span class="w" data-tr="может">can</span> <span class="w" data-tr="быть">be</span> <span class="w" data-tr="никаких">no</span> <span class="w" data-tr="сомнений">question</span> <span class="w" data-tr="насчёт">about</span> <span class="w" data-tr="этого">it</span>. <span class="w" data-tr="я">I</span> <span class="w" data-tr="хочу">want</span> <span class="w" data-tr="чтобы он">him</span> <span class="w" data-tr="-">to</span> <span class="w phrase" data-tr="перейти на">take to</span> <span class="w" data-tr="синий">blue</span> <span class="w" data-tr="в качестве">as</span> <span class="w" data-tr="неопр. артикль">a</span> <span class="w" data-tr="фона">background</span>, <span class="w" data-tr="с">with</span> <span class="w" data-tr="белым">white</span> <span class="w" data-tr="или">or</span> <span class="w" data-tr="кремовым">cream</span>; <span class="w" data-tr="но">but</span> <span class="w" data-tr="-">the</span> <span class="w" data-tr="меньше">less</span> <span class="w" data-tr="вкуса">taste</span> <span class="w" data-tr="-">a</span> <span class="w" data-tr="человек">person</span> <span class="w" data-tr="имеет">has</span> <span class="w" data-tr="в">in</span> <span class="w" data-tr="одежде">dress</span>, <span class="w" data-tr="тем">the</span> <span class="w" data-tr="более">more</span> <span class="w" data-tr="упрямый">obstinate</span> <span class="w" data-tr="он">he</span> <span class="w" data-tr="есть">is</span>.</p>
+  <p class=""><span class="w" data-tr="Джордж">George</span> <span class="w" data-tr="-">has</span> <span class="w" data-tr="купил">bought</span> <span class="w" data-tr="несколько">some</span> <span class="w" data-tr="новых">new</span> <span class="w" data-tr="вещей">things</span> <span class="w" data-tr="для">for</span> <span class="w" data-tr="этой">this</span> <span class="w" data-tr="поездки">trip</span>. <span class="w" data-tr="но">But</span> <span class="w" data-tr="его">his</span> <span class="w" data-tr="блейзер / пиджак">blazer</span> <span class="w" data-tr="-">is</span> <span class="w" data-tr="кричащий (о цвете)">loud</span>. <span class="w" data-tr="он">He</span> <span class="w phrase" data-tr="принёс его домой">brought it home</span> <span class="w" data-tr="и">and</span> <span class="w" data-tr="показал">showed</span> <span class="w" data-tr="его">it</span> <span class="w" data-tr="-">to</span> <span class="w" data-tr="нам">us</span> <span class="w" data-tr="в">on</span> <span class="w" data-tr="четверг">Thursday</span> <span class="w" data-tr="вечером">evening</span>. <span class="w" data-tr="мы">We</span> <span class="w" data-tr="спросили">asked</span> <span class="w" data-tr="его">him</span> <span class="w" data-tr="каким">what</span> <span class="w" data-tr="цветом">colour</span> <span class="w" data-tr="он">he</span> <span class="w" data-tr="называет">called</span> <span class="w" data-tr="его">it</span>, <span class="w" data-tr="и">and</span> <span class="w" data-tr="он">he</span> <span class="w" data-tr="сказал">said</span> <span class="w" data-tr="что">he</span> <span class="w" data-tr="не">didn't</span> <span class="w" data-tr="знает">know</span>. <span class="w" data-tr="он">He</span> <span class="w" data-tr="не">didn't</span> <span class="w" data-tr="думал">think</span> <span class="w" data-tr="что">there</span> <span class="w" data-tr="есть">was</span> <span class="w" data-tr="-">a</span> <span class="w" data-tr="название">name</span> <span class="w" data-tr="для">for</span> <span class="w" data-tr="-">the</span> <span class="w" data-tr="цвета">colour</span>. <span class="w" data-tr="опред. артикль">The</span> <span class="w" data-tr="продавец">seller</span> <span class="w" data-tr="-">had</span> <span class="w" data-tr="сказал">told</span> <span class="w" data-tr="ему">him</span> <span class="w" data-tr="что это">it</span> <span class="w" data-tr="-">was</span> <span class="w" data-tr="-">an</span> <span class="w" data-tr="восточный">Oriental</span> <span class="w" data-tr="узор / дизайн">design</span>. <span class="w" data-tr="Джордж">George</span> <span class="w phrase" data-tr="надел его">put it on</span>, <span class="w" data-tr="и">and</span> <span class="w" data-tr="спросил">asked</span> <span class="w" data-tr="нас">us</span> <span class="w" data-tr="что">what</span> <span class="w" data-tr="мы">we</span> <span class="w phrase" data-tr="думаем о">thought of</span> <span class="w" data-tr="нём">it</span>. <span class="w" data-tr="Гаррис">Harris</span> <span class="w" data-tr="сказал">said</span> <span class="w" data-tr="что">that</span> <span class="w" data-tr="он">it</span> <span class="w" data-tr="-">is</span> <span class="w" data-tr="идеален">perfect</span> <span class="w" data-tr="чтобы">to</span> <span class="w phrase" data-tr="распугивать птиц">frighten the birds away</span>. <span class="w" data-tr="что">What</span> <span class="w" data-tr="беспокоит">troubles</span> <span class="w" data-tr="Гарриса">Harris</span> <span class="w" data-tr="и">and</span> <span class="w" data-tr="меня самого">myself</span>, <span class="w" data-tr="-">is</span> <span class="w" data-tr="что">that</span> <span class="w" data-tr="этот">this</span> <span class="w" data-tr="блейзер">blazer</span> <span class="w" data-tr="будет">will</span> <span class="w phrase" data-tr="привлекать внимание">attract attention</span> <span class="w" data-tr="к">to</span> <span class="w" data-tr="-">the</span> <span class="w" data-tr="лодке">boat</span>.</p>
+  <p class=""><span class="w" data-tr="Гаррис">Harris</span> <span class="w" data-tr="хотел">wanted</span> <span class="w" data-tr="-">to</span> <span class="w phrase" data-tr="сойти / выйти">get out</span> <span class="w" data-tr="у">at</span> <span class="w" data-tr="Хэмптон">Hampton</span> <span class="w" data-tr="церковь">Church</span>, <span class="w" data-tr="чтобы">to</span> <span class="w" data-tr="пойти">go</span> <span class="w" data-tr="и">and</span> <span class="w" data-tr="увидеть">see</span> <span class="w" data-tr="миссис">Mrs.</span> <span class="w" data-tr="Томас (её)">Thomas's</span> <span class="w" data-tr="гробницу / могилу">tomb</span>.</p>
+  <p class="">“<span class="w" data-tr="кто">Who</span> <span class="w" data-tr="-">is</span> <span class="w" data-tr="миссис">Mrs.</span> <span class="w" data-tr="Томас">Thomas</span>?” <span class="w" data-tr="я">I</span> <span class="w" data-tr="спросил">asked</span>.</p>
+  <p class="">“<span class="w" data-tr="откуда">How</span> <span class="w" data-tr="-">should</span> <span class="w" data-tr="мне">I</span> <span class="w" data-tr="знать">know</span>?” <span class="w" data-tr="ответил">replied</span> <span class="w" data-tr="Гаррис">Harris</span>.“<span class="w" data-tr="она">She's</span> <span class="w" data-tr="-">a</span> <span class="w" data-tr="дама">lady</span> <span class="w" data-tr="у которой">that's</span> <span class="w phrase" data-tr="есть">got</span> <span class="w" data-tr="-">a</span> <span class="w" data-tr="странная / чудная">funny</span> <span class="w" data-tr="гробница">tomb</span>, <span class="w" data-tr="и">and</span> <span class="w" data-tr="я">I</span> <span class="w" data-tr="хочу">want</span> <span class="w" data-tr="-">to</span> <span class="w" data-tr="увидеть">see</span> <span class="w" data-tr="её">it</span>.”</p>
+  <p class=""><span class="w" data-tr="я">I</span> <span class="w" data-tr="возразил">objected</span>. <span class="w" data-tr="Гаррис">Harris</span>, <span class="w" data-tr="однако">however</span>, <span class="w" data-tr="обожает">adores</span> <span class="w" data-tr="гробницы">tombs</span>, <span class="w" data-tr="и">and</span> <span class="w" data-tr="могилы">graves</span>, <span class="w" data-tr="и">and</span> <span class="w" data-tr="эпитафии">epitaphs</span>, <span class="w" data-tr="и">and</span> <span class="w phrase" data-tr="надгробные надписи">monumental inscriptions</span>, <span class="w" data-tr="и">and</span> <span class="w" data-tr="-">the</span> <span class="w" data-tr="мысль">thought</span> <span class="w" data-tr="о">of</span> <span class="w" data-tr="не">not</span> <span class="w" data-tr="увидеть">seeing</span> <span class="w" data-tr="миссис">Mrs.</span> <span class="w" data-tr="Томас">Thomas's</span> <span class="w" data-tr="могилу">grave</span> <span class="w phrase" data-tr="сводила его с ума">made him crazy</span>. <span class="w" data-tr="он">He</span> <span class="w" data-tr="сказал">said</span> <span class="w" data-tr="-">he</span> <span class="w" data-tr="-">had</span> <span class="w phrase" data-tr="с нетерпением ждал">looked forward to</span> <span class="w" data-tr="увидеть">seeing</span> <span class="w" data-tr="миссис">Mrs.</span> <span class="w" data-tr="Томас">Thomas's</span> <span class="w" data-tr="могилу">grave</span> <span class="w" data-tr="с">from</span> <span class="w" data-tr="-">the</span> <span class="w" data-tr="самого">first</span> <span class="w" data-tr="момента">moment</span> <span class="w" data-tr="когда">that</span> <span class="w" data-tr="-">the</span> <span class="w" data-tr="поездка">trip</span> <span class="w" data-tr="была">was</span> <span class="w" data-tr="предложена">proposed</span>.</p>
+  <p class=""><span class="w" data-tr="я">I</span> <span class="w" data-tr="напомнил">reminded</span> <span class="w" data-tr="ему">him</span> <span class="w" data-tr="о">of</span> <span class="w" data-tr="Джордже">George</span>, <span class="w" data-tr="и">and</span> <span class="w" data-tr="как">how</span> <span class="w" data-tr="мы">we</span> <span class="w" data-tr="должны">had</span> <span class="w" data-tr="были">to</span> <span class="w phrase" data-tr="довести лодку до">get the boat up to</span> <span class="w" data-tr="Шеппертона">Shepperton</span>. <span class="w" data-tr="Джордж">George</span> <span class="w" data-tr="-">was</span> <span class="w" data-tr="работал">working</span> <span class="w" data-tr="в">at</span> <span class="w" data-tr="-">the</span> <span class="w" data-tr="банке">bank</span> <span class="w" data-tr="там">there</span> <span class="w" data-tr="и">and</span> <span class="w" data-tr="ему">he</span> <span class="w" data-tr="-">had</span> <span class="w" data-tr="предстояло">to</span> <span class="w phrase" data-tr="присоединиться к нам">join us</span> <span class="w" data-tr="позже">later</span>.</p>
+  <p class="">“<span class="w" data-tr="я">I</span> <span class="w" data-tr="никогда не">never</span> <span class="w" data-tr="вижу">see</span> <span class="w" data-tr="чтобы он">him</span> <span class="w" data-tr="делал">doing</span> <span class="w" data-tr="какую-либо">any</span> <span class="w" data-tr="работу">work</span> <span class="w" data-tr="там">there</span>,” <span class="w" data-tr="сказал">said</span> <span class="w" data-tr="Гаррис">Harris</span>.“<span class="w" data-tr="он">He</span> <span class="w" data-tr="сидит">sits</span> <span class="w" data-tr="за">behind</span> <span class="w" data-tr="-">a</span> <span class="w" data-tr="кусочком">bit</span> <span class="w" data-tr="-">of</span> <span class="w" data-tr="стекла">glass</span> <span class="w" data-tr="весь">all</span> <span class="w" data-tr="день">day</span>, <span class="w" data-tr="пытаясь">trying</span> <span class="w" data-tr="-">to</span> <span class="w" data-tr="выглядеть">look</span> <span class="w phrase" data-tr="как будто">as if</span> <span class="w" data-tr="он">he</span> <span class="w" data-tr="-">was</span> <span class="w" data-tr="делает">doing</span> <span class="w" data-tr="что-то">something</span>. <span class="w phrase" data-tr="какой от него толк">What use is he</span> <span class="w" data-tr="там">there</span>, <span class="w" data-tr="и">and</span> <span class="w phrase" data-tr="какой прок от">what's the good of</span> <span class="w" data-tr="их">their</span> <span class="w" data-tr="банков">banks</span>? <span class="w" data-tr="если бы">If</span> <span class="w" data-tr="он">he</span> <span class="w" data-tr="был">was</span> <span class="w" data-tr="здесь">here</span>, <span class="w" data-tr="мы">we</span> <span class="w" data-tr="могли бы">could</span> <span class="w" data-tr="пойти">go</span> <span class="w" data-tr="и">and</span> <span class="w" data-tr="увидеть">see</span> <span class="w" data-tr="ту">that</span> <span class="w" data-tr="гробницу">tomb</span>. <span class="w" data-tr="я">I</span> <span class="w" data-tr="не">don't</span> <span class="w" data-tr="верю">believe</span> <span class="w" data-tr="что он">he's</span> <span class="w" data-tr="в">at</span> <span class="w" data-tr="-">the</span> <span class="w" data-tr="банке">bank</span> <span class="w phrase" data-tr="вообще / вовсе">at all</span>. <span class="w" data-tr="я">I'm</span> <span class="w phrase" data-tr="собираюсь">going to</span> <span class="w phrase" data-tr="сойти / выйти">get out</span>, <span class="w" data-tr="и">and</span> <span class="w phrase" data-tr="чего-нибудь выпить">have a drink</span>.”</p>
+  <p class=""><span class="w" data-tr="-">It</span> <span class="w" data-tr="-">is</span> <span class="w" data-tr="всегда">always</span> <span class="w" data-tr="лучше всего">best</span> <span class="w" data-tr="-">to</span> <span class="w" data-tr="позволить">let</span> <span class="w" data-tr="Гаррису">Harris</span> <span class="w" data-tr="сказать">say</span> <span class="w" data-tr="всё">everything</span> <span class="w" data-tr="что он">he</span> <span class="w" data-tr="хочет">wants</span>. <span class="w" data-tr="затем">Then</span> <span class="w" data-tr="он">he</span> <span class="w phrase" data-tr="выпускает пар / выговаривается">pumps himself out</span>, <span class="w" data-tr="и">and</span> <span class="w" data-tr="становится">is</span> <span class="w" data-tr="тихим">quiet</span> <span class="w" data-tr="после этого">afterwards</span>.</p>
+  <p class=""><span class="w" data-tr="я">I</span> <span class="w" data-tr="напомнил">reminded</span> <span class="w" data-tr="ему">him</span> <span class="w" data-tr="что">that</span> <span class="w" data-tr="там">there</span> <span class="w" data-tr="был">was</span> <span class="w phrase" data-tr="концентрированный лимонад">concentrated lemonade</span> <span class="w" data-tr="в">in</span> <span class="w" data-tr="-">the</span> <span class="w" data-tr="корзине (для провизии)">hamper</span>, <span class="w" data-tr="и">and</span> <span class="w" data-tr="-">a</span> <span class="w" data-tr="галлонная банка (≈ 3,8 л)">gallon-jar</span> <span class="w" data-tr="с">of</span> <span class="w" data-tr="водой">water</span> <span class="w" data-tr="в">in</span> <span class="w" data-tr="-">the</span> <span class="w phrase" data-tr="носу лодки">nose of the boat</span>, <span class="w" data-tr="и">and</span> <span class="w" data-tr="что">that</span> <span class="w" data-tr="мы">we</span> <span class="w" data-tr="могли бы">could</span> <span class="w phrase" data-tr="смешать их">mix them</span> <span class="w" data-tr="и">and</span> <span class="w" data-tr="сделать">make</span> <span class="w" data-tr="-">a</span> <span class="w" data-tr="прохладный">cool</span> <span class="w" data-tr="и">and</span> <span class="w" data-tr="освежающий">refreshing</span> <span class="w" data-tr="напиток">beverage</span>.</p>
+  <p class=""><span class="w" data-tr="затем">Then</span> <span class="w" data-tr="он">he</span> <span class="w" data-tr="сказал">said</span> <span class="w" data-tr="эти">those</span> <span class="w" data-tr="напитки">beverages</span> <span class="w" data-tr="вызывают">produced</span> <span class="w" data-tr="расстройство пищеварения">dyspepsia</span>, <span class="w" data-tr="и">and</span> <span class="w" data-tr="губят">ruined</span> <span class="w phrase" data-tr="и тело, и душу одинаково">body and soul alike</span>, <span class="w" data-tr="и">and</span> <span class="w" data-tr="являются">were</span> <span class="w phrase" data-tr="причиной">the cause of</span> <span class="w" data-tr="половины">half</span> <span class="w" data-tr="-">the</span> <span class="w" data-tr="преступности">crime</span> <span class="w" data-tr="в">in</span> <span class="w" data-tr="Англии">England</span>.</p>
+  <p class=""><span class="w" data-tr="он">He</span> <span class="w" data-tr="добавил">added</span> <span class="w" data-tr="что">he</span> <span class="w" data-tr="должен">must</span> <span class="w" data-tr="выпить">drink</span> <span class="w" data-tr="чего-нибудь">something</span>, <span class="w" data-tr="однако">however</span>, <span class="w" data-tr="и">and</span> <span class="w phrase" data-tr="залез на">climbed upon</span> <span class="w" data-tr="-">the</span> <span class="w" data-tr="сиденье">seat</span>, <span class="w" data-tr="и">and</span> <span class="w" data-tr="начал">began</span> <span class="w" data-tr="-">to</span> <span class="w phrase" data-tr="искать">look for</span> <span class="w" data-tr="-">the</span> <span class="w" data-tr="бутылку">bottle</span>. <span class="w" data-tr="она">It</span> <span class="w" data-tr="была">was</span> <span class="w" data-tr="прямо">right</span> <span class="w phrase" data-tr="на самом дне">at the bottom of</span> <span class="w" data-tr="-">the</span> <span class="w" data-tr="корзины">hamper</span>, <span class="w" data-tr="и">and</span> <span class="w" data-tr="казалась">seemed</span> <span class="w" data-tr="трудной">difficult</span> <span class="w" data-tr="для">to</span> <span class="w" data-tr="нахождения">find</span>, <span class="w" data-tr="и">and</span> <span class="w" data-tr="ему">he</span> <span class="w" data-tr="пришлось">had</span> <span class="w" data-tr="-">to</span> <span class="w phrase" data-tr="наклоняться">lean over</span> <span class="w phrase" data-tr="всё дальше и дальше">further and further</span>, <span class="w" data-tr="и">and</span> <span class="w" data-tr="он">he</span> <span class="w" data-tr="потянул">pulled</span> <span class="w" data-tr="-">the</span> <span class="w" data-tr="не ту">wrong</span> <span class="w" data-tr="верёвку">line</span>, <span class="w" data-tr="и">and</span> <span class="w phrase" data-tr="направил лодку в берег">sent the boat into the bank</span>, <span class="w" data-tr="и">and</span> <span class="w" data-tr="-">the</span> <span class="w" data-tr="толчок / удар">shock</span> <span class="w phrase" data-tr="опрокинул его">upset him</span>, <span class="w" data-tr="и">and</span> <span class="w" data-tr="он">he</span> <span class="w phrase" data-tr="нырнул вниз">dived down</span> <span class="w" data-tr="прямо">right</span> <span class="w" data-tr="в">into</span> <span class="w" data-tr="-">the</span> <span class="w" data-tr="корзину">hamper</span>, <span class="w" data-tr="и">and</span> <span class="w" data-tr="стоял">stood</span> <span class="w" data-tr="там">there</span> <span class="w phrase" data-tr="вверх ногами">on his head</span>. <span class="w" data-tr="он">He</span> <span class="w phrase" data-tr="не смел двинуться">dared not move</span> <span class="w phrase" data-tr="из страха">for fear of</span> <span class="w phrase" data-tr="перевернуться (о лодке)">going over</span>, <span class="w" data-tr="и">and</span> <span class="w" data-tr="-">had</span> <span class="w" data-tr="должен был">to</span> <span class="w" data-tr="оставаться">stay</span> <span class="w" data-tr="там">there</span> <span class="w" data-tr="пока">till</span> <span class="w" data-tr="я">I</span> <span class="w" data-tr="смог">could</span> <span class="w phrase" data-tr="ухватиться за">get hold of</span> <span class="w" data-tr="его">his</span> <span class="w" data-tr="ноги">legs</span>, <span class="w" data-tr="и">and</span> <span class="w phrase" data-tr="вытащить его обратно">take him back</span>, <span class="w" data-tr="и">and</span> <span class="w" data-tr="это">that</span> <span class="w" data-tr="сделало">made</span> <span class="w" data-tr="его">him</span> <span class="w phrase" data-tr="злее, чем когда-либо">madder than ever</span>.</p>
+  <div class="divider">❦</div>
+
+  <div class="legend">
+    <div class="legend-item">
+      <span class="swatch sw-word">word</span>
+      <span>single word</span>
+    </div>
+    <div class="legend-item">
+      <span class="swatch sw-phrase">phrase</span>
+      <span>phrase &amp; phrasal verb</span>
+    </div>
+  </div>
+
+  <div class="end">Finis</div>
+  <button class="listen-btn" id="listenAll">listen to chapter</button>
+</div>
+
+<script>
+(function() {
+  const words = document.querySelectorAll('.w');
+  const synth = window.speechSynthesis;
+  let activeWord = null;
+  let voices = [];
+
+  function loadVoices() {
+    if (!synth) return;
+    voices = synth.getVoices();
+  }
+  loadVoices();
+  if (synth && typeof synth.onvoiceschanged !== 'undefined') {
+    synth.onvoiceschanged = loadVoices;
+  }
+
+  function pickEnglishVoice() {
+    if (!voices.length && synth) voices = synth.getVoices();
+    if (!voices.length) return null;
+    return voices.find(v => /en-GB/i.test(v.lang) && /female|samantha|kate|google uk english female|serena|daniel/i.test(v.name))
+        || voices.find(v => /en-GB/i.test(v.lang))
+        || voices.find(v => /en-US/i.test(v.lang))
+        || voices.find(v => /^en/i.test(v.lang))
+        || null;
+  }
+
+  function speak(text) {
+    if (!('speechSynthesis' in window)) return;
+    synth.cancel();
+    const u = new SpeechSynthesisUtterance(text);
+    const voice = pickEnglishVoice();
+    if (voice) u.voice = voice;
+    u.lang = (voice && voice.lang) || 'en-GB';
+    u.rate = 0.92;
+    u.pitch = 1.0;
+    synth.speak(u);
+  }
+
+  // Save original text before injecting tooltips
+  words.forEach(w => {
+    w.dataset.text = w.textContent.trim();
+    const tip = document.createElement('span');
+    tip.className = 'tooltip';
+    tip.textContent = w.dataset.tr;
+    w.appendChild(tip);
+  });
+
+  words.forEach(w => {
+    w.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const wasActive = w.classList.contains('active');
+      if (activeWord && activeWord !== w) {
+        activeWord.classList.remove('active');
+      }
+      if (!wasActive) {
+        w.classList.add('active');
+        activeWord = w;
+        speak(w.dataset.text);
+      } else {
+        w.classList.remove('active');
+        activeWord = null;
+        if (synth) synth.cancel();
+      }
+    });
+  });
+
+  document.addEventListener('click', () => {
+    if (activeWord) {
+      activeWord.classList.remove('active');
+      activeWord = null;
+    }
+  });
+
+  // Listen to full chapter
+  const listenBtn = document.getElementById('listenAll');
+  let isReading = false;
+  listenBtn.addEventListener('click', () => {
+    if (!('speechSynthesis' in window)) {
+      listenBtn.textContent = 'speech not supported';
+      listenBtn.disabled = true;
+      return;
+    }
+    if (isReading) {
+      synth.cancel();
+      isReading = false;
+      listenBtn.textContent = 'listen to chapter';
+      return;
+    }
+    const paragraphs = document.querySelectorAll('.container p');
+    let text = '';
+    paragraphs.forEach(p => {
+      const clone = p.cloneNode(true);
+      clone.querySelectorAll('.tooltip').forEach(t => t.remove());
+      text += clone.textContent.replace(/\s+/g, ' ') + ' ';
+    });
+    isReading = true;
+    listenBtn.textContent = 'stop reading';
+    const u = new SpeechSynthesisUtterance(text);
+    const voice = pickEnglishVoice();
+    if (voice) u.voice = voice;
+    u.lang = (voice && voice.lang) || 'en-GB';
+    u.rate = 0.92;
+    u.onend = () => {
+      isReading = false;
+      listenBtn.textContent = 'listen to chapter';
+    };
+    u.onerror = () => {
+      isReading = false;
+      listenBtn.textContent = 'listen to chapter';
+    };
+    synth.cancel();
+    synth.speak(u);
+  });
+})();
+</script>
+</body>
+</html>
