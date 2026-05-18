@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🌸 Английский — Лесная Полянка 🍄</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream:    #FFF6EC;
+    --peach:    #FFE8D6;
+    --pink:     #E8A0B8;
+    --pink-dk:  #C97894;
+    --rose:     #FFD1DC;
+    --sage:     #A8C49C;
+    --sage-dk:  #6B8E5A;
+    --mushroom: #D4604E;
+    --brown:    #6B4423;
+    --yellow:   #FFD56B;
+    --lavender: #D4B5E0;
+    --shadow:   0 6px 0 rgba(107,68,35,0.18);
+    --shadow-sm:0 3px 0 rgba(107,68,35,0.15);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    min-height: 100%;
+  }
+
+  body {
+    font-family: 'Quicksand', sans-serif;
+    background:
+      radial-gradient(circle at 10% 20%, rgba(232,160,184,0.18) 0%, transparent 40%),
+      radial-gradient(circle at 90% 80%, rgba(168,196,156,0.22) 0%, transparent 40%),
+      radial-gradient(circle at 50% 50%, rgba(255,213,107,0.10) 0%, transparent 50%),
+      var(--cream);
+    color: var(--brown);
+    overflow-x: hidden;
+    min-height: 100vh;
+    padding: 20px 16px 60px;
+    position: relative;
+  }
+
+  /* Плавающие украшения на фоне */
+  .floating {
+    position: fixed;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.55;
+    user-select: none;
+  }
+  .float-1 { top:  8%; left:  4%; font-size: 42px; animation: float 7s ease-in-out infinite; }
+  .float-2 { top: 22%; right: 5%; font-size: 38px; animation: float 9s ease-in-out infinite 1s; }
+  .float-3 { top: 55%; left:  2%; font-size: 50px; animation: float 8s ease-in-out infinite 2s; }
+  .float-4 { top: 70%; right: 3%; font-size: 44px; animation: float 10s ease-in-out infinite 0.5s; }
+  .float-5 { top: 38%; left: 50%; font-size: 32px; animation: float 11s ease-in-out infinite 3s; }
+  .float-6 { top: 85%; left: 20%; font-size: 36px; animation: float 9s ease-in-out infinite 1.5s; }
+  .float-7 { top: 12%; right: 30%; font-size: 30px; animation: float 8s ease-in-out infinite 2.5s; }
+  .float-8 { top: 92%; right: 25%; font-size: 40px; animation: float 7s ease-in-out infinite 4s; }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0) rotate(-5deg); }
+    50%      { transform: translateY(-25px) rotate(8deg); }
+  }
+
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Шапка */
+  .header {
+    text-align: center;
+    margin-bottom: 28px;
+    animation: drop-in 0.8s ease-out;
+  }
+  @keyframes drop-in {
+    from { transform: translateY(-40px); opacity: 0; }
+    to   { transform: translateY(0);     opacity: 1; }
+  }
+  .title {
+    font-family: 'Fredoka', sans-serif;
+    font-weight: 700;
+    font-size: clamp(32px, 6vw, 52px);
+    color: var(--pink-dk);
+    text-shadow: 3px 3px 0 var(--cream), 5px 5px 0 rgba(201,120,148,0.25);
+    line-height: 1.1;
+    margin-bottom: 8px;
+  }
+  .subtitle {
+    font-size: clamp(16px, 2.5vw, 20px);
+    color: var(--sage-dk);
+    font-weight: 600;
+  }
+  .subtitle .emoji { display: inline-block; animation: wiggle 2s ease-in-out infinite; }
+  @keyframes wiggle {
+    0%, 100% { transform: rotate(0); }
+    25%      { transform: rotate(12deg); }
+    75%      { transform: rotate(-12deg); }
+  }
+
+  /* Режим */
+  .mode-switch {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+  }
+  .mode-btn {
+    font-family: 'Fredoka', sans-serif;
+    font-weight: 600;
+    font-size: 18px;
+    padding: 12px 24px;
+    border: 3px solid var(--brown);
+    border-radius: 50px;
+    background: var(--cream);
+    color: var(--brown);
+    cursor: pointer;
+    box-shadow: var(--shadow);
+    transition: transform 0.15s, background 0.2s;
+  }
+  .mode-btn:hover { transform: translateY(-2px); }
+  .mode-btn:active { transform: translateY(2px); box-shadow: var(--shadow-sm); }
+  .mode-btn.active {
+    background: var(--pink);
+    color: white;
+  }
+
+  /* Категории */
+  .categories {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    padding: 6px 4px 14px;
+    margin-bottom: 18px;
+    scrollbar-width: thin;
+    scrollbar-color: var(--pink) transparent;
+  }
+  .categories::-webkit-scrollbar { height: 6px; }
+  .categories::-webkit-scrollbar-thumb { background: var(--pink); border-radius: 10px; }
+  .cat-btn {
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    padding: 10px 18px;
+    border: 2.5px solid var(--brown);
+    border-radius: 30px;
+    background: white;
+    color: var(--brown);
+    cursor: pointer;
+    white-space: nowrap;
+    box-shadow: var(--shadow-sm);
+    transition: all 0.2s;
+    flex-shrink: 0;
+  }
+  .cat-btn:hover { transform: translateY(-2px) rotate(-1deg); }
+  .cat-btn.active {
+    background: var(--sage);
+    color: white;
+    transform: scale(1.05);
+  }
+
+  /* Сетка слов */
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 16px;
+    margin-bottom: 30px;
+  }
+
+  .card {
+    perspective: 1000px;
+    height: 130px;
+    cursor: pointer;
+    animation: pop-in 0.5s ease-out backwards;
+  }
+  .card:nth-child(1)  { animation-delay: 0.05s; }
+  .card:nth-child(2)  { animation-delay: 0.10s; }
+  .card:nth-child(3)  { animation-delay: 0.15s; }
+  .card:nth-child(4)  { animation-delay: 0.20s; }
+  .card:nth-child(5)  { animation-delay: 0.25s; }
+  .card:nth-child(6)  { animation-delay: 0.30s; }
+  .card:nth-child(7)  { animation-delay: 0.35s; }
+  .card:nth-child(8)  { animation-delay: 0.40s; }
+  .card:nth-child(9)  { animation-delay: 0.45s; }
+  .card:nth-child(10) { animation-delay: 0.50s; }
+  .card:nth-child(n+11) { animation-delay: 0.55s; }
+
+  @keyframes pop-in {
+    from { transform: scale(0.5) rotate(-10deg); opacity: 0; }
+    to   { transform: scale(1) rotate(0);        opacity: 1; }
+  }
+
+  .card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-style: preserve-3d;
+  }
+  .card.flipped .card-inner { transform: rotateY(180deg); }
+
+  .card-face {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border: 3px solid var(--brown);
+    border-radius: 22px;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    box-shadow: var(--shadow);
+  }
+  .card-front {
+    background: linear-gradient(135deg, white 0%, var(--rose) 100%);
+  }
+  .card-front .word {
+    font-family: 'Fredoka', sans-serif;
+    font-weight: 600;
+    font-size: 20px;
+    color: var(--brown);
+    line-height: 1.15;
+  }
+  .card-front .hint {
+    font-size: 12px;
+    color: var(--pink-dk);
+    margin-top: 8px;
+    font-weight: 600;
+  }
+  .card-front .corner-deco {
+    position: absolute;
+    top: 8px;
+    right: 10px;
+    font-size: 20px;
+    opacity: 0.7;
+  }
+  .card-back {
+    background: linear-gradient(135deg, var(--peach) 0%, var(--rose) 100%);
+    transform: rotateY(180deg);
+    padding: 10px;
+  }
+  .card-back .transcription {
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    color: var(--mushroom);
+    margin-bottom: 6px;
+    line-height: 1.1;
+  }
+  .card-back .translation {
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 600;
+    font-size: 15px;
+    color: var(--brown);
+    line-height: 1.15;
+  }
+  .card-back .speaker {
+    margin-top: 8px;
+    font-size: 22px;
+    animation: pulse 1.5s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50%      { transform: scale(1.2); }
+  }
+
+  .card:hover .card-front {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow), 0 0 0 4px var(--yellow);
+  }
+
+  /* Раздел "Подсказка как пользоваться" */
+  .help-banner {
+    background: linear-gradient(120deg, var(--yellow) 0%, #FFE8A0 100%);
+    border: 3px dashed var(--brown);
+    border-radius: 22px;
+    padding: 16px 20px;
+    margin-bottom: 22px;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--brown);
+    line-height: 1.4;
+  }
+  .help-banner .big-emoji {
+    font-size: 32px;
+    display: inline-block;
+    animation: bounce 1.8s ease-in-out infinite;
+  }
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50%      { transform: translateY(-8px); }
+  }
+
+  /* Квиз */
+  .quiz {
+    background: white;
+    border: 3px solid var(--brown);
+    border-radius: 28px;
+    padding: 24px;
+    box-shadow: var(--shadow);
+    text-align: center;
+    animation: drop-in 0.5s ease-out;
+  }
+  .quiz-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    font-family: 'Fredoka', sans-serif;
+    font-weight: 600;
+    font-size: 18px;
+    color: var(--brown);
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .stars {
+    font-size: 24px;
+    letter-spacing: 2px;
+  }
+  .quiz-question {
+    font-family: 'Fredoka', sans-serif;
+    font-size: clamp(20px, 4vw, 28px);
+    font-weight: 600;
+    color: var(--pink-dk);
+    margin-bottom: 6px;
+    line-height: 1.2;
+  }
+  .quiz-sub {
+    font-size: 16px;
+    color: var(--sage-dk);
+    margin-bottom: 20px;
+    font-weight: 600;
+  }
+  .quiz-options {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 12px;
+  }
+  .quiz-option {
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 700;
+    font-size: 17px;
+    padding: 16px 12px;
+    background: var(--cream);
+    border: 3px solid var(--brown);
+    border-radius: 18px;
+    color: var(--brown);
+    cursor: pointer;
+    box-shadow: var(--shadow-sm);
+    transition: all 0.2s;
+  }
+  .quiz-option:hover {
+    transform: translateY(-3px) rotate(-1deg);
+    background: var(--rose);
+  }
+  .quiz-option.correct {
+    background: var(--sage);
+    color: white;
+    border-color: var(--sage-dk);
+    animation: correct-bounce 0.5s ease-out;
+  }
+  .quiz-option.wrong {
+    background: #FFB8B8;
+    border-color: var(--mushroom);
+    animation: shake 0.4s ease-out;
+  }
+  @keyframes correct-bounce {
+    0%   { transform: scale(1); }
+    50%  { transform: scale(1.15) rotate(3deg); }
+    100% { transform: scale(1); }
+  }
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25%      { transform: translateX(-8px); }
+    75%      { transform: translateX(8px); }
+  }
+  .quiz-listen {
+    margin-bottom: 18px;
+    background: var(--lavender);
+    border: 3px solid var(--brown);
+    border-radius: 50px;
+    padding: 14px 28px;
+    font-family: 'Fredoka', sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: white;
+    cursor: pointer;
+    box-shadow: var(--shadow-sm);
+  }
+  .quiz-listen:hover { transform: translateY(-2px); }
+
+  .quiz-result {
+    margin-top: 18px;
+    font-family: 'Fredoka', sans-serif;
+    font-size: 22px;
+    font-weight: 600;
+    min-height: 30px;
+  }
+  .quiz-result.success { color: var(--sage-dk); }
+  .quiz-result.fail    { color: var(--mushroom); }
+
+  .next-btn {
+    margin-top: 18px;
+    background: var(--pink);
+    color: white;
+    border: 3px solid var(--brown);
+    border-radius: 50px;
+    padding: 12px 30px;
+    font-family: 'Fredoka', sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: var(--shadow);
+    transition: transform 0.15s;
+  }
+  .next-btn:hover  { transform: translateY(-2px); }
+  .next-btn:active { transform: translateY(2px); box-shadow: var(--shadow-sm); }
+  .next-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+
+  /* Конфетти / звёздочки при правильном ответе */
+  .confetti {
+    position: fixed;
+    top: -20px;
+    font-size: 28px;
+    pointer-events: none;
+    z-index: 100;
+    animation: confetti-fall 2s ease-in forwards;
+  }
+  @keyframes confetti-fall {
+    0%   { transform: translateY(0) rotate(0); opacity: 1; }
+    100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
+  }
+
+  /* Победа */
+  .victory {
+    text-align: center;
+    padding: 30px 20px;
+  }
+  .victory h2 {
+    font-family: 'Fredoka', sans-serif;
+    font-size: 36px;
+    color: var(--pink-dk);
+    margin-bottom: 14px;
+    animation: bounce 1s ease-in-out infinite;
+  }
+  .victory p {
+    font-size: 20px;
+    color: var(--sage-dk);
+    margin-bottom: 18px;
+    font-weight: 600;
+  }
+  .victory .big-stars {
+    font-size: 48px;
+    margin: 16px 0;
+    letter-spacing: 6px;
+  }
+
+  /* Скрытие */
+  .hidden { display: none !important; }
+
+  @media (max-width: 500px) {
+    .cards-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
+    .card { height: 115px; }
+    .card-front .word { font-size: 17px; }
+    .card-back .transcription { font-size: 14px; }
+    .card-back .translation { font-size: 13px; }
+    .floating { opacity: 0.35; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Плавающие цветочки и грибочки -->
+<div class="floating float-1">🌸</div>
+<div class="floating float-2">🍄</div>
+<div class="floating float-3">🌷</div>
+<div class="floating float-4">🌼</div>
+<div class="floating float-5">🌺</div>
+<div class="floating float-6">🍄</div>
+<div class="floating float-7">🌻</div>
+<div class="floating float-8">🌸</div>
+
+<div class="container">
+
+  <div class="header">
+    <h1 class="title">🌸 Английский 🍄</h1>
+    <p class="subtitle"><span class="emoji">✨</span> Лесная Полянка Слов <span class="emoji">✨</span></p>
+  </div>
+
+  <!-- Переключатель режимов -->
+  <div class="mode-switch">
+    <button class="mode-btn active" data-mode="study">📚 Учу слова</button>
+    <button class="mode-btn" data-mode="quiz">🎮 Проверка</button>
+  </div>
+
+  <!-- РЕЖИМ ИЗУЧЕНИЯ -->
+  <div id="study-mode">
+    <div class="help-banner">
+      <span class="big-emoji">👆</span><br>
+      Кликни на карточку — услышишь как звучит слово,<br>
+      увидишь как читается и что означает! 🌸
+    </div>
+
+    <div class="categories" id="categories"></div>
+
+    <div class="cards-grid" id="cards-grid"></div>
+  </div>
+
+  <!-- РЕЖИМ ПРОВЕРКИ -->
+  <div id="quiz-mode" class="hidden">
+    <div class="categories" id="quiz-categories"></div>
+    <div id="quiz-container"></div>
+  </div>
+
+</div>
+
+<script>
+/* =================== СЛОВАРНАЯ БАЗА =================== */
+const data = {
+  "Глаголы действия": {
+    icon: "🏃‍♀️",
+    items: [
+      { en: "act",        ru: "[акт]",          tr: "играть роль, изображать" },
+      { en: "climb",      ru: "[клайм]",        tr: "лазить, карабкаться" },
+      { en: "cook",       ru: "[кук]",          tr: "готовить" },
+      { en: "dive",       ru: "[дайв]",         tr: "нырять" },
+      { en: "draw",       ru: "[дроо]",         tr: "рисовать" },
+      { en: "fix",        ru: "[фикс]",         tr: "чинить, ремонтировать" },
+      { en: "fly",        ru: "[флай]",         tr: "летать" },
+      { en: "jump",       ru: "[джамп]",        tr: "прыгать" },
+      { en: "read",       ru: "[риид]",         tr: "читать" },
+      { en: "ride",       ru: "[райд]",         tr: "ездить верхом, кататься" },
+      { en: "run",        ru: "[ран]",          tr: "бегать" },
+      { en: "sing",       ru: "[син(г)]",       tr: "петь" },
+      { en: "skateboard", ru: "[скэйтбод]",     tr: "кататься на скейте" },
+      { en: "swim",       ru: "[свим]",         tr: "плавать" },
+      { en: "write",      ru: "[райт]",         tr: "писать" },
+    ]
+  },
+  "Make, Play, Ride": {
+    icon: "🎨",
+    items: [
+      { en: "make a poster",       ru: "[мэйк э поустэ]",         tr: "сделать плакат" },
+      { en: "make cupcakes",       ru: "[мэйк капкэйкс]",         tr: "испечь капкейки" },
+      { en: "play computer games", ru: "[плэй компьютэ гэймз]",   tr: "играть в компьютерные игры" },
+      { en: "play football",       ru: "[плэй футбол]",           tr: "играть в футбол" },
+      { en: "play the piano",      ru: "[плэй зэ пианоу]",        tr: "играть на пианино" },
+      { en: "ride a bike",         ru: "[райд э байк]",           tr: "кататься на велосипеде" },
+      { en: "ride a horse",        ru: "[райд э хоос]",           tr: "кататься на лошади" },
+    ]
+  },
+  "Дни недели": {
+    icon: "📅",
+    items: [
+      { en: "Monday",    ru: "[мандэй]",     tr: "понедельник" },
+      { en: "Tuesday",   ru: "[тьюздэй]",    tr: "вторник" },
+      { en: "Wednesday", ru: "[уэнздэй]",    tr: "среда" },
+      { en: "Thursday",  ru: "[сёёздэй]",    tr: "четверг" },
+      { en: "Friday",    ru: "[фрайдэй]",    tr: "пятница" },
+      { en: "Saturday",  ru: "[сатэдэй]",    tr: "суббота" },
+      { en: "Sunday",    ru: "[сандэй]",     tr: "воскресенье" },
+    ]
+  },
+  "Каждый день": {
+    icon: "🌞",
+    items: [
+      { en: "do my homework",       ru: "[ду май хоумуо̀к]",      tr: "делать домашку" },
+      { en: "get up",               ru: "[гэт ап]",                tr: "вставать" },
+      { en: "go to bed",            ru: "[гоу ту бэд]",            tr: "ложиться спать" },
+      { en: "go to school",         ru: "[гоу ту скуул]",          tr: "идти в школу" },
+      { en: "have lessons",         ru: "[хэв лэсэнз]",            tr: "быть на уроках" },
+      { en: "hang out with friends",ru: "[хэн(г) аут уиз фрэндз]", tr: "тусоваться с друзьями" },
+      { en: "have a shower",        ru: "[хэв э шауэ]",            tr: "принимать душ" },
+      { en: "have breakfast",       ru: "[хэв брэкфэст]",          tr: "завтракать" },
+      { en: "have lunch",           ru: "[хэв ланч]",              tr: "обедать" },
+      { en: "have dinner",          ru: "[хэв динэ]",              tr: "ужинать" },
+      { en: "listen to music",      ru: "[лисэн ту мьюзик]",       tr: "слушать музыку" },
+      { en: "tidy my room",         ru: "[тайди май руум]",        tr: "убираться в комнате" },
+      { en: "watch TV",             ru: "[уоч ти-ви]",             tr: "смотреть телевизор" },
+    ]
+  },
+  "Месяцы": {
+    icon: "🗓️",
+    items: [
+      { en: "January",   ru: "[джаньюэри]",  tr: "январь" },
+      { en: "February",  ru: "[фэбруэри]",   tr: "февраль" },
+      { en: "March",     ru: "[маач]",       tr: "март" },
+      { en: "April",     ru: "[эйприл]",     tr: "апрель" },
+      { en: "May",       ru: "[мэй]",        tr: "май" },
+      { en: "June",      ru: "[джуун]",      tr: "июнь" },
+      { en: "July",      ru: "[джулай]",     tr: "июль" },
+      { en: "August",    ru: "[оогэст]",     tr: "август" },
+      { en: "September", ru: "[сэптэмбэ]",   tr: "сентябрь" },
+      { en: "October",   ru: "[октоубэ]",    tr: "октябрь" },
+      { en: "November",  ru: "[ноувэмбэ]",   tr: "ноябрь" },
+      { en: "December",  ru: "[дисэмбэ]",    tr: "декабрь" },
+    ]
+  },
+  "Предложения": {
+    icon: "💬",
+    items: [
+      { en: "Let's do something fun!", ru: "[лэтс ду самсин(г) фан]", tr: "Давай сделаем что-нибудь весёлое!" },
+      { en: "Let's go ice-skating!",   ru: "[лэтс гоу айс-скэйтин(г)]", tr: "Давай покатаемся на коньках!" },
+      { en: "We can go to the park.",  ru: "[уи кэн гоу ту зэ паак]", tr: "Мы можем пойти в парк." },
+      { en: "I agree!",                ru: "[ай эгрии]",              tr: "Согласна!" },
+      { en: "Let's do that!",          ru: "[лэтс ду зэт]",           tr: "Давай так и сделаем!" },
+      { en: "Great idea!",             ru: "[грэйт айдиэ]",           tr: "Отличная идея!" },
+      { en: "I'm not sure.",           ru: "[айм нот шуэ]",           tr: "Не уверена." },
+      { en: "It's not a good idea.",   ru: "[итс нот э гуд айдиэ]",   tr: "Это не очень хорошая идея." },
+    ]
+  },
+  "Который час": {
+    icon: "🕓",
+    items: [
+      { en: "What time is it?",                ru: "[уот тайм из ит]",                  tr: "Который час?" },
+      { en: "It's four o'clock.",              ru: "[итс фоо оклок]",                   tr: "Сейчас четыре часа." },
+      { en: "What time is the film?",          ru: "[уот тайм из зэ филм]",             tr: "В сколько фильм?" },
+      { en: "It's at ten past four.",          ru: "[итс эт тэн паст фоо]",             tr: "В 4:10 (десять минут пятого)." },
+      { en: "It's at quarter past four.",      ru: "[итс эт куотэ паст фоо]",           tr: "В 4:15 (четверть пятого)." },
+      { en: "It's at half past four.",         ru: "[итс эт хааф паст фоо]",            tr: "В 4:30 (половине пятого)." },
+      { en: "It's at quarter to five.",        ru: "[итс эт куотэ ту файв]",            tr: "В 4:45 (без четверти пять)." },
+      { en: "It's at ten to five.",            ru: "[итс эт тэн ту файв]",              tr: "В 4:50 (без десяти пять)." },
+    ]
+  }
+};
+
+/* =================== ОЗВУЧКА =================== */
+let englishVoice = null;
+function loadVoices() {
+  const voices = speechSynthesis.getVoices();
+  // Стараемся найти приятный английский голос
+  englishVoice =
+    voices.find(v => /en-GB/i.test(v.lang) && /female|girl|kid|child|samantha|kate|serena|karen/i.test(v.name)) ||
+    voices.find(v => /en-GB/i.test(v.lang)) ||
+    voices.find(v => /en-US/i.test(v.lang) && /female|samantha|karen/i.test(v.name)) ||
+    voices.find(v => /en/i.test(v.lang)) ||
+    null;
+}
+if ('speechSynthesis' in window) {
+  loadVoices();
+  speechSynthesis.onvoiceschanged = loadVoices;
+}
+
+function speak(text) {
+  if (!('speechSynthesis' in window)) return;
+  speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = 'en-GB';
+  if (englishVoice) u.voice = englishVoice;
+  u.rate = 0.85;
+  u.pitch = 1.1;
+  speechSynthesis.speak(u);
+}
+
+/* =================== РЕЖИМ ИЗУЧЕНИЯ =================== */
+const categoriesEl = document.getElementById('categories');
+const cardsGridEl  = document.getElementById('cards-grid');
+const studyMode    = document.getElementById('study-mode');
+const quizMode     = document.getElementById('quiz-mode');
+
+let currentCategory = Object.keys(data)[0];
+
+function renderCategories() {
+  categoriesEl.innerHTML = '';
+  Object.keys(data).forEach(cat => {
+    const btn = document.createElement('button');
+    btn.className = 'cat-btn' + (cat === currentCategory ? ' active' : '');
+    btn.innerHTML = `${data[cat].icon} ${cat}`;
+    btn.onclick = () => {
+      currentCategory = cat;
+      renderCategories();
+      renderCards();
+    };
+    categoriesEl.appendChild(btn);
+  });
+}
+
+const decoEmojis = ['🌸','🍄','🌷','🌼','🌺','🌻','🌹','🪻','🍀','🌿'];
+
+function renderCards() {
+  cardsGridEl.innerHTML = '';
+  data[currentCategory].items.forEach((item, idx) => {
+    const card = document.createElement('div');
+    card.className = 'card';
+    const deco = decoEmojis[idx % decoEmojis.length];
+    card.innerHTML = `
+      <div class="card-inner">
+        <div class="card-face card-front">
+          <span class="corner-deco">${deco}</span>
+          <div class="word">${item.en}</div>
+          <div class="hint">нажми меня! 👆</div>
+        </div>
+        <div class="card-face card-back">
+          <div class="transcription">${item.ru}</div>
+          <div class="translation">${item.tr}</div>
+          <div class="speaker">🔊</div>
+        </div>
+      </div>
+    `;
+    card.onclick = () => {
+      card.classList.toggle('flipped');
+      speak(item.en);
+    };
+    cardsGridEl.appendChild(card);
+  });
+}
+
+renderCategories();
+renderCards();
+
+/* =================== ПЕРЕКЛЮЧЕНИЕ РЕЖИМОВ =================== */
+document.querySelectorAll('.mode-btn').forEach(b => {
+  b.onclick = () => {
+    document.querySelectorAll('.mode-btn').forEach(x => x.classList.remove('active'));
+    b.classList.add('active');
+    const mode = b.dataset.mode;
+    if (mode === 'study') {
+      studyMode.classList.remove('hidden');
+      quizMode.classList.add('hidden');
+    } else {
+      studyMode.classList.add('hidden');
+      quizMode.classList.remove('hidden');
+      startQuiz();
+    }
+  };
+});
+
+/* =================== РЕЖИМ ПРОВЕРКИ =================== */
+const quizCategoriesEl = document.getElementById('quiz-categories');
+const quizContainer    = document.getElementById('quiz-container');
+
+let quizCategory = Object.keys(data)[0];
+let quizQuestions = [];
+let quizIndex = 0;
+let quizScore = 0;
+let quizAnswered = false;
+
+function renderQuizCategories() {
+  quizCategoriesEl.innerHTML = '';
+  Object.keys(data).forEach(cat => {
+    const btn = document.createElement('button');
+    btn.className = 'cat-btn' + (cat === quizCategory ? ' active' : '');
+    btn.innerHTML = `${data[cat].icon} ${cat}`;
+    btn.onclick = () => {
+      quizCategory = cat;
+      renderQuizCategories();
+      startQuiz();
+    };
+    quizCategoriesEl.appendChild(btn);
+  });
+}
+
+function shuffle(arr) {
+  const a = arr.slice();
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function buildQuestion(item, allItems) {
+  // Тип задания: 0 = выбери перевод, 1 = выбери английское по переводу, 2 = что я сказал
+  const type = Math.floor(Math.random() * 3);
+  const wrong = shuffle(allItems.filter(x => x.en !== item.en)).slice(0, 3);
+  let question, sub, options, correct, autoSpeak = false;
+
+  if (type === 0) {
+    question = item.en;
+    sub = '🤔 Что это значит по-русски?';
+    const opts = shuffle([item, ...wrong]);
+    options = opts.map(o => ({ text: o.tr, correct: o.en === item.en }));
+    correct = item.tr;
+    autoSpeak = true;
+  } else if (type === 1) {
+    question = item.tr;
+    sub = '🤔 Как это по-английски?';
+    const opts = shuffle([item, ...wrong]);
+    options = opts.map(o => ({ text: o.en, correct: o.en === item.en }));
+    correct = item.en;
+  } else {
+    question = '🔊 Послушай и выбери!';
+    sub = 'Нажми на динамик и выбери правильный ответ';
+    const opts = shuffle([item, ...wrong]);
+    options = opts.map(o => ({ text: o.en, correct: o.en === item.en }));
+    correct = item.en;
+    autoSpeak = true;
+  }
+  return { question, sub, options, correct, listenText: item.en, type, autoSpeak };
+}
+
+function startQuiz() {
+  renderQuizCategories();
+  const items = data[quizCategory].items;
+  // Берём до 8 вопросов
+  const picked = shuffle(items).slice(0, Math.min(8, items.length));
+  quizQuestions = picked.map(it => buildQuestion(it, items));
+  quizIndex = 0;
+  quizScore = 0;
+  renderQuestion();
+}
+
+function renderQuestion() {
+  if (quizIndex >= quizQuestions.length) {
+    renderVictory();
+    return;
+  }
+  const q = quizQuestions[quizIndex];
+  quizAnswered = false;
+
+  const stars = '⭐'.repeat(quizScore) + '☆'.repeat(quizQuestions.length - quizScore);
+  const isListen = q.type === 2;
+
+  quizContainer.innerHTML = `
+    <div class="quiz">
+      <div class="quiz-header">
+        <span>Вопрос ${quizIndex + 1} / ${quizQuestions.length}</span>
+        <span class="stars">${stars}</span>
+      </div>
+      ${isListen
+        ? `<button class="quiz-listen" id="listen-btn">🔊 Слушать ещё раз</button>`
+        : ''}
+      <div class="quiz-question">${q.question}</div>
+      <div class="quiz-sub">${q.sub}</div>
+      <div class="quiz-options" id="quiz-options"></div>
+      <div class="quiz-result" id="quiz-result"></div>
+      <button class="next-btn" id="next-btn" disabled>Дальше ➡️</button>
+    </div>
+  `;
+
+  const optionsEl = document.getElementById('quiz-options');
+  q.options.forEach(opt => {
+    const btn = document.createElement('button');
+    btn.className = 'quiz-option';
+    btn.textContent = opt.text;
+    btn.onclick = () => handleAnswer(btn, opt, q);
+    optionsEl.appendChild(btn);
+  });
+
+  const listenBtn = document.getElementById('listen-btn');
+  if (listenBtn) listenBtn.onclick = () => speak(q.listenText);
+
+  document.getElementById('next-btn').onclick = () => {
+    quizIndex++;
+    renderQuestion();
+  };
+
+  // Если задание со слушанием — автоматически произнести
+  if (q.autoSpeak && q.type === 2) {
+    setTimeout(() => speak(q.listenText), 400);
+  } else if (q.autoSpeak && q.type === 0) {
+    // Тоже озвучим английское слово, чтобы запоминала
+    setTimeout(() => speak(q.listenText), 300);
+  }
+}
+
+function handleAnswer(btn, opt, q) {
+  if (quizAnswered) return;
+  quizAnswered = true;
+  const resultEl = document.getElementById('quiz-result');
+  const nextBtn  = document.getElementById('next-btn');
+
+  if (opt.correct) {
+    btn.classList.add('correct');
+    quizScore++;
+    resultEl.className = 'quiz-result success';
+    const praises = ['Молодчинка! 🌸', 'Супер! ⭐', 'Умница! 🍄', 'Точно! 🌼', 'Так держать! 💖'];
+    resultEl.textContent = praises[Math.floor(Math.random() * praises.length)];
+    launchConfetti();
+    speak(q.listenText);
+  } else {
+    btn.classList.add('wrong');
+    resultEl.className = 'quiz-result fail';
+    resultEl.textContent = `Не угадала. Правильно: ${q.correct} 🌷`;
+    // Показать правильный ответ
+    document.querySelectorAll('.quiz-option').forEach(b => {
+      const opts = q.options.find(o => o.text === b.textContent && o.correct);
+      if (opts) b.classList.add('correct');
+    });
+  }
+
+  // Заблокировать все кнопки
+  document.querySelectorAll('.quiz-option').forEach(b => b.style.pointerEvents = 'none');
+  nextBtn.disabled = false;
+}
+
+function launchConfetti() {
+  const emojis = ['🌸','🍄','⭐','🌼','💖','🌷','✨','🌺'];
+  for (let i = 0; i < 18; i++) {
+    const el = document.createElement('div');
+    el.className = 'confetti';
+    el.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+    el.style.left = Math.random() * 100 + 'vw';
+    el.style.animationDuration = (1.5 + Math.random() * 1.5) + 's';
+    el.style.animationDelay = (Math.random() * 0.3) + 's';
+    document.body.appendChild(el);
+    setTimeout(() => el.remove(), 3000);
+  }
+}
+
+function renderVictory() {
+  const total = quizQuestions.length;
+  const percent = quizScore / total;
+  let message, emoji;
+  if (percent === 1) {
+    message = 'Идеально! Ты настоящая фея слов!';
+    emoji = '👑🌸';
+  } else if (percent >= 0.75) {
+    message = 'Шикарно! Ты почти всё знаешь!';
+    emoji = '🌟🍄';
+  } else if (percent >= 0.5) {
+    message = 'Хороший результат! Давай ещё разок!';
+    emoji = '🌷✨';
+  } else {
+    message = 'Не расстраивайся! Повтори слова и попробуй снова!';
+    emoji = '🌱💖';
+  }
+
+  quizContainer.innerHTML = `
+    <div class="quiz">
+      <div class="victory">
+        <h2>${emoji} Готово! ${emoji}</h2>
+        <p>${message}</p>
+        <div class="big-stars">${'⭐'.repeat(quizScore)}${'☆'.repeat(total - quizScore)}</div>
+        <p>Результат: <b>${quizScore} из ${total}</b></p>
+        <button class="next-btn" onclick="startQuiz()">🔄 Ещё раз!</button>
+      </div>
+    </div>
+  `;
+  launchConfetti();
+  setTimeout(launchConfetti, 500);
+}
+
+</script>
+</body>
+</html>
