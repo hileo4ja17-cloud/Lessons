@@ -1,0 +1,2079 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Screen Time ✦ Unit 5</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bagel+Fat+One&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Caveat:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --pink: #ff4e8e;
+    --pink-soft: #ffd1e0;
+    --pink-bg: #fff0f5;
+    --lavender: #b794f4;
+    --lavender-soft: #e9d8fd;
+    --blue: #4fc3ff;
+    --mint: #4fd1c5;
+    --yellow: #ffd86b;
+    --cream: #fff8f3;
+    --ink: #2d1b47;
+    --ink-soft: #6b5a8a;
+    --white: #ffffff;
+    --shadow-soft: 0 10px 40px rgba(183, 148, 244, 0.18);
+    --shadow-pop: 0 14px 50px rgba(255, 78, 142, 0.28);
+    --shadow-card: 0 6px 24px rgba(45, 27, 71, 0.08);
+    --grad-pink: linear-gradient(135deg, #ff4e8e 0%, #b794f4 100%);
+    --grad-cool: linear-gradient(135deg, #b794f4 0%, #4fc3ff 100%);
+    --grad-warm: linear-gradient(135deg, #ffd86b 0%, #ff4e8e 100%);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background: var(--pink-bg);
+    color: var(--ink);
+    min-height: 100vh;
+    overflow-x: hidden;
+    line-height: 1.55;
+  }
+
+  /* Decorative background */
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background:
+      radial-gradient(circle at 10% 20%, rgba(255, 209, 224, 0.5) 0%, transparent 40%),
+      radial-gradient(circle at 90% 80%, rgba(183, 148, 244, 0.3) 0%, transparent 40%),
+      radial-gradient(circle at 50% 50%, rgba(79, 195, 255, 0.15) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* Floating decorative emoji background */
+  .deco-layer {
+    position: fixed; inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    overflow: hidden;
+  }
+  .deco {
+    position: absolute;
+    font-size: 28px;
+    opacity: 0.4;
+    animation: float 8s ease-in-out infinite;
+  }
+  .deco:nth-child(1) { top: 8%; left: 6%; animation-delay: 0s; }
+  .deco:nth-child(2) { top: 15%; right: 8%; animation-delay: 1s; font-size: 22px; }
+  .deco:nth-child(3) { top: 40%; left: 3%; animation-delay: 2s; font-size: 32px; }
+  .deco:nth-child(4) { top: 60%; right: 5%; animation-delay: 3s; }
+  .deco:nth-child(5) { bottom: 10%; left: 12%; animation-delay: 1.5s; font-size: 24px; }
+  .deco:nth-child(6) { bottom: 30%; right: 10%; animation-delay: 2.5s; font-size: 26px; }
+  @keyframes float {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-20px) rotate(8deg); }
+  }
+
+  /* Progress bar */
+  .progress-bar {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    background: rgba(255,255,255,0.5);
+    z-index: 100;
+  }
+  .progress-fill {
+    height: 100%;
+    background: var(--grad-pink);
+    width: 0%;
+    transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 0 12px rgba(255, 78, 142, 0.6);
+  }
+
+  /* Step navigation */
+  .step-nav {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 8px;
+    background: rgba(255,255,255,0.85);
+    backdrop-filter: blur(20px);
+    padding: 10px 16px;
+    border-radius: 999px;
+    box-shadow: var(--shadow-card);
+    z-index: 99;
+    border: 2px solid rgba(255,255,255,0.8);
+  }
+  @media (max-width: 520px) {
+    .step-nav { padding: 8px 10px; gap: 5px; }
+    .step-dot { width: 8px; height: 8px; }
+  }
+  .step-dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: var(--lavender-soft);
+    cursor: pointer;
+    transition: all 0.3s;
+    border: none;
+  }
+  .step-dot.active {
+    background: var(--pink);
+    transform: scale(1.4);
+    box-shadow: 0 0 12px var(--pink);
+  }
+  .step-dot.done {
+    background: var(--mint);
+  }
+
+  /* Container & sections */
+  .container {
+    position: relative;
+    z-index: 2;
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 90px 24px 60px;
+  }
+  .section {
+    display: none;
+    animation: fadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .section.active { display: block; }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Section labels */
+  .section-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--white);
+    color: var(--pink);
+    padding: 6px 16px;
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    box-shadow: var(--shadow-card);
+    margin-bottom: 16px;
+  }
+  .section-label::before {
+    content: '';
+    width: 6px; height: 6px;
+    background: var(--pink);
+    border-radius: 50%;
+  }
+
+  h1, h2, h3 {
+    font-family: 'Bagel Fat One', cursive;
+    font-weight: 400;
+    letter-spacing: -0.5px;
+    line-height: 1.1;
+  }
+  h1 { font-size: clamp(48px, 8vw, 92px); }
+  h2 { font-size: clamp(34px, 5vw, 52px); margin-bottom: 16px; }
+  h3 { font-size: 24px; margin-bottom: 12px; }
+
+  .hand { font-family: 'Caveat', cursive; font-weight: 700; }
+
+  /* Hero */
+  .hero {
+    text-align: center;
+    padding: 40px 0;
+  }
+  .hero-emoji {
+    font-size: 80px;
+    display: inline-block;
+    animation: bounce 2s ease-in-out infinite;
+  }
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0) rotate(-5deg); }
+    50% { transform: translateY(-12px) rotate(5deg); }
+  }
+  .hero h1 {
+    background: var(--grad-pink);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin: 12px 0;
+  }
+  .hero-sub {
+    font-size: 20px;
+    color: var(--ink-soft);
+    max-width: 560px;
+    margin: 16px auto 32px;
+  }
+  .hero-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    margin: 24px 0;
+  }
+  .tag {
+    background: var(--white);
+    padding: 8px 16px;
+    border-radius: 999px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--ink);
+    box-shadow: var(--shadow-card);
+    transition: transform 0.3s;
+  }
+  .tag:hover { transform: translateY(-3px) rotate(-2deg); }
+
+  /* Buttons */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 28px;
+    border-radius: 999px;
+    font-family: inherit;
+    font-weight: 700;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    text-decoration: none;
+  }
+  .btn-primary {
+    background: var(--grad-pink);
+    color: white;
+    box-shadow: var(--shadow-pop);
+  }
+  .btn-primary:hover {
+    transform: translateY(-3px) scale(1.03);
+    box-shadow: 0 18px 40px rgba(255, 78, 142, 0.4);
+  }
+  .btn-ghost {
+    background: var(--white);
+    color: var(--ink);
+    box-shadow: var(--shadow-card);
+  }
+  .btn-ghost:hover {
+    transform: translateY(-2px);
+    background: var(--pink-soft);
+  }
+  .btn-icon {
+    width: 44px; height: 44px;
+    padding: 0;
+    justify-content: center;
+    border-radius: 50%;
+  }
+
+  /* Cards / sections */
+  .card {
+    background: var(--white);
+    border-radius: 28px;
+    padding: 28px;
+    box-shadow: var(--shadow-soft);
+    margin-bottom: 24px;
+    border: 2px solid rgba(255,255,255,0.8);
+  }
+
+  .nav-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    margin-top: 32px;
+  }
+
+  /* Section intro */
+  .intro-block {
+    background: linear-gradient(135deg, rgba(255,255,255,0.9), rgba(255,209,224,0.3));
+    border-radius: 32px;
+    padding: 32px;
+    margin-bottom: 28px;
+    border: 2px solid rgba(255,255,255,0.7);
+    box-shadow: var(--shadow-soft);
+  }
+  .intro-block h2 {
+    background: var(--grad-pink);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .intro-block p {
+    font-size: 17px;
+    color: var(--ink-soft);
+    margin-top: 8px;
+  }
+
+  /* WARM UP */
+  .warmup-list { display: grid; gap: 16px; }
+  .warmup-item {
+    background: var(--white);
+    border-radius: 20px;
+    padding: 20px 24px;
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    box-shadow: var(--shadow-card);
+    cursor: pointer;
+    transition: all 0.3s;
+    border: 2px solid transparent;
+  }
+  .warmup-item:hover {
+    transform: translateX(6px);
+    border-color: var(--pink-soft);
+  }
+  .warmup-item.opened {
+    border-color: var(--pink);
+    background: linear-gradient(135deg, var(--white), var(--pink-bg));
+  }
+  .warmup-num {
+    flex-shrink: 0;
+    width: 38px; height: 38px;
+    background: var(--grad-pink);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 16px;
+    box-shadow: 0 4px 12px rgba(255, 78, 142, 0.3);
+  }
+  .warmup-q {
+    font-size: 17px;
+    font-weight: 500;
+  }
+  .warmup-hint {
+    margin-top: 10px;
+    padding: 10px 14px;
+    background: var(--lavender-soft);
+    border-radius: 12px;
+    font-size: 14px;
+    color: var(--ink);
+    display: none;
+    font-family: 'Caveat', cursive;
+    font-size: 18px;
+  }
+  .warmup-item.opened .warmup-hint { display: block; }
+
+  /* MATCHING EXERCISE */
+  .match-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 28px;
+    margin-top: 20px;
+  }
+  @media (max-width: 720px) {
+    .match-grid { grid-template-columns: 1fr; }
+  }
+  .match-col h3 {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--ink-soft);
+    margin-bottom: 14px;
+  }
+  .match-item {
+    background: var(--white);
+    padding: 14px 18px;
+    border-radius: 16px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    box-shadow: var(--shadow-card);
+    transition: all 0.25s;
+    border: 2px solid transparent;
+    user-select: none;
+    font-weight: 500;
+  }
+  .match-item.def-item {
+    font-size: 15px;
+    line-height: 1.45;
+  }
+  .match-item:hover {
+    transform: translateY(-2px);
+    border-color: var(--pink-soft);
+  }
+  .match-item.selected {
+    background: var(--grad-pink);
+    color: white;
+    border-color: var(--pink);
+    transform: scale(1.02);
+  }
+  .match-item.matched {
+    background: var(--mint);
+    color: white;
+    cursor: default;
+    opacity: 0.95;
+    pointer-events: none;
+  }
+  .match-item.wrong {
+    animation: shake 0.4s;
+    border-color: #ff6b6b;
+  }
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-8px); }
+    75% { transform: translateX(8px); }
+  }
+  .match-status {
+    text-align: center;
+    margin-top: 20px;
+    font-weight: 600;
+    color: var(--ink-soft);
+  }
+
+  /* FLASHCARDS */
+  .flash-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: center;
+    margin-bottom: 24px;
+  }
+  .flash-counter {
+    background: var(--white);
+    padding: 8px 18px;
+    border-radius: 999px;
+    font-weight: 700;
+    color: var(--ink);
+    box-shadow: var(--shadow-card);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .flash-stage {
+    perspective: 1200px;
+    width: 100%;
+    max-width: 480px;
+    height: 320px;
+    margin: 0 auto;
+  }
+  .flash-card {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    cursor: pointer;
+  }
+  .flash-card.flipped { transform: rotateY(180deg); }
+  .flash-face {
+    position: absolute;
+    inset: 0;
+    backface-visibility: hidden;
+    border-radius: 32px;
+    padding: 32px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    box-shadow: var(--shadow-pop);
+    border: 3px solid rgba(255,255,255,0.6);
+  }
+  .flash-front {
+    background: var(--grad-pink);
+    color: white;
+  }
+  .flash-back {
+    background: linear-gradient(135deg, #fff 0%, var(--lavender-soft) 100%);
+    color: var(--ink);
+    transform: rotateY(180deg);
+  }
+  .flash-word {
+    font-family: 'Bagel Fat One', cursive;
+    font-size: clamp(36px, 7vw, 56px);
+    margin-bottom: 12px;
+    line-height: 1;
+  }
+  .flash-trans {
+    font-size: 18px;
+    opacity: 0.95;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+  }
+  .flash-ru {
+    font-family: 'Bagel Fat One', cursive;
+    font-size: clamp(32px, 6vw, 48px);
+    background: var(--grad-pink);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 10px;
+  }
+  .flash-hint {
+    position: absolute;
+    bottom: 18px;
+    font-size: 12px;
+    opacity: 0.7;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+  .speak-btn {
+    margin-top: 18px;
+    width: 56px; height: 56px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.25);
+    border: 2px solid rgba(255,255,255,0.5);
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s;
+    backdrop-filter: blur(10px);
+  }
+  .speak-btn:hover {
+    transform: scale(1.1);
+    background: rgba(255,255,255,0.4);
+  }
+  .speak-btn.speaking {
+    animation: pulse 1s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.15); box-shadow: 0 0 0 12px rgba(255,255,255,0); }
+  }
+  .flash-back .speak-btn {
+    background: var(--grad-pink);
+    border-color: white;
+    color: white;
+  }
+  .flash-controls {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    margin-top: 24px;
+    flex-wrap: wrap;
+  }
+  .flash-controls .btn { padding: 12px 22px; font-size: 14px; }
+
+  /* GRID FLASHCARDS (all cards visible) */
+  .flash-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 14px;
+    margin-bottom: 28px;
+  }
+  .mini-card {
+    perspective: 900px;
+    height: 150px;
+    cursor: pointer;
+  }
+  .mini-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .mini-card.flipped .mini-card-inner {
+    transform: rotateY(180deg);
+  }
+  .mini-face {
+    position: absolute;
+    inset: 0;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    border-radius: 20px;
+    padding: 14px 14px 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    box-shadow: var(--shadow-card);
+    border: 2px solid rgba(255,255,255,0.6);
+  }
+  .mini-front {
+    background: var(--grad-pink);
+    color: white;
+  }
+  .mini-back {
+    background: linear-gradient(135deg, #fff 0%, var(--lavender-soft) 100%);
+    color: var(--ink);
+    transform: rotateY(180deg);
+  }
+  .mini-card:hover .mini-card-inner {
+    box-shadow: 0 10px 30px rgba(255, 78, 142, 0.25);
+  }
+  .mini-card:hover {
+    transform: translateY(-3px);
+    transition: transform 0.25s;
+  }
+  .mini-word {
+    font-family: 'Bagel Fat One', cursive;
+    font-size: 18px;
+    line-height: 1.05;
+    margin-bottom: 6px;
+  }
+  .mini-trans {
+    font-size: 11px;
+    opacity: 0.92;
+    line-height: 1.2;
+    word-break: break-word;
+  }
+  .mini-ru {
+    font-family: 'Bagel Fat One', cursive;
+    font-size: 17px;
+    background: var(--grad-pink);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    line-height: 1.1;
+    margin-bottom: 5px;
+  }
+  .mini-ex {
+    font-size: 10.5px;
+    color: var(--ink-soft);
+    line-height: 1.3;
+    font-style: italic;
+  }
+  .mini-speak {
+    position: absolute;
+    bottom: 6px;
+    right: 6px;
+    width: 26px; height: 26px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.3);
+    border: 1.5px solid rgba(255,255,255,0.55);
+    color: white;
+    cursor: pointer;
+    font-size: 11px;
+    z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    padding: 0;
+  }
+  .mini-speak:hover {
+    background: rgba(255,255,255,0.5);
+    transform: scale(1.15);
+  }
+  .mini-back .mini-speak {
+    background: var(--pink);
+    color: white;
+    border-color: white;
+  }
+  .mini-speak.speaking { animation: pulse 1s infinite; }
+
+  /* SPEAKING EXERCISES */
+  .speak-card {
+    background: var(--white);
+    border-radius: 32px;
+    padding: 32px 28px;
+    box-shadow: var(--shadow-soft);
+    border: 2px solid rgba(255,255,255,0.7);
+    text-align: center;
+    margin: 24px 0;
+  }
+  .speak-counter {
+    font-family: 'Bagel Fat One', cursive;
+    font-size: 14px;
+    color: var(--lavender);
+    margin-bottom: 12px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+  }
+  .speak-prompt {
+    font-size: 21px;
+    font-weight: 600;
+    line-height: 1.5;
+    margin-bottom: 20px;
+    color: var(--ink);
+    min-height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .speak-starters {
+    background: var(--pink-bg);
+    border-radius: 18px;
+    padding: 16px 20px;
+    text-align: left;
+    margin-bottom: 18px;
+  }
+  .speak-starters-title {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--ink-soft);
+    margin-bottom: 6px;
+  }
+  .speak-starter {
+    font-family: 'Caveat', cursive;
+    font-size: 22px;
+    color: var(--pink);
+    padding: 2px 0;
+    line-height: 1.3;
+  }
+  .speak-target-words, .three-words {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin: 14px 0;
+  }
+  .three-words {
+    margin: 8px 0 22px;
+  }
+  .target-word {
+    background: var(--grad-pink);
+    color: white;
+    padding: 10px 18px;
+    border: none;
+    border-radius: 999px;
+    font-family: inherit;
+    font-weight: 700;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.25s;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    box-shadow: 0 4px 12px rgba(255, 78, 142, 0.25);
+  }
+  .target-word:hover {
+    transform: translateY(-2px) scale(1.03);
+  }
+  .target-word.used {
+    background: var(--mint);
+    box-shadow: 0 4px 12px rgba(79, 209, 197, 0.3);
+  }
+  .target-word.used::after {
+    content: ' ✓';
+    font-size: 14px;
+  }
+  .target-word.three-word {
+    flex-direction: column;
+    padding: 12px 20px;
+    gap: 2px;
+    font-size: 15px;
+    text-align: center;
+    line-height: 1.1;
+  }
+  .three-word-ru {
+    font-size: 11px;
+    font-weight: 500;
+    opacity: 0.9;
+    letter-spacing: 0.3px;
+  }
+  .timer-ring {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    margin: 16px auto;
+  }
+  .timer-ring svg {
+    width: 100%;
+    height: 100%;
+    transform: rotate(-90deg);
+  }
+  .timer-ring-bg {
+    fill: none;
+    stroke: var(--lavender-soft);
+    stroke-width: 8;
+  }
+  .timer-ring-fill {
+    fill: none;
+    stroke-width: 8;
+    stroke-linecap: round;
+    transition: stroke-dashoffset 1s linear;
+  }
+  #timerRing1 { stroke: url(#timerGrad1); }
+  #timerRing2 { stroke: url(#timerGrad2); }
+  .timer-num {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Bagel Fat One', cursive;
+    font-size: 34px;
+    color: var(--ink);
+    pointer-events: none;
+    transition: color 0.3s, font-size 0.3s;
+  }
+  .timer-num.done {
+    font-size: 20px;
+    color: var(--mint);
+  }
+  .timer-num.warning {
+    color: var(--pink);
+    animation: pulse-num 0.5s infinite;
+  }
+  @keyframes pulse-num {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.15); }
+  }
+  .speak-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 14px;
+  }
+  .speak-controls .btn {
+    padding: 12px 20px;
+    font-size: 14px;
+  }
+
+  /* QUIZ */
+  .quiz-q {
+    background: var(--white);
+    border-radius: 24px;
+    padding: 26px;
+    box-shadow: var(--shadow-soft);
+    margin-bottom: 20px;
+  }
+  .quiz-q-num {
+    display: inline-block;
+    background: var(--grad-cool);
+    color: white;
+    padding: 4px 14px;
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    letter-spacing: 0.5px;
+  }
+  .quiz-prompt {
+    font-size: 18px;
+    margin-bottom: 16px;
+    font-weight: 500;
+  }
+  .quiz-options {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 10px;
+  }
+  .quiz-opt {
+    background: var(--pink-bg);
+    padding: 14px 18px;
+    border-radius: 14px;
+    cursor: pointer;
+    border: 2px solid transparent;
+    text-align: center;
+    font-weight: 600;
+    transition: all 0.25s;
+    font-size: 15px;
+  }
+  .quiz-opt:hover {
+    transform: translateY(-2px);
+    border-color: var(--lavender);
+  }
+  .quiz-opt.correct {
+    background: var(--mint);
+    color: white;
+    border-color: var(--mint);
+    pointer-events: none;
+  }
+  .quiz-opt.wrong {
+    background: #ffd0d0;
+    color: #c92a2a;
+    border-color: #ff6b6b;
+    pointer-events: none;
+  }
+  .quiz-opt.disabled { pointer-events: none; opacity: 0.5; }
+  .quiz-feedback {
+    margin-top: 12px;
+    padding: 12px 16px;
+    background: var(--lavender-soft);
+    border-radius: 12px;
+    font-size: 15px;
+    color: var(--ink);
+    display: none;
+    animation: fadeUp 0.4s;
+  }
+  .quiz-feedback.show { display: block; }
+  .quiz-feedback.success { background: #d3f9d8; color: #2b8a3e; }
+  .quiz-feedback.fail { background: #ffe3e3; color: #c92a2a; }
+
+  /* WORDS PRESENTATION GRID */
+  .words-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 14px;
+    margin-top: 20px;
+  }
+  .word-pill {
+    background: var(--white);
+    padding: 18px 16px;
+    border-radius: 18px;
+    text-align: center;
+    box-shadow: var(--shadow-card);
+    cursor: pointer;
+    transition: all 0.3s;
+    border: 2px solid transparent;
+    position: relative;
+    overflow: hidden;
+  }
+  .word-pill::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--grad-pink);
+    opacity: 0;
+    transition: opacity 0.3s;
+    z-index: 0;
+  }
+  .word-pill:hover { transform: translateY(-4px) rotate(-1deg); }
+  .word-pill:hover::before { opacity: 0.06; }
+  .word-pill > * { position: relative; z-index: 1; }
+  .word-pill-en {
+    font-family: 'Bagel Fat One', cursive;
+    font-size: 20px;
+    color: var(--ink);
+    margin-bottom: 6px;
+  }
+  .word-pill-tr {
+    font-size: 13px;
+    color: var(--ink-soft);
+    margin-bottom: 8px;
+  }
+  .word-pill-ru {
+    font-size: 14px;
+    color: var(--pink);
+    font-weight: 600;
+  }
+  .word-pill-speak {
+    position: absolute;
+    top: 8px; right: 8px;
+    background: var(--pink-soft);
+    border: none;
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 13px;
+    color: var(--pink);
+    z-index: 2;
+    transition: all 0.2s;
+  }
+  .word-pill-speak:hover {
+    background: var(--pink);
+    color: white;
+    transform: scale(1.15);
+  }
+
+  /* FILL IN THE BLANKS */
+  .fill-q {
+    background: var(--white);
+    border-radius: 20px;
+    padding: 22px;
+    margin-bottom: 16px;
+    box-shadow: var(--shadow-card);
+    transition: all 0.3s;
+  }
+  .fill-q.solved {
+    background: linear-gradient(135deg, #fff, #d3f9d8);
+  }
+  .fill-q-text {
+    font-size: 17px;
+    margin-bottom: 14px;
+    line-height: 1.7;
+  }
+  .fill-blank {
+    display: inline-block;
+    min-width: 130px;
+    padding: 4px 12px;
+    background: var(--pink-bg);
+    border: 2px dashed var(--pink);
+    border-radius: 8px;
+    color: var(--pink);
+    font-weight: 700;
+    text-align: center;
+    margin: 0 4px;
+  }
+  .fill-blank.filled {
+    background: var(--mint);
+    color: white;
+    border-style: solid;
+    border-color: var(--mint);
+  }
+  .fill-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .fill-opt {
+    background: var(--lavender-soft);
+    padding: 8px 14px;
+    border-radius: 999px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    border: 2px solid transparent;
+    transition: all 0.25s;
+  }
+  .fill-opt:hover {
+    background: var(--lavender);
+    color: white;
+    transform: translateY(-2px);
+  }
+  .fill-opt.used {
+    opacity: 0.3;
+    pointer-events: none;
+  }
+
+  /* TRUE FALSE */
+  .tf-grid {
+    display: grid;
+    gap: 16px;
+  }
+  .tf-row {
+    background: var(--white);
+    border-radius: 20px;
+    padding: 20px 22px;
+    box-shadow: var(--shadow-card);
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 16px;
+    align-items: center;
+  }
+  @media (max-width: 600px) {
+    .tf-row { grid-template-columns: 1fr; }
+  }
+  .tf-sentence { font-size: 16px; line-height: 1.6; }
+  .tf-buttons { display: flex; gap: 8px; }
+  .tf-btn {
+    padding: 10px 22px;
+    border-radius: 999px;
+    border: 2px solid var(--lavender-soft);
+    background: white;
+    cursor: pointer;
+    font-weight: 700;
+    font-family: inherit;
+    transition: all 0.25s;
+    font-size: 14px;
+  }
+  .tf-btn:hover { background: var(--lavender-soft); }
+  .tf-btn.correct { background: var(--mint); color: white; border-color: var(--mint); }
+  .tf-btn.wrong { background: #ffd0d0; color: #c92a2a; border-color: #ff6b6b; }
+  .tf-btn:disabled { cursor: default; }
+  .tf-row.answered { background: linear-gradient(135deg, #fff, #fff8e6); }
+  .tf-explain {
+    grid-column: 1 / -1;
+    margin-top: 8px;
+    padding: 12px 16px;
+    background: var(--lavender-soft);
+    border-radius: 12px;
+    font-size: 14px;
+    color: var(--ink);
+    display: none;
+    line-height: 1.5;
+  }
+  .tf-explain.show { display: block; animation: fadeUp 0.3s; }
+
+  /* FINAL */
+  .final {
+    text-align: center;
+    padding: 60px 20px;
+  }
+  .final-emoji {
+    font-size: 100px;
+    animation: spin 4s linear infinite;
+    display: inline-block;
+  }
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  .final h2 {
+    background: var(--grad-pink);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin: 16px 0;
+  }
+  .final-stats {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    flex-wrap: wrap;
+    margin: 32px 0;
+  }
+  .stat-card {
+    background: var(--white);
+    padding: 24px 28px;
+    border-radius: 24px;
+    box-shadow: var(--shadow-soft);
+    min-width: 140px;
+  }
+  .stat-num {
+    font-family: 'Bagel Fat One', cursive;
+    font-size: 42px;
+    background: var(--grad-pink);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .stat-label {
+    font-size: 13px;
+    color: var(--ink-soft);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  /* Confetti */
+  .confetti {
+    position: fixed;
+    width: 10px; height: 10px;
+    z-index: 9999;
+    pointer-events: none;
+  }
+
+  /* Small helpers */
+  .center { text-align: center; }
+  .mt-md { margin-top: 20px; }
+  .mb-md { margin-bottom: 20px; }
+  .muted { color: var(--ink-soft); font-size: 15px; }
+  .accent { color: var(--pink); font-weight: 700; }
+</style>
+</head>
+<body>
+
+<div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+
+<div class="step-nav" id="stepNav"></div>
+
+<div class="deco-layer" aria-hidden="true">
+  <span class="deco">✨</span>
+  <span class="deco">🎬</span>
+  <span class="deco">💜</span>
+  <span class="deco">🌸</span>
+  <span class="deco">📺</span>
+  <span class="deco">⭐</span>
+</div>
+
+<div class="container">
+
+  <!-- 0: HERO -->
+  <section class="section active" data-section="0">
+    <div class="hero">
+      <div class="hero-emoji">📺</div>
+      <h1>SCREEN<br>TIME</h1>
+      <p class="hero-sub">K-dramas, anime, K-pop variety shows… let's talk about everything you love watching — in English! ✨</p>
+      <div class="hero-tags">
+        <span class="tag">🎌 Unit 5</span>
+        <span class="tag">⚡ Vocabulary in context</span>
+        <span class="tag">💕 A2 level</span>
+      </div>
+      <button class="btn btn-primary" onclick="goTo(1)">Start the lesson →</button>
+    </div>
+  </section>
+
+  <!-- 1: WARM UP -->
+  <section class="section" data-section="1">
+    <div class="intro-block">
+      <span class="section-label">Step 1 · Warm up</span>
+      <h2>Let's talk! 💬</h2>
+      <p>Tap each question and share your thoughts out loud. There are no wrong answers here — only your real opinions.</p>
+    </div>
+
+    <div class="warmup-list" id="warmupList">
+      <!-- Filled by JS -->
+    </div>
+
+    <div class="nav-row">
+      <button class="btn btn-ghost" onclick="goTo(0)">← Back</button>
+      <button class="btn btn-primary" onclick="goTo(2)">Next: New words →</button>
+    </div>
+  </section>
+
+  <!-- 2: TV PROGRAMMES — INTRO + EXAMPLES -->
+  <section class="section" data-section="2">
+    <div class="intro-block">
+      <span class="section-label">Step 2 · New vocabulary</span>
+      <h2>TV programmes & series 🎬</h2>
+      <p>Here are 15 types of TV programmes. Match each word with its definition. Tap a word on the left, then tap the matching definition on the right.</p>
+    </div>
+
+    <div class="card">
+      <div class="match-grid">
+        <div class="match-col">
+          <h3>📝 Type of programme</h3>
+          <div id="matchWords"></div>
+        </div>
+        <div class="match-col">
+          <h3>💡 Definition</h3>
+          <div id="matchExamples"></div>
+        </div>
+      </div>
+      <div class="match-status" id="matchStatus">0 / 15 matched</div>
+    </div>
+
+    <div class="nav-row">
+      <button class="btn btn-ghost" onclick="goTo(1)">← Back</button>
+      <button class="btn btn-primary" onclick="goTo(3)">Next: Flashcards →</button>
+    </div>
+  </section>
+
+  <!-- 3: FLASHCARDS PROGRAMMES -->
+  <section class="section" data-section="3">
+    <div class="intro-block">
+      <span class="section-label">Step 3 · Flashcards</span>
+      <h2>Flip · Listen · Remember 💫</h2>
+      <p>All 15 cards in one place. Tap any card to flip it and see the Russian translation. Tap 🔊 to hear how it sounds.</p>
+    </div>
+
+    <div class="flash-controls" style="margin-bottom: 20px;">
+      <button class="btn btn-ghost" onclick="shuffleGrid(1)">🔀 Shuffle</button>
+      <button class="btn btn-ghost" onclick="flipAll(1)">🔄 Flip all</button>
+      <button class="btn btn-ghost" onclick="resetGrid(1)">↺ Reset</button>
+    </div>
+
+    <div class="flash-grid" id="flashGrid1"></div>
+
+    <div class="nav-row">
+      <button class="btn btn-ghost" onclick="goTo(2)">← Back</button>
+      <button class="btn btn-primary" onclick="goTo(4)">Next: Speaking →</button>
+    </div>
+  </section>
+
+  <!-- 4: SPEAKING 1 - SPIN & SPEAK -->
+  <section class="section" data-section="4">
+    <div class="intro-block">
+      <span class="section-label">Step 4 · Speaking</span>
+      <h2>Spin &amp; speak! 🎤</h2>
+      <p>Time to use the new words out loud. Read the topic, hit Start, and talk for 60 seconds. Don't worry about perfect grammar — just talk!</p>
+    </div>
+
+    <div class="speak-card">
+      <div class="speak-counter" id="speakCounter1">Topic 1 / 12</div>
+      <div class="speak-prompt" id="speakPrompt1"></div>
+
+      <div class="speak-starters">
+        <div class="speak-starters-title">💡 Try starting with…</div>
+        <div id="speakStarters1"></div>
+      </div>
+
+      <div class="speak-target-words" id="speakTargetWords1"></div>
+
+      <div class="timer-ring">
+        <svg viewBox="0 0 120 120">
+          <defs>
+            <linearGradient id="timerGrad1" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#ff4e8e"/>
+              <stop offset="100%" stop-color="#b794f4"/>
+            </linearGradient>
+          </defs>
+          <circle class="timer-ring-bg" cx="60" cy="60" r="52"/>
+          <circle class="timer-ring-fill" id="timerRing1" cx="60" cy="60" r="52" stroke-dasharray="326.7" stroke-dashoffset="0"/>
+        </svg>
+        <div class="timer-num" id="timerNum1">60</div>
+      </div>
+
+      <div class="speak-controls">
+        <button class="btn btn-ghost" onclick="prevSpeak()">← Prev</button>
+        <button class="btn btn-ghost" onclick="randomSpeak()">🎲 Random</button>
+        <button class="btn btn-primary" id="timerBtn1" onclick="toggleTimer(1)">⏱ Start 60s</button>
+        <button class="btn btn-ghost" onclick="nextSpeak()">Next →</button>
+      </div>
+    </div>
+
+    <div class="nav-row">
+      <button class="btn btn-ghost" onclick="goTo(3)">← Back</button>
+      <button class="btn btn-primary" onclick="goTo(5)">Next: Mini quiz →</button>
+    </div>
+  </section>
+
+  <!-- 5: PROGRAMME QUIZ -->
+  <section class="section" data-section="5">
+    <div class="intro-block">
+      <span class="section-label">Step 4 · Mini quiz</span>
+      <h2>What type of programme? 🎯</h2>
+      <p>Read each description. They're all things you might actually watch! Pick the correct type of programme.</p>
+    </div>
+
+    <div id="programmeQuiz"></div>
+
+    <div class="card center" id="programmeQuizResult" style="display:none;">
+      <div style="font-size:48px;">🏆</div>
+      <h3>Quiz complete!</h3>
+      <p class="muted">You scored <span class="accent" id="pqScore">0</span> out of 8</p>
+    </div>
+
+    <div class="nav-row">
+      <button class="btn btn-ghost" onclick="goTo(4)">← Back</button>
+      <button class="btn btn-primary" onclick="goTo(6)">Next: More words →</button>
+    </div>
+  </section>
+
+  <!-- 6: WORDS CONNECTED WITH TV -->
+  <section class="section" data-section="6">
+    <div class="intro-block">
+      <span class="section-label">Step 5 · New vocabulary</span>
+      <h2>Words connected with TV 📱</h2>
+      <p>Tap any card to hear it pronounced. These 10 words are everywhere when we talk about TV and online video.</p>
+    </div>
+
+    <div class="words-grid" id="ttwordsGrid"></div>
+
+    <div class="nav-row">
+      <button class="btn btn-ghost" onclick="goTo(5)">← Back</button>
+      <button class="btn btn-primary" onclick="goTo(7)">Next: Flashcards →</button>
+    </div>
+  </section>
+
+  <!-- 7: FLASHCARDS TV WORDS -->
+  <section class="section" data-section="7">
+    <div class="intro-block">
+      <span class="section-label">Step 6 · Flashcards</span>
+      <h2>Drill the new words 🎴</h2>
+      <p>Same as before — all 10 cards in front of you. Try to say each word out loud before flipping!</p>
+    </div>
+
+    <div class="flash-controls" style="margin-bottom: 20px;">
+      <button class="btn btn-ghost" onclick="shuffleGrid(2)">🔀 Shuffle</button>
+      <button class="btn btn-ghost" onclick="flipAll(2)">🔄 Flip all</button>
+      <button class="btn btn-ghost" onclick="resetGrid(2)">↺ Reset</button>
+    </div>
+
+    <div class="flash-grid" id="flashGrid2"></div>
+
+    <div class="nav-row">
+      <button class="btn btn-ghost" onclick="goTo(6)">← Back</button>
+      <button class="btn btn-primary" onclick="goTo(8)">Next: Speaking →</button>
+    </div>
+  </section>
+
+  <!-- 8: SPEAKING 2 - 3-WORD CHALLENGE -->
+  <section class="section" data-section="8">
+    <div class="intro-block">
+      <span class="section-label">Step 8 · Speaking</span>
+      <h2>3-word challenge! 🎲</h2>
+      <p>Three random words. One story or situation. Can you use all three in 90 seconds? Tap a word when you've used it — you'll see it turn green ✨</p>
+    </div>
+
+    <div class="speak-card">
+      <div class="speak-counter">YOUR THREE WORDS</div>
+      <div class="three-words" id="threeWords"></div>
+
+      <div class="speak-starters">
+        <div class="speak-starters-title">💡 Try starting with…</div>
+        <div id="speakStarters2"></div>
+      </div>
+
+      <div class="timer-ring">
+        <svg viewBox="0 0 120 120">
+          <defs>
+            <linearGradient id="timerGrad2" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#ff4e8e"/>
+              <stop offset="100%" stop-color="#b794f4"/>
+            </linearGradient>
+          </defs>
+          <circle class="timer-ring-bg" cx="60" cy="60" r="52"/>
+          <circle class="timer-ring-fill" id="timerRing2" cx="60" cy="60" r="52" stroke-dasharray="326.7" stroke-dashoffset="0"/>
+        </svg>
+        <div class="timer-num" id="timerNum2">90</div>
+      </div>
+
+      <div class="speak-controls">
+        <button class="btn btn-ghost" onclick="newThreeWords()">🎲 New 3 words</button>
+        <button class="btn btn-primary" id="timerBtn2" onclick="toggleTimer(2)">⏱ Start 90s</button>
+      </div>
+    </div>
+
+    <div class="nav-row">
+      <button class="btn btn-ghost" onclick="goTo(7)">← Back</button>
+      <button class="btn btn-primary" onclick="goTo(9)">Next: Fill the gaps →</button>
+    </div>
+  </section>
+
+  <!-- 9: FILL IN THE BLANKS -->
+  <section class="section" data-section="9">
+    <div class="intro-block">
+      <span class="section-label">Step 7 · Task 2a</span>
+      <h2>Complete the sentences 📝</h2>
+      <p>Tap a word from the box, then tap the gap where it belongs. Use the correct form. Don't worry about true/false yet — that's the next step!</p>
+    </div>
+
+    <div class="card">
+      <h3 style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight:700; font-size:14px; text-transform:uppercase; letter-spacing:1px; color: var(--ink-soft); margin-bottom:14px;">📦 Word box</h3>
+      <div class="fill-options" id="fillBox"></div>
+    </div>
+
+    <div id="fillList" style="margin-top:24px;"></div>
+
+    <div class="center mt-md">
+      <button class="btn btn-ghost" onclick="resetFill()">↺ Reset all</button>
+    </div>
+
+    <div class="nav-row">
+      <button class="btn btn-ghost" onclick="goTo(8)">← Back</button>
+      <button class="btn btn-primary" onclick="goTo(10)">Next: True or false →</button>
+    </div>
+  </section>
+
+  <!-- 10: TRUE / FALSE -->
+  <section class="section" data-section="10">
+    <div class="intro-block">
+      <span class="section-label">Step 8 · Task 2b</span>
+      <h2>True or false? 🤔</h2>
+      <p>Now read each complete sentence. Some facts are surprising! Decide if you believe it's true or false. You'll get the answer with a fun fact after each one.</p>
+    </div>
+
+    <div class="tf-grid" id="tfGrid"></div>
+
+    <div class="card center" id="tfResult" style="display:none;">
+      <div style="font-size:48px;">🎉</div>
+      <h3>All done!</h3>
+      <p class="muted">You got <span class="accent" id="tfScore">0</span> out of 10 correct</p>
+    </div>
+
+    <div class="nav-row">
+      <button class="btn btn-ghost" onclick="goTo(9)">← Back</button>
+      <button class="btn btn-primary" onclick="goTo(11)">Finish lesson →</button>
+    </div>
+  </section>
+
+  <!-- 11: FINAL -->
+  <section class="section" data-section="11">
+    <div class="final">
+      <div class="final-emoji">🌟</div>
+      <h2>You did it!</h2>
+      <p class="muted" style="font-size:18px; max-width:520px; margin: 0 auto;">
+        You've learned <strong>25 new words</strong> about TV and online video. Now you can talk about your favourite K-dramas, anime and shows in English!
+      </p>
+
+      <div class="final-stats">
+        <div class="stat-card">
+          <div class="stat-num">25</div>
+          <div class="stat-label">New words</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">15</div>
+          <div class="stat-label">Programme types</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num" id="finalScore">0</div>
+          <div class="stat-label">Quiz score</div>
+        </div>
+      </div>
+
+      <p class="hand" style="font-size:26px; color: var(--pink); margin: 24px 0;">
+        화이팅! · 頑張って · You got this! 💪
+      </p>
+
+      <div class="nav-row" style="justify-content: center;">
+        <button class="btn btn-ghost" onclick="goTo(0)">↺ Start over</button>
+        <button class="btn btn-primary" onclick="celebrate()">🎉 Celebrate</button>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<script>
+/* ============ DATA ============ */
+const programmes = [
+  { en: 'cartoon', ipa: '/kɑːˈtuːn/', ru: 'мультфильм', ex: 'Маша и Медведь, Смешарики' },
+  { en: 'chat show', ipa: '/ˈtʃæt ʃəʊ/', ru: 'ток-шоу', ex: 'Вечерний Ургант' },
+  { en: 'comedy', ipa: '/ˈkɒmədi/', ru: 'комедия', ex: 'Кухня, Папины дочки' },
+  { en: 'crime series', ipa: '/ˈkraɪm ˌsɪəriːz/', ru: 'криминальный сериал', ex: 'Метод, Тайны следствия' },
+  { en: 'documentary', ipa: '/ˌdɒkjuˈmentəri/', ru: 'документальный фильм', ex: 'about animals, history, etc.' },
+  { en: 'drama', ipa: '/ˈdrɑːmə/', ru: 'драма', ex: 'Слово пацана, Молодёжка' },
+  { en: 'fantasy series', ipa: '/ˈfæntəsi ˌsɪəriːz/', ru: 'фэнтези-сериал', ex: 'Гоголь, Wednesday' },
+  { en: 'film', ipa: '/fɪlm/', ru: 'фильм', ex: 'Лёд, Чебурашка' },
+  { en: 'food programme', ipa: '/ˈfuːd ˌprəʊɡræm/', ru: 'кулинарная передача', ex: 'Адская кухня, МастерШеф' },
+  { en: 'game show', ipa: '/ˈɡeɪm ʃəʊ/', ru: 'игровое шоу', ex: 'Что? Где? Когда?, Поле чудес' },
+  { en: 'reality show', ipa: '/riˈæləti ʃəʊ/', ru: 'реалити-шоу', ex: 'Беременна в 16, Холостяк' },
+  { en: 'science-fiction series', ipa: '/ˈsaɪəns ˌfɪkʃn ˌsɪəriːz/', ru: 'научно-фантастический сериал', ex: 'Эпидемия, Лучше, чем люди' },
+  { en: 'sports programme', ipa: '/ˈspɔːts ˌprəʊɡræm/', ru: 'спортивная передача', ex: 'football, Olympics' },
+  { en: 'talent show', ipa: '/ˈtælənt ʃəʊ/', ru: 'шоу талантов', ex: 'Голос. Дети, Танцы' },
+  { en: 'the news', ipa: '/ðə njuːz/', ru: 'новости', ex: 'Новости, Время' }
+];
+
+const ttwords = [
+  { en: 'binge-watching', ipa: '/ˈbɪndʒ ˌwɒtʃɪŋ/', ru: 'запойный просмотр' },
+  { en: 'channel', ipa: '/ˈtʃænl/', ru: 'канал (ТВ)' },
+  { en: 'contestant', ipa: '/kənˈtestənt/', ru: 'участник конкурса' },
+  { en: 'episode', ipa: '/ˈepɪsəʊd/', ru: 'эпизод, серия' },
+  { en: 'mobile device', ipa: '/ˈməʊbaɪl dɪˈvaɪs/', ru: 'мобильное устройство' },
+  { en: 'screen', ipa: '/skriːn/', ru: 'экран' },
+  { en: 'season', ipa: '/ˈsiːzn/', ru: 'сезон' },
+  { en: 'spoiler', ipa: '/ˈspɔɪlə/', ru: 'спойлер' },
+  { en: 'streaming service', ipa: '/ˈstriːmɪŋ ˌsɜːvɪs/', ru: 'стриминговый сервис' },
+  { en: 'viewer', ipa: '/ˈvjuːə/', ru: 'зритель' }
+];
+
+const warmup = [
+  { q: "What's the last K-drama, anime or series you watched? Did you like it?", hint: "Try: I watched ___ and I thought it was…" },
+  { q: "Do you prefer watching on your phone, a tablet or a big TV screen? Why?", hint: "Try: I prefer ___ because…" },
+  { q: "Have you ever binge-watched a whole series in one weekend? Which one?", hint: "Try: Yes, I once binge-watched…" },
+  { q: "Who's your favourite character from a series or anime right now?", hint: "Try: My favourite character is ___ from…" },
+  { q: "Would you rather watch a fantasy anime or a K-pop reality show like Boys Planet?", hint: "Try: I'd rather watch ___ because…" }
+];
+
+const matchPairs = [
+  { word: 'cartoon', definition: 'a drawn or computer-animated programme' },
+  { word: 'chat show', definition: 'a host talks with famous guests' },
+  { word: 'comedy', definition: 'a funny programme that makes you laugh' },
+  { word: 'crime series', definition: 'a story about catching criminals' },
+  { word: 'documentary', definition: 'gives real facts about nature, history or people' },
+  { word: 'drama', definition: 'a serious story about people\'s emotions' },
+  { word: 'fantasy series', definition: 'has magic, dragons or imaginary worlds' },
+  { word: 'film', definition: 'a movie, usually 1.5–3 hours long' },
+  { word: 'food programme', definition: 'about cooking, recipes and food' },
+  { word: 'game show', definition: 'people play games to win prizes' },
+  { word: 'reality show', definition: 'follows real people in everyday life' },
+  { word: 'science-fiction series', definition: 'about the future, space or new technology' },
+  { word: 'sports programme', definition: 'about football, hockey or other sports' },
+  { word: 'talent show', definition: 'people sing, dance or show their skills' },
+  { word: 'the news', definition: 'tells you what is happening today in the world' }
+];
+
+const programmeQuiz = [
+  { q: '"Адская кухня" — chefs cook dishes and a tough judge tastes them. What type?', options: ['drama', 'food programme', 'chat show'], a: 1,
+    fact: 'Right — it\'s a food programme. The focus is on cooking and food, even though it\'s also a competition.' },
+  { q: '"Маша и Медведь" — an animated programme about a little girl and her bear friend. What type?', options: ['chat show', 'cartoon', 'drama'], a: 1,
+    fact: 'Yes — a cartoon. In English, ALL animated programmes are called cartoons (including anime).' },
+  { q: '"Голос. Дети" — children sing on stage and famous singers turn their chairs to choose them. What type?', options: ['talent show', 'game show', 'sports programme'], a: 0,
+    fact: 'Talent show! People showing skills like singing or dancing — that\'s the key feature.' },
+  { q: '"Беременна в 16" — follows real teenage girls who became young mothers. What type?', options: ['drama', 'reality show', 'comedy'], a: 1,
+    fact: 'Reality show — it follows REAL people in their everyday lives. Drama is for actors playing characters.' },
+  { q: '"Что? Где? Когда?" — six players sit at a round table and answer difficult questions to win money. What type?', options: ['game show', 'fantasy series', 'the news'], a: 0,
+    fact: 'Game show! People play a game to win prizes — classic format.' },
+  { q: '"Вечерний Ургант" — Иван Ургант chats with famous Russian guests and jokes with them. What type?', options: ['chat show', 'talent show', 'documentary'], a: 0,
+    fact: 'Chat show — a host (Ургант) chats with guests. Simple as that!' },
+  { q: '"Кухня" — funny stories about staff working in a restaurant. (Careful — this is a TRICK question!) What type?', options: ['food programme', 'comedy', 'drama'], a: 1,
+    fact: 'Tricky one! 🎯 Even though it\'s SET in a kitchen, "Кухня" is a comedy — actors play characters in funny situations. A food programme is about REAL cooking and recipes.' },
+  { q: '"Слово пацана" — a serious story about teenagers and their difficult friendships in 1980s Kazan. What type?', options: ['drama', 'comedy', 'fantasy series'], a: 0,
+    fact: 'Drama — a serious story about people\'s emotions and difficult situations. No magic, no comedy, no real-life filming.' }
+];
+
+const fillSentences = [
+  { id: 1, parts: ['Netflix was the first TV ', '.'], answer: 'streaming service',
+    tfTrue: false, explain: 'False! Netflix started as a DVD-by-mail service in 1997 and only began streaming in 2007. Other streaming services existed before then.' },
+  { id: 2, parts: ['It\'s possible to watch video content made exclusively for ', ' such as smartphones.'], answer: 'mobile devices',
+    tfTrue: true, explain: 'True. There\'s tons of "mobile-first" content — YouTube Shorts, TikTok dramas, Webtoon adaptations, etc.' },
+  { id: 3, parts: ['A television produced in 1982 had a ', ' that was just 5 cm.'], answer: 'screen',
+    tfTrue: true, explain: 'True! In 1982 Sony released the FD-210 "Watchman" — a portable TV with a tiny 5 cm screen. 📺' },
+  { id: 4, parts: ['In 2016, Alejandro Fragoso watched TV continuously for 94 hours and so broke the world record for ', '.'], answer: 'binge-watching',
+    tfTrue: true, explain: 'True. Almost 4 days without sleep, just watching TV. Don\'t try this at home!' },
+  { id: 5, parts: ['BBC Two was the first TV ', ' in the UK to transmit programmes in colour.'], answer: 'channel',
+    tfTrue: true, explain: 'True. BBC Two started broadcasting in colour in 1967.' },
+  { id: 6, parts: ['The US sitcom The Big Bang Theory stopped after 7 ', '.'], answer: 'seasons',
+    tfTrue: false, explain: 'False! The Big Bang Theory actually ran for 12 seasons (2007–2019).' },
+  { id: 7, parts: ['There have been over 1,000 ', ' of The Simpsons.'], answer: 'episodes',
+    tfTrue: false, explain: 'False. The Simpsons has around 770+ episodes — a huge number, but not over 1,000 yet.' },
+  { id: 8, parts: ['In 1979, about 600 million TV ', ' around the world watched a live programme showing the first astronauts to walk on the moon.'], answer: 'viewers',
+    tfTrue: false, explain: 'False! The Moon landing happened in 1969, not 1979. About 600 million people did watch it live, though. 🚀' },
+  { id: 9, parts: ['The first ever ', ' to win the talent show America\'s Got Talent was only 11 years old.'], answer: 'contestant',
+    tfTrue: true, explain: 'True. Singer Bianca Ryan won the very first season in 2006 at just 11 years old.' },
+  { id: 10, parts: ['They filmed different endings for the very final episode of Game of Thrones to stop the possibility of ', '.'], answer: 'spoilers',
+    tfTrue: true, explain: 'True. The crew filmed multiple fake endings so no one could leak the real one online.' }
+];
+
+/* ============ STATE ============ */
+let currentSection = 0;
+const totalSections = 12;
+const flashState = {
+  1: { order: [...Array(programmes.length).keys()], data: programmes },
+  2: { order: [...Array(ttwords.length).keys()], data: ttwords }
+};
+let matchSelected = null;
+let matchCompleted = 0;
+let pqScore = 0;
+let pqAnswered = 0;
+let tfScore = 0;
+let tfAnswered = 0;
+let fillSelectedWord = null;
+let fillSolved = 0;
+
+/* ============ NAVIGATION ============ */
+function buildStepNav() {
+  const nav = document.getElementById('stepNav');
+  for (let i = 0; i < totalSections; i++) {
+    const dot = document.createElement('button');
+    dot.className = 'step-dot' + (i === 0 ? ' active' : '');
+    dot.onclick = () => goTo(i);
+    dot.title = `Step ${i}`;
+    nav.appendChild(dot);
+  }
+}
+function goTo(n) {
+  if (n < 0 || n >= totalSections) return;
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelector(`.section[data-section="${n}"]`).classList.add('active');
+  currentSection = n;
+  const dots = document.querySelectorAll('.step-dot');
+  dots.forEach((d, i) => {
+    d.classList.toggle('active', i === n);
+    d.classList.toggle('done', i < n);
+  });
+  document.getElementById('progressFill').style.width = `${(n / (totalSections - 1)) * 100}%`;
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+
+  if (n === 11) document.getElementById('finalScore').textContent = pqScore + tfScore;
+}
+
+/* ============ SPEECH ============ */
+function speak(text, btn) {
+  if (!('speechSynthesis' in window)) return;
+  window.speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = 'en-US';
+  u.rate = 0.85;
+  u.pitch = 1.0;
+  if (btn) {
+    btn.classList.add('speaking');
+    u.onend = () => btn.classList.remove('speaking');
+    u.onerror = () => btn.classList.remove('speaking');
+  }
+  window.speechSynthesis.speak(u);
+}
+
+/* ============ WARM UP ============ */
+function buildWarmup() {
+  const list = document.getElementById('warmupList');
+  list.innerHTML = warmup.map((w, i) => `
+    <div class="warmup-item" onclick="this.classList.toggle('opened')">
+      <div class="warmup-num">${i + 1}</div>
+      <div style="flex:1;">
+        <div class="warmup-q">${w.q}</div>
+        <div class="warmup-hint">💡 ${w.hint}</div>
+      </div>
+    </div>
+  `).join('');
+}
+
+/* ============ MATCHING ============ */
+function buildMatching() {
+  const wordsCol = document.getElementById('matchWords');
+  const exCol = document.getElementById('matchExamples');
+  const shuffledWords = [...matchPairs].sort(() => Math.random() - 0.5);
+  const shuffledEx = [...matchPairs].sort(() => Math.random() - 0.5);
+
+  wordsCol.innerHTML = shuffledWords.map(p =>
+    `<div class="match-item" data-word="${p.word}" onclick="selectMatch(this, 'word')">${p.word}</div>`
+  ).join('');
+  exCol.innerHTML = shuffledEx.map(p =>
+    `<div class="match-item def-item" data-word="${p.word}" onclick="selectMatch(this, 'def')">${p.definition}</div>`
+  ).join('');
+}
+function selectMatch(el, type) {
+  if (el.classList.contains('matched')) return;
+  if (matchSelected && matchSelected.type === type) {
+    matchSelected.el.classList.remove('selected');
+    matchSelected = { el, type, word: el.dataset.word };
+    el.classList.add('selected');
+    return;
+  }
+  if (!matchSelected) {
+    matchSelected = { el, type, word: el.dataset.word };
+    el.classList.add('selected');
+    return;
+  }
+  // Try to match
+  if (matchSelected.word === el.dataset.word) {
+    matchSelected.el.classList.remove('selected');
+    matchSelected.el.classList.add('matched');
+    el.classList.add('matched');
+    matchCompleted++;
+    document.getElementById('matchStatus').textContent = `${matchCompleted} / 15 matched`;
+    if (matchCompleted === 15) {
+      document.getElementById('matchStatus').innerHTML = '✨ All matched! Great job! ✨';
+      confettiBurst();
+    }
+    matchSelected = null;
+  } else {
+    const prev = matchSelected;
+    el.classList.add('wrong');
+    prev.el.classList.add('wrong');
+    matchSelected = null;
+    setTimeout(() => {
+      el.classList.remove('wrong', 'selected');
+      prev.el.classList.remove('wrong', 'selected');
+    }, 500);
+  }
+}
+
+/* ============ FLASHCARDS (grid) ============ */
+function buildFlashGrid(set) {
+  const s = flashState[set];
+  const grid = document.getElementById(`flashGrid${set}`);
+  grid.innerHTML = s.order.map((dataIdx, pos) => {
+    const c = s.data[dataIdx];
+    const safeEn = c.en.replace(/'/g, "\\'");
+    return `
+      <div class="mini-card" data-pos="${pos}" onclick="flipMiniCard(${set}, ${pos})">
+        <div class="mini-card-inner">
+          <div class="mini-face mini-front">
+            <div class="mini-word">${c.en}</div>
+            <div class="mini-trans">${c.ipa}</div>
+            <button class="mini-speak" onclick="event.stopPropagation(); speak('${safeEn}', this)">🔊</button>
+          </div>
+          <div class="mini-face mini-back">
+            <div class="mini-ru">${c.ru}</div>
+            ${c.ex ? `<div class="mini-ex">${c.ex}</div>` : ''}
+            <button class="mini-speak" onclick="event.stopPropagation(); speak('${safeEn}', this)">🔊</button>
+          </div>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+function flipMiniCard(set, pos) {
+  const grid = document.getElementById(`flashGrid${set}`);
+  const card = grid.querySelector(`[data-pos="${pos}"]`);
+  if (card) card.classList.toggle('flipped');
+}
+function shuffleGrid(set) {
+  const s = flashState[set];
+  // Fisher-Yates shuffle for proper randomness
+  for (let i = s.order.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [s.order[i], s.order[j]] = [s.order[j], s.order[i]];
+  }
+  buildFlashGrid(set);
+}
+function flipAll(set) {
+  const grid = document.getElementById(`flashGrid${set}`);
+  const cards = grid.querySelectorAll('.mini-card');
+  const allFlipped = Array.from(cards).every(c => c.classList.contains('flipped'));
+  cards.forEach(c => c.classList.toggle('flipped', !allFlipped));
+}
+function resetGrid(set) {
+  const s = flashState[set];
+  s.order = [...Array(s.data.length).keys()];
+  buildFlashGrid(set);
+}
+
+/* ============ PROGRAMME QUIZ ============ */
+function buildProgrammeQuiz() {
+  const wrap = document.getElementById('programmeQuiz');
+  wrap.innerHTML = programmeQuiz.map((q, i) => `
+    <div class="quiz-q">
+      <div class="quiz-q-num">Question ${i + 1}</div>
+      <div class="quiz-prompt">${q.q}</div>
+      <div class="quiz-options">
+        ${q.options.map((opt, j) => `
+          <div class="quiz-opt" onclick="answerProgrammeQuiz(${i}, ${j}, this)">${opt}</div>
+        `).join('')}
+      </div>
+      <div class="quiz-feedback" id="pqFb${i}"></div>
+    </div>
+  `).join('');
+}
+function answerProgrammeQuiz(qi, oi, el) {
+  const q = programmeQuiz[qi];
+  const parent = el.parentElement;
+  parent.querySelectorAll('.quiz-opt').forEach(o => o.classList.add('disabled'));
+  const fb = document.getElementById(`pqFb${qi}`);
+  if (oi === q.a) {
+    el.classList.add('correct');
+    fb.className = 'quiz-feedback show success';
+    fb.textContent = '✨ Correct! ' + q.fact;
+    pqScore++;
+  } else {
+    el.classList.add('wrong');
+    parent.querySelectorAll('.quiz-opt')[q.a].classList.add('correct');
+    fb.className = 'quiz-feedback show fail';
+    fb.textContent = '💭 Not quite. ' + q.fact;
+  }
+  pqAnswered++;
+  if (pqAnswered === programmeQuiz.length) {
+    const result = document.getElementById('programmeQuizResult');
+    document.getElementById('pqScore').textContent = pqScore;
+    result.style.display = 'block';
+    if (pqScore >= 6) confettiBurst();
+  }
+}
+
+/* ============ TT WORDS GRID ============ */
+function buildTTwords() {
+  const grid = document.getElementById('ttwordsGrid');
+  grid.innerHTML = ttwords.map(w => `
+    <div class="word-pill" onclick="speak('${w.en}', this.querySelector('.word-pill-speak'))">
+      <button class="word-pill-speak" onclick="event.stopPropagation(); speak('${w.en}', this)">🔊</button>
+      <div class="word-pill-en">${w.en}</div>
+      <div class="word-pill-tr">${w.ipa}</div>
+      <div class="word-pill-ru">${w.ru}</div>
+    </div>
+  `).join('');
+}
+
+/* ============ FILL IN BLANKS ============ */
+function buildFill() {
+  const box = document.getElementById('fillBox');
+  const list = document.getElementById('fillList');
+  // Build word options (10 distinct correct answers)
+  const opts = fillSentences.map(s => s.answer);
+  box.innerHTML = opts.map(o => `
+    <div class="fill-opt" data-word="${o}" onclick="pickFillWord(this)">${o}</div>
+  `).join('');
+  list.innerHTML = fillSentences.map((s, i) => `
+    <div class="fill-q" id="fillQ${i}">
+      <div class="fill-q-text">
+        <strong style="color:var(--pink);">${i + 1}.</strong>
+        ${s.parts[0]}<span class="fill-blank" data-i="${i}" data-answer="${s.answer}" onclick="dropFillWord(this)">_______</span>${s.parts[1]}
+      </div>
+    </div>
+  `).join('');
+}
+function pickFillWord(el) {
+  if (el.classList.contains('used')) return;
+  document.querySelectorAll('.fill-opt.selected').forEach(o => o.classList.remove('selected', 'fill-opt-sel'));
+  if (fillSelectedWord === el) {
+    fillSelectedWord = null;
+    el.style.outline = '';
+    return;
+  }
+  fillSelectedWord = el;
+  document.querySelectorAll('.fill-opt').forEach(o => o.style.outline = '');
+  el.style.outline = '3px solid var(--pink)';
+}
+function dropFillWord(blank) {
+  if (!fillSelectedWord) return;
+  if (blank.classList.contains('filled')) return;
+  const chosen = fillSelectedWord.dataset.word;
+  const correct = blank.dataset.answer;
+  if (chosen === correct) {
+    blank.textContent = chosen;
+    blank.classList.add('filled');
+    fillSelectedWord.classList.add('used');
+    document.getElementById(`fillQ${blank.dataset.i}`).classList.add('solved');
+    fillSelectedWord.style.outline = '';
+    fillSelectedWord = null;
+    fillSolved++;
+    if (fillSolved === fillSentences.length) confettiBurst();
+  } else {
+    blank.style.animation = 'shake 0.4s';
+    setTimeout(() => blank.style.animation = '', 400);
+  }
+}
+function resetFill() {
+  fillSelectedWord = null;
+  fillSolved = 0;
+  buildFill();
+}
+
+/* ============ TRUE FALSE ============ */
+function buildTF() {
+  const grid = document.getElementById('tfGrid');
+  grid.innerHTML = fillSentences.map((s, i) => `
+    <div class="tf-row" id="tfRow${i}">
+      <div class="tf-sentence">
+        <strong style="color:var(--pink);">${i + 1}.</strong>
+        ${s.parts[0]}<strong style="background:var(--pink-soft); padding: 2px 8px; border-radius:6px; color:var(--pink);">${s.answer}</strong>${s.parts[1]}
+      </div>
+      <div class="tf-buttons">
+        <button class="tf-btn" onclick="answerTF(${i}, true, this)">✓ True</button>
+        <button class="tf-btn" onclick="answerTF(${i}, false, this)">✗ False</button>
+      </div>
+      <div class="tf-explain" id="tfEx${i}">${s.explain}</div>
+    </div>
+  `).join('');
+}
+function answerTF(i, choice, btn) {
+  const row = document.getElementById(`tfRow${i}`);
+  if (row.classList.contains('answered')) return;
+  row.classList.add('answered');
+  const correct = fillSentences[i].tfTrue;
+  const buttons = row.querySelectorAll('.tf-btn');
+  buttons.forEach(b => b.disabled = true);
+  if (choice === correct) {
+    btn.classList.add('correct');
+    tfScore++;
+  } else {
+    btn.classList.add('wrong');
+    buttons[correct ? 0 : 1].classList.add('correct');
+  }
+  document.getElementById(`tfEx${i}`).classList.add('show');
+  tfAnswered++;
+  if (tfAnswered === fillSentences.length) {
+    document.getElementById('tfScore').textContent = tfScore;
+    document.getElementById('tfResult').style.display = 'block';
+    if (tfScore >= 7) confettiBurst();
+  }
+}
+
+/* ============ SPEAKING 1 — SPIN & SPEAK ============ */
+const speakingPrompts = [
+  { word: 'cartoon', prompt: 'Talk about your favourite cartoon. What is it about? Why do you like it?',
+    starters: ['My favourite cartoon is…', 'It\'s about…', 'I love it because…'] },
+  { word: 'comedy', prompt: 'Tell me about a comedy that made you laugh out loud. What was so funny?',
+    starters: ['One comedy I really like is…', 'It\'s really funny because…', 'My favourite character is…'] },
+  { word: 'reality show', prompt: 'Do you watch any reality shows like Беременна в 16 or Холостяк? What do you think about them?',
+    starters: ['I watch / don\'t watch reality shows because…', 'My favourite one is…', 'I think reality shows are…'] },
+  { word: 'drama', prompt: 'Tell me about a drama that made you feel something. Did you cry? Get angry? Why?',
+    starters: ['I remember watching…', 'It made me feel… because…', 'The main character…'] },
+  { word: 'game show', prompt: 'Imagine you\'re a contestant on Что? Где? Когда?. How would you feel? Would you win?',
+    starters: ['If I was a contestant…', 'I would feel…', 'I think I would / wouldn\'t win because…'] },
+  { word: 'talent show', prompt: 'What do you think about talent shows like Голос. Дети? Do they really find new stars?',
+    starters: ['I think talent shows are…', 'In my opinion…', 'A good example is…'] },
+  { word: 'documentary', prompt: 'Talk about a documentary you watched or want to watch. What is the topic?',
+    starters: ['I once watched a documentary about…', 'I want to watch a documentary about…', 'It taught me…'] },
+  { word: 'fantasy series', prompt: 'Do you like fantasy series with magic and imaginary worlds? Tell me about one.',
+    starters: ['Yes / no, I like fantasy because…', 'One fantasy series I know is…', 'The main character can…'] },
+  { word: 'film', prompt: 'What was the last film you watched? Tell me the story — but no spoilers!',
+    starters: ['The last film I watched was…', 'It\'s about…', 'I really liked / didn\'t like it because…'] },
+  { word: 'the news', prompt: 'Do you watch the news? Why or why not? Where do you find out about the world?',
+    starters: ['I watch / don\'t watch the news because…', 'I usually find out news from…', 'I think the news is…'] },
+  { word: 'chat show', prompt: 'If you could be a guest on a chat show like Вечерний Ургант, what would you talk about?',
+    starters: ['I would go on…', 'The host would ask me…', 'I would talk about…'] },
+  { word: 'crime series', prompt: 'Do crime series scare you or excite you? Talk about one you watched or know.',
+    starters: ['Crime series make me feel…', 'One crime series I know is…', 'My favourite kind of crime story is…'] }
+];
+let speakIdx = 0;
+function renderSpeak() {
+  const p = speakingPrompts[speakIdx];
+  document.getElementById('speakCounter1').textContent = `Topic ${speakIdx + 1} / ${speakingPrompts.length}`;
+  document.getElementById('speakPrompt1').textContent = p.prompt;
+  document.getElementById('speakStarters1').innerHTML = p.starters
+    .map(s => `<div class="speak-starter">· ${s}</div>`).join('');
+  document.getElementById('speakTargetWords1').innerHTML =
+    `<button class="target-word" onclick="this.classList.toggle('used')">Try to use: <strong>${p.word}</strong></button>`;
+}
+function nextSpeak() {
+  speakIdx = (speakIdx + 1) % speakingPrompts.length;
+  renderSpeak();
+}
+function prevSpeak() {
+  speakIdx = (speakIdx - 1 + speakingPrompts.length) % speakingPrompts.length;
+  renderSpeak();
+}
+function randomSpeak() {
+  let n;
+  do { n = Math.floor(Math.random() * speakingPrompts.length); }
+  while (n === speakIdx && speakingPrompts.length > 1);
+  speakIdx = n;
+  renderSpeak();
+}
+
+/* ============ SPEAKING 2 — 3-WORD CHALLENGE ============ */
+const speak2Starters = [
+  "Last weekend, I…",
+  "On Netflix recently…",
+  "My friend told me…",
+  "When a new episode comes out, I…",
+  "I really hate it when…",
+  "My favourite series right now is…",
+  "I once binge-watched…",
+  "Yesterday I was watching…",
+  "I always / never…",
+  "When I open YouTube, I…",
+  "On TV last night…",
+  "When I was younger, I…"
+];
+function newThreeWords() {
+  const shuffled = [...ttwords].sort(() => Math.random() - 0.5);
+  const three = shuffled.slice(0, 3);
+  document.getElementById('threeWords').innerHTML = three.map(w => `
+    <button class="target-word three-word" onclick="this.classList.toggle('used')">
+      <span>${w.en}</span>
+      <span class="three-word-ru">${w.ru}</span>
+    </button>
+  `).join('');
+  const pickedStarters = [...speak2Starters].sort(() => Math.random() - 0.5).slice(0, 3);
+  document.getElementById('speakStarters2').innerHTML = pickedStarters
+    .map(s => `<div class="speak-starter">· ${s}</div>`).join('');
+}
+
+/* ============ TIMERS (used by both speaking exercises) ============ */
+const timers = {
+  1: { duration: 60, remaining: 60, interval: null, active: false },
+  2: { duration: 90, remaining: 90, interval: null, active: false }
+};
+function updateTimerDisplay(set) {
+  const t = timers[set];
+  const numEl = document.getElementById(`timerNum${set}`);
+  numEl.textContent = t.remaining;
+  const circumference = 2 * Math.PI * 52;
+  const offset = circumference * (1 - t.remaining / t.duration);
+  document.getElementById(`timerRing${set}`).style.strokeDashoffset = offset;
+  if (t.remaining <= 10 && t.remaining > 0 && t.active) {
+    numEl.classList.add('warning');
+  } else {
+    numEl.classList.remove('warning');
+  }
+}
+function toggleTimer(set) {
+  const t = timers[set];
+  const btn = document.getElementById(`timerBtn${set}`);
+  const numEl = document.getElementById(`timerNum${set}`);
+  if (t.active) {
+    clearInterval(t.interval);
+    t.active = false;
+    t.remaining = t.duration;
+    numEl.classList.remove('warning', 'done');
+    updateTimerDisplay(set);
+    btn.innerHTML = `⏱ Start ${t.duration}s`;
+  } else {
+    t.active = true;
+    t.remaining = t.duration;
+    numEl.classList.remove('done');
+    updateTimerDisplay(set);
+    btn.innerHTML = '⏹ Stop';
+    t.interval = setInterval(() => {
+      t.remaining--;
+      updateTimerDisplay(set);
+      if (t.remaining <= 0) {
+        clearInterval(t.interval);
+        t.active = false;
+        numEl.classList.remove('warning');
+        numEl.classList.add('done');
+        numEl.textContent = '✓ Done!';
+        btn.innerHTML = `⏱ Start ${t.duration}s`;
+        confettiBurst();
+        setTimeout(() => {
+          numEl.classList.remove('done');
+          t.remaining = t.duration;
+          updateTimerDisplay(set);
+        }, 2800);
+      }
+    }, 1000);
+  }
+}
+
+/* ============ CONFETTI ============ */
+function confettiBurst() {
+  const colors = ['#ff4e8e', '#b794f4', '#4fc3ff', '#ffd86b', '#4fd1c5'];
+  const shapes = ['★', '✦', '♥', '●', '◆'];
+  for (let i = 0; i < 40; i++) {
+    const c = document.createElement('div');
+    c.className = 'confetti';
+    c.textContent = shapes[Math.floor(Math.random() * shapes.length)];
+    c.style.left = Math.random() * 100 + 'vw';
+    c.style.top = '-20px';
+    c.style.color = colors[Math.floor(Math.random() * colors.length)];
+    c.style.fontSize = (12 + Math.random() * 18) + 'px';
+    c.style.transition = `transform ${1 + Math.random() * 1.5}s ease-in, opacity ${1 + Math.random() * 1.5}s ease-in`;
+    document.body.appendChild(c);
+    requestAnimationFrame(() => {
+      c.style.transform = `translateY(${100 + Math.random() * 20}vh) rotate(${Math.random() * 720}deg)`;
+      c.style.opacity = '0';
+    });
+    setTimeout(() => c.remove(), 2500);
+  }
+}
+function celebrate() { confettiBurst(); setTimeout(confettiBurst, 400); setTimeout(confettiBurst, 800); }
+
+/* ============ INIT ============ */
+buildStepNav();
+buildWarmup();
+buildMatching();
+buildFlashGrid(1);
+buildFlashGrid(2);
+buildProgrammeQuiz();
+buildTTwords();
+buildFill();
+buildTF();
+renderSpeak();
+newThreeWords();
+</script>
+
+</body>
+</html>
