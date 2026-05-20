@@ -1,0 +1,1952 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>The Right Person · Unit 5A</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,300;1,9..144,400;1,9..144,500;1,9..144,600&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #F4ECDD;
+    --cream-deep: #EADFC8;
+    --ivory: #FBF6EC;
+    --paper: #FDFAF2;
+    --sage: #7E906B;
+    --sage-deep: #5D6E4F;
+    --sage-soft: #B7C1A2;
+    --terracotta: #C57A57;
+    --terracotta-deep: #A65A38;
+    --terracotta-soft: #E8BFA7;
+    --rose: #D8A89A;
+    --rose-blush: #EFD3C6;
+    --mustard: #D9A547;
+    --ink: #2A241D;
+    --ink-soft: #574E42;
+    --ink-mute: #8A7F70;
+    --line: #DCCFB6;
+    --line-soft: #E8DCC4;
+    --correct: #6E8B5F;
+    --wrong: #BB5C49;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    background: var(--cream);
+    color: var(--ink);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  /* paper grain */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1000;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.35'/%3E%3C/svg%3E");
+    opacity: 0.06;
+    mix-blend-mode: multiply;
+  }
+
+  /* ====== TOP NAVIGATION ====== */
+  .topbar {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(244, 236, 221, 0.86);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--line);
+  }
+  .topbar-inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 14px 32px;
+    display: flex;
+    align-items: center;
+    gap: 28px;
+  }
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    font-size: 18px;
+  }
+  .brand-mark {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--terracotta);
+    display: grid;
+    place-items: center;
+    color: var(--ivory);
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-weight: 500;
+    font-size: 17px;
+  }
+  .nav-tabs {
+    display: flex;
+    gap: 4px;
+    margin-left: auto;
+    flex-wrap: wrap;
+  }
+  .nav-tab {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    background: transparent;
+    border: none;
+    color: var(--ink-soft);
+    padding: 8px 14px;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: all .3s ease;
+    font-weight: 500;
+  }
+  .nav-tab:hover { background: var(--cream-deep); color: var(--ink); }
+  .nav-tab.active {
+    background: var(--ink);
+    color: var(--ivory);
+  }
+
+  /* ====== SLIDE FRAMEWORK ====== */
+  .stage {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 56px 32px 120px;
+  }
+  .slide {
+    display: none;
+    animation: slideIn .6s cubic-bezier(.22,.61,.36,1);
+  }
+  .slide.active { display: block; }
+
+  @keyframes slideIn {
+    from { opacity: 0; transform: translateY(14px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* eyebrow */
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--terracotta-deep);
+    font-weight: 500;
+  }
+  .eyebrow::before {
+    content: '';
+    width: 22px;
+    height: 1px;
+    background: var(--terracotta-deep);
+  }
+  .slide-h1 {
+    font-family: 'Fraunces', serif;
+    font-weight: 400;
+    font-size: clamp(40px, 6vw, 78px);
+    line-height: 0.98;
+    letter-spacing: -0.025em;
+    margin-top: 14px;
+    color: var(--ink);
+  }
+  .slide-h1 em {
+    font-style: italic;
+    color: var(--terracotta);
+    font-weight: 400;
+  }
+  .slide-sub {
+    margin-top: 18px;
+    max-width: 640px;
+    color: var(--ink-soft);
+    font-size: 17px;
+    line-height: 1.55;
+  }
+
+  /* ====== COVER ====== */
+  .cover {
+    min-height: 78vh;
+    display: grid;
+    grid-template-columns: 1.05fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+  .cover-meta {
+    margin-top: 40px;
+    display: flex;
+    gap: 28px;
+    flex-wrap: wrap;
+    color: var(--ink-soft);
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .cover-meta div span {
+    display: block;
+    color: var(--ink);
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 19px;
+    text-transform: none;
+    letter-spacing: 0;
+    margin-top: 4px;
+  }
+  .cover-art {
+    position: relative;
+    aspect-ratio: 4/5;
+    background: var(--ivory);
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 30px 60px -30px rgba(42, 36, 29, 0.25),
+                0 10px 20px -10px rgba(42, 36, 29, 0.18);
+  }
+  .cover-art svg { width: 100%; height: 100%; display: block; }
+  .cover-tape {
+    position: absolute;
+    top: -14px;
+    left: 50%;
+    transform: translateX(-50%) rotate(-3deg);
+    width: 120px;
+    height: 30px;
+    background: rgba(217, 165, 71, 0.55);
+    z-index: 5;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.06);
+  }
+
+  .cover-start {
+    margin-top: 44px;
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    background: var(--ink);
+    color: var(--ivory);
+    border: none;
+    border-radius: 999px;
+    padding: 16px 28px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    letter-spacing: 0.04em;
+    cursor: pointer;
+    transition: all .3s ease;
+  }
+  .cover-start:hover { background: var(--terracotta-deep); transform: translateY(-2px); }
+  .cover-start svg { transition: transform .3s ease; }
+  .cover-start:hover svg { transform: translateX(4px); }
+
+  /* ====== CARDS ====== */
+  .card {
+    background: var(--paper);
+    border: 1px solid var(--line-soft);
+    border-radius: 6px;
+    padding: 36px 40px;
+    box-shadow: 0 1px 0 var(--line-soft), 0 20px 40px -30px rgba(42, 36, 29, 0.18);
+  }
+
+  /* ====== QUESTIONNAIRE ====== */
+  .qst-intro {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    align-items: center;
+    margin-top: 40px;
+    padding: 24px 30px;
+    background: var(--ivory);
+    border-radius: 4px;
+    border: 1px solid var(--line-soft);
+  }
+  .qst-intro p {
+    color: var(--ink-soft);
+    font-size: 15px;
+    max-width: 480px;
+  }
+  .student-toggle {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+  }
+  .student-chip {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    padding: 8px 14px;
+    border-radius: 999px;
+    font-size: 13px;
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+  }
+  .student-chip .dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+  }
+  .student-a .dot { background: var(--terracotta); }
+  .student-b .dot { background: var(--sage); }
+
+  .statements {
+    margin-top: 32px;
+    display: grid;
+    gap: 18px;
+  }
+  .statement {
+    background: var(--paper);
+    border: 1px solid var(--line-soft);
+    border-radius: 4px;
+    padding: 24px 30px;
+    transition: all .3s ease;
+  }
+  .statement:hover { border-color: var(--line); }
+  .statement-top {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    margin-bottom: 4px;
+  }
+  .statement-num {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 22px;
+    color: var(--terracotta);
+    font-weight: 400;
+    min-width: 28px;
+  }
+  .statement-text {
+    font-family: 'Fraunces', serif;
+    font-size: 21px;
+    font-weight: 400;
+    color: var(--ink);
+    letter-spacing: -0.005em;
+  }
+  .statement-text b {
+    font-weight: 600;
+    color: var(--ink);
+  }
+
+  .slider-pair {
+    display: grid;
+    grid-template-columns: 80px 1fr 80px;
+    align-items: center;
+    gap: 16px;
+    margin-top: 18px;
+  }
+  .slider-label {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+  }
+  .slider-label.right { text-align: right; }
+
+  .slider-stack {
+    position: relative;
+    display: grid;
+    gap: 12px;
+  }
+
+  .slider-row {
+    display: grid;
+    grid-template-columns: 50px 1fr 36px;
+    align-items: center;
+    gap: 12px;
+  }
+  .slider-name {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 14px;
+    color: var(--ink-soft);
+  }
+  .slider-value {
+    font-family: 'Fraunces', serif;
+    font-size: 17px;
+    color: var(--ink);
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .range {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 24px;
+    background: transparent;
+    cursor: pointer;
+  }
+  .range::-webkit-slider-runnable-track {
+    height: 4px;
+    background: var(--line);
+    border-radius: 999px;
+  }
+  .range::-moz-range-track {
+    height: 4px;
+    background: var(--line);
+    border-radius: 999px;
+  }
+  .range.r-a::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: var(--terracotta);
+    margin-top: -9px;
+    border: 3px solid var(--paper);
+    box-shadow: 0 0 0 1px var(--terracotta), 0 4px 8px rgba(165, 90, 56, 0.25);
+    cursor: grab;
+    transition: transform .15s ease;
+  }
+  .range.r-a::-webkit-slider-thumb:active { cursor: grabbing; transform: scale(1.15); }
+  .range.r-a::-moz-range-thumb {
+    width: 22px; height: 22px; border-radius: 50%;
+    background: var(--terracotta); border: 3px solid var(--paper);
+    box-shadow: 0 0 0 1px var(--terracotta);
+    cursor: grab;
+  }
+  .range.r-b::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 22px; height: 22px; border-radius: 50%;
+    background: var(--sage);
+    margin-top: -9px;
+    border: 3px solid var(--paper);
+    box-shadow: 0 0 0 1px var(--sage), 0 4px 8px rgba(93, 110, 79, 0.25);
+    cursor: grab;
+    transition: transform .15s ease;
+  }
+  .range.r-b::-webkit-slider-thumb:active { cursor: grabbing; transform: scale(1.15); }
+  .range.r-b::-moz-range-thumb {
+    width: 22px; height: 22px; border-radius: 50%;
+    background: var(--sage); border: 3px solid var(--paper);
+    box-shadow: 0 0 0 1px var(--sage);
+    cursor: grab;
+  }
+
+  /* track ticks */
+  .slider-ticks {
+    grid-column: 2 / 3;
+    grid-row: 1 / 2;
+    height: 4px;
+    background: repeating-linear-gradient(to right,
+      transparent 0,
+      transparent calc(10% - 1px),
+      var(--cream-deep) calc(10% - 1px),
+      var(--cream-deep) 10%);
+    pointer-events: none;
+    margin-top: -2px;
+  }
+
+  /* ====== COMPARE PANEL ====== */
+  .compare-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 28px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .btn {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    border-radius: 999px;
+    padding: 12px 22px;
+    cursor: pointer;
+    border: 1px solid var(--ink);
+    background: transparent;
+    color: var(--ink);
+    transition: all .25s ease;
+    letter-spacing: 0.02em;
+  }
+  .btn:hover { background: var(--ink); color: var(--ivory); }
+  .btn.primary { background: var(--ink); color: var(--ivory); }
+  .btn.primary:hover { background: var(--terracotta-deep); border-color: var(--terracotta-deep); }
+  .btn.ghost { border-color: var(--line); color: var(--ink-soft); }
+  .btn.ghost:hover { background: var(--ivory); color: var(--ink); border-color: var(--ink-soft); }
+  .btn.small { padding: 8px 16px; font-size: 13px; }
+
+  .compare-panel {
+    margin-top: 32px;
+    background: var(--ivory);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 36px 40px;
+    display: none;
+  }
+  .compare-panel.show { display: block; animation: slideIn .5s ease; }
+  .compare-title {
+    font-family: 'Fraunces', serif;
+    font-size: 32px;
+    font-weight: 400;
+    letter-spacing: -0.015em;
+    margin-bottom: 6px;
+  }
+  .compare-title em { font-style: italic; color: var(--terracotta); }
+  .compare-sub {
+    color: var(--ink-soft);
+    font-size: 14px;
+    margin-bottom: 28px;
+  }
+  .compare-row {
+    display: grid;
+    grid-template-columns: 36px 1fr 1fr;
+    align-items: center;
+    gap: 18px;
+    padding: 12px 0;
+    border-bottom: 1px dashed var(--line);
+  }
+  .compare-row:last-child { border-bottom: none; }
+  .compare-row .cn {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    color: var(--ink-mute);
+    font-size: 14px;
+  }
+  .compare-row .ct {
+    font-family: 'Fraunces', serif;
+    font-size: 16px;
+    color: var(--ink);
+  }
+  .compare-bars {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+  }
+  .cbar {
+    flex: 1;
+    height: 8px;
+    background: var(--line-soft);
+    border-radius: 999px;
+    overflow: hidden;
+    position: relative;
+  }
+  .cbar-fill {
+    height: 100%;
+    border-radius: 999px;
+    transition: width .8s cubic-bezier(.22,.61,.36,1);
+  }
+  .cbar-a .cbar-fill { background: var(--terracotta); }
+  .cbar-b .cbar-fill { background: var(--sage); }
+  .cbar-num {
+    font-family: 'Fraunces', serif;
+    font-size: 14px;
+    width: 28px;
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+    color: var(--ink-soft);
+  }
+
+  .insight {
+    margin-top: 26px;
+    padding: 18px 22px;
+    background: var(--rose-blush);
+    border-radius: 4px;
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 17px;
+    color: var(--ink);
+    border-left: 3px solid var(--terracotta);
+  }
+  .insight b { font-style: normal; font-weight: 600; color: var(--terracotta-deep); }
+
+  /* ====== EXERCISE BLOCKS ====== */
+  .ex-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 28px;
+    margin-top: 40px;
+  }
+  @media (max-width: 900px) { .ex-grid { grid-template-columns: 1fr; } }
+
+  .ex-card {
+    background: var(--paper);
+    border: 1px solid var(--line-soft);
+    border-radius: 6px;
+    padding: 30px 32px;
+  }
+  .ex-head {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    margin-bottom: 6px;
+  }
+  .ex-num {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 30px;
+    color: var(--sage);
+    font-weight: 400;
+  }
+  .ex-title {
+    font-family: 'Fraunces', serif;
+    font-size: 22px;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+  }
+  .ex-instruction {
+    color: var(--ink-soft);
+    font-size: 14px;
+    margin-bottom: 20px;
+    line-height: 1.55;
+  }
+  .ex-listening-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--cream-deep);
+    color: var(--ink);
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-left: 8px;
+    font-weight: 500;
+  }
+
+  /* numbered list */
+  .num-list {
+    list-style: none;
+    counter-reset: nl;
+    display: grid;
+    gap: 12px;
+  }
+  .num-list li {
+    counter-increment: nl;
+    padding-left: 32px;
+    position: relative;
+    font-family: 'Fraunces', serif;
+    font-size: 17px;
+    line-height: 1.55;
+    color: var(--ink);
+  }
+  .num-list li::before {
+    content: counter(nl);
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    color: var(--terracotta);
+    font-size: 17px;
+  }
+
+  /* alternatives (clickable) */
+  .alt {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 2px 4px;
+    border-radius: 4px;
+    background: var(--cream-deep);
+    margin: 0 2px;
+    cursor: default;
+  }
+  .alt-btn {
+    background: transparent;
+    border: none;
+    font: inherit;
+    color: var(--ink-soft);
+    cursor: pointer;
+    padding: 2px 6px;
+    border-radius: 3px;
+    transition: all .2s ease;
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+  }
+  .alt-btn:hover { background: var(--ivory); color: var(--ink); }
+  .alt-btn.selected {
+    background: var(--ink);
+    color: var(--ivory);
+    font-style: italic;
+  }
+  .alt-btn.correct {
+    background: var(--correct);
+    color: var(--ivory);
+    font-style: italic;
+  }
+  .alt-btn.wrong {
+    background: var(--wrong);
+    color: var(--ivory);
+    font-style: italic;
+    text-decoration: line-through;
+  }
+  .alt-sep { color: var(--ink-mute); font-style: italic; font-family: 'Fraunces', serif; }
+
+  /* fill-in input */
+  .fill {
+    display: inline-block;
+    width: 110px;
+    padding: 2px 10px;
+    border: none;
+    border-bottom: 1.5px solid var(--terracotta);
+    background: transparent;
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 17px;
+    color: var(--terracotta-deep);
+    outline: none;
+    transition: all .2s ease;
+    text-align: center;
+  }
+  .fill:focus { border-bottom-color: var(--ink); color: var(--ink); }
+  .fill.correct { color: var(--correct); border-bottom-color: var(--correct); }
+  .fill.wrong { color: var(--wrong); border-bottom-color: var(--wrong); }
+
+  /* grammar box */
+  .grammar-wrap {
+    margin-top: 44px;
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: 0;
+  }
+  .grammar-tag {
+    background: var(--sage-deep);
+    color: var(--ivory);
+    display: grid;
+    place-items: center;
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: 32px;
+    border-radius: 6px 0 0 6px;
+  }
+  .grammar-body {
+    background: var(--ivory);
+    border: 1px solid var(--line);
+    border-radius: 0 6px 6px 0;
+    padding: 36px 44px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 36px;
+  }
+  .grammar-head {
+    grid-column: 1 / 3;
+    font-family: 'Fraunces', serif;
+    font-size: 32px;
+    font-weight: 500;
+    color: var(--sage-deep);
+    letter-spacing: -0.01em;
+    margin-bottom: 4px;
+  }
+  .grammar-head em {
+    font-style: italic;
+    color: var(--terracotta);
+    font-weight: 500;
+  }
+  .grammar-body p {
+    font-size: 15px;
+    line-height: 1.65;
+    color: var(--ink);
+  }
+  .grammar-body p.ex {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 17px;
+    color: var(--sage-deep);
+    margin: 6px 0;
+  }
+  .grammar-body p.ex b {
+    font-weight: 700;
+    font-style: italic;
+    color: var(--terracotta);
+  }
+  .grammar-rule {
+    margin-top: 14px;
+    font-weight: 500;
+    color: var(--ink);
+  }
+
+  /* matching */
+  .match-wrap {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 28px;
+    margin-top: 4px;
+  }
+  .match-col h4 {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 15px;
+    color: var(--ink-mute);
+    margin-bottom: 12px;
+    letter-spacing: 0.03em;
+  }
+  .match-list {
+    display: grid;
+    gap: 8px;
+  }
+  .match-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    background: var(--ivory);
+    border: 1px solid var(--line-soft);
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all .2s ease;
+    font-family: 'Fraunces', serif;
+    font-size: 16px;
+    color: var(--ink);
+    text-align: left;
+    width: 100%;
+  }
+  .match-item:hover { border-color: var(--terracotta); background: var(--paper); }
+  .match-item.active {
+    border-color: var(--terracotta);
+    background: var(--rose-blush);
+    box-shadow: inset 0 0 0 1px var(--terracotta);
+  }
+  .match-item.matched {
+    background: var(--paper);
+    border-color: var(--sage-soft);
+    cursor: default;
+  }
+  .match-item.matched .match-tag {
+    background: var(--sage);
+    color: var(--ivory);
+  }
+  .match-item.correct {
+    background: rgba(110, 139, 95, 0.15);
+    border-color: var(--correct);
+  }
+  .match-item.wrong {
+    background: rgba(187, 92, 73, 0.1);
+    border-color: var(--wrong);
+  }
+  .match-tag {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    color: var(--ink-mute);
+    width: 22px;
+    text-align: center;
+    font-size: 16px;
+    background: var(--cream-deep);
+    border-radius: 4px;
+    padding: 2px 0;
+    flex-shrink: 0;
+  }
+  .match-pair {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    color: var(--sage-deep);
+    letter-spacing: 0.1em;
+    margin-left: auto;
+    text-transform: uppercase;
+  }
+
+  /* text-with-blanks paragraph */
+  .narrative {
+    font-family: 'Fraunces', serif;
+    font-size: 18px;
+    line-height: 1.75;
+    color: var(--ink);
+    background: var(--ivory);
+    padding: 26px 30px;
+    border-radius: 4px;
+    border: 1px solid var(--line-soft);
+  }
+  .narrative .alt {
+    background: transparent;
+    border-bottom: 1px dotted var(--line);
+    padding: 0;
+    border-radius: 0;
+  }
+
+  /* speaking blocks */
+  .speak-block {
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    gap: 24px;
+    align-items: start;
+    padding: 22px 26px;
+    background: var(--paper);
+    border-radius: 4px;
+    border-left: 3px solid var(--terracotta);
+    margin-bottom: 14px;
+  }
+  .speak-tag {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 22px;
+    color: var(--terracotta);
+  }
+
+  .useful-phrases {
+    background: var(--rose-blush);
+    border-radius: 6px;
+    padding: 24px 28px;
+    margin-top: 18px;
+  }
+  .useful-phrases h5 {
+    font-family: 'Fraunces', serif;
+    font-size: 19px;
+    font-weight: 500;
+    margin-bottom: 12px;
+    color: var(--terracotta-deep);
+  }
+  .useful-phrases ul {
+    list-style: none;
+    display: grid;
+    gap: 8px;
+  }
+  .useful-phrases li {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 16px;
+    line-height: 1.5;
+    color: var(--ink);
+    padding-left: 20px;
+    position: relative;
+  }
+  .useful-phrases li::before {
+    content: '·';
+    position: absolute;
+    left: 6px;
+    top: 0;
+    color: var(--terracotta);
+    font-size: 22px;
+    line-height: 1;
+  }
+
+  /* feedback message */
+  .feedback {
+    margin-top: 18px;
+    padding: 12px 18px;
+    border-radius: 4px;
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 16px;
+    display: none;
+  }
+  .feedback.show { display: block; animation: slideIn .3s ease; }
+  .feedback.good {
+    background: rgba(110, 139, 95, 0.12);
+    color: var(--correct);
+    border-left: 3px solid var(--correct);
+  }
+  .feedback.partial {
+    background: rgba(217, 165, 71, 0.15);
+    color: #8C6A20;
+    border-left: 3px solid var(--mustard);
+  }
+
+  /* footer slide nav */
+  .slide-foot {
+    margin-top: 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 28px;
+    border-top: 1px solid var(--line-soft);
+  }
+  .foot-step {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    color: var(--ink-mute);
+    font-size: 14px;
+  }
+
+  /* listening illustration */
+  .listen-ill {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--terracotta);
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 14px;
+    margin-bottom: 18px;
+  }
+  .listen-ill svg { flex-shrink: 0; }
+
+  @media (max-width: 1000px) {
+    .topbar-inner { padding: 12px 18px; }
+    .stage { padding: 36px 18px 80px; }
+    .nav-tabs { display: none; }
+    .cover { grid-template-columns: 1fr; gap: 36px; }
+    .cover-art { max-width: 360px; }
+    .grammar-wrap { grid-template-columns: 1fr; }
+    .grammar-tag { border-radius: 6px 6px 0 0; padding: 14px; }
+    .grammar-body { grid-template-columns: 1fr; padding: 24px; }
+    .match-wrap { grid-template-columns: 1fr; }
+    .qst-intro { grid-template-columns: 1fr; }
+    .student-toggle { justify-content: flex-start; }
+    .card, .ex-card, .narrative { padding: 22px; }
+    .compare-row { grid-template-columns: 28px 1fr; }
+    .compare-bars { grid-column: 1 / 3; }
+  }
+
+  /* mobile menu trigger */
+  .menu-btn {
+    display: none;
+    border: 1px solid var(--line);
+    background: var(--paper);
+    border-radius: 999px;
+    padding: 8px 14px;
+    font-size: 12px;
+    color: var(--ink);
+    margin-left: auto;
+    cursor: pointer;
+  }
+  @media (max-width: 1000px) { .menu-btn { display: block; } }
+
+  .mobile-nav {
+    display: none;
+    flex-direction: column;
+    gap: 4px;
+    padding: 18px;
+    background: var(--paper);
+    border-bottom: 1px solid var(--line);
+  }
+  .mobile-nav.open { display: flex; }
+  .mobile-nav .nav-tab { width: 100%; text-align: left; }
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">
+      <div class="brand-mark"><span style="font-family:'Fraunces';font-style:italic;">5a</span></div>
+      <span>The Right Person<span style="font-style:italic;color:var(--ink-mute);margin-left:8px;">· Unit 5</span></span>
+    </div>
+    <nav class="nav-tabs" id="navTabs">
+      <button class="nav-tab active" data-slide="0">Intro</button>
+      <button class="nav-tab" data-slide="1">Questionnaire</button>
+      <button class="nav-tab" data-slide="2">Listening</button>
+      <button class="nav-tab" data-slide="3">Grammar</button>
+      <button class="nav-tab" data-slide="4">Practice</button>
+      <button class="nav-tab" data-slide="5">Reading</button>
+      <button class="nav-tab" data-slide="6">Speaking</button>
+      <button class="nav-tab" data-slide="7">Extra</button>
+    </nav>
+    <button class="menu-btn" id="menuBtn">Menu</button>
+  </div>
+  <div class="mobile-nav" id="mobileNav"></div>
+</header>
+
+<main class="stage">
+
+  <!-- ============ SLIDE 0 — COVER ============ -->
+  <section class="slide active" data-slide="0">
+    <div class="cover">
+      <div>
+        <span class="eyebrow">English · B1 · Unit 5</span>
+        <h1 class="slide-h1">The right<br><em>person</em> for<br>the job.</h1>
+        <p class="slide-sub">A lesson on work, skills and the personalities behind every profession. We'll listen, talk, and master one of English's most graceful structures — the relative clause.</p>
+
+        <div class="cover-meta">
+          <div>Today<span>Work & skills</span></div>
+          <div>Grammar<span>who · which · that</span></div>
+          <div>Skill focus<span>Speaking & listening</span></div>
+        </div>
+
+        <button class="cover-start" onclick="goTo(1)">
+          Begin the lesson
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3 9h12m-5-5l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+
+      <div class="cover-art">
+        <div class="cover-tape"></div>
+        <svg viewBox="0 0 400 500" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="bgGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#EFD3C6"/>
+              <stop offset="1" stop-color="#E8BFA7"/>
+            </linearGradient>
+            <pattern id="dotGrid" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
+              <circle cx="10" cy="10" r="0.8" fill="#A65A38" opacity="0.25"/>
+            </pattern>
+          </defs>
+          <rect width="400" height="500" fill="url(#bgGrad)"/>
+          <rect width="400" height="500" fill="url(#dotGrid)"/>
+
+          <!-- abstract figure: tea cup + lamp + papers -->
+          <g transform="translate(60, 80)">
+            <!-- desk lamp -->
+            <path d="M50 0 L70 0 L90 60 L30 60 Z" fill="#5D6E4F"/>
+            <line x1="60" y1="60" x2="60" y2="180" stroke="#2A241D" stroke-width="3"/>
+            <ellipse cx="60" cy="185" rx="40" ry="6" fill="#2A241D"/>
+            <!-- light beam -->
+            <path d="M30 60 L90 60 L150 180 L-30 180 Z" fill="#FBF6EC" opacity="0.35"/>
+          </g>
+
+          <!-- papers -->
+          <g transform="translate(190, 200) rotate(-6)">
+            <rect width="160" height="200" fill="#FBF6EC" stroke="#2A241D" stroke-width="1.5"/>
+            <line x1="20" y1="40" x2="140" y2="40" stroke="#A65A38" stroke-width="1"/>
+            <line x1="20" y1="60" x2="140" y2="60" stroke="#8A7F70" stroke-width="0.6"/>
+            <line x1="20" y1="80" x2="140" y2="80" stroke="#8A7F70" stroke-width="0.6"/>
+            <line x1="20" y1="100" x2="110" y2="100" stroke="#8A7F70" stroke-width="0.6"/>
+            <line x1="20" y1="120" x2="140" y2="120" stroke="#8A7F70" stroke-width="0.6"/>
+            <line x1="20" y1="140" x2="90" y2="140" stroke="#8A7F70" stroke-width="0.6"/>
+            <line x1="20" y1="160" x2="140" y2="160" stroke="#8A7F70" stroke-width="0.6"/>
+            <text x="20" y="32" font-family="Fraunces" font-style="italic" font-size="14" fill="#2A241D">notes</text>
+          </g>
+
+          <!-- coffee cup -->
+          <g transform="translate(100, 340)">
+            <ellipse cx="40" cy="0" rx="38" ry="8" fill="#A65A38"/>
+            <path d="M2 0 Q4 50 40 60 Q76 50 78 0 Z" fill="#C57A57"/>
+            <ellipse cx="40" cy="0" rx="34" ry="6" fill="#2A241D" opacity="0.5"/>
+            <path d="M78 10 Q100 10 100 30 Q100 50 78 50" fill="none" stroke="#C57A57" stroke-width="4"/>
+            <!-- steam -->
+            <path d="M30 -15 Q26 -22 30 -28 Q34 -36 28 -42" fill="none" stroke="#FBF6EC" stroke-width="1.2" opacity="0.7"/>
+            <path d="M45 -15 Q41 -22 45 -28 Q49 -36 43 -42" fill="none" stroke="#FBF6EC" stroke-width="1.2" opacity="0.7"/>
+          </g>
+
+          <text x="20" y="470" font-family="Fraunces" font-style="italic" font-size="14" fill="#A65A38">— a quiet workspace —</text>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 1 — QUESTIONNAIRE ============ -->
+  <section class="slide" data-slide="1">
+    <span class="eyebrow">Vocabulary · Warm-up</span>
+    <h2 class="slide-h1">Work and skills<br><em>questionnaire.</em></h2>
+    <p class="slide-sub">Mark each line to show how much you agree — for <b>two students</b>. We'll compare the answers at the end and see who'd thrive in which kind of job.</p>
+
+    <div class="qst-intro">
+      <p>Drag each ring along the line — from <em>disagree</em> to <em>agree</em>. The terracotta ring is for Student&nbsp;A, the sage ring is for Student&nbsp;B.</p>
+      <div class="student-toggle">
+        <div class="student-chip student-a"><span class="dot"></span> Student A</div>
+        <div class="student-chip student-b"><span class="dot"></span> Student B</div>
+      </div>
+    </div>
+
+    <div class="statements" id="statements"></div>
+
+    <div class="compare-actions">
+      <button class="btn primary" onclick="runCompare()">Compare results</button>
+      <button class="btn ghost" onclick="resetAll()">Reset all</button>
+      <span style="font-family:'Fraunces',serif;font-style:italic;color:var(--ink-mute);font-size:14px;margin-left:auto;">10 statements · scale 0–10</span>
+    </div>
+
+    <div class="compare-panel" id="comparePanel">
+      <div class="compare-title">Side by <em>side.</em></div>
+      <div class="compare-sub">Each bar shows how strongly the student agrees. Look for the widest gaps — they're the most interesting differences.</div>
+      <div id="compareRows"></div>
+      <div class="insight" id="insight"></div>
+    </div>
+
+    <div class="slide-foot">
+      <span class="foot-step">01 / 08 · Questionnaire</span>
+      <button class="btn small" onclick="goTo(2)">Next → Listening</button>
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 2 — LISTENING ============ -->
+  <section class="slide" data-slide="2">
+    <span class="eyebrow">Listening · Exercises 3 & 4</span>
+    <h2 class="slide-h1">Cheryl is looking<br>for <em>a new job.</em></h2>
+    <p class="slide-sub">Listen to Cheryl talking with her friend James about possible jobs, then check what she really wants from her work.</p>
+
+    <div class="ex-grid">
+      <div class="ex-card">
+        <div class="ex-head">
+          <span class="ex-num">3a</span>
+          <span class="ex-title">Which jobs do they mention?</span>
+          <span class="ex-listening-tag">🎧 5.1</span>
+        </div>
+        <p class="ex-instruction">Listen and tick the jobs in <em>Exercise 1b</em> that come up in the conversation. Which one does Cheryl like best?</p>
+        <ol class="num-list">
+          <li><i>Listen first — write the jobs down as you hear them.</i></li>
+          <li>Which one sounds like a real "yes" for Cheryl?</li>
+        </ol>
+      </div>
+
+      <div class="ex-card">
+        <div class="ex-head">
+          <span class="ex-num">3b</span>
+          <span class="ex-title">Listen again. Answer.</span>
+        </div>
+        <ol class="num-list">
+          <li>Why is Cheryl looking for a new job?</li>
+          <li>What's important for her in a job?</li>
+          <li>Why doesn't she like the first two jobs that James suggests?</li>
+          <li>Why does she like the last job he suggests?</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="ex-card" style="margin-top:28px;">
+      <div class="ex-head">
+        <span class="ex-num">4</span>
+        <span class="ex-title">Listen to the extracts. Choose the correct alternative.</span>
+        <span class="ex-listening-tag">🎧 5.2</span>
+      </div>
+      <p class="ex-instruction">Click on the relative pronoun you hear. We'll check your answers together after the audio.</p>
+
+      <ol class="num-list" id="ex4List">
+        <li>I'd like a job
+          <span class="alt" data-q="ex4-1" data-correct="that's">
+            <button class="alt-btn">that's</button>
+            <span class="alt-sep">/</span>
+            <button class="alt-btn">who's</button>
+          </span>
+          completely different.
+        </li>
+        <li>I want a job
+          <span class="alt" data-q="ex4-2" data-correct="which">
+            <button class="alt-btn">which</button>
+            <span class="alt-sep">/</span>
+            <button class="alt-btn">that</button>
+          </span>
+          is interesting.
+        </li>
+        <li>They want someone
+          <span class="alt" data-q="ex4-3" data-correct="who">
+            <button class="alt-btn">who</button>
+            <span class="alt-sep">/</span>
+            <button class="alt-btn">which</button>
+          </span>
+          enjoys writing.
+        </li>
+        <li>Well, they're looking for someone
+          <span class="alt" data-q="ex4-4" data-correct="who">
+            <button class="alt-btn">that</button>
+            <span class="alt-sep">/</span>
+            <button class="alt-btn">who</button>
+          </span>
+          can work part-time.
+        </li>
+      </ol>
+
+      <div style="margin-top:22px;display:flex;gap:10px;">
+        <button class="btn small primary" onclick="checkChoice('ex4-')">Check answers</button>
+        <button class="btn small ghost" onclick="resetChoice('ex4-')">Try again</button>
+      </div>
+      <div class="feedback" id="ex4-fb"></div>
+    </div>
+
+    <div class="slide-foot">
+      <span class="foot-step">02 / 08 · Listening</span>
+      <button class="btn small" onclick="goTo(3)">Next → Grammar</button>
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 3 — GRAMMAR ============ -->
+  <section class="slide" data-slide="3">
+    <span class="eyebrow">Grammar · The Rule</span>
+    <h2 class="slide-h1">Relative clauses<br>with <em>who, which</em> and <em>that.</em></h2>
+    <p class="slide-sub">Three little words that quietly do enormous work — they tell us <em>which</em> person we mean, <em>which</em> thing we mean, and stitch two sentences into one elegant line.</p>
+
+    <div class="grammar-wrap">
+      <div class="grammar-tag">5A</div>
+      <div class="grammar-body">
+        <div class="grammar-head">The grammar, <em>unpacked.</em></div>
+
+        <div>
+          <p>Use relative clauses to give more information about people and things. They also let you combine two statements into one.</p>
+          <p class="ex">I want a job. I want it to be more interesting than this one.</p>
+          <p class="ex">= I want a job <b>which</b> is more interesting than this one.</p>
+
+          <p class="grammar-rule">Use <em>which</em> for things.</p>
+          <p class="ex">This is the machine <b>which</b> we use to make jeans.</p>
+
+          <p class="grammar-rule">Use <em>who</em> for people.</p>
+          <p class="ex">We're looking for someone <b>who</b> likes travelling.</p>
+        </div>
+
+        <div>
+          <p class="grammar-rule">You can use <em>that</em> instead of <em>which</em> and <em>who.</em></p>
+          <p class="ex">This is the computer <b>that</b> I use for work.</p>
+          <p class="ex">He's the guy <b>that</b> got the job.</p>
+
+          <p class="grammar-rule">When the relative pronoun describes the <em>object</em> of the sentence, it can be omitted.</p>
+          <p class="ex">John's the person. I told you about <b>him.</b></p>
+          <p class="ex">= John's the person <span style="opacity:.5">(who)</span> I told you about.</p>
+          <p class="ex">That's the camera. I want <b>it.</b></p>
+          <p class="ex">= That's the camera <span style="opacity:.5">(which)</span> I want.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="ex-card" style="margin-top:36px;">
+      <div class="ex-head">
+        <span class="ex-num">5</span>
+        <span class="ex-title">Read the box. Choose the correct alternatives.</span>
+      </div>
+      <p class="ex-instruction">Match the rule to its example. Click the right option for each.</p>
+
+      <ol class="num-list">
+        <li>People are described with
+          <span class="alt" data-q="ex5-1" data-correct="who">
+            <button class="alt-btn">who</button>
+            <span class="alt-sep">/</span>
+            <button class="alt-btn">which</button>
+          </span>.
+        </li>
+        <li>Things are described with
+          <span class="alt" data-q="ex5-2" data-correct="which">
+            <button class="alt-btn">who</button>
+            <span class="alt-sep">/</span>
+            <button class="alt-btn">which</button>
+          </span>
+          or <em>that</em>.
+        </li>
+        <li>
+          <span class="alt" data-q="ex5-3" data-correct="That">
+            <button class="alt-btn">That</button>
+            <span class="alt-sep">/</span>
+            <button class="alt-btn">Who</button>
+          </span>
+          can replace both <em>who</em> and <em>which</em>.
+        </li>
+        <li>The relative pronoun can be left out when it describes
+          <span class="alt" data-q="ex5-4" data-correct="the object">
+            <button class="alt-btn">the subject</button>
+            <span class="alt-sep">/</span>
+            <button class="alt-btn">the object</button>
+          </span>
+          of the sentence.
+        </li>
+      </ol>
+
+      <div style="margin-top:22px;display:flex;gap:10px;">
+        <button class="btn small primary" onclick="checkChoice('ex5-')">Check answers</button>
+        <button class="btn small ghost" onclick="resetChoice('ex5-')">Try again</button>
+      </div>
+      <div class="feedback" id="ex5-fb"></div>
+    </div>
+
+    <div class="ex-grid" style="margin-top:24px;">
+      <div class="ex-card">
+        <div class="ex-head">
+          <span class="ex-num">6a</span>
+          <span class="ex-title">Pronunciation.</span>
+          <span class="ex-listening-tag">🎧 5.3</span>
+        </div>
+        <p class="ex-instruction">Notice the pronunciation of <em>who, which</em> and <em>that</em> in connected speech.</p>
+        <ol class="num-list">
+          <li>This job is for people <b>who</b> can work long hours.</li>
+          <li>I'd like a job <b>which</b> is interesting.</li>
+          <li>He wants a job <b>that's</b> well-paid.</li>
+        </ol>
+      </div>
+
+      <div class="ex-card">
+        <div class="ex-head">
+          <span class="ex-num">6b</span>
+          <span class="ex-title">Listen again. Repeat.</span>
+        </div>
+        <p class="ex-instruction">Notice how the relative pronouns are <em>unstressed</em> — they almost disappear inside the sentence's rhythm. Repeat each line out loud.</p>
+        <div style="margin-top:14px;font-family:'Fraunces',serif;font-style:italic;color:var(--ink-mute);">Listen → mimic → speed up → repeat.</div>
+      </div>
+    </div>
+
+    <div class="slide-foot">
+      <span class="foot-step">03 / 08 · Grammar</span>
+      <button class="btn small" onclick="goTo(4)">Next → Practice</button>
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 4 — PRACTICE 7 ============ -->
+  <section class="slide" data-slide="4">
+    <span class="eyebrow">Grammar Practice · Exercise 7</span>
+    <h2 class="slide-h1">Complete the<br>sentences with a<br><em>relative pronoun.</em></h2>
+    <p class="slide-sub">Choose <em>who</em>, <em>which</em>, or <em>that</em>. Remember — for people we lean on <em>who</em>; for things we reach for <em>which</em>; and <em>that</em> works for both.</p>
+
+    <div class="ex-card" style="margin-top:36px;">
+      <ol class="num-list" id="ex7List">
+        <li>This is the dress <input class="fill" data-q="ex7-1" data-correct="which,that" placeholder="..."/> I bought yesterday.</li>
+        <li>He's the man <input class="fill" data-q="ex7-2" data-correct="who,that" placeholder="..."/> fixed my computer.</li>
+        <li>This is the book <input class="fill" data-q="ex7-3" data-correct="which,that" placeholder="..."/> I read on holiday.</li>
+        <li>It's a job <input class="fill" data-q="ex7-4" data-correct="which,that" placeholder="..."/> you have to do at night.</li>
+        <li>She's the girl <input class="fill" data-q="ex7-5" data-correct="who,that" placeholder="..."/> lives next to me.</li>
+        <li>I like films <input class="fill" data-q="ex7-6" data-correct="which,that" placeholder="..."/> are about real people.</li>
+        <li>Paul is the person <input class="fill" data-q="ex7-7" data-correct="who,that" placeholder="..."/> told me about this restaurant.</li>
+        <li>This is the time of year <input class="fill" data-q="ex7-8" data-correct="which,that" placeholder="..."/> I like the best.</li>
+      </ol>
+
+      <div style="margin-top:24px;display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
+        <button class="btn small primary" onclick="checkFill('ex7-', 8)">Check answers</button>
+        <button class="btn small ghost" onclick="resetFill('ex7-', 8)">Try again</button>
+        <button class="btn small ghost" onclick="showAnswers('ex7-', 8)">Reveal</button>
+        <span style="font-family:'Fraunces',serif;font-style:italic;color:var(--ink-mute);font-size:14px;margin-left:auto;">Both <em>who/that</em> &amp; <em>which/that</em> are accepted.</span>
+      </div>
+      <div class="feedback" id="ex7-fb"></div>
+    </div>
+
+    <div class="slide-foot">
+      <span class="foot-step">04 / 08 · Practice</span>
+      <button class="btn small" onclick="goTo(5)">Next → Reading</button>
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 5 — READING / EX 8 ============ -->
+  <section class="slide" data-slide="5">
+    <span class="eyebrow">Reading · Exercise 8</span>
+    <h2 class="slide-h1">Choose the correct<br>alternatives. <em>What job<br>does it describe?</em></h2>
+    <p class="slide-sub">A short job description — but with all the relative pronouns up for grabs. Click each option, then check.</p>
+
+    <div class="narrative" style="margin-top:36px;" id="ex8Text">
+      For this job we need someone
+      <span class="alt" data-q="ex8-1" data-correct="who">
+        <button class="alt-btn">¹which</button>
+        <span class="alt-sep">/</span>
+        <button class="alt-btn">who</button>
+      </span>
+      is creative, so that they can plan activities
+      <span class="alt" data-q="ex8-2" data-correct="which,that">
+        <button class="alt-btn">²which</button>
+        <span class="alt-sep">/</span>
+        <button class="alt-btn">that</button>
+      </span>
+      are interesting for small children. The best person for this job is someone
+      <span class="alt" data-q="ex8-3" data-correct="who">
+        <button class="alt-btn">³who</button>
+        <span class="alt-sep">/</span>
+        <button class="alt-btn">which</button>
+      </span>
+      has good communication skills, because it's a job
+      <span class="alt" data-q="ex8-4" data-correct="that">
+        <button class="alt-btn">⁴who</button>
+        <span class="alt-sep">/</span>
+        <button class="alt-btn">that</button>
+      </span>
+      involves working with many different types of people, such as children, parents and managers. It's a job
+      <span class="alt" data-q="ex8-5" data-correct="which">
+        <button class="alt-btn">⁵who</button>
+        <span class="alt-sep">/</span>
+        <button class="alt-btn">which</button>
+      </span>
+      isn't usually well-paid, but it's very interesting. Nowadays, you also need to be someone
+      <span class="alt" data-q="ex8-6" data-correct="who">
+        <button class="alt-btn">⁶which</button>
+        <span class="alt-sep">/</span>
+        <button class="alt-btn">who</button>
+      </span>
+      is good with computers to do this job well.
+    </div>
+
+    <div style="margin-top:22px;display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
+      <button class="btn small primary" onclick="checkChoice('ex8-')">Check answers</button>
+      <button class="btn small ghost" onclick="resetChoice('ex8-')">Try again</button>
+      <span style="font-family:'Fraunces',serif;font-style:italic;color:var(--ink-mute);font-size:14px;margin-left:auto;">What's the job? Discuss with your partner.</span>
+    </div>
+    <div class="feedback" id="ex8-fb"></div>
+
+    <div class="ex-card" style="margin-top:36px;">
+      <div class="ex-head">
+        <span class="ex-num">9</span>
+        <span class="ex-title">Work in pairs.</span>
+      </div>
+      <p class="ex-instruction">Take turns to describe a type of job <em>you'd</em> like to do. Use the questionnaire to help you. Suggest some jobs for your partner.</p>
+      <div class="speak-block">
+        <div class="speak-tag">A:</div>
+        <div style="font-family:'Fraunces',serif;font-style:italic;font-size:18px;">I'd like a job which I can do from home.</div>
+      </div>
+      <div class="speak-block">
+        <div class="speak-tag">B:</div>
+        <div style="font-family:'Fraunces',serif;font-style:italic;font-size:18px;">How about an online teacher?</div>
+      </div>
+    </div>
+
+    <div class="slide-foot">
+      <span class="foot-step">05 / 08 · Reading</span>
+      <button class="btn small" onclick="goTo(6)">Next → Speaking</button>
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 6 — SPEAKING ============ -->
+  <section class="slide" data-slide="6">
+    <span class="eyebrow">Speaking · Exercises 10 & 11</span>
+    <h2 class="slide-h1">Describe a job —<br>let the others <em>guess.</em></h2>
+    <p class="slide-sub">Pick a job, give clues with relative clauses, and see if your partner can name it. Bonus: tell us if <em>you'd</em> want it too.</p>
+
+    <div class="ex-grid">
+      <div class="ex-card">
+        <div class="ex-head">
+          <span class="ex-num">10</span>
+          <span class="ex-title">Prepare.</span>
+        </div>
+        <p class="ex-instruction">Think of a job you want to describe. Complete the sentences below in your own words.</p>
+        <div style="display:grid;gap:14px;margin-top:6px;">
+          <div style="font-family:'Fraunces',serif;font-size:17px;">It's a job which <input class="fill" style="width:240px;" placeholder="..."/>
+          </div>
+          <div style="font-family:'Fraunces',serif;font-size:17px;">It isn't a job that <input class="fill" style="width:240px;" placeholder="..."/>
+          </div>
+          <div style="font-family:'Fraunces',serif;font-size:17px;">You need to be someone who <input class="fill" style="width:240px;" placeholder="..."/>
+          </div>
+          <div style="font-family:'Fraunces',serif;font-size:17px;">You can't be someone who doesn't like <input class="fill" style="width:240px;" placeholder="..."/>
+          </div>
+          <div style="margin-top:10px;padding:14px 18px;background:var(--rose-blush);border-radius:4px;font-family:'Fraunces',serif;font-style:italic;color:var(--ink);">
+            e.g. <em>It's a job that you can do at home. You need to be someone who's creative … (an artist).</em>
+          </div>
+        </div>
+      </div>
+
+      <div class="ex-card">
+        <div class="ex-head">
+          <span class="ex-num">11</span>
+          <span class="ex-title">Speak.</span>
+        </div>
+        <p class="ex-instruction">
+          <b>a)</b> Work in groups. Describe your job. Can they guess?<br>
+          <b>b)</b> Would you like to do the other jobs people described? Why? / Why not? Use the Useful Phrases.
+        </p>
+
+        <div class="useful-phrases">
+          <h5>Useful phrases</h5>
+          <ul>
+            <li>I'd like to be (a chef) because (I love food).</li>
+            <li>I wouldn't like to be a (journalist) because I don't like (writing).</li>
+            <li>I think I'd like this job because (it's creative).</li>
+            <li>I don't think I'd like this job because (it's not well-paid).</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="slide-foot">
+      <span class="foot-step">06 / 08 · Speaking</span>
+      <button class="btn small" onclick="goTo(7)">Next → Extra practice</button>
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 7 — EXTRA PRACTICE ============ -->
+  <section class="slide" data-slide="7">
+    <span class="eyebrow">Extra Practice · Workbook</span>
+    <h2 class="slide-h1">Two more rounds<br>to seal the <em>grammar.</em></h2>
+    <p class="slide-sub">A matching puzzle to read for meaning, and a fill-in description for a very unusual job — see if you can guess what it is from the clues.</p>
+
+    <div class="ex-card" style="margin-top:36px;">
+      <div class="ex-head">
+        <span class="ex-num">1</span>
+        <span class="ex-title">Match the sentence halves.</span>
+      </div>
+      <p class="ex-instruction">Click a number on the left, then click the matching ending on the right. Try to do it from memory first.</p>
+
+      <div class="match-wrap">
+        <div class="match-col">
+          <h4>Beginnings</h4>
+          <div class="match-list" id="matchL">
+            <button class="match-item" data-side="L" data-id="1"><span class="match-tag">1</span> This is the phone</button>
+            <button class="match-item" data-side="L" data-id="2"><span class="match-tag">2</span> Sheila is the person</button>
+            <button class="match-item" data-side="L" data-id="3"><span class="match-tag">3</span> I'd like a job</button>
+            <button class="match-item" data-side="L" data-id="4"><span class="match-tag">4</span> That's the restaurant</button>
+            <button class="match-item" data-side="L" data-id="5"><span class="match-tag">5</span> I'd like a car</button>
+            <button class="match-item" data-side="L" data-id="6"><span class="match-tag">6</span> I don't understand people</button>
+          </div>
+        </div>
+        <div class="match-col">
+          <h4>Endings</h4>
+          <div class="match-list" id="matchR">
+            <button class="match-item" data-side="R" data-id="a"><span class="match-tag">a</span> which I went to last night.</button>
+            <button class="match-item" data-side="R" data-id="b"><span class="match-tag">b</span> that I bought in Tokyo.</button>
+            <button class="match-item" data-side="R" data-id="c"><span class="match-tag">c</span> who speak too quickly.</button>
+            <button class="match-item" data-side="R" data-id="d"><span class="match-tag">d</span> who I work with.</button>
+            <button class="match-item" data-side="R" data-id="e"><span class="match-tag">e</span> which I can do at night time.</button>
+            <button class="match-item" data-side="R" data-id="f"><span class="match-tag">f</span> which goes fast.</button>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top:22px;display:flex;gap:10px;flex-wrap:wrap;">
+        <button class="btn small primary" onclick="checkMatch()">Check matches</button>
+        <button class="btn small ghost" onclick="resetMatch()">Reset</button>
+        <span style="font-family:'Fraunces',serif;font-style:italic;color:var(--ink-mute);font-size:14px;margin-left:auto;" id="matchStatus">No matches yet.</span>
+      </div>
+      <div class="feedback" id="match-fb"></div>
+    </div>
+
+    <div class="ex-card" style="margin-top:28px;">
+      <div class="ex-head">
+        <span class="ex-num">2</span>
+        <span class="ex-title">Complete the description with <em>who</em> or <em>which</em>.</span>
+      </div>
+
+      <div class="narrative" style="margin-top:8px;">
+        Believe it or not, you can become a professional water slide tester. Yes, it's a job
+        <input class="fill" data-q="ex2-1" data-correct="which" placeholder="..."/>
+        is real and
+        <input class="fill" data-q="ex2-2" data-correct="which" placeholder="..."/>
+        is well-paid. Water parks look for people
+        <input class="fill" data-q="ex2-3" data-correct="who" placeholder="..."/>
+        can swim very well, and you need to be someone
+        <input class="fill" data-q="ex2-4" data-correct="who" placeholder="..."/>
+        isn't afraid of heights. Some of those slides are very high! Sometimes they have never been used before, so it's a job
+        <input class="fill" data-q="ex2-5" data-correct="which" placeholder="..."/>
+        can be dangerous. If you're someone
+        <input class="fill" data-q="ex2-6" data-correct="who" placeholder="..."/>
+        isn't scared of those things though, it can be a lot of fun!
+      </div>
+
+      <div style="margin-top:22px;display:flex;gap:10px;flex-wrap:wrap;">
+        <button class="btn small primary" onclick="checkFill('ex2-', 6)">Check answers</button>
+        <button class="btn small ghost" onclick="resetFill('ex2-', 6)">Try again</button>
+        <button class="btn small ghost" onclick="showAnswers('ex2-', 6)">Reveal</button>
+      </div>
+      <div class="feedback" id="ex2-fb"></div>
+    </div>
+
+    <div class="slide-foot">
+      <span class="foot-step">07 / 08 · Extra practice</span>
+      <button class="btn small" onclick="goTo(0)">Back to start ↺</button>
+    </div>
+  </section>
+
+</main>
+
+<script>
+  // ============== NAVIGATION ==============
+  const navTabs = document.querySelectorAll('.nav-tab');
+  const slides = document.querySelectorAll('.slide');
+  const mobileNav = document.getElementById('mobileNav');
+  const menuBtn = document.getElementById('menuBtn');
+
+  // mirror nav to mobile
+  navTabs.forEach(t => {
+    const clone = t.cloneNode(true);
+    clone.addEventListener('click', () => {
+      goTo(parseInt(clone.dataset.slide));
+      mobileNav.classList.remove('open');
+    });
+    mobileNav.appendChild(clone);
+  });
+  menuBtn.addEventListener('click', () => mobileNav.classList.toggle('open'));
+
+  function goTo(i) {
+    slides.forEach(s => s.classList.toggle('active', parseInt(s.dataset.slide) === i));
+    document.querySelectorAll('.nav-tab').forEach(t => t.classList.toggle('active', parseInt(t.dataset.slide) === i));
+    window.scrollTo({top: 0, behavior: 'smooth'});
+  }
+  navTabs.forEach(t => t.addEventListener('click', () => goTo(parseInt(t.dataset.slide))));
+
+  // ============== QUESTIONNAIRE ==============
+  const statements = [
+    { text: "I am <b>creative.</b>" },
+    { text: "I have <b>good communication skills.</b>" },
+    { text: "I am a <b>good manager.</b>" },
+    { text: "I like <b>working in a team.</b>" },
+    { text: "I like <b>working from home.</b>" },
+    { text: "I like <b>working on my own.</b>" },
+    { text: "I'd like to <b>work part-time.</b>" },
+    { text: "I don't need <b>a job that is well-paid.</b>" },
+    { text: "I enjoy <b>working with customers.</b>" },
+    { text: "I don't mind <b>working long hours.</b>" }
+  ];
+
+  const stContainer = document.getElementById('statements');
+  statements.forEach((s, i) => {
+    const wrap = document.createElement('div');
+    wrap.className = 'statement';
+    wrap.innerHTML = `
+      <div class="statement-top">
+        <span class="statement-num">${String(i+1).padStart(2,'0')}</span>
+        <span class="statement-text">${s.text}</span>
+      </div>
+      <div class="slider-pair">
+        <span class="slider-label">Disagree</span>
+        <div class="slider-stack">
+          <div class="slider-row">
+            <span class="slider-name">A.</span>
+            <input type="range" min="0" max="10" value="5" class="range r-a" data-idx="${i}" data-st="a"/>
+            <span class="slider-value" id="va-${i}">5</span>
+          </div>
+          <div class="slider-row">
+            <span class="slider-name">B.</span>
+            <input type="range" min="0" max="10" value="5" class="range r-b" data-idx="${i}" data-st="b"/>
+            <span class="slider-value" id="vb-${i}">5</span>
+          </div>
+        </div>
+        <span class="slider-label right">Agree</span>
+      </div>
+    `;
+    stContainer.appendChild(wrap);
+  });
+
+  document.querySelectorAll('.range').forEach(r => {
+    r.addEventListener('input', () => {
+      const i = r.dataset.idx;
+      const st = r.dataset.st;
+      document.getElementById(`v${st}-${i}`).textContent = r.value;
+    });
+  });
+
+  function runCompare() {
+    const panel = document.getElementById('comparePanel');
+    const rowsHtml = statements.map((s, i) => {
+      const a = parseInt(document.querySelector(`.r-a[data-idx="${i}"]`).value);
+      const b = parseInt(document.querySelector(`.r-b[data-idx="${i}"]`).value);
+      return `
+        <div class="compare-row">
+          <span class="cn">${String(i+1).padStart(2,'0')}</span>
+          <span class="ct">${s.text}</span>
+          <div class="compare-bars">
+            <div class="cbar cbar-a"><div class="cbar-fill" style="width:${a*10}%;"></div></div>
+            <span class="cbar-num">${a}</span>
+            <div class="cbar cbar-b"><div class="cbar-fill" style="width:${b*10}%;"></div></div>
+            <span class="cbar-num">${b}</span>
+          </div>
+        </div>
+      `;
+    }).join('');
+    document.getElementById('compareRows').innerHTML = rowsHtml;
+
+    // insight: find biggest gap & biggest agreement
+    let maxGap = -1, gapIdx = 0;
+    let minSum = 999, agreeIdx = 0;
+    statements.forEach((s, i) => {
+      const a = parseInt(document.querySelector(`.r-a[data-idx="${i}"]`).value);
+      const b = parseInt(document.querySelector(`.r-b[data-idx="${i}"]`).value);
+      const gap = Math.abs(a - b);
+      if (gap > maxGap) { maxGap = gap; gapIdx = i; }
+      const dist = Math.abs(a - b) + Math.abs(10 - (a + b) / 2 * 0);
+      if (gap < minSum) { minSum = gap; agreeIdx = i; }
+    });
+
+    const plain = t => t.replace(/<[^>]+>/g, '');
+    let insightText;
+    if (maxGap === 0) {
+      insightText = `<b>Perfect harmony.</b> Student A and Student B agree on every single statement — same career path, perhaps?`;
+    } else {
+      insightText = `<b>Biggest gap:</b> statement ${gapIdx+1} — "${plain(statements[gapIdx].text)}" (${maxGap} points apart). Worth a conversation: why such different feelings about this one?`;
+    }
+    document.getElementById('insight').innerHTML = insightText;
+
+    panel.classList.add('show');
+    setTimeout(() => panel.scrollIntoView({behavior: 'smooth', block: 'start'}), 100);
+  }
+
+  function resetAll() {
+    document.querySelectorAll('.range').forEach(r => {
+      r.value = 5;
+      const i = r.dataset.idx, st = r.dataset.st;
+      document.getElementById(`v${st}-${i}`).textContent = 5;
+    });
+    document.getElementById('comparePanel').classList.remove('show');
+  }
+
+  // ============== ALT-BTN (single-select within .alt span) ==============
+  document.querySelectorAll('.alt').forEach(span => {
+    span.querySelectorAll('.alt-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        span.querySelectorAll('.alt-btn').forEach(b => b.classList.remove('selected'));
+        btn.classList.add('selected');
+        // clear any previous correctness marking
+        span.querySelectorAll('.alt-btn').forEach(b => { b.classList.remove('correct','wrong'); });
+      });
+    });
+  });
+
+  function getBtnText(btn) {
+    // strip leading superscript digits (¹²³ etc.)
+    return btn.textContent.replace(/[¹²³⁴⁵⁶⁷⁸⁹⁰]/g, '').trim();
+  }
+
+  function checkChoice(prefix) {
+    const blocks = document.querySelectorAll(`.alt[data-q^="${prefix}"]`);
+    let correct = 0, total = 0, unanswered = 0;
+    blocks.forEach(b => {
+      total++;
+      const corrects = b.dataset.correct.split(',').map(s => s.trim().toLowerCase());
+      const sel = b.querySelector('.alt-btn.selected');
+      if (!sel) { unanswered++; return; }
+      const txt = getBtnText(sel).toLowerCase();
+      // clear previous
+      b.querySelectorAll('.alt-btn').forEach(btn => btn.classList.remove('correct','wrong'));
+      if (corrects.includes(txt)) {
+        sel.classList.add('correct');
+        correct++;
+      } else {
+        sel.classList.add('wrong');
+        // highlight correct
+        b.querySelectorAll('.alt-btn').forEach(btn => {
+          if (corrects.includes(getBtnText(btn).toLowerCase())) btn.classList.add('correct');
+        });
+      }
+    });
+    const fb = document.querySelector(`#${prefix}fb`);
+    if (fb) {
+      fb.className = 'feedback show ' + (correct === total ? 'good' : 'partial');
+      let msg = `${correct} / ${total} correct.`;
+      if (unanswered) msg += ` ${unanswered} unanswered.`;
+      if (correct === total) msg += ' Beautifully done.';
+      fb.innerHTML = msg;
+    }
+  }
+
+  function resetChoice(prefix) {
+    document.querySelectorAll(`.alt[data-q^="${prefix}"] .alt-btn`).forEach(b => {
+      b.classList.remove('selected','correct','wrong');
+    });
+    const fb = document.querySelector(`#${prefix}fb`);
+    if (fb) fb.classList.remove('show');
+  }
+
+  // ============== FILL-IN ==============
+  function checkFill(prefix, count) {
+    let correct = 0;
+    let empties = 0;
+    for (let i = 1; i <= count; i++) {
+      const inp = document.querySelector(`input.fill[data-q="${prefix}${i}"]`);
+      if (!inp) continue;
+      const corrects = inp.dataset.correct.split(',').map(s => s.trim().toLowerCase());
+      const val = inp.value.trim().toLowerCase();
+      inp.classList.remove('correct','wrong');
+      if (!val) { empties++; continue; }
+      if (corrects.includes(val)) { inp.classList.add('correct'); correct++; }
+      else inp.classList.add('wrong');
+    }
+    const fb = document.querySelector(`#${prefix}fb`);
+    if (fb) {
+      fb.className = 'feedback show ' + (correct === count ? 'good' : 'partial');
+      let msg = `${correct} / ${count} correct.`;
+      if (empties) msg += ` ${empties} still blank.`;
+      if (correct === count) msg += ' Spotless work.';
+      fb.innerHTML = msg;
+    }
+  }
+
+  function resetFill(prefix, count) {
+    for (let i = 1; i <= count; i++) {
+      const inp = document.querySelector(`input.fill[data-q="${prefix}${i}"]`);
+      if (!inp) continue;
+      inp.value = '';
+      inp.classList.remove('correct','wrong');
+    }
+    const fb = document.querySelector(`#${prefix}fb`);
+    if (fb) fb.classList.remove('show');
+  }
+
+  function showAnswers(prefix, count) {
+    for (let i = 1; i <= count; i++) {
+      const inp = document.querySelector(`input.fill[data-q="${prefix}${i}"]`);
+      if (!inp) continue;
+      const first = inp.dataset.correct.split(',')[0].trim();
+      inp.value = first;
+      inp.classList.remove('wrong');
+      inp.classList.add('correct');
+    }
+  }
+
+  // ============== MATCH ==============
+  const correctPairs = { '1':'b', '2':'d', '3':'e', '4':'a', '5':'f', '6':'c' };
+  let activeL = null;
+  let activeR = null;
+  const matched = {}; // L id -> R id
+  const pairColors = ['#C57A57','#7E906B','#D9A547','#A65A38','#5D6E4F','#BB5C49'];
+  let pairCount = 0;
+
+  document.querySelectorAll('.match-item').forEach(it => {
+    it.addEventListener('click', () => {
+      if (it.classList.contains('matched')) {
+        // unmatch
+        const side = it.dataset.side;
+        const id = it.dataset.id;
+        if (side === 'L') {
+          const rId = matched[id];
+          delete matched[id];
+          it.classList.remove('matched','correct','wrong');
+          const r = document.querySelector(`.match-item[data-side="R"][data-id="${rId}"]`);
+          if (r) r.classList.remove('matched','correct','wrong');
+          // remove pair tags
+          const pa = it.querySelector('.match-pair');
+          if (pa) pa.remove();
+          const pb = r && r.querySelector('.match-pair');
+          if (pb) pb.remove();
+        } else {
+          // find L
+          const lId = Object.keys(matched).find(k => matched[k] === id);
+          if (lId) {
+            delete matched[lId];
+            const l = document.querySelector(`.match-item[data-side="L"][data-id="${lId}"]`);
+            if (l) { l.classList.remove('matched','correct','wrong'); const pa = l.querySelector('.match-pair'); if (pa) pa.remove(); }
+            it.classList.remove('matched','correct','wrong');
+            const pb = it.querySelector('.match-pair');
+            if (pb) pb.remove();
+          }
+        }
+        updateMatchStatus();
+        return;
+      }
+
+      const side = it.dataset.side;
+      if (side === 'L') {
+        if (activeL) activeL.classList.remove('active');
+        activeL = it;
+        it.classList.add('active');
+      } else {
+        if (activeR) activeR.classList.remove('active');
+        activeR = it;
+        it.classList.add('active');
+      }
+      // if both active, make pair
+      if (activeL && activeR) {
+        const lId = activeL.dataset.id;
+        const rId = activeR.dataset.id;
+        matched[lId] = rId;
+        pairCount++;
+        const tag = `↔ pair ${pairCount}`;
+        activeL.classList.remove('active');
+        activeR.classList.remove('active');
+        activeL.classList.add('matched');
+        activeR.classList.add('matched');
+        const pa = document.createElement('span'); pa.className = 'match-pair'; pa.textContent = tag; activeL.appendChild(pa);
+        const pb = document.createElement('span'); pb.className = 'match-pair'; pb.textContent = tag; activeR.appendChild(pb);
+        activeL = null; activeR = null;
+        updateMatchStatus();
+      }
+    });
+  });
+
+  function updateMatchStatus() {
+    const n = Object.keys(matched).length;
+    document.getElementById('matchStatus').innerHTML = n === 0 ? 'No matches yet.' : `${n} / 6 paired · click a matched item to unpair.`;
+  }
+
+  function checkMatch() {
+    let correct = 0;
+    Object.keys(matched).forEach(lId => {
+      const rId = matched[lId];
+      const l = document.querySelector(`.match-item[data-side="L"][data-id="${lId}"]`);
+      const r = document.querySelector(`.match-item[data-side="R"][data-id="${rId}"]`);
+      if (correctPairs[lId] === rId) {
+        l.classList.remove('wrong'); l.classList.add('correct');
+        r.classList.remove('wrong'); r.classList.add('correct');
+        correct++;
+      } else {
+        l.classList.remove('correct'); l.classList.add('wrong');
+        r.classList.remove('correct'); r.classList.add('wrong');
+      }
+    });
+    const fb = document.getElementById('match-fb');
+    fb.className = 'feedback show ' + (correct === 6 ? 'good' : 'partial');
+    if (correct === 6) fb.innerHTML = `All 6 correct. The grammar has clicked.`;
+    else fb.innerHTML = `${correct} / 6 correct. Click a wrong pair to unpair and try again.`;
+  }
+
+  function resetMatch() {
+    Object.keys(matched).forEach(k => delete matched[k]);
+    pairCount = 0;
+    activeL = null; activeR = null;
+    document.querySelectorAll('.match-item').forEach(it => {
+      it.classList.remove('matched','active','correct','wrong');
+      const p = it.querySelector('.match-pair'); if (p) p.remove();
+    });
+    document.getElementById('match-fb').classList.remove('show');
+    updateMatchStatus();
+  }
+</script>
+
+</body>
+</html>
