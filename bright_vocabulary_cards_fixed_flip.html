@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Vocabulary Cards — cheerful, share, turn...</title>
+<style>
+  :root {
+    --bg1:#fff7ed;
+    --bg2:#fdf2f8;
+    --bg3:#eef2ff;
+    --ink:#2f243a;
+    --muted:#7b6f86;
+    --card:#ffffffcc;
+    --line:#eadff2;
+    --accent:#d946ef;
+    --accent2:#f97316;
+    --good:#16a34a;
+    --bad:#dc2626;
+    --shadow: 0 18px 45px rgba(88, 28, 135, .16);
+  }
+  * { box-sizing:border-box; }
+  body {
+    margin:0;
+    font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    color:var(--ink);
+    background:
+      radial-gradient(circle at 10% 10%, #fde68a 0, transparent 24%),
+      radial-gradient(circle at 90% 15%, #fbcfe8 0, transparent 28%),
+      radial-gradient(circle at 50% 100%, #c7d2fe 0, transparent 30%),
+      linear-gradient(135deg, var(--bg1), var(--bg2) 45%, var(--bg3));
+    min-height:100vh;
+    overflow-x:hidden;
+  }
+  .blob {
+    position:fixed;
+    width:260px;
+    height:260px;
+    border-radius:999px;
+    filter:blur(35px);
+    opacity:.34;
+    animation: floaty 12s ease-in-out infinite alternate;
+    z-index:-1;
+  }
+  .blob.one { background:#fb7185; left:-80px; top:130px; }
+  .blob.two { background:#60a5fa; right:-90px; bottom:70px; animation-delay:-4s; }
+  @keyframes floaty {
+    from { transform:translateY(0) scale(1); }
+    to { transform:translateY(-45px) scale(1.12); }
+  }
+  header {
+    max-width:1100px;
+    margin:0 auto;
+    padding:42px 22px 20px;
+    text-align:center;
+  }
+  h1 {
+    margin:0;
+    font-size:clamp(2rem, 5vw, 4.4rem);
+    line-height:.95;
+    letter-spacing:-.06em;
+  }
+  .subtitle {
+    max-width:760px;
+    margin:18px auto 0;
+    color:var(--muted);
+    font-size:1.04rem;
+    line-height:1.55;
+  }
+  .panel {
+    max-width:1100px;
+    margin:18px auto 34px;
+    padding:0 22px;
+  }
+  .nav {
+    position:sticky;
+    top:0;
+    z-index:10;
+    backdrop-filter: blur(14px);
+    background:#ffffff99;
+    border:1px solid #ffffffb8;
+    border-radius:24px;
+    padding:12px;
+    box-shadow:var(--shadow);
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    justify-content:center;
+  }
+  button, .small-select {
+    border:0;
+    border-radius:999px;
+    padding:11px 16px;
+    cursor:pointer;
+    font-weight:800;
+    color:#3b2646;
+    background:#fff;
+    box-shadow:0 8px 18px rgba(88,28,135,.10);
+    transition:.2s transform, .2s box-shadow, .2s background;
+  }
+  button:hover {
+    transform:translateY(-2px);
+    box-shadow:0 12px 24px rgba(88,28,135,.18);
+  }
+  button.primary {
+    color:#fff;
+    background:linear-gradient(135deg, var(--accent), var(--accent2));
+  }
+  button.ghost {
+    background:#fff7;
+    border:1px solid #fff;
+  }
+  section {
+    max-width:1100px;
+    margin:0 auto 40px;
+    padding:0 22px;
+  }
+  .section-title {
+    display:flex;
+    align-items:end;
+    justify-content:space-between;
+    gap:16px;
+    margin:32px 0 16px;
+  }
+  h2 {
+    margin:0;
+    font-size:clamp(1.45rem, 3vw, 2.3rem);
+    letter-spacing:-.04em;
+  }
+  .hint {
+    color:var(--muted);
+    font-size:.95rem;
+  }
+  .grid {
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(210px, 1fr));
+    gap:16px;
+  }
+  .card {
+    perspective:1000px;
+    min-height:185px;
+  }
+  .inner {
+    position:relative;
+    width:100%;
+    height:100%;
+    min-height:185px;
+    transform-style:preserve-3d;
+    transition:transform .65s cubic-bezier(.2,.8,.2,1);
+  }
+  .card.flipped .inner {
+    transform:rotateY(180deg);
+  }
+  .face {
+    position:absolute;
+    inset:0;
+    backface-visibility:hidden;
+    border-radius:28px;
+    padding:20px;
+    background:var(--card);
+    border:1px solid #ffffffd8;
+    box-shadow:var(--shadow);
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+    overflow:hidden;
+  }
+  .face:before {
+    content:"";
+    position:absolute;
+    width:130px;
+    height:130px;
+    border-radius:999px;
+    right:-45px;
+    top:-45px;
+    background:linear-gradient(135deg, #f9a8d4, #fde68a);
+    opacity:.42;
+  }
+  .back {
+    transform:rotateY(180deg);
+    background:#fffffff2;
+  }
+
+  /* prevents the mirrored front side from showing after flip */
+  .front {
+    opacity:1;
+    pointer-events:auto;
+  }
+  .back {
+    opacity:0;
+    pointer-events:none;
+  }
+  .card.flipped .front {
+    opacity:0;
+    pointer-events:none;
+  }
+  .card.flipped .back {
+    opacity:1;
+    pointer-events:auto;
+  }
+
+  .word {
+    font-size:1.65rem;
+    font-weight:950;
+    letter-spacing:-.04em;
+    position:relative;
+    z-index:1;
+  }
+  .translation {
+    font-size:1.1rem;
+    line-height:1.35;
+    font-weight:750;
+    position:relative;
+    z-index:1;
+  }
+  .note {
+    margin-top:8px;
+    color:var(--muted);
+    font-size:.9rem;
+    line-height:1.35;
+    position:relative;
+    z-index:1;
+  }
+  .micro {
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+    position:relative;
+    z-index:1;
+  }
+  .micro button {
+    padding:8px 11px;
+    font-size:.82rem;
+  }
+  .exercise {
+    background:#ffffffb8;
+    border:1px solid #ffffffd8;
+    box-shadow:var(--shadow);
+    border-radius:30px;
+    padding:22px;
+    margin-top:16px;
+  }
+  .match-wrap {
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:14px;
+  }
+  .match-col {
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+  }
+  .pill {
+    background:#fff;
+    border:2px solid transparent;
+    border-radius:18px;
+    padding:12px 14px;
+    min-height:48px;
+    cursor:pointer;
+    font-weight:800;
+    box-shadow:0 8px 16px rgba(88,28,135,.08);
+    transition:.18s;
+  }
+  .pill:hover { transform:translateY(-1px); }
+  .pill.selected { border-color:var(--accent); background:#fdf4ff; }
+  .pill.correct { border-color:var(--good); background:#ecfdf5; }
+  .pill.wrong { border-color:var(--bad); background:#fef2f2; }
+  .listen-row, .gap-row {
+    display:grid;
+    grid-template-columns:auto 1fr auto;
+    gap:10px;
+    align-items:center;
+    margin:10px 0;
+    padding:12px;
+    border-radius:20px;
+    background:#fff;
+  }
+  input {
+    width:100%;
+    border:2px solid #eadff2;
+    border-radius:16px;
+    padding:11px 12px;
+    font-size:1rem;
+    outline:none;
+    background:#fff;
+  }
+  input:focus { border-color:#d946ef; }
+  .result {
+    min-width:110px;
+    font-weight:850;
+  }
+  .ok { color:var(--good); }
+  .no { color:var(--bad); }
+  .sentence {
+    line-height:1.55;
+    font-weight:700;
+  }
+
+  .word-bank {
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    margin:14px 0 18px;
+    padding:14px;
+    border-radius:22px;
+    background:#fff8;
+    border:1px solid #ffffffd8;
+  }
+  .word-chip {
+    border-radius:999px;
+    padding:9px 13px;
+    background:#fff;
+    font-weight:850;
+    box-shadow:0 7px 14px rgba(88,28,135,.08);
+    cursor:pointer;
+    user-select:none;
+    transition:.18s;
+  }
+  .word-chip:hover {
+    transform:translateY(-1px);
+    background:#fdf4ff;
+  }
+  footer {
+    text-align:center;
+    color:var(--muted);
+    padding:30px 20px 50px;
+  }
+  @media (max-width:720px) {
+    .match-wrap, .listen-row, .gap-row { grid-template-columns:1fr; }
+    .nav { position:relative; }
+  }
+</style>
+</head>
+<body>
+<div class="blob one"></div>
+<div class="blob two"></div>
+
+<header>
+  <h1>Bright Vocabulary Cards</h1>
+  <p class="subtitle">Clickable vocabulary cards, audio for English words, and practice exercises. Click a card to flip it; click 🔊 to hear the word.</p>
+</header>
+
+<div class="panel">
+  <div class="nav">
+    <button class="primary" onclick="scrollToId('cardsEN')">EN → RU</button>
+    <button class="primary" onclick="scrollToId('cardsRU')">RU → EN</button>
+    <button onclick="flipAll()">Flip all</button>
+    <button onclick="resetCards()">Reset cards</button>
+    <button onclick="shuffleCards()">Shuffle cards</button>
+    <button class="ghost" onclick="scrollToId('exercises')">Exercises</button>
+  </div>
+</div>
+
+<section id="cardsEN">
+  <div class="section-title">
+    <div>
+      <h2>Cards: English → Russian</h2>
+      <div class="hint">First you see the English word, then the translation and a short note.</div>
+    </div>
+  </div>
+  <div class="grid" id="enGrid"></div>
+</section>
+
+<section id="cardsRU">
+  <div class="section-title">
+    <div>
+      <h2>Cards: Russian → English</h2>
+      <div class="hint">First you see the translation, then the English word.</div>
+    </div>
+  </div>
+  <div class="grid" id="ruGrid"></div>
+</section>
+
+<section id="exercises">
+  <div class="section-title">
+    <div>
+      <h2>Exercises</h2>
+      <div class="hint">Three tasks: matching, listening dictation, and gap fill.</div>
+    </div>
+  </div>
+
+  <div class="exercise">
+    <h3>1. Match the English word with the Russian meaning</h3>
+    <p class="hint">Click a word on the left, then click the matching meaning on the right.</p>
+    <div class="match-wrap">
+      <div class="match-col" id="matchEN"></div>
+      <div class="match-col" id="matchRU"></div>
+    </div>
+    <p id="matchScore" class="hint"></p>
+    <button onclick="resetMatching()">Reset matching</button>
+  </div>
+
+  <div class="exercise">
+    <h3>2. Listen and write</h3>
+    <p class="hint">Click 🔊, listen to the word or phrase, and write it in English.</p>
+    <div id="listenBox"></div>
+    <button class="primary" onclick="checkListening()">Check listening</button>
+    <button onclick="resetListening()">Reset</button>
+  </div>
+
+  <div class="exercise">
+    <h3>3. Fill in the missing words</h3>
+    <p class="hint">Choose from the word bank and write the correct word or phrase in each sentence.</p>
+    <div id="gapBox"></div>
+    <button class="primary" onclick="checkGaps()">Check gaps</button>
+    <button onclick="resetGaps()">Reset</button>
+  </div>
+</section>
+
+<footer>Made for a cozy vocabulary lesson ✦</footer>
+
+<script>
+const words = [{"en": "cheerful", "ru": "весёлый, жизнерадостный, бодрый", "note": "Про человека, настроение, атмосферу."}, {"en": "share", "ru": "делиться; общий; доля", "note": "Можно share a story, share food, или a share — часть/доля."}, {"en": "turn", "ru": "поворачивать; очередь; ход; становиться; поворот", "note": "Очень многозначное: turn left, your turn, turn red, a sharp turn."}, {"en": "bright", "ru": "яркий; светлый; умный; радостный", "note": "Bright light, bright room, bright student, bright smile."}, {"en": "straight through", "ru": "прямо насквозь; напрямую; без остановки; до конца", "note": "Go straight through the hall; work straight through the night."}, {"en": "sing along", "ru": "подпевать; петь вместе", "note": "Sing along with a song."}, {"en": "laugh", "ru": "смеяться; смех", "note": "Глагол и существительное."}, {"en": "within", "ru": "внутри; в пределах; в течение", "note": "Within the box, within 10 minutes, within the rules."}, {"en": "madly", "ru": "безумно; бешено; очень сильно", "note": "Madly in love, run madly, madly excited."}, {"en": "grab", "ru": "схватить; быстро взять; урвать", "note": "Grab a bag, grab my hand, grab a coffee."}, {"en": "start the engine", "ru": "завести двигатель; запустить мотор", "note": "Про машину, лодку, мотоцикл."}, {"en": "to be in a hurry", "ru": "торопиться; спешить", "note": "I’m in a hurry = я тороплюсь."}];
+
+const gapSentences = [
+  { text: "My little sister is always so ______ in the morning; she smiles at everyone.", answer: "cheerful" },
+  { text: "Can you ______ your notes with me after the lesson?", answer: "share" },
+  { text: "It is your ______ to answer the question.", answer: "turn" },
+  { text: "The room looked warm and ______ after we opened the curtains.", answer: "bright" },
+  { text: "We walked ______ the park and came out near the river.", answer: "straight through" },
+  { text: "When my favourite song starts, I always ______.", answer: "sing along" },
+  { text: "Please don’t ______ at him; he is already nervous.", answer: "laugh" },
+  { text: "You must finish this task ______ twenty minutes.", answer: "within" },
+  { text: "The fans shouted ______ when the singer came on stage.", answer: "madly" },
+  { text: "I need to ______ my bag before we leave.", answer: "grab" },
+  { text: "Dad got into the car and tried to ______.", answer: "start the engine" },
+  { text: "I can’t talk now — I’m ______.", answer: "to be in a hurry" }
+];
+
+function speak(text) {
+  if (!('speechSynthesis' in window)) {
+    alert('Audio is not supported in this browser.');
+    return;
+  }
+  window.speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = 'en-US';
+  u.rate = 0.86;
+  u.pitch = 1;
+  window.speechSynthesis.speak(u);
+}
+
+function scrollToId(id) {
+  document.getElementById(id).scrollIntoView({ behavior:'smooth', block:'start' });
+}
+
+function makeCard(item, mode) {
+  const front = mode === 'en' ? item.en : item.ru;
+  const backMain = mode === 'en' ? item.ru : item.en;
+  const backSub = mode === 'en' ? item.note : item.ru;
+  const audioWord = item.en;
+  return `<div class="card" data-en="${item.en}">
+    <div class="inner">
+      <div class="face front" onclick="this.closest('.card').classList.toggle('flipped')">
+        <div class="word">${front}</div>
+        <div class="micro">
+          <button onclick="event.stopPropagation(); speak('${audioWord.replaceAll("'", "\\'")}')">🔊 Listen</button>
+          <button onclick="event.stopPropagation(); this.closest('.card').classList.toggle('flipped')">Flip</button>
+        </div>
+      </div>
+      <div class="face back" onclick="this.closest('.card').classList.toggle('flipped')">
+        <div>
+          <div class="translation">${backMain}</div>
+          <div class="note">${backSub}</div>
+        </div>
+        <div class="micro">
+          <button onclick="event.stopPropagation(); speak('${audioWord.replaceAll("'", "\\'")}')">🔊 Listen</button>
+          <button onclick="event.stopPropagation(); this.closest('.card').classList.toggle('flipped')">Back</button>
+        </div>
+      </div>
+    </div>
+  </div>`;
+}
+
+function renderCards() {
+  document.getElementById('enGrid').innerHTML = words.map(w => makeCard(w, 'en')).join('');
+  document.getElementById('ruGrid').innerHTML = words.map(w => makeCard(w, 'ru')).join('');
+}
+
+function flipAll() {
+  document.querySelectorAll('.card').forEach(c => c.classList.add('flipped'));
+}
+function resetCards() {
+  document.querySelectorAll('.card').forEach(c => c.classList.remove('flipped'));
+}
+function shuffleArray(arr) {
+  return [...arr].sort(() => Math.random() - 0.5);
+}
+function shuffleCards() {
+  const shuffled = shuffleArray(words);
+  document.getElementById('enGrid').innerHTML = shuffled.map(w => makeCard(w, 'en')).join('');
+  document.getElementById('ruGrid').innerHTML = shuffleArray(words).map(w => makeCard(w, 'ru')).join('');
+}
+
+let selectedEN = null;
+let matched = 0;
+
+function shortRu(ru) {
+  return ru.split(';')[0];
+}
+
+function renderMatching() {
+  matched = 0;
+  selectedEN = null;
+  document.getElementById('matchScore').textContent = '';
+  document.getElementById('matchEN').innerHTML = shuffleArray(words).map(w =>
+    `<div class="pill" data-en="${w.en}" onclick="selectEN(this)">${w.en}</div>`
+  ).join('');
+  document.getElementById('matchRU').innerHTML = shuffleArray(words).map(w =>
+    `<div class="pill" data-answer="${w.en}" onclick="selectRU(this)">${shortRu(w.ru)}</div>`
+  ).join('');
+}
+
+function selectEN(el) {
+  if (el.classList.contains('correct')) return;
+  document.querySelectorAll('#matchEN .pill').forEach(p => p.classList.remove('selected'));
+  el.classList.add('selected');
+  selectedEN = el;
+}
+
+function selectRU(el) {
+  if (!selectedEN || el.classList.contains('correct')) return;
+  if (selectedEN.dataset.en === el.dataset.answer) {
+    selectedEN.classList.remove('selected');
+    selectedEN.classList.add('correct');
+    el.classList.add('correct');
+    matched++;
+    document.getElementById('matchScore').textContent = `Done: ${matched} / ${words.length}`;
+    selectedEN = null;
+  } else {
+    el.classList.add('wrong');
+    selectedEN.classList.add('wrong');
+    setTimeout(() => {
+      el.classList.remove('wrong');
+      selectedEN && selectedEN.classList.remove('wrong');
+    }, 550);
+  }
+}
+
+function resetMatching() {
+  renderMatching();
+}
+
+function renderListening() {
+  document.getElementById('listenBox').innerHTML = shuffleArray(words).map((w, i) =>
+    `<div class="listen-row">
+      <button onclick="speak('${w.en.replaceAll("'", "\\'")}')">🔊</button>
+      <input id="listen${i}" data-answer="${w.en}" placeholder="Write the word or phrase..." autocomplete="off"/>
+      <span class="result" id="listenRes${i}"></span>
+    </div>`
+  ).join('');
+}
+
+function norm(s) {
+  return s.trim().toLowerCase().replace(/[’']/g, "'").replace(/\s+/g, ' ');
+}
+
+function checkListening() {
+  document.querySelectorAll('#listenBox input').forEach((inp, i) => {
+    const res = document.getElementById('listenRes' + i);
+    if (norm(inp.value) === norm(inp.dataset.answer)) {
+      res.textContent = 'Correct';
+      res.className = 'result ok';
+    } else {
+      res.textContent = inp.dataset.answer;
+      res.className = 'result no';
+    }
+  });
+}
+
+function resetListening() {
+  renderListening();
+}
+
+function renderGaps() {
+  const bank = shuffleArray(words).map(w =>
+    `<span class="word-chip" onclick="insertIntoActiveGap('${w.en.replaceAll("'", "\\'")}')">${w.en}</span>`
+  ).join('');
+  const rows = gapSentences.map((g, i) => {
+    const parts = g.text.split('______');
+    return `<div class="gap-row">
+      <div class="sentence">${i+1}. ${parts[0]}<input id="gap${i}" data-answer="${g.answer}" style="max-width:230px; display:inline-block; margin:0 6px;" autocomplete="off"/>${parts[1]}</div>
+      <span class="result" id="gapRes${i}"></span>
+    </div>`;
+  }).join('');
+  document.getElementById('gapBox').innerHTML = `<div class="word-bank">${bank}</div>${rows}`;
+}
+
+let activeGapInput = null;
+document.addEventListener('focusin', (e) => {
+  if (e.target && e.target.id && e.target.id.startsWith('gap')) {
+    activeGapInput = e.target;
+  }
+});
+
+function insertIntoActiveGap(word) {
+  if (!activeGapInput) {
+    activeGapInput = document.querySelector('#gapBox input');
+  }
+  if (activeGapInput) {
+    activeGapInput.value = word;
+    activeGapInput.focus();
+  }
+}
+
+function checkGaps() {
+  document.querySelectorAll('#gapBox input').forEach((inp, i) => {
+    const res = document.getElementById('gapRes' + i);
+    if (norm(inp.value) === norm(inp.dataset.answer)) {
+      res.textContent = 'Correct';
+      res.className = 'result ok';
+    } else {
+      res.textContent = inp.dataset.answer;
+      res.className = 'result no';
+    }
+  });
+}
+
+function resetGaps() {
+  renderGaps();
+}
+
+renderCards();
+renderMatching();
+renderListening();
+renderGaps();
+</script>
+</body>
+</html>
