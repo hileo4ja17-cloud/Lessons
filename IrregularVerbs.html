@@ -1,0 +1,1634 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Café des Verbes · Неправильные глаголы</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=Caveat:wght@400;500;600;700&family=Italianno&family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+
+<style>
+/* ============================================
+   CAFÉ DES VERBES — chocolate & coffee palette
+   ============================================ */
+:root{
+  --espresso:#2b1a13;
+  --coffee:#3e2a1f;
+  --mocha:#5b3a2a;
+  --cocoa:#724a36;
+  --caramel:#a07045;
+  --latte:#c8a583;
+  --cream:#f3e3cc;
+  --milk:#faf1e1;
+  --paper:#f6ead4;
+  --gold:#b8893c;
+  --rose:#c98876;
+  --leaf:#6b7a4a;
+  --shadow:rgba(60,30,15,.18);
+  --ink:#2b1a13;
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{overflow-x:hidden}
+body{
+  font-family:'Lora', Georgia, serif;
+  color:var(--ink);
+  background:
+    radial-gradient(ellipse at 20% 10%, rgba(184,137,60,.12), transparent 55%),
+    radial-gradient(ellipse at 80% 90%, rgba(91,58,42,.15), transparent 55%),
+    linear-gradient(180deg, #f6ead4 0%, #ecd9b9 100%);
+  min-height:100vh;
+  position:relative;
+  line-height:1.55;
+}
+/* paper grain overlay */
+body::before{
+  content:"";
+  position:fixed;inset:0;
+  pointer-events:none;
+  z-index:1;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.17 0 0 0 0 0.10 0 0 0 0 0.07 0 0 0 0.10 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  opacity:.55;
+  mix-blend-mode:multiply;
+}
+
+/* floating coffee beans */
+.bean{
+  position:fixed;
+  pointer-events:none;
+  opacity:.22;
+  z-index:0;
+  animation:float 18s ease-in-out infinite;
+}
+.bean.b1{top:8%;left:4%;width:46px;transform:rotate(-20deg);animation-delay:-2s}
+.bean.b2{top:30%;right:5%;width:38px;transform:rotate(40deg);animation-delay:-7s}
+.bean.b3{bottom:14%;left:7%;width:54px;transform:rotate(15deg);animation-delay:-11s}
+.bean.b4{bottom:6%;right:8%;width:42px;transform:rotate(-35deg);animation-delay:-4s}
+.bean.b5{top:60%;left:48%;width:30px;transform:rotate(70deg);animation-delay:-9s;opacity:.14}
+@keyframes float{
+  0%,100%{transform:translate(0,0) rotate(var(--r,0deg))}
+  50%{transform:translate(10px,-22px) rotate(calc(var(--r,0deg) + 8deg))}
+}
+
+main, header, nav.tabs{position:relative;z-index:2}
+
+/* ============================================
+   HEADER
+   ============================================ */
+header{
+  text-align:center;
+  padding:54px 20px 28px;
+  position:relative;
+}
+.eyebrow{
+  font-family:'Caveat', cursive;
+  color:var(--caramel);
+  font-size:1.55rem;
+  letter-spacing:.04em;
+  transform:rotate(-2deg);
+  display:inline-block;
+}
+h1.title{
+  font-family:'Cormorant Garamond', serif;
+  font-weight:500;
+  font-style:italic;
+  font-size:clamp(2.6rem, 6vw, 4.6rem);
+  line-height:1;
+  letter-spacing:-.01em;
+  color:var(--espresso);
+  margin:.1em 0 .15em;
+  text-shadow:0 2px 0 rgba(255,255,255,.4);
+}
+h1.title .amp{
+  font-family:'Italianno', cursive;
+  font-style:normal;
+  color:var(--caramel);
+  font-size:1.15em;
+  vertical-align:-.05em;
+  margin:0 .04em;
+}
+.subtitle{
+  font-family:'Playfair Display', serif;
+  font-weight:400;
+  font-style:italic;
+  color:var(--mocha);
+  font-size:1.05rem;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  margin-top:.4em;
+}
+.divider{
+  display:flex;align-items:center;justify-content:center;gap:14px;
+  margin:18px auto 0;max-width:280px;
+  color:var(--caramel);
+}
+.divider::before,.divider::after{
+  content:"";flex:1;height:1px;
+  background:linear-gradient(90deg, transparent, var(--caramel), transparent);
+}
+
+/* ============================================
+   TABS
+   ============================================ */
+nav.tabs{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:6px;
+  max-width:1100px;
+  margin:24px auto 28px;
+  padding:0 16px;
+}
+.tab{
+  font-family:'Playfair Display', serif;
+  font-weight:500;
+  font-style:italic;
+  font-size:.92rem;
+  letter-spacing:.05em;
+  padding:10px 18px;
+  border:1px solid rgba(91,58,42,.25);
+  background:rgba(250,241,225,.6);
+  color:var(--mocha);
+  border-radius:999px;
+  cursor:pointer;
+  transition:all .35s ease;
+  backdrop-filter:blur(2px);
+}
+.tab:hover{
+  background:var(--cream);
+  border-color:var(--caramel);
+  transform:translateY(-1px);
+}
+.tab.active{
+  background:var(--espresso);
+  color:var(--milk);
+  border-color:var(--espresso);
+  box-shadow:0 6px 14px rgba(43,26,19,.3);
+}
+.tab .num{
+  font-family:'Caveat', cursive;
+  margin-right:6px;
+  color:var(--caramel);
+  font-size:1.1em;
+}
+.tab.active .num{color:var(--latte)}
+
+/* ============================================
+   SECTIONS
+   ============================================ */
+main{max-width:1180px;margin:0 auto;padding:10px 22px 80px}
+section.page{display:none;animation:fadeIn .55s ease}
+section.page.active{display:block}
+@keyframes fadeIn{
+  from{opacity:0;transform:translateY(14px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+.page-head{
+  text-align:center;
+  margin:8px 0 30px;
+}
+.page-head .ribbon{
+  font-family:'Caveat', cursive;
+  color:var(--rose);
+  font-size:1.4rem;
+  display:inline-block;
+  transform:rotate(-1.5deg);
+}
+.page-head h2{
+  font-family:'Cormorant Garamond', serif;
+  font-style:italic;
+  font-weight:500;
+  font-size:clamp(1.9rem, 4vw, 2.8rem);
+  color:var(--espresso);
+  margin:.1em 0;
+}
+.page-head p{
+  font-family:'Playfair Display', serif;
+  font-style:italic;
+  color:var(--mocha);
+  font-size:1rem;
+  max-width:540px;
+  margin:6px auto 0;
+}
+
+/* ============================================
+   FLASHCARDS GRID
+   ============================================ */
+.flash-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill, minmax(220px, 1fr));
+  gap:22px;
+  margin-top:10px;
+}
+.flash{
+  perspective:1200px;
+  -webkit-perspective:1200px;
+  height:240px;
+  position:relative;
+  animation:rise .6s ease backwards;
+}
+@keyframes rise{
+  from{opacity:0;transform:translateY(20px)}
+  to{opacity:1;transform:translateY(0)}
+}
+.flash-inner{
+  position:relative;
+  width:100%;height:100%;
+  transition:transform .8s cubic-bezier(.7,.05,.3,1);
+  transform-style:preserve-3d;
+  -webkit-transform-style:preserve-3d;
+  cursor:pointer;
+}
+.flash.flipped .flash-inner{
+  transform:rotateY(180deg);
+  -webkit-transform:rotateY(180deg);
+}
+.flash-face{
+  position:absolute;inset:0;
+  border-radius:14px;
+  padding:18px 16px;
+  backface-visibility:hidden;
+  -webkit-backface-visibility:hidden;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  box-shadow:
+    0 1px 0 rgba(255,255,255,.5) inset,
+    0 -2px 0 rgba(60,30,15,.07) inset,
+    0 10px 24px var(--shadow),
+    0 2px 4px rgba(60,30,15,.1);
+  overflow:hidden;
+  isolation:isolate;
+}
+.flash-face::before{
+  content:"";
+  position:absolute;inset:0;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><filter id='nn'><feTurbulence type='fractalNoise' baseFrequency='1.2' numOctaves='2'/><feColorMatrix values='0 0 0 0 0.17 0 0 0 0 0.10 0 0 0 0 0.07 0 0 0 0.06 0'/></filter><rect width='100%' height='100%' filter='url(%23nn)'/></svg>");
+  opacity:.6;
+  pointer-events:none;
+  backface-visibility:hidden;
+  -webkit-backface-visibility:hidden;
+}
+.flash-front{
+  background:#faf1e1;
+  background-image:
+    radial-gradient(circle at 20% 10%, rgba(255,255,255,.4), transparent 50%),
+    linear-gradient(140deg, #faf1e1 0%, #ecd5ae 100%);
+  border:1px solid rgba(160,112,69,.3);
+  transform:rotateY(0deg) translateZ(1px);
+  -webkit-transform:rotateY(0deg) translateZ(1px);
+}
+.flash-back{
+  background:#3e2a1f;
+  background-image:
+    radial-gradient(circle at 80% 90%, rgba(184,137,60,.25), transparent 55%),
+    linear-gradient(140deg, #3e2a1f 0%, #5b3a2a 100%);
+  color:var(--milk);
+  transform:rotateY(180deg) translateZ(1px);
+  -webkit-transform:rotateY(180deg) translateZ(1px);
+  border:1px solid rgba(184,137,60,.4);
+}
+.flash-front .ru{
+  font-family:'Cormorant Garamond', serif;
+  font-style:italic;
+  font-weight:500;
+  font-size:1.85rem;
+  color:var(--espresso);
+  line-height:1.1;
+  z-index:1;
+}
+.flash-front .v1-en{
+  font-family:'Playfair Display', serif;
+  font-weight:600;
+  font-size:1.95rem;
+  color:var(--espresso);
+  z-index:1;
+}
+.flash-front .v1-ipa{
+  font-family:'Lora', serif;
+  font-style:italic;
+  color:var(--mocha);
+  margin-top:6px;
+  font-size:.95rem;
+  z-index:1;
+}
+.flash-front .hint{
+  position:absolute;
+  bottom:10px;
+  font-family:'Caveat', cursive;
+  font-size:.95rem;
+  color:var(--caramel);
+  opacity:.7;
+  z-index:1;
+}
+.flash-back .forms{
+  display:flex;flex-direction:column;gap:10px;width:100%;
+  z-index:1;
+}
+.flash-back .form-row{
+  display:flex;align-items:center;justify-content:space-between;gap:8px;
+  padding:0 4px;
+}
+.flash-back .form-label{
+  font-family:'Caveat', cursive;
+  font-size:.9rem;
+  color:var(--latte);
+  min-width:24px;
+  text-align:left;
+}
+.flash-back .form-text{
+  flex:1;text-align:left;
+}
+.flash-back .form-en{
+  font-family:'Playfair Display', serif;
+  font-weight:600;
+  font-size:1.1rem;
+  color:var(--milk);
+  display:block;
+}
+.flash-back .form-ipa{
+  font-family:'Lora', serif;
+  font-style:italic;
+  font-size:.78rem;
+  color:var(--latte);
+  opacity:.9;
+}
+.play-btn{
+  background:rgba(184,137,60,.15);
+  border:1px solid var(--caramel);
+  color:var(--cream);
+  width:30px;height:30px;
+  border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;
+  transition:all .25s;
+  flex-shrink:0;
+}
+.play-btn:hover{
+  background:var(--caramel);
+  color:var(--espresso);
+  transform:scale(1.1);
+}
+.play-btn.playing{
+  animation:pulse .8s ease-in-out infinite;
+}
+@keyframes pulse{
+  0%,100%{box-shadow:0 0 0 0 rgba(184,137,60,.6)}
+  50%{box-shadow:0 0 0 8px rgba(184,137,60,0)}
+}
+.play-all{
+  margin-top:6px;
+  font-family:'Caveat', cursive;
+  font-size:1rem;
+  color:var(--latte);
+  background:none;border:none;cursor:pointer;
+  text-decoration:underline;text-decoration-style:dotted;
+  text-underline-offset:3px;
+  z-index:1;
+}
+.play-all:hover{color:var(--cream)}
+
+/* small decorative corner on cards */
+.corner{
+  position:absolute;
+  width:18px;height:18px;
+  border:1px solid currentColor;
+  opacity:.35;
+  pointer-events:none;
+}
+.flash-front .corner{color:var(--caramel)}
+.flash-back .corner{color:var(--latte)}
+.corner.tl{top:8px;left:8px;border-right:none;border-bottom:none}
+.corner.tr{top:8px;right:8px;border-left:none;border-bottom:none}
+.corner.bl{bottom:8px;left:8px;border-right:none;border-top:none}
+.corner.br{bottom:8px;right:8px;border-left:none;border-top:none}
+
+/* ============================================
+   EXERCISES
+   ============================================ */
+.exercise-card{
+  background:
+    radial-gradient(ellipse at 10% 0%, rgba(255,255,255,.5), transparent 60%),
+    linear-gradient(160deg, #faf1e1 0%, #f0dcb8 100%);
+  border:1px solid rgba(160,112,69,.3);
+  border-radius:18px;
+  padding:36px 32px;
+  box-shadow:
+    0 1px 0 rgba(255,255,255,.5) inset,
+    0 14px 36px var(--shadow);
+  max-width:680px;
+  margin:0 auto;
+  position:relative;
+  overflow:hidden;
+}
+.exercise-card::before{
+  content:"";
+  position:absolute;inset:0;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='nn2'><feTurbulence type='fractalNoise' baseFrequency='1.1' numOctaves='2'/><feColorMatrix values='0 0 0 0 0.17 0 0 0 0 0.10 0 0 0 0 0.07 0 0 0 0.05 0'/></filter><rect width='100%' height='100%' filter='url(%23nn2)'/></svg>");
+  opacity:.5;pointer-events:none;
+}
+.exercise-card > *{position:relative;z-index:1}
+
+.progress-row{
+  display:flex;justify-content:space-between;align-items:center;
+  font-family:'Caveat', cursive;
+  font-size:1.1rem;
+  color:var(--mocha);
+  margin-bottom:18px;
+}
+.progress-track{
+  height:4px;
+  background:rgba(91,58,42,.15);
+  border-radius:2px;
+  overflow:hidden;
+  flex:1;margin:0 14px;
+  position:relative;
+}
+.progress-bar{
+  height:100%;
+  background:linear-gradient(90deg, var(--caramel), var(--cocoa));
+  border-radius:2px;
+  transition:width .5s ease;
+}
+
+.prompt{
+  text-align:center;
+  margin:14px 0 26px;
+}
+.prompt .label{
+  font-family:'Caveat', cursive;
+  color:var(--rose);
+  font-size:1.2rem;
+  letter-spacing:.04em;
+}
+.prompt .word{
+  font-family:'Cormorant Garamond', serif;
+  font-style:italic;
+  font-weight:500;
+  font-size:clamp(2.4rem, 5.5vw, 3.4rem);
+  color:var(--espresso);
+  line-height:1.1;
+  display:block;
+  margin-top:4px;
+}
+.prompt .word.en{font-style:normal;font-family:'Playfair Display', serif;font-weight:600}
+.prompt .ipa{
+  font-family:'Lora', serif;
+  font-style:italic;
+  color:var(--mocha);
+  font-size:1.05rem;
+  margin-top:4px;
+}
+.prompt .audio-prompt{
+  width:78px;height:78px;
+  margin:14px auto 4px;
+  border-radius:50%;
+  background:
+    radial-gradient(circle at 30% 30%, rgba(255,255,255,.4), transparent 50%),
+    linear-gradient(140deg, var(--caramel), var(--cocoa));
+  border:none;
+  color:var(--milk);
+  cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 8px 18px rgba(91,58,42,.35);
+  transition:all .25s;
+}
+.prompt .audio-prompt:hover{transform:scale(1.07)}
+.prompt .audio-prompt.playing{animation:pulse-big 1.2s ease-in-out infinite}
+@keyframes pulse-big{
+  0%,100%{box-shadow:0 8px 18px rgba(91,58,42,.35), 0 0 0 0 rgba(184,137,60,.5)}
+  50%{box-shadow:0 8px 18px rgba(91,58,42,.35), 0 0 0 18px rgba(184,137,60,0)}
+}
+
+.inputs-row{
+  display:grid;
+  grid-template-columns:repeat(3, 1fr);
+  gap:14px;
+  margin-bottom:18px;
+}
+.inputs-row.cols-4{grid-template-columns:repeat(2,1fr)}
+@media(max-width:560px){.inputs-row,.inputs-row.cols-4{grid-template-columns:1fr}}
+.input-field label{
+  display:block;
+  font-family:'Caveat', cursive;
+  font-size:1.05rem;
+  color:var(--caramel);
+  margin-bottom:4px;
+  letter-spacing:.03em;
+}
+.input-field input{
+  width:100%;
+  padding:11px 14px;
+  font-family:'Playfair Display', serif;
+  font-size:1.05rem;
+  color:var(--espresso);
+  background:rgba(255,255,255,.55);
+  border:1px solid rgba(91,58,42,.25);
+  border-bottom:2px solid var(--mocha);
+  border-radius:8px 8px 4px 4px;
+  outline:none;
+  transition:all .25s;
+}
+.input-field input:focus{
+  background:rgba(255,255,255,.85);
+  border-bottom-color:var(--caramel);
+  box-shadow:0 4px 10px rgba(184,137,60,.15);
+}
+.input-field input.correct{
+  background:rgba(107,122,74,.13);
+  border-bottom-color:var(--leaf);
+  color:var(--leaf);
+}
+.input-field input.wrong{
+  background:rgba(201,136,118,.13);
+  border-bottom-color:var(--rose);
+  color:var(--rose);
+  animation:shake .4s;
+}
+@keyframes shake{
+  0%,100%{transform:translateX(0)}
+  20%,60%{transform:translateX(-6px)}
+  40%,80%{transform:translateX(6px)}
+}
+.correct-show{
+  display:block;
+  font-family:'Caveat', cursive;
+  font-size:.95rem;
+  color:var(--leaf);
+  margin-top:4px;
+  min-height:1.2em;
+}
+
+.btn-row{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  justify-content:center;
+  margin-top:18px;
+}
+button.btn{
+  font-family:'Playfair Display', serif;
+  font-style:italic;
+  font-weight:500;
+  font-size:1rem;
+  padding:11px 26px;
+  border-radius:999px;
+  cursor:pointer;
+  transition:all .3s;
+  letter-spacing:.04em;
+}
+.btn.primary{
+  background:var(--espresso);
+  color:var(--milk);
+  border:1px solid var(--espresso);
+  box-shadow:0 6px 14px rgba(43,26,19,.25);
+}
+.btn.primary:hover{
+  background:var(--mocha);
+  transform:translateY(-2px);
+  box-shadow:0 9px 18px rgba(43,26,19,.3);
+}
+.btn.secondary{
+  background:transparent;
+  color:var(--mocha);
+  border:1px solid var(--mocha);
+}
+.btn.secondary:hover{
+  background:var(--mocha);
+  color:var(--milk);
+}
+.btn.tertiary{
+  background:rgba(184,137,60,.15);
+  color:var(--cocoa);
+  border:1px dashed var(--caramel);
+}
+.btn.tertiary:hover{background:rgba(184,137,60,.3)}
+.btn:disabled{opacity:.5;cursor:not-allowed;transform:none!important}
+
+.feedback{
+  text-align:center;
+  font-family:'Caveat', cursive;
+  font-size:1.5rem;
+  margin-top:14px;
+  min-height:1.4em;
+  letter-spacing:.02em;
+}
+.feedback.good{color:var(--leaf)}
+.feedback.bad{color:var(--rose)}
+
+/* confetti — coffee beans */
+.confetti{
+  position:fixed;
+  pointer-events:none;
+  z-index:9999;
+  top:0;left:0;width:100%;height:100%;
+  overflow:hidden;
+  display:none;
+}
+.confetti.show{display:block}
+.confetti span{
+  position:absolute;
+  top:-30px;
+  font-size:22px;
+  animation:fall linear forwards;
+}
+@keyframes fall{
+  to{transform:translateY(110vh) rotate(720deg);opacity:0}
+}
+
+/* self check */
+.score-board{
+  display:flex;
+  flex-wrap:wrap;
+  gap:18px;
+  justify-content:center;
+  align-items:center;
+  margin-bottom:22px;
+}
+.score-item{
+  text-align:center;
+  padding:8px 18px;
+  border:1px solid rgba(91,58,42,.2);
+  border-radius:12px;
+  background:rgba(250,241,225,.5);
+}
+.score-item .n{
+  font-family:'Cormorant Garamond', serif;
+  font-style:italic;
+  font-weight:600;
+  font-size:1.8rem;
+  color:var(--espresso);
+  display:block;line-height:1;
+}
+.score-item .l{
+  font-family:'Caveat', cursive;
+  font-size:.95rem;
+  color:var(--mocha);
+}
+
+footer.foot{
+  text-align:center;
+  padding:30px 20px;
+  font-family:'Caveat', cursive;
+  color:var(--mocha);
+  font-size:1.05rem;
+  position:relative;z-index:2;
+}
+footer.foot .heart{color:var(--rose)}
+
+/* steam decoration */
+.steam{
+  position:absolute;
+  top:-30px;left:50%;
+  transform:translateX(-50%);
+  width:60px;height:60px;
+  pointer-events:none;
+}
+.steam span{
+  position:absolute;
+  bottom:0;
+  width:6px;height:30px;
+  background:linear-gradient(to top, rgba(91,58,42,.3), transparent);
+  border-radius:50%;
+  animation:steam 3s ease-in-out infinite;
+}
+.steam span:nth-child(1){left:18px;animation-delay:0s}
+.steam span:nth-child(2){left:30px;animation-delay:.8s}
+.steam span:nth-child(3){left:42px;animation-delay:1.6s}
+@keyframes steam{
+  0%{transform:translateY(0) scaleX(1);opacity:0}
+  30%{opacity:.6}
+  100%{transform:translateY(-30px) scaleX(1.5);opacity:0}
+}
+
+/* responsive */
+@media(max-width:560px){
+  .exercise-card{padding:26px 18px}
+  .flash{height:220px}
+}
+</style>
+</head>
+<body>
+
+<!-- floating beans -->
+<svg class="bean b1" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><ellipse cx="50" cy="50" rx="38" ry="22" fill="#3e2a1f"/><path d="M20 50 Q50 38 80 50 Q50 62 20 50" stroke="#1a0e08" stroke-width="2" fill="none"/></svg>
+<svg class="bean b2" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><ellipse cx="50" cy="50" rx="38" ry="22" fill="#3e2a1f"/><path d="M20 50 Q50 38 80 50 Q50 62 20 50" stroke="#1a0e08" stroke-width="2" fill="none"/></svg>
+<svg class="bean b3" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><ellipse cx="50" cy="50" rx="38" ry="22" fill="#3e2a1f"/><path d="M20 50 Q50 38 80 50 Q50 62 20 50" stroke="#1a0e08" stroke-width="2" fill="none"/></svg>
+<svg class="bean b4" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><ellipse cx="50" cy="50" rx="38" ry="22" fill="#3e2a1f"/><path d="M20 50 Q50 38 80 50 Q50 62 20 50" stroke="#1a0e08" stroke-width="2" fill="none"/></svg>
+<svg class="bean b5" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><ellipse cx="50" cy="50" rx="38" ry="22" fill="#3e2a1f"/><path d="M20 50 Q50 38 80 50 Q50 62 20 50" stroke="#1a0e08" stroke-width="2" fill="none"/></svg>
+
+<header>
+  <span class="eyebrow">~ a vintage cafe lesson ~</span>
+  <h1 class="title">Café des Verbes<span class="amp"> &amp; </span>Chocolat</h1>
+  <div class="subtitle">irregular verbs · 65 essentials</div>
+  <div class="divider">
+    <svg width="22" height="22" viewBox="0 0 100 100"><ellipse cx="50" cy="50" rx="36" ry="20" fill="#a07045"/><path d="M22 50 Q50 38 78 50 Q50 62 22 50" stroke="#5b3a2a" stroke-width="3" fill="none"/></svg>
+  </div>
+</header>
+
+<nav class="tabs" id="tabs">
+  <button class="tab active" data-page="cards-ru"><span class="num">01</span>Карточки · RU → EN</button>
+  <button class="tab" data-page="cards-en"><span class="num">02</span>Карточки · EN only</button>
+  <button class="tab" data-page="ex-ru"><span class="num">03</span>Письмо · с русского</button>
+  <button class="tab" data-page="ex-listen"><span class="num">04</span>На слух</button>
+  <button class="tab" data-page="ex-form"><span class="num">05</span>Восстанови формы</button>
+  <button class="tab" data-page="self"><span class="num">06</span>Самопроверка</button>
+</nav>
+
+<main>
+
+  <!-- ============================================================
+       PAGE 1: Russian → 3 forms flashcards
+       ============================================================ -->
+  <section class="page active" id="cards-ru">
+    <div class="page-head">
+      <span class="ribbon">~ menu du jour ~</span>
+      <h2>Карточки с переводом</h2>
+      <p>Кликни по карточке — она перевернётся и покажет три формы глагола с транскрипцией. Нажми на динамик, чтобы услышать произношение.</p>
+    </div>
+    <div class="flash-grid" id="grid-ru"></div>
+  </section>
+
+  <!-- ============================================================
+       PAGE 2: English-only flashcards
+       ============================================================ -->
+  <section class="page" id="cards-en">
+    <div class="page-head">
+      <span class="ribbon">~ pour les avancés ~</span>
+      <h2>Карточки без перевода</h2>
+      <p>На лицевой стороне — первая форма. Переверни и проверь, помнишь ли ты вторую и третью.</p>
+    </div>
+    <div class="flash-grid" id="grid-en"></div>
+  </section>
+
+  <!-- ============================================================
+       PAGE 3: Russian → write 3 forms
+       ============================================================ -->
+  <section class="page" id="ex-ru">
+    <div class="page-head">
+      <span class="ribbon">~ exercice no. 1 ~</span>
+      <h2>Напиши три формы по переводу</h2>
+      <p>Прочитай русский глагол и впиши все три английские формы в отдельные ячейки.</p>
+    </div>
+    <div class="exercise-card" id="card-ex1">
+      <div class="progress-row">
+        <span id="ex1-counter">1 / 65</span>
+        <div class="progress-track"><div class="progress-bar" id="ex1-bar" style="width:0%"></div></div>
+        <span id="ex1-score">✓ 0</span>
+      </div>
+      <div class="prompt">
+        <span class="label">переведи и просклоняй</span>
+        <span class="word" id="ex1-word">—</span>
+      </div>
+      <div class="inputs-row">
+        <div class="input-field"><label>Infinitive (V1)</label><input id="ex1-v1" autocomplete="off"><span class="correct-show" id="ex1-v1-show"></span></div>
+        <div class="input-field"><label>Past Simple (V2)</label><input id="ex1-v2" autocomplete="off"><span class="correct-show" id="ex1-v2-show"></span></div>
+        <div class="input-field"><label>Past Participle (V3)</label><input id="ex1-v3" autocomplete="off"><span class="correct-show" id="ex1-v3-show"></span></div>
+      </div>
+      <div class="feedback" id="ex1-feedback">&nbsp;</div>
+      <div class="btn-row">
+        <button class="btn primary" id="ex1-check">Проверить</button>
+        <button class="btn secondary" id="ex1-next">Следующий →</button>
+        <button class="btn tertiary" id="ex1-skip">Пропустить</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       PAGE 4: Listen → write 3 forms
+       ============================================================ -->
+  <section class="page" id="ex-listen">
+    <div class="page-head">
+      <span class="ribbon">~ exercice no. 2 ~</span>
+      <h2>Послушай и запиши</h2>
+      <p>Нажми на чашку, чтобы услышать первую форму глагола. Запиши все три формы.</p>
+    </div>
+    <div class="exercise-card" id="card-ex2">
+      <div class="progress-row">
+        <span id="ex2-counter">1 / 65</span>
+        <div class="progress-track"><div class="progress-bar" id="ex2-bar" style="width:0%"></div></div>
+        <span id="ex2-score">✓ 0</span>
+      </div>
+      <div class="prompt">
+        <span class="label">listen carefully</span>
+        <button class="audio-prompt" id="ex2-play" aria-label="Play">
+          <svg width="34" height="34" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+        </button>
+      </div>
+      <div class="inputs-row">
+        <div class="input-field"><label>Infinitive (V1)</label><input id="ex2-v1" autocomplete="off"><span class="correct-show" id="ex2-v1-show"></span></div>
+        <div class="input-field"><label>Past Simple (V2)</label><input id="ex2-v2" autocomplete="off"><span class="correct-show" id="ex2-v2-show"></span></div>
+        <div class="input-field"><label>Past Participle (V3)</label><input id="ex2-v3" autocomplete="off"><span class="correct-show" id="ex2-v3-show"></span></div>
+      </div>
+      <div class="feedback" id="ex2-feedback">&nbsp;</div>
+      <div class="btn-row">
+        <button class="btn primary" id="ex2-check">Проверить</button>
+        <button class="btn secondary" id="ex2-next">Следующий →</button>
+        <button class="btn tertiary" id="ex2-skip">Пропустить</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       PAGE 5: Restore forms — given V2 → V1, V3, RU
+       ============================================================ -->
+  <section class="page" id="ex-form">
+    <div class="page-head">
+      <span class="ribbon">~ exercice no. 3 ~</span>
+      <h2>Восстанови недостающие формы</h2>
+      <p>Дана одна из форм глагола. Запиши остальные и его русский перевод.</p>
+    </div>
+    <div class="exercise-card" id="card-ex3">
+      <div class="progress-row">
+        <span id="ex3-counter">1 / 65</span>
+        <div class="progress-track"><div class="progress-bar" id="ex3-bar" style="width:0%"></div></div>
+        <span id="ex3-score">✓ 0</span>
+      </div>
+      <div class="prompt">
+        <span class="label" id="ex3-label">given · past simple</span>
+        <span class="word en" id="ex3-word">—</span>
+        <span class="ipa" id="ex3-ipa"></span>
+      </div>
+      <div class="inputs-row cols-4" id="ex3-inputs"></div>
+      <div class="feedback" id="ex3-feedback">&nbsp;</div>
+      <div class="btn-row">
+        <button class="btn primary" id="ex3-check">Проверить</button>
+        <button class="btn secondary" id="ex3-next">Следующий →</button>
+        <button class="btn tertiary" id="ex3-skip">Пропустить</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       PAGE 6: Self-check with random verbs and random mode
+       ============================================================ -->
+  <section class="page" id="self">
+    <div class="page-head">
+      <span class="ribbon">~ la dégustation ~</span>
+      <h2>Самопроверка</h2>
+      <p>Случайный глагол, случайный режим. Сколько ты сможешь набрать?</p>
+    </div>
+    <div class="exercise-card" id="card-self">
+      <div class="score-board">
+        <div class="score-item"><span class="n" id="self-correct">0</span><span class="l">верно</span></div>
+        <div class="score-item"><span class="n" id="self-wrong">0</span><span class="l">с ошибкой</span></div>
+        <div class="score-item"><span class="n" id="self-total">0</span><span class="l">всего</span></div>
+        <div class="score-item"><span class="n" id="self-streak">0</span><span class="l">подряд</span></div>
+      </div>
+      <div class="prompt" id="self-prompt">
+        <span class="label" id="self-label">~ mode ~</span>
+        <span class="word" id="self-word">—</span>
+        <span class="ipa" id="self-ipa"></span>
+        <button class="audio-prompt" id="self-play" style="display:none" aria-label="Play">
+          <svg width="34" height="34" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+        </button>
+      </div>
+      <div class="inputs-row" id="self-inputs"></div>
+      <div class="feedback" id="self-feedback">&nbsp;</div>
+      <div class="btn-row">
+        <button class="btn primary" id="self-check">Проверить</button>
+        <button class="btn secondary" id="self-next">Дальше →</button>
+        <button class="btn tertiary" id="self-reset">Сбросить счёт</button>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<div class="confetti" id="confetti"></div>
+
+<footer class="foot">
+  сделано с <span class="heart">♥</span> для тех, кто учит английский за чашкой кофе
+</footer>
+
+<script>
+/* ============================================================
+   DATA — 65 irregular verbs
+   ============================================================ */
+const VERBS = [
+  {v1:'be',v2:'was/were',v3:'been',ipa1:'/biː/',ipa2:'/wɒz/ /wɜː/',ipa3:'/biːn/',ru:'быть'},
+  {v1:'become',v2:'became',v3:'become',ipa1:'/bɪˈkʌm/',ipa2:'/bɪˈkeɪm/',ipa3:'/bɪˈkʌm/',ru:'становиться'},
+  {v1:'break',v2:'broke',v3:'broken',ipa1:'/breɪk/',ipa2:'/brəʊk/',ipa3:'/ˈbrəʊkən/',ru:'ломать'},
+  {v1:'bring',v2:'brought',v3:'brought',ipa1:'/brɪŋ/',ipa2:'/brɔːt/',ipa3:'/brɔːt/',ru:'приносить'},
+  {v1:'build',v2:'built',v3:'built',ipa1:'/bɪld/',ipa2:'/bɪlt/',ipa3:'/bɪlt/',ru:'строить'},
+  {v1:'buy',v2:'bought',v3:'bought',ipa1:'/baɪ/',ipa2:'/bɔːt/',ipa3:'/bɔːt/',ru:'покупать'},
+  {v1:'catch',v2:'caught',v3:'caught',ipa1:'/kætʃ/',ipa2:'/kɔːt/',ipa3:'/kɔːt/',ru:'ловить'},
+  {v1:'choose',v2:'chose',v3:'chosen',ipa1:'/tʃuːz/',ipa2:'/tʃəʊz/',ipa3:'/ˈtʃəʊzn/',ru:'выбирать'},
+  {v1:'come',v2:'came',v3:'come',ipa1:'/kʌm/',ipa2:'/keɪm/',ipa3:'/kʌm/',ru:'приходить'},
+  {v1:'cost',v2:'cost',v3:'cost',ipa1:'/kɒst/',ipa2:'/kɒst/',ipa3:'/kɒst/',ru:'стоить'},
+  {v1:'cut',v2:'cut',v3:'cut',ipa1:'/kʌt/',ipa2:'/kʌt/',ipa3:'/kʌt/',ru:'резать'},
+  {v1:'do',v2:'did',v3:'done',ipa1:'/duː/',ipa2:'/dɪd/',ipa3:'/dʌn/',ru:'делать'},
+  {v1:'draw',v2:'drew',v3:'drawn',ipa1:'/drɔː/',ipa2:'/druː/',ipa3:'/drɔːn/',ru:'рисовать'},
+  {v1:'dream',v2:'dreamed/dreamt',v3:'dreamed/dreamt',ipa1:'/driːm/',ipa2:'/driːmd/ /dremt/',ipa3:'/driːmd/ /dremt/',ru:'мечтать, видеть сон'},
+  {v1:'drink',v2:'drank',v3:'drunk',ipa1:'/drɪŋk/',ipa2:'/dræŋk/',ipa3:'/drʌŋk/',ru:'пить'},
+  {v1:'drive',v2:'drove',v3:'driven',ipa1:'/draɪv/',ipa2:'/drəʊv/',ipa3:'/ˈdrɪvn/',ru:'водить машину'},
+  {v1:'eat',v2:'ate',v3:'eaten',ipa1:'/iːt/',ipa2:'/et/',ipa3:'/ˈiːtn/',ru:'есть, кушать'},
+  {v1:'fall',v2:'fell',v3:'fallen',ipa1:'/fɔːl/',ipa2:'/fel/',ipa3:'/ˈfɔːln/',ru:'падать'},
+  {v1:'feed',v2:'fed',v3:'fed',ipa1:'/fiːd/',ipa2:'/fed/',ipa3:'/fed/',ru:'кормить'},
+  {v1:'feel',v2:'felt',v3:'felt',ipa1:'/fiːl/',ipa2:'/felt/',ipa3:'/felt/',ru:'чувствовать'},
+  {v1:'find',v2:'found',v3:'found',ipa1:'/faɪnd/',ipa2:'/faʊnd/',ipa3:'/faʊnd/',ru:'находить'},
+  {v1:'fly',v2:'flew',v3:'flown',ipa1:'/flaɪ/',ipa2:'/fluː/',ipa3:'/fləʊn/',ru:'летать'},
+  {v1:'forget',v2:'forgot',v3:'forgotten',ipa1:'/fəˈɡet/',ipa2:'/fəˈɡɒt/',ipa3:'/fəˈɡɒtn/',ru:'забывать'},
+  {v1:'get',v2:'got',v3:'got',ipa1:'/ɡet/',ipa2:'/ɡɒt/',ipa3:'/ɡɒt/',ru:'получать'},
+  {v1:'give',v2:'gave',v3:'given',ipa1:'/ɡɪv/',ipa2:'/ɡeɪv/',ipa3:'/ˈɡɪvn/',ru:'давать'},
+  {v1:'go',v2:'went',v3:'gone',ipa1:'/ɡəʊ/',ipa2:'/went/',ipa3:'/ɡɒn/',ru:'идти, ехать'},
+  {v1:'grow',v2:'grew',v3:'grown',ipa1:'/ɡrəʊ/',ipa2:'/ɡruː/',ipa3:'/ɡrəʊn/',ru:'расти'},
+  {v1:'hang',v2:'hung',v3:'hung',ipa1:'/hæŋ/',ipa2:'/hʌŋ/',ipa3:'/hʌŋ/',ru:'вешать'},
+  {v1:'have',v2:'had',v3:'had',ipa1:'/hæv/',ipa2:'/hæd/',ipa3:'/hæd/',ru:'иметь'},
+  {v1:'hear',v2:'heard',v3:'heard',ipa1:'/hɪə/',ipa2:'/hɜːd/',ipa3:'/hɜːd/',ru:'слышать'},
+  {v1:'keep',v2:'kept',v3:'kept',ipa1:'/kiːp/',ipa2:'/kept/',ipa3:'/kept/',ru:'хранить, держать'},
+  {v1:'know',v2:'knew',v3:'known',ipa1:'/nəʊ/',ipa2:'/njuː/',ipa3:'/nəʊn/',ru:'знать'},
+  {v1:'learn',v2:'learned/learnt',v3:'learned/learnt',ipa1:'/lɜːn/',ipa2:'/lɜːnd/ /lɜːnt/',ipa3:'/lɜːnd/ /lɜːnt/',ru:'учить, узнавать'},
+  {v1:'leave',v2:'left',v3:'left',ipa1:'/liːv/',ipa2:'/left/',ipa3:'/left/',ru:'покидать, оставлять'},
+  {v1:'lend',v2:'lent',v3:'lent',ipa1:'/lend/',ipa2:'/lent/',ipa3:'/lent/',ru:'одалживать'},
+  {v1:'lie',v2:'lay',v3:'lain',ipa1:'/laɪ/',ipa2:'/leɪ/',ipa3:'/leɪn/',ru:'лежать'},
+  {v1:'lose',v2:'lost',v3:'lost',ipa1:'/luːz/',ipa2:'/lɒst/',ipa3:'/lɒst/',ru:'терять'},
+  {v1:'make',v2:'made',v3:'made',ipa1:'/meɪk/',ipa2:'/meɪd/',ipa3:'/meɪd/',ru:'делать, создавать'},
+  {v1:'meet',v2:'met',v3:'met',ipa1:'/miːt/',ipa2:'/met/',ipa3:'/met/',ru:'встречать'},
+  {v1:'pay',v2:'paid',v3:'paid',ipa1:'/peɪ/',ipa2:'/peɪd/',ipa3:'/peɪd/',ru:'платить'},
+  {v1:'put',v2:'put',v3:'put',ipa1:'/pʊt/',ipa2:'/pʊt/',ipa3:'/pʊt/',ru:'класть'},
+  {v1:'read',v2:'read',v3:'read',ipa1:'/riːd/',ipa2:'/red/',ipa3:'/red/',ru:'читать'},
+  {v1:'ride',v2:'rode',v3:'ridden',ipa1:'/raɪd/',ipa2:'/rəʊd/',ipa3:'/ˈrɪdn/',ru:'ехать верхом'},
+  {v1:'run',v2:'ran',v3:'run',ipa1:'/rʌn/',ipa2:'/ræn/',ipa3:'/rʌn/',ru:'бежать'},
+  {v1:'say',v2:'said',v3:'said',ipa1:'/seɪ/',ipa2:'/sed/',ipa3:'/sed/',ru:'сказать'},
+  {v1:'see',v2:'saw',v3:'seen',ipa1:'/siː/',ipa2:'/sɔː/',ipa3:'/siːn/',ru:'видеть'},
+  {v1:'send',v2:'sent',v3:'sent',ipa1:'/send/',ipa2:'/sent/',ipa3:'/sent/',ru:'отправлять'},
+  {v1:'set',v2:'set',v3:'set',ipa1:'/set/',ipa2:'/set/',ipa3:'/set/',ru:'устанавливать'},
+  {v1:'sing',v2:'sang',v3:'sung',ipa1:'/sɪŋ/',ipa2:'/sæŋ/',ipa3:'/sʌŋ/',ru:'петь'},
+  {v1:'sit',v2:'sat',v3:'sat',ipa1:'/sɪt/',ipa2:'/sæt/',ipa3:'/sæt/',ru:'сидеть'},
+  {v1:'sleep',v2:'slept',v3:'slept',ipa1:'/sliːp/',ipa2:'/slept/',ipa3:'/slept/',ru:'спать'},
+  {v1:'speak',v2:'spoke',v3:'spoken',ipa1:'/spiːk/',ipa2:'/spəʊk/',ipa3:'/ˈspəʊkən/',ru:'говорить'},
+  {v1:'spend',v2:'spent',v3:'spent',ipa1:'/spend/',ipa2:'/spent/',ipa3:'/spent/',ru:'тратить, проводить'},
+  {v1:'spell',v2:'spelt/spelled',v3:'spelt/spelled',ipa1:'/spel/',ipa2:'/spelt/ /speld/',ipa3:'/spelt/ /speld/',ru:'писать по буквам'},
+  {v1:'stand',v2:'stood',v3:'stood',ipa1:'/stænd/',ipa2:'/stʊd/',ipa3:'/stʊd/',ru:'стоять'},
+  {v1:'swim',v2:'swam',v3:'swum',ipa1:'/swɪm/',ipa2:'/swæm/',ipa3:'/swʌm/',ru:'плавать'},
+  {v1:'take',v2:'took',v3:'taken',ipa1:'/teɪk/',ipa2:'/tʊk/',ipa3:'/ˈteɪkən/',ru:'брать'},
+  {v1:'tell',v2:'told',v3:'told',ipa1:'/tel/',ipa2:'/təʊld/',ipa3:'/təʊld/',ru:'рассказывать'},
+  {v1:'think',v2:'thought',v3:'thought',ipa1:'/θɪŋk/',ipa2:'/θɔːt/',ipa3:'/θɔːt/',ru:'думать'},
+  {v1:'throw',v2:'threw',v3:'thrown',ipa1:'/θrəʊ/',ipa2:'/θruː/',ipa3:'/θrəʊn/',ru:'бросать'},
+  {v1:'understand',v2:'understood',v3:'understood',ipa1:'/ˌʌndəˈstænd/',ipa2:'/ˌʌndəˈstʊd/',ipa3:'/ˌʌndəˈstʊd/',ru:'понимать'},
+  {v1:'wake',v2:'woke',v3:'woken',ipa1:'/weɪk/',ipa2:'/wəʊk/',ipa3:'/ˈwəʊkən/',ru:'просыпаться'},
+  {v1:'wear',v2:'wore',v3:'worn',ipa1:'/weə/',ipa2:'/wɔː/',ipa3:'/wɔːn/',ru:'носить (одежду)'},
+  {v1:'win',v2:'won',v3:'won',ipa1:'/wɪn/',ipa2:'/wʌn/',ipa3:'/wʌn/',ru:'побеждать'},
+  {v1:'write',v2:'wrote',v3:'written',ipa1:'/raɪt/',ipa2:'/rəʊt/',ipa3:'/ˈrɪtn/',ru:'писать'},
+];
+
+/* ============================================================
+   SPEECH SYNTHESIS
+   ============================================================ */
+let englishVoice = null;
+function loadVoices(){
+  const voices = window.speechSynthesis ? window.speechSynthesis.getVoices() : [];
+  englishVoice =
+    voices.find(v => /en-GB/i.test(v.lang) && /female|samantha|kate|serena/i.test(v.name)) ||
+    voices.find(v => /en-GB/i.test(v.lang)) ||
+    voices.find(v => /en-US/i.test(v.lang)) ||
+    voices.find(v => /^en/i.test(v.lang)) || null;
+}
+if(window.speechSynthesis){
+  loadVoices();
+  window.speechSynthesis.onvoiceschanged = loadVoices;
+}
+
+function speak(text, opts={}){
+  if(!window.speechSynthesis) return;
+  window.speechSynthesis.cancel();
+  // handle slashes -> separate utterances joined naturally
+  const parts = text.split('/').map(s=>s.trim()).filter(Boolean);
+  const phrase = parts.join(', ');
+  const utt = new SpeechSynthesisUtterance(phrase);
+  if(englishVoice) utt.voice = englishVoice;
+  utt.lang = 'en-GB';
+  utt.rate = opts.rate || 0.82;
+  utt.pitch = opts.pitch || 1;
+  if(opts.onend) utt.onend = opts.onend;
+  if(opts.onstart) utt.onstart = opts.onstart;
+  window.speechSynthesis.speak(utt);
+}
+
+function speakAll(v, btn){
+  if(btn) btn.classList.add('playing');
+  const seq = [v.v1, v.v2, v.v3];
+  let i = 0;
+  const next = () => {
+    if(i >= seq.length){ if(btn) btn.classList.remove('playing'); return; }
+    speak(seq[i++], {onend: ()=>setTimeout(next, 250)});
+  };
+  next();
+}
+
+/* ============================================================
+   FLASHCARDS — page 1 (RU → 3 forms)
+   ============================================================ */
+function buildCardsRu(){
+  const grid = document.getElementById('grid-ru');
+  VERBS.forEach((v,i)=>{
+    const card = document.createElement('div');
+    card.className = 'flash';
+    card.style.animationDelay = (i*22)+'ms';
+    card.innerHTML = `
+      <div class="flash-inner">
+        <div class="flash-face flash-front">
+          <span class="corner tl"></span><span class="corner tr"></span>
+          <span class="corner bl"></span><span class="corner br"></span>
+          <div class="ru">${v.ru}</div>
+          <div class="hint">~ tap to flip ~</div>
+        </div>
+        <div class="flash-face flash-back">
+          <span class="corner tl"></span><span class="corner tr"></span>
+          <span class="corner bl"></span><span class="corner br"></span>
+          <div class="forms">
+            <div class="form-row">
+              <span class="form-label">V1</span>
+              <div class="form-text">
+                <span class="form-en">${v.v1}</span>
+                <span class="form-ipa">${v.ipa1}</span>
+              </div>
+              <button class="play-btn" data-say="${v.v1}" aria-label="play V1">▸</button>
+            </div>
+            <div class="form-row">
+              <span class="form-label">V2</span>
+              <div class="form-text">
+                <span class="form-en">${v.v2}</span>
+                <span class="form-ipa">${v.ipa2}</span>
+              </div>
+              <button class="play-btn" data-say="${v.v2}" aria-label="play V2">▸</button>
+            </div>
+            <div class="form-row">
+              <span class="form-label">V3</span>
+              <div class="form-text">
+                <span class="form-en">${v.v3}</span>
+                <span class="form-ipa">${v.ipa3}</span>
+              </div>
+              <button class="play-btn" data-say="${v.v3}" aria-label="play V3">▸</button>
+            </div>
+          </div>
+          <button class="play-all" data-all="${i}">слушать всё</button>
+        </div>
+      </div>`;
+    grid.appendChild(card);
+
+    // flip on click anywhere except buttons
+    card.querySelector('.flash-inner').addEventListener('click', e=>{
+      if(e.target.closest('button')) return;
+      card.classList.toggle('flipped');
+    });
+    // per-form audio
+    card.querySelectorAll('.play-btn').forEach(b=>{
+      b.addEventListener('click', e=>{
+        e.stopPropagation();
+        b.classList.add('playing');
+        speak(b.dataset.say, {onend:()=>b.classList.remove('playing')});
+      });
+    });
+    // listen all
+    card.querySelector('.play-all').addEventListener('click', e=>{
+      e.stopPropagation();
+      speakAll(v, e.currentTarget);
+    });
+  });
+}
+
+/* ============================================================
+   FLASHCARDS — page 2 (EN only)
+   ============================================================ */
+function buildCardsEn(){
+  const grid = document.getElementById('grid-en');
+  VERBS.forEach((v,i)=>{
+    const card = document.createElement('div');
+    card.className = 'flash';
+    card.style.animationDelay = (i*22)+'ms';
+    card.innerHTML = `
+      <div class="flash-inner">
+        <div class="flash-face flash-front">
+          <span class="corner tl"></span><span class="corner tr"></span>
+          <span class="corner bl"></span><span class="corner br"></span>
+          <div class="v1-en">${v.v1}</div>
+          <div class="v1-ipa">${v.ipa1}</div>
+          <div class="hint">~ tap to flip ~</div>
+        </div>
+        <div class="flash-face flash-back">
+          <span class="corner tl"></span><span class="corner tr"></span>
+          <span class="corner bl"></span><span class="corner br"></span>
+          <div class="forms">
+            <div class="form-row">
+              <span class="form-label">V2</span>
+              <div class="form-text">
+                <span class="form-en">${v.v2}</span>
+                <span class="form-ipa">${v.ipa2}</span>
+              </div>
+              <button class="play-btn" data-say="${v.v2}" aria-label="play V2">▸</button>
+            </div>
+            <div class="form-row">
+              <span class="form-label">V3</span>
+              <div class="form-text">
+                <span class="form-en">${v.v3}</span>
+                <span class="form-ipa">${v.ipa3}</span>
+              </div>
+              <button class="play-btn" data-say="${v.v3}" aria-label="play V3">▸</button>
+            </div>
+          </div>
+          <button class="play-all" data-all="${i}">слушать всё</button>
+        </div>
+      </div>`;
+    grid.appendChild(card);
+
+    card.querySelector('.flash-inner').addEventListener('click', e=>{
+      if(e.target.closest('button')) return;
+      card.classList.toggle('flipped');
+    });
+    card.querySelectorAll('.play-btn').forEach(b=>{
+      b.addEventListener('click', e=>{
+        e.stopPropagation();
+        b.classList.add('playing');
+        speak(b.dataset.say, {onend:()=>b.classList.remove('playing')});
+      });
+    });
+    card.querySelector('.play-all').addEventListener('click', e=>{
+      e.stopPropagation();
+      speakAll(v, e.currentTarget);
+    });
+  });
+}
+
+/* ============================================================
+   TAB NAVIGATION
+   ============================================================ */
+document.querySelectorAll('#tabs .tab').forEach(t=>{
+  t.addEventListener('click', ()=>{
+    document.querySelectorAll('#tabs .tab').forEach(x=>x.classList.remove('active'));
+    document.querySelectorAll('main .page').forEach(x=>x.classList.remove('active'));
+    t.classList.add('active');
+    document.getElementById(t.dataset.page).classList.add('active');
+    window.speechSynthesis && window.speechSynthesis.cancel();
+    window.scrollTo({top:0,behavior:'smooth'});
+  });
+});
+
+/* ============================================================
+   SHARED HELPERS
+   ============================================================ */
+function normalize(s){
+  return (s||'').toLowerCase().trim()
+    .replace(/[ёе]/g,'е')
+    .replace(/\s+/g,' ')
+    .replace(/[.,!?]/g,'');
+}
+function check(user, correct){
+  const u = normalize(user);
+  if(!u) return false;
+  // accept any of the slash variants OR the full slash string
+  const variants = [correct.toLowerCase(), ...correct.toLowerCase().split('/').map(s=>s.trim())];
+  // also handle "was/were" — allow "was were" or "wasor were"
+  variants.push(correct.toLowerCase().replace(/\//g,' '));
+  variants.push(correct.toLowerCase().replace(/\//g,', '));
+  return variants.some(v=>normalize(v)===u);
+}
+function checkRu(user, correct){
+  const u = normalize(user);
+  if(!u) return false;
+  // accept any comma-separated synonym
+  const variants = correct.toLowerCase().split(/[,;]/).map(s=>s.trim());
+  variants.push(correct.toLowerCase());
+  return variants.some(v=>normalize(v)===u);
+}
+function shuffled(arr){
+  const a = arr.slice();
+  for(let i=a.length-1;i>0;i--){
+    const j = Math.floor(Math.random()*(i+1));
+    [a[i],a[j]]=[a[j],a[i]];
+  }
+  return a;
+}
+
+const PRAISE = ['parfait!','magnifique!','умница!','exactement!','très bien!','делишес!','точно!'];
+const ENCOURAGE = ['попробуй ещё раз','almost there','ещё чуть-чуть','encore une fois'];
+
+function fireConfetti(){
+  const c = document.getElementById('confetti');
+  c.innerHTML='';
+  c.classList.add('show');
+  const emojis = ['☕','🤎','✨','🫘'];
+  for(let i=0;i<28;i++){
+    const s = document.createElement('span');
+    s.textContent = emojis[Math.floor(Math.random()*emojis.length)];
+    s.style.left = Math.random()*100+'%';
+    s.style.fontSize = (16+Math.random()*16)+'px';
+    s.style.animationDuration = (1.6+Math.random()*1.4)+'s';
+    s.style.animationDelay = (Math.random()*0.3)+'s';
+    c.appendChild(s);
+  }
+  setTimeout(()=>c.classList.remove('show'), 3200);
+}
+
+/* ============================================================
+   EXERCISE 1 — Russian → 3 forms
+   ============================================================ */
+const ex1 = {
+  order: shuffled([...Array(VERBS.length).keys()]),
+  pos: 0,
+  score: 0,
+  checked: false,
+};
+function ex1Render(){
+  const v = VERBS[ex1.order[ex1.pos]];
+  document.getElementById('ex1-word').textContent = v.ru;
+  document.getElementById('ex1-counter').textContent = `${ex1.pos+1} / ${VERBS.length}`;
+  document.getElementById('ex1-bar').style.width = ((ex1.pos)/VERBS.length*100)+'%';
+  document.getElementById('ex1-score').textContent = '✓ '+ex1.score;
+  ['v1','v2','v3'].forEach(k=>{
+    const inp = document.getElementById('ex1-'+k);
+    inp.value=''; inp.classList.remove('correct','wrong'); inp.disabled=false;
+    document.getElementById('ex1-'+k+'-show').textContent='';
+  });
+  document.getElementById('ex1-feedback').textContent='\u00A0';
+  document.getElementById('ex1-feedback').className='feedback';
+  ex1.checked=false;
+  document.getElementById('ex1-v1').focus();
+}
+function ex1Check(){
+  if(ex1.checked) return;
+  const v = VERBS[ex1.order[ex1.pos]];
+  let allRight = true;
+  ['v1','v2','v3'].forEach(k=>{
+    const inp = document.getElementById('ex1-'+k);
+    const ok = check(inp.value, v[k]);
+    inp.classList.add(ok?'correct':'wrong');
+    inp.disabled=true;
+    if(!ok){
+      document.getElementById('ex1-'+k+'-show').textContent = '→ '+v[k];
+      allRight=false;
+    }
+  });
+  ex1.checked=true;
+  const fb = document.getElementById('ex1-feedback');
+  if(allRight){
+    fb.textContent = PRAISE[Math.floor(Math.random()*PRAISE.length)];
+    fb.className='feedback good';
+    ex1.score++;
+    document.getElementById('ex1-score').textContent='✓ '+ex1.score;
+    fireConfetti();
+  } else {
+    fb.textContent = ENCOURAGE[Math.floor(Math.random()*ENCOURAGE.length)];
+    fb.className='feedback bad';
+  }
+}
+function ex1Next(){
+  ex1.pos = (ex1.pos+1) % VERBS.length;
+  if(ex1.pos===0) ex1.order = shuffled([...Array(VERBS.length).keys()]);
+  ex1Render();
+}
+document.getElementById('ex1-check').addEventListener('click', ex1Check);
+document.getElementById('ex1-next').addEventListener('click', ex1Next);
+document.getElementById('ex1-skip').addEventListener('click', ex1Next);
+['ex1-v1','ex1-v2','ex1-v3'].forEach((id,i,arr)=>{
+  document.getElementById(id).addEventListener('keydown', e=>{
+    if(e.key==='Enter'){
+      if(i<arr.length-1) document.getElementById(arr[i+1]).focus();
+      else { ex1.checked ? ex1Next() : ex1Check(); }
+    }
+  });
+});
+
+/* ============================================================
+   EXERCISE 2 — Listen → 3 forms
+   ============================================================ */
+const ex2 = {
+  order: shuffled([...Array(VERBS.length).keys()]),
+  pos: 0,
+  score: 0,
+  checked: false,
+};
+function ex2Render(autoplay=true){
+  const v = VERBS[ex2.order[ex2.pos]];
+  document.getElementById('ex2-counter').textContent = `${ex2.pos+1} / ${VERBS.length}`;
+  document.getElementById('ex2-bar').style.width = ((ex2.pos)/VERBS.length*100)+'%';
+  document.getElementById('ex2-score').textContent = '✓ '+ex2.score;
+  ['v1','v2','v3'].forEach(k=>{
+    const inp = document.getElementById('ex2-'+k);
+    inp.value=''; inp.classList.remove('correct','wrong'); inp.disabled=false;
+    document.getElementById('ex2-'+k+'-show').textContent='';
+  });
+  document.getElementById('ex2-feedback').textContent='\u00A0';
+  document.getElementById('ex2-feedback').className='feedback';
+  ex2.checked=false;
+  if(autoplay){
+    setTimeout(()=>{
+      const btn = document.getElementById('ex2-play');
+      btn.classList.add('playing');
+      speak(v.v1, {onend:()=>btn.classList.remove('playing')});
+    },350);
+  }
+  document.getElementById('ex2-v1').focus();
+}
+function ex2Check(){
+  if(ex2.checked) return;
+  const v = VERBS[ex2.order[ex2.pos]];
+  let allRight = true;
+  ['v1','v2','v3'].forEach(k=>{
+    const inp = document.getElementById('ex2-'+k);
+    const ok = check(inp.value, v[k]);
+    inp.classList.add(ok?'correct':'wrong');
+    inp.disabled=true;
+    if(!ok){
+      document.getElementById('ex2-'+k+'-show').textContent = '→ '+v[k];
+      allRight=false;
+    }
+  });
+  ex2.checked=true;
+  const fb = document.getElementById('ex2-feedback');
+  if(allRight){
+    fb.textContent = PRAISE[Math.floor(Math.random()*PRAISE.length)];
+    fb.className='feedback good';
+    ex2.score++;
+    document.getElementById('ex2-score').textContent='✓ '+ex2.score;
+    fireConfetti();
+  } else {
+    fb.textContent = ENCOURAGE[Math.floor(Math.random()*ENCOURAGE.length)];
+    fb.className='feedback bad';
+  }
+}
+function ex2Next(){
+  ex2.pos = (ex2.pos+1) % VERBS.length;
+  if(ex2.pos===0) ex2.order = shuffled([...Array(VERBS.length).keys()]);
+  ex2Render();
+}
+document.getElementById('ex2-check').addEventListener('click', ex2Check);
+document.getElementById('ex2-next').addEventListener('click', ex2Next);
+document.getElementById('ex2-skip').addEventListener('click', ex2Next);
+document.getElementById('ex2-play').addEventListener('click', e=>{
+  const v = VERBS[ex2.order[ex2.pos]];
+  const btn = e.currentTarget;
+  btn.classList.add('playing');
+  speak(v.v1, {onend:()=>btn.classList.remove('playing')});
+});
+['ex2-v1','ex2-v2','ex2-v3'].forEach((id,i,arr)=>{
+  document.getElementById(id).addEventListener('keydown', e=>{
+    if(e.key==='Enter'){
+      if(i<arr.length-1) document.getElementById(arr[i+1]).focus();
+      else { ex2.checked ? ex2Next() : ex2Check(); }
+    }
+  });
+});
+
+/* ============================================================
+   EXERCISE 3 — Given one form → restore others + Russian
+   ============================================================ */
+const ex3 = {
+  order: shuffled([...Array(VERBS.length).keys()]),
+  pos: 0,
+  score: 0,
+  checked: false,
+  givenKey: 'v2',
+};
+const LABELS = {v1:'infinitive · V1', v2:'past simple · V2', v3:'past participle · V3'};
+function ex3Render(){
+  const v = VERBS[ex3.order[ex3.pos]];
+  // pick what form is given — rotate v1/v2/v3 by position
+  const keys = ['v1','v2','v3'];
+  ex3.givenKey = keys[ex3.pos % 3];
+  document.getElementById('ex3-label').textContent = '· given · '+LABELS[ex3.givenKey]+' ·';
+  document.getElementById('ex3-word').textContent = v[ex3.givenKey];
+  document.getElementById('ex3-ipa').textContent = v['ipa'+ex3.givenKey.slice(1)];
+  document.getElementById('ex3-counter').textContent = `${ex3.pos+1} / ${VERBS.length}`;
+  document.getElementById('ex3-bar').style.width = ((ex3.pos)/VERBS.length*100)+'%';
+  document.getElementById('ex3-score').textContent = '✓ '+ex3.score;
+
+  const inputs = document.getElementById('ex3-inputs');
+  const askKeys = keys.filter(k=>k!==ex3.givenKey);
+  // build inputs: 2 missing forms + russian
+  inputs.innerHTML = '';
+  askKeys.forEach(k=>{
+    inputs.innerHTML += `<div class="input-field"><label>${LABELS[k]}</label><input id="ex3-${k}" autocomplete="off"><span class="correct-show" id="ex3-${k}-show"></span></div>`;
+  });
+  inputs.innerHTML += `<div class="input-field" style="grid-column:1/-1"><label>русский перевод</label><input id="ex3-ru" autocomplete="off"><span class="correct-show" id="ex3-ru-show"></span></div>`;
+
+  document.getElementById('ex3-feedback').textContent='\u00A0';
+  document.getElementById('ex3-feedback').className='feedback';
+  ex3.checked=false;
+
+  // wire up enter-key navigation
+  const inpIds = askKeys.map(k=>'ex3-'+k).concat(['ex3-ru']);
+  inpIds.forEach((id,i)=>{
+    const el = document.getElementById(id);
+    el.addEventListener('keydown', e=>{
+      if(e.key==='Enter'){
+        if(i<inpIds.length-1) document.getElementById(inpIds[i+1]).focus();
+        else { ex3.checked ? ex3Next() : ex3Check(); }
+      }
+    });
+  });
+  setTimeout(()=>document.getElementById(inpIds[0]).focus(),50);
+}
+function ex3Check(){
+  if(ex3.checked) return;
+  const v = VERBS[ex3.order[ex3.pos]];
+  const keys = ['v1','v2','v3'].filter(k=>k!==ex3.givenKey);
+  let allRight=true;
+  keys.forEach(k=>{
+    const inp = document.getElementById('ex3-'+k);
+    const ok = check(inp.value, v[k]);
+    inp.classList.add(ok?'correct':'wrong');
+    inp.disabled=true;
+    if(!ok){ document.getElementById('ex3-'+k+'-show').textContent='→ '+v[k]; allRight=false; }
+  });
+  const ruInp = document.getElementById('ex3-ru');
+  const ruOk = checkRu(ruInp.value, v.ru);
+  ruInp.classList.add(ruOk?'correct':'wrong');
+  ruInp.disabled=true;
+  if(!ruOk){ document.getElementById('ex3-ru-show').textContent='→ '+v.ru; allRight=false; }
+
+  ex3.checked=true;
+  const fb = document.getElementById('ex3-feedback');
+  if(allRight){
+    fb.textContent = PRAISE[Math.floor(Math.random()*PRAISE.length)];
+    fb.className='feedback good';
+    ex3.score++;
+    document.getElementById('ex3-score').textContent='✓ '+ex3.score;
+    fireConfetti();
+  } else {
+    fb.textContent = ENCOURAGE[Math.floor(Math.random()*ENCOURAGE.length)];
+    fb.className='feedback bad';
+  }
+}
+function ex3Next(){
+  ex3.pos = (ex3.pos+1) % VERBS.length;
+  if(ex3.pos===0) ex3.order = shuffled([...Array(VERBS.length).keys()]);
+  ex3Render();
+}
+document.getElementById('ex3-check').addEventListener('click', ex3Check);
+document.getElementById('ex3-next').addEventListener('click', ex3Next);
+document.getElementById('ex3-skip').addEventListener('click', ex3Next);
+
+/* ============================================================
+   SELF-CHECK — random verb & random mode
+   ============================================================ */
+const MODES = ['ru','listen','givenV2','givenV3','givenV1'];
+const self = {
+  current: null,
+  mode: null,
+  correct: 0,
+  wrong: 0,
+  total: 0,
+  streak: 0,
+  checked: false,
+};
+function selfPick(){
+  self.current = VERBS[Math.floor(Math.random()*VERBS.length)];
+  self.mode = MODES[Math.floor(Math.random()*MODES.length)];
+}
+function selfRender(){
+  selfPick();
+  const v = self.current;
+  const wordEl = document.getElementById('self-word');
+  const ipaEl = document.getElementById('self-ipa');
+  const labelEl = document.getElementById('self-label');
+  const playBtn = document.getElementById('self-play');
+  const inputs = document.getElementById('self-inputs');
+  inputs.innerHTML='';
+  playBtn.style.display='none';
+  wordEl.classList.remove('en');
+
+  let labels = [];
+  let askKeys = [];
+  let askRu = false;
+
+  if(self.mode==='ru'){
+    labelEl.textContent='~ по русскому переводу ~';
+    wordEl.textContent = v.ru;
+    ipaEl.textContent = '';
+    askKeys = ['v1','v2','v3'];
+  } else if(self.mode==='listen'){
+    labelEl.textContent='~ listen & write ~';
+    wordEl.textContent = '';
+    ipaEl.textContent = '';
+    playBtn.style.display='flex';
+    playBtn.style.marginLeft='auto';
+    playBtn.style.marginRight='auto';
+    askKeys = ['v1','v2','v3'];
+    setTimeout(()=>{
+      playBtn.classList.add('playing');
+      speak(v.v1, {onend:()=>playBtn.classList.remove('playing')});
+    },300);
+  } else if(self.mode==='givenV1'){
+    labelEl.textContent='~ given · infinitive (V1) ~';
+    wordEl.textContent = v.v1; wordEl.classList.add('en');
+    ipaEl.textContent = v.ipa1;
+    askKeys = ['v2','v3'];
+    askRu = true;
+  } else if(self.mode==='givenV2'){
+    labelEl.textContent='~ given · past simple (V2) ~';
+    wordEl.textContent = v.v2; wordEl.classList.add('en');
+    ipaEl.textContent = v.ipa2;
+    askKeys = ['v1','v3'];
+    askRu = true;
+  } else if(self.mode==='givenV3'){
+    labelEl.textContent='~ given · past participle (V3) ~';
+    wordEl.textContent = v.v3; wordEl.classList.add('en');
+    ipaEl.textContent = v.ipa3;
+    askKeys = ['v1','v2'];
+    askRu = true;
+  }
+
+  askKeys.forEach(k=>{
+    inputs.innerHTML += `<div class="input-field"><label>${LABELS[k]}</label><input id="self-${k}" autocomplete="off"><span class="correct-show" id="self-${k}-show"></span></div>`;
+  });
+  if(askRu){
+    inputs.innerHTML += `<div class="input-field" style="grid-column:1/-1"><label>русский перевод</label><input id="self-ru" autocomplete="off"><span class="correct-show" id="self-ru-show"></span></div>`;
+  }
+
+  // adjust grid cols
+  const cols = askKeys.length === 2 ? 'repeat(2,1fr)' : 'repeat(3,1fr)';
+  inputs.style.gridTemplateColumns = window.innerWidth<560 ? '1fr' : cols;
+
+  document.getElementById('self-feedback').textContent='\u00A0';
+  document.getElementById('self-feedback').className='feedback';
+  self.checked=false;
+  self._askKeys = askKeys;
+  self._askRu = askRu;
+
+  // wire enter navigation
+  const ids = askKeys.map(k=>'self-'+k).concat(askRu?['self-ru']:[]);
+  ids.forEach((id,i)=>{
+    const el = document.getElementById(id);
+    el.addEventListener('keydown', e=>{
+      if(e.key==='Enter'){
+        if(i<ids.length-1) document.getElementById(ids[i+1]).focus();
+        else { self.checked ? selfNext() : selfCheck(); }
+      }
+    });
+  });
+  setTimeout(()=>document.getElementById(ids[0]).focus(),60);
+}
+function selfCheck(){
+  if(self.checked) return;
+  const v = self.current;
+  let allRight=true;
+  self._askKeys.forEach(k=>{
+    const inp = document.getElementById('self-'+k);
+    const ok = check(inp.value, v[k]);
+    inp.classList.add(ok?'correct':'wrong');
+    inp.disabled=true;
+    if(!ok){ document.getElementById('self-'+k+'-show').textContent='→ '+v[k]; allRight=false; }
+  });
+  if(self._askRu){
+    const inp = document.getElementById('self-ru');
+    const ok = checkRu(inp.value, v.ru);
+    inp.classList.add(ok?'correct':'wrong');
+    inp.disabled=true;
+    if(!ok){ document.getElementById('self-ru-show').textContent='→ '+v.ru; allRight=false; }
+  }
+  self.checked=true;
+  self.total++;
+  const fb = document.getElementById('self-feedback');
+  if(allRight){
+    fb.textContent = PRAISE[Math.floor(Math.random()*PRAISE.length)];
+    fb.className='feedback good';
+    self.correct++;
+    self.streak++;
+    fireConfetti();
+  } else {
+    fb.textContent = ENCOURAGE[Math.floor(Math.random()*ENCOURAGE.length)];
+    fb.className='feedback bad';
+    self.wrong++;
+    self.streak=0;
+  }
+  selfUpdateScore();
+}
+function selfNext(){ selfRender(); }
+function selfReset(){
+  self.correct=0; self.wrong=0; self.total=0; self.streak=0;
+  selfUpdateScore();
+  selfRender();
+}
+function selfUpdateScore(){
+  document.getElementById('self-correct').textContent = self.correct;
+  document.getElementById('self-wrong').textContent = self.wrong;
+  document.getElementById('self-total').textContent = self.total;
+  document.getElementById('self-streak').textContent = self.streak;
+}
+document.getElementById('self-check').addEventListener('click', selfCheck);
+document.getElementById('self-next').addEventListener('click', selfNext);
+document.getElementById('self-reset').addEventListener('click', selfReset);
+document.getElementById('self-play').addEventListener('click', e=>{
+  const btn = e.currentTarget;
+  btn.classList.add('playing');
+  speak(self.current.v1, {onend:()=>btn.classList.remove('playing')});
+});
+
+/* ============================================================
+   INIT
+   ============================================================ */
+buildCardsRu();
+buildCardsEn();
+ex1Render();
+ex2Render(false);
+ex3Render();
+selfRender();
+</script>
+</body>
+</html>
