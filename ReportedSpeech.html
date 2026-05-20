@@ -1,0 +1,1320 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reported Speech · Интерактивный урок</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=DM+Serif+Display&family=Inter:wght@300;400;500;600&family=Kalam:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --cream:#F6F0E6;
+  --paper:#FBF7EF;
+  --ink:#3A2E27;
+  --ink-soft:#6B5848;
+  --rose:#D88A8A;
+  --rose-deep:#B85C5C;
+  --sage:#8FA689;
+  --sage-deep:#5E7A5A;
+  --mustard:#D4A85C;
+  --terra:#C46A4D;
+  --dusty:#E8D4C8;
+  --lilac:#B8A4C9;
+  --shadow: 0 12px 28px -8px rgba(58,46,39,.18), 0 2px 6px rgba(58,46,39,.08);
+  --shadow-lift: 0 24px 50px -12px rgba(58,46,39,.28), 0 4px 10px rgba(58,46,39,.1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Cormorant Garamond', serif;
+  background:var(--cream);
+  color:var(--ink);
+  min-height:100vh;
+  overflow-x:hidden;
+  background-image:
+    radial-gradient(circle at 12% 18%, rgba(216,138,138,.10), transparent 45%),
+    radial-gradient(circle at 88% 12%, rgba(143,166,137,.10), transparent 50%),
+    radial-gradient(circle at 70% 85%, rgba(212,168,92,.08), transparent 45%);
+  background-attachment:fixed;
+}
+body::before{
+  content:'';
+  position:fixed;
+  inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 200 200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.23 0 0 0 0 0.18 0 0 0 0 0.15 0 0 0 0.08 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  pointer-events:none;
+  opacity:.5;
+  z-index:1;
+  mix-blend-mode:multiply;
+}
+.wrap{position:relative;z-index:2;max-width:1180px;margin:0 auto;padding:40px 28px 100px}
+
+/* ============= PROGRESS BAR ============= */
+.progress-rail{
+  position:fixed;top:0;left:0;right:0;height:4px;
+  background:rgba(58,46,39,.08);z-index:50;
+}
+.progress-fill{
+  height:100%;background:linear-gradient(90deg,var(--rose),var(--mustard),var(--sage));
+  width:0%;transition:width .5s ease;
+}
+
+/* ============= NAV PILL ============= */
+.navpill{
+  position:sticky;top:24px;z-index:40;
+  display:flex;gap:6px;flex-wrap:wrap;justify-content:center;
+  background:rgba(251,247,239,.85);
+  backdrop-filter:blur(12px);
+  border:1px solid rgba(58,46,39,.08);
+  padding:8px;border-radius:100px;
+  width:fit-content;margin:0 auto 50px;
+  box-shadow:var(--shadow);
+}
+.navpill a{
+  text-decoration:none;
+  color:var(--ink-soft);
+  font-family:'Inter',sans-serif;
+  font-size:13px;font-weight:500;
+  padding:8px 16px;border-radius:100px;
+  transition:all .3s ease;letter-spacing:.02em;
+}
+.navpill a:hover{color:var(--ink);background:rgba(216,138,138,.12)}
+.navpill a.active{background:var(--ink);color:var(--paper)}
+
+/* ============= HERO ============= */
+.hero{
+  position:relative;
+  text-align:center;
+  padding:60px 0 80px;
+  animation:fadeUp 1s ease both;
+}
+@keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:none}}
+.kicker{
+  font-family:'Caveat',cursive;
+  font-size:32px;color:var(--rose-deep);
+  transform:rotate(-3deg);
+  display:inline-block;
+  margin-bottom:10px;
+}
+.hero h1{
+  font-family:'DM Serif Display',serif;
+  font-size:clamp(54px,9vw,120px);
+  line-height:.95;
+  letter-spacing:-.02em;
+  color:var(--ink);
+  margin-bottom:24px;
+}
+.hero h1 em{
+  font-family:'Cormorant Garamond',serif;
+  font-style:italic;
+  font-weight:300;
+  color:var(--rose-deep);
+}
+.hero .sub{
+  font-family:'Cormorant Garamond',serif;
+  font-size:22px;
+  color:var(--ink-soft);
+  font-style:italic;
+  max-width:560px;margin:0 auto;
+}
+.hero .meta{
+  display:flex;gap:18px;justify-content:center;flex-wrap:wrap;margin-top:34px;
+  font-family:'Inter',sans-serif;font-size:12px;
+  text-transform:uppercase;letter-spacing:.2em;color:var(--ink-soft);
+}
+.hero .meta span{display:flex;align-items:center;gap:8px}
+.hero .meta span::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--rose)}
+.hero .meta span:nth-child(2)::before{background:var(--sage)}
+.hero .meta span:nth-child(3)::before{background:var(--mustard)}
+
+/* Floating decorative elements */
+.float{position:absolute;font-family:'Caveat',cursive;color:var(--sage-deep);opacity:.6;pointer-events:none}
+.float-1{top:30px;left:5%;font-size:28px;transform:rotate(-15deg);animation:bob 6s ease-in-out infinite}
+.float-2{top:120px;right:8%;font-size:32px;transform:rotate(8deg);color:var(--rose);animation:bob 7s ease-in-out infinite .5s}
+.float-3{bottom:40px;left:12%;font-size:24px;transform:rotate(-8deg);color:var(--mustard);animation:bob 5s ease-in-out infinite 1s}
+@keyframes bob{0%,100%{transform:translateY(0) rotate(var(--r,0deg))}50%{transform:translateY(-10px) rotate(var(--r,0deg))}}
+
+/* ============= SECTION ============= */
+section{margin-bottom:90px;scroll-margin-top:100px}
+.section-head{
+  display:flex;align-items:baseline;gap:16px;margin-bottom:36px;
+  position:relative;
+}
+.section-num{
+  font-family:'DM Serif Display',serif;
+  font-size:80px;line-height:1;
+  color:var(--dusty);
+  -webkit-text-stroke:1px var(--rose-deep);
+  -webkit-text-fill-color:transparent;
+}
+.section-title{
+  font-family:'DM Serif Display',serif;
+  font-size:42px;color:var(--ink);
+  line-height:1;
+}
+.section-title em{
+  font-family:'Caveat',cursive;
+  font-size:36px;color:var(--rose-deep);
+  font-style:normal;font-weight:500;
+  display:block;margin-bottom:-4px;
+}
+
+/* ============= WARM UP ============= */
+.warmup-intro{
+  background:var(--paper);
+  border:1px dashed rgba(58,46,39,.2);
+  padding:28px 32px;border-radius:6px;
+  margin-bottom:30px;
+  position:relative;
+}
+.warmup-intro::before{
+  content:'';position:absolute;top:-14px;left:30px;
+  width:80px;height:24px;
+  background:rgba(216,138,138,.5);
+  transform:rotate(-4deg);
+  box-shadow:0 2px 4px rgba(0,0,0,.05);
+}
+.warmup-intro p{font-size:19px;line-height:1.5;color:var(--ink-soft)}
+.warmup-intro strong{color:var(--ink);font-weight:600}
+
+.match-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:30px 50px;
+  position:relative;
+}
+.match-col h3{
+  font-family:'Caveat',cursive;
+  font-size:30px;
+  color:var(--ink-soft);
+  margin-bottom:18px;
+}
+.match-card{
+  background:var(--paper);
+  border-radius:4px;
+  padding:18px 22px;
+  margin-bottom:14px;
+  box-shadow:var(--shadow);
+  cursor:pointer;
+  position:relative;
+  font-size:18px;
+  font-family:'Cormorant Garamond',serif;
+  transition:all .3s cubic-bezier(.4,0,.2,1);
+  border-left:4px solid transparent;
+  user-select:none;
+}
+.match-card.left{transform:rotate(-.5deg)}
+.match-card.right{transform:rotate(.5deg)}
+.match-card:hover{transform:translateY(-3px) rotate(0);box-shadow:var(--shadow-lift)}
+.match-card.selected{
+  border-left-color:var(--rose-deep);
+  background:linear-gradient(to right,rgba(216,138,138,.1),var(--paper) 20%);
+}
+.match-card.matched{
+  opacity:.4;
+  pointer-events:none;
+  border-left-color:var(--sage-deep);
+}
+.match-card.wrong{
+  animation:shake .5s ease;
+  border-left-color:var(--terra);
+}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+.match-feedback{
+  text-align:center;margin-top:20px;
+  font-family:'Caveat',cursive;font-size:26px;
+  color:var(--sage-deep);min-height:36px;
+  transition:opacity .3s;
+}
+
+/* ============= THEORY CARDS ============= */
+.theory-board{
+  display:grid;
+  grid-template-columns:repeat(12,1fr);
+  gap:24px;
+}
+.theory-card{
+  background:var(--paper);
+  border-radius:8px;
+  padding:32px 30px;
+  box-shadow:var(--shadow);
+  position:relative;
+  transition:transform .4s ease, box-shadow .4s ease;
+}
+.theory-card:hover{transform:translateY(-4px) rotate(.5deg);box-shadow:var(--shadow-lift)}
+.theory-card .tape{
+  position:absolute;top:-12px;left:50%;transform:translateX(-50%) rotate(-3deg);
+  width:90px;height:26px;
+  background:rgba(143,166,137,.55);
+  box-shadow:0 2px 4px rgba(0,0,0,.08);
+}
+.theory-card.rose .tape{background:rgba(216,138,138,.55)}
+.theory-card.mustard .tape{background:rgba(212,168,92,.55)}
+.theory-card.lilac .tape{background:rgba(184,164,201,.55)}
+
+.theory-card h3{
+  font-family:'DM Serif Display',serif;
+  font-size:26px;margin-bottom:12px;
+  color:var(--ink);
+}
+.theory-card .label{
+  font-family:'Caveat',cursive;
+  font-size:24px;
+  color:var(--rose-deep);
+  display:block;margin-bottom:4px;
+}
+.theory-card p{
+  font-size:18px;line-height:1.55;color:var(--ink-soft);
+  margin-bottom:12px;
+}
+.theory-card .example{
+  font-family:'Kalam',cursive;
+  font-size:17px;
+  padding:14px 16px;
+  background:rgba(216,138,138,.08);
+  border-left:3px solid var(--rose);
+  border-radius:0 4px 4px 0;
+  margin-top:14px;
+  color:var(--ink);
+}
+.theory-card .example .arrow{color:var(--rose-deep);font-weight:bold;margin:0 8px}
+
+.span-7{grid-column:span 7}
+.span-5{grid-column:span 5}
+.span-6{grid-column:span 6}
+.span-12{grid-column:span 12}
+
+/* Tense shift table */
+.shift-table{
+  display:grid;
+  grid-template-columns:1fr auto 1fr;
+  gap:0;
+  margin-top:18px;
+  font-family:'Inter',sans-serif;
+  font-size:14px;
+}
+.shift-table > div{
+  padding:12px 16px;
+  border-bottom:1px dashed rgba(58,46,39,.15);
+  display:flex;align-items:center;
+}
+.shift-table > div:nth-child(3n+2){
+  justify-content:center;
+  color:var(--rose-deep);font-size:18px;
+  font-family:'Caveat',cursive;
+}
+.shift-table .head{
+  font-family:'Caveat',cursive;
+  font-size:22px;color:var(--ink);
+  border-bottom:1.5px solid var(--ink);
+  padding-bottom:8px;
+}
+.shift-table .head:nth-child(2){background:transparent;color:var(--ink-soft)}
+.shift-table .from{color:var(--ink-soft)}
+.shift-table .to{color:var(--ink);font-weight:500}
+
+/* Pronoun & time chips */
+.chip-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
+.chip{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:8px 14px;border-radius:100px;
+  background:var(--cream);
+  border:1px solid rgba(58,46,39,.1);
+  font-family:'Inter',sans-serif;font-size:13px;
+  transition:transform .2s;
+}
+.chip:hover{transform:translateY(-2px)}
+.chip .a{color:var(--ink-soft)}
+.chip .arrow-sm{color:var(--rose-deep);font-weight:bold}
+.chip .b{color:var(--ink);font-weight:600}
+
+/* ============= TRANSFORMATION DEMO ============= */
+.transform-demo{
+  background:linear-gradient(135deg,var(--paper),var(--cream));
+  padding:50px 40px;
+  border-radius:12px;
+  box-shadow:var(--shadow-lift);
+  position:relative;
+  overflow:hidden;
+}
+.transform-demo::before{
+  content:'how it works';
+  position:absolute;top:20px;right:30px;
+  font-family:'Caveat',cursive;font-size:22px;
+  color:var(--rose-deep);
+  transform:rotate(-4deg);
+}
+.bubble{
+  background:var(--paper);
+  padding:20px 26px;
+  border-radius:18px;
+  font-family:'Kalam',cursive;
+  font-size:20px;
+  box-shadow:var(--shadow);
+  position:relative;
+  max-width:480px;
+  transition:all .6s cubic-bezier(.34,1.56,.64,1);
+}
+.bubble.direct{
+  border-bottom-left-radius:4px;
+  margin-bottom:20px;
+}
+.bubble.direct::before{
+  content:'"';font-family:'DM Serif Display',serif;
+  position:absolute;left:14px;top:-30px;
+  font-size:80px;color:var(--rose);line-height:1;
+}
+.transform-arrow{
+  text-align:center;margin:24px 0;
+  font-family:'Caveat',cursive;font-size:28px;
+  color:var(--sage-deep);
+}
+.transform-arrow .down{display:block;font-size:40px;animation:pulse 2s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:.5;transform:translateY(0)}50%{opacity:1;transform:translateY(4px)}}
+.bubble.reported{
+  background:var(--sage);
+  color:var(--paper);
+  border-bottom-right-radius:4px;
+  margin-left:auto;
+  font-family:'Cormorant Garamond',serif;
+  font-style:italic;
+}
+.bubble .highlight{
+  background:rgba(212,168,92,.35);
+  padding:2px 4px;border-radius:3px;
+  transition:background .3s;
+}
+.bubble.reported .highlight{background:rgba(255,255,255,.25)}
+
+.demo-controls{
+  display:flex;gap:12px;justify-content:center;margin-top:30px;flex-wrap:wrap;
+}
+.demo-btn{
+  background:var(--paper);
+  border:1px solid rgba(58,46,39,.12);
+  padding:10px 20px;border-radius:100px;
+  font-family:'Inter',sans-serif;font-size:13px;
+  color:var(--ink);cursor:pointer;
+  transition:all .25s;
+}
+.demo-btn:hover{background:var(--ink);color:var(--paper);transform:translateY(-2px)}
+.demo-btn.active{background:var(--rose-deep);color:var(--paper);border-color:var(--rose-deep)}
+
+/* ============= EXERCISES ============= */
+.exercise{
+  background:var(--paper);
+  padding:36px 36px 32px;
+  border-radius:8px;
+  box-shadow:var(--shadow);
+  margin-bottom:24px;
+  position:relative;
+}
+.ex-number{
+  position:absolute;top:-18px;left:30px;
+  background:var(--ink);color:var(--paper);
+  font-family:'Caveat',cursive;font-size:26px;
+  padding:4px 18px;border-radius:100px;
+  transform:rotate(-2deg);
+}
+.ex-instr{
+  font-family:'Cormorant Garamond',serif;
+  font-style:italic;font-size:19px;
+  color:var(--ink-soft);
+  margin-bottom:20px;
+}
+.ex-instr small{
+  display:block;font-style:normal;
+  font-family:'Inter',sans-serif;font-size:12px;
+  letter-spacing:.18em;text-transform:uppercase;
+  color:var(--rose-deep);margin-bottom:6px;
+}
+
+/* Multiple choice */
+.mc-question{
+  font-family:'Kalam',cursive;
+  font-size:19px;line-height:1.5;
+  margin-bottom:16px;
+  padding:16px 20px;
+  background:var(--cream);
+  border-radius:6px;
+  border-left:3px solid var(--mustard);
+}
+.mc-options{display:grid;gap:10px}
+.mc-opt{
+  background:var(--cream);
+  border:1.5px solid rgba(58,46,39,.1);
+  padding:13px 18px;border-radius:6px;
+  cursor:pointer;
+  font-family:'Cormorant Garamond',serif;
+  font-size:18px;
+  display:flex;align-items:center;gap:14px;
+  transition:all .25s;
+}
+.mc-opt:hover{border-color:var(--rose);background:rgba(216,138,138,.06)}
+.mc-opt .letter{
+  width:28px;height:28px;border-radius:50%;
+  background:var(--paper);
+  border:1.5px solid rgba(58,46,39,.15);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Inter',sans-serif;font-size:13px;font-weight:600;
+  flex-shrink:0;
+}
+.mc-opt.correct{
+  background:rgba(143,166,137,.18);
+  border-color:var(--sage-deep);
+  animation:correctPop .5s ease;
+}
+.mc-opt.correct .letter{background:var(--sage-deep);color:var(--paper);border-color:var(--sage-deep)}
+.mc-opt.wrong{
+  background:rgba(196,106,77,.12);
+  border-color:var(--terra);
+}
+.mc-opt.wrong .letter{background:var(--terra);color:var(--paper);border-color:var(--terra)}
+.mc-opt.disabled{pointer-events:none;opacity:.7}
+@keyframes correctPop{0%{transform:scale(1)}40%{transform:scale(1.03)}100%{transform:scale(1)}}
+
+.ex-feedback{
+  margin-top:14px;padding:14px 18px;
+  border-radius:6px;
+  font-family:'Cormorant Garamond',serif;
+  font-size:17px;font-style:italic;
+  display:none;
+  animation:fadeIn .4s ease;
+}
+.ex-feedback.show{display:block}
+.ex-feedback.good{background:rgba(143,166,137,.15);color:var(--sage-deep);border-left:3px solid var(--sage-deep)}
+.ex-feedback.bad{background:rgba(196,106,77,.12);color:var(--terra);border-left:3px solid var(--terra)}
+@keyframes fadeIn{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
+
+/* Fill in the blank */
+.fill-line{
+  font-family:'Kalam',cursive;
+  font-size:19px;line-height:2.2;
+  color:var(--ink);
+}
+.fill-line input{
+  font-family:'Caveat',cursive;
+  font-size:24px;
+  border:none;border-bottom:1.5px dashed var(--rose);
+  background:transparent;
+  color:var(--rose-deep);
+  text-align:center;
+  min-width:120px;
+  padding:2px 8px;
+  transition:all .3s;
+  outline:none;
+}
+.fill-line input:focus{
+  border-bottom-color:var(--ink);
+  border-bottom-style:solid;
+}
+.fill-line input.correct{
+  color:var(--sage-deep);
+  border-bottom-color:var(--sage-deep);
+  border-bottom-style:solid;
+}
+.fill-line input.wrong{
+  color:var(--terra);
+  border-bottom-color:var(--terra);
+  text-decoration:line-through;
+}
+.fill-line .original{
+  display:block;
+  font-family:'Cormorant Garamond',serif;
+  font-style:italic;font-size:17px;
+  color:var(--ink-soft);
+  margin-bottom:10px;
+}
+.fill-line .original::before{content:'"'}
+.fill-line .original::after{content:'"'}
+.fill-line + .fill-line{margin-top:24px;padding-top:24px;border-top:1px dashed rgba(58,46,39,.1)}
+
+.btn-check{
+  margin-top:22px;
+  background:var(--ink);color:var(--paper);
+  border:none;
+  padding:12px 28px;border-radius:100px;
+  font-family:'Inter',sans-serif;font-size:13px;
+  letter-spacing:.15em;text-transform:uppercase;
+  cursor:pointer;transition:all .3s;
+}
+.btn-check:hover{background:var(--rose-deep);transform:translateY(-2px);box-shadow:var(--shadow)}
+.btn-check.done{background:var(--sage-deep)}
+
+/* OGE-style transformation */
+.oge-task{
+  background:linear-gradient(180deg,var(--paper),var(--cream));
+}
+.oge-warning{
+  font-family:'Inter',sans-serif;
+  font-size:11px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--terra);margin-bottom:10px;
+  display:flex;align-items:center;gap:8px;
+}
+.oge-warning::before{content:'';width:24px;height:1px;background:var(--terra)}
+.oge-line{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:24px;
+  align-items:center;
+  padding:18px 0;
+  border-bottom:1px dashed rgba(58,46,39,.12);
+}
+.oge-line:last-child{border-bottom:none}
+.oge-direct{
+  font-family:'Kalam',cursive;font-size:18px;
+  color:var(--ink);
+  padding:14px 18px;background:rgba(212,168,92,.1);
+  border-radius:6px;
+  border-left:3px solid var(--mustard);
+}
+.oge-direct::before{content:'\201C ';color:var(--mustard);font-size:24px}
+.oge-direct::after{content:'\201D';color:var(--mustard);font-size:24px}
+.oge-reported{
+  font-family:'Cormorant Garamond',serif;
+  font-style:italic;font-size:18px;
+  color:var(--ink);
+}
+.oge-reported input{
+  font-family:'Caveat',cursive;
+  font-size:22px;
+  border:none;border-bottom:1.5px dashed var(--rose);
+  background:transparent;
+  color:var(--rose-deep);
+  padding:2px 8px;
+  min-width:90px;
+  width:auto;
+  outline:none;
+  transition:all .3s;
+}
+.oge-reported input:focus{border-bottom-color:var(--ink);border-bottom-style:solid}
+.oge-reported input.correct{color:var(--sage-deep);border-bottom-color:var(--sage-deep);border-bottom-style:solid}
+.oge-reported input.wrong{color:var(--terra);border-bottom-color:var(--terra);border-bottom-style:solid}
+
+/* ============= FINAL SCORE ============= */
+.score-card{
+  background:linear-gradient(135deg,var(--ink) 0%, #4d3d33 100%);
+  color:var(--paper);
+  border-radius:12px;
+  padding:60px 50px;
+  text-align:center;
+  position:relative;
+  overflow:hidden;
+  box-shadow:var(--shadow-lift);
+}
+.score-card::before{
+  content:'fin.';
+  position:absolute;top:30px;right:40px;
+  font-family:'Caveat',cursive;
+  font-size:50px;color:var(--rose);
+  opacity:.6;transform:rotate(-8deg);
+}
+.score-card .num{
+  font-family:'DM Serif Display',serif;
+  font-size:120px;line-height:1;
+  background:linear-gradient(135deg,var(--rose),var(--mustard));
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  margin-bottom:10px;
+}
+.score-card .num small{font-size:50px;color:var(--paper);background:none;-webkit-text-fill-color:var(--paper);opacity:.5}
+.score-card .label{
+  font-family:'Cormorant Garamond',serif;
+  font-style:italic;font-size:24px;
+  color:rgba(251,247,239,.8);
+}
+.score-card .verdict{
+  font-family:'Caveat',cursive;
+  font-size:32px;color:var(--mustard);
+  margin-top:20px;display:none;
+}
+.score-card .verdict.show{display:block;animation:fadeUp .6s ease both}
+.btn-reset{
+  margin-top:30px;
+  background:transparent;
+  border:1px solid rgba(251,247,239,.4);
+  color:var(--paper);
+  padding:12px 26px;border-radius:100px;
+  font-family:'Inter',sans-serif;font-size:12px;
+  letter-spacing:.2em;text-transform:uppercase;
+  cursor:pointer;transition:all .3s;
+}
+.btn-reset:hover{background:var(--paper);color:var(--ink)}
+
+/* Confetti */
+.confetti{
+  position:fixed;
+  width:8px;height:8px;
+  z-index:100;
+  pointer-events:none;
+}
+
+/* Reveal on scroll */
+.reveal{opacity:0;transform:translateY(30px);transition:opacity .8s ease, transform .8s ease}
+.reveal.visible{opacity:1;transform:none}
+
+/* Responsive */
+@media (max-width:780px){
+  .wrap{padding:24px 16px 60px}
+  .match-grid{grid-template-columns:1fr;gap:20px}
+  .theory-board{grid-template-columns:1fr;gap:18px}
+  .span-7,.span-5,.span-6,.span-12{grid-column:span 1}
+  .oge-line{grid-template-columns:1fr;gap:10px}
+  .section-num{font-size:60px}
+  .section-title{font-size:32px}
+  .hero h1{font-size:60px}
+  .float{display:none}
+  .navpill{top:16px;font-size:11px;padding:6px}
+  .navpill a{padding:6px 10px;font-size:11px}
+}
+</style>
+</head>
+<body>
+
+<div class="progress-rail"><div class="progress-fill" id="progressFill"></div></div>
+
+<div class="wrap">
+
+<!-- NAV -->
+<nav class="navpill">
+  <a href="#warm">↳ warm-up</a>
+  <a href="#rules">↳ rules</a>
+  <a href="#demo">↳ how it works</a>
+  <a href="#ex1">↳ multiple choice</a>
+  <a href="#ex2">↳ fill the gap</a>
+  <a href="#ex3">↳ ОГЭ task</a>
+  <a href="#score">↳ result</a>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <span class="float float-1">don't be shy ✿</span>
+  <span class="float float-2" style="--r:8deg">~ practice makes perfect</span>
+  <span class="float float-3">grammar diary</span>
+  <span class="kicker">an english lesson  ·  level A2 — A2+</span>
+  <h1>Reported<br><em>Speech</em></h1>
+  <p class="sub">Учимся передавать чужие слова без кавычек. Готовимся к ОГЭ — спокойно, по шагам.</p>
+  <div class="meta">
+    <span>warm-up</span>
+    <span>rules &amp; tables</span>
+    <span>exam practice</span>
+  </div>
+</header>
+
+<!-- WARM UP -->
+<section id="warm">
+  <div class="section-head">
+    <div class="section-num">01</div>
+    <div class="section-title"><em>let's begin —</em>Warm-up</div>
+  </div>
+  
+  <div class="warmup-intro reveal">
+    <p><strong>Reported speech</strong> — это когда мы передаём слова другого человека своими. Прежде чем разбирать правила, посмотрим, как это работает интуитивно.</p>
+    <p style="margin-top:10px">Найди <strong>пару</strong>: соедини прямую речь слева с её косвенной версией справа. Нажми на карточку, затем на её пару.</p>
+  </div>
+
+  <div class="match-grid reveal">
+    <div class="match-col">
+      <h3>↠ direct speech</h3>
+      <div class="match-card left" data-id="1">Anna: "I love pizza."</div>
+      <div class="match-card left" data-id="2">Tom: "I am playing football."</div>
+      <div class="match-card left" data-id="3">Mum: "I will call you tomorrow."</div>
+      <div class="match-card left" data-id="4">Sam: "I can swim."</div>
+      <div class="match-card left" data-id="5">Lily: "I went to school yesterday."</div>
+    </div>
+    <div class="match-col">
+      <h3>↠ reported speech</h3>
+      <div class="match-card right" data-id="4">Sam said that he <u>could</u> swim.</div>
+      <div class="match-card right" data-id="1">Anna said that she <u>loved</u> pizza.</div>
+      <div class="match-card right" data-id="5">Lily said that she <u>had gone</u> to school <u>the day before</u>.</div>
+      <div class="match-card right" data-id="2">Tom said that he <u>was playing</u> football.</div>
+      <div class="match-card right" data-id="3">Mum said that she <u>would</u> call me <u>the next day</u>.</div>
+    </div>
+  </div>
+  <p class="match-feedback" id="matchFeedback">Соедини 5 пар, чтобы продолжить ✿</p>
+</section>
+
+<!-- THEORY -->
+<section id="rules">
+  <div class="section-head">
+    <div class="section-num">02</div>
+    <div class="section-title"><em>the rules —</em>Правила в карточках</div>
+  </div>
+  
+  <div class="theory-board">
+    
+    <div class="theory-card span-7 reveal">
+      <div class="tape"></div>
+      <span class="label">основа основ</span>
+      <h3>Say vs. Tell</h3>
+      <p>Чтобы передать чьи-то слова, чаще всего используем <strong>say</strong> и <strong>tell</strong>. Разница маленькая, но важная:</p>
+      <div class="example">
+        She <strong>said</strong> (that) she was tired. <span class="arrow">→</span> <em>say</em> без человека.<br><br>
+        She <strong>told me</strong> (that) she was tired. <span class="arrow">→</span> <em>tell</em> всегда с человеком.
+      </div>
+      <p style="margin-top:14px;font-size:16px"><em>Слово <strong>that</strong> можно опустить — смысл не меняется.</em></p>
+    </div>
+    
+    <div class="theory-card rose span-5 reveal">
+      <div class="tape"></div>
+      <span class="label">шаг назад</span>
+      <h3>Backshift — сдвиг времени</h3>
+      <p>Если глагол сообщения в прошедшем времени (<strong>said, told</strong>), время в придаточной части сдвигается на шаг назад.</p>
+      <div class="shift-table">
+        <div class="head">direct</div>
+        <div class="head"></div>
+        <div class="head">reported</div>
+        <div class="from">Present Simple</div>
+        <div>→</div>
+        <div class="to">Past Simple</div>
+        <div class="from">am / is / are</div>
+        <div>→</div>
+        <div class="to">was / were</div>
+        <div class="from">Present Continuous</div>
+        <div>→</div>
+        <div class="to">Past Continuous</div>
+        <div class="from">Present Perfect</div>
+        <div>→</div>
+        <div class="to">Past Perfect</div>
+        <div class="from">Past Simple</div>
+        <div>→</div>
+        <div class="to">Past Perfect</div>
+        <div class="from">will</div>
+        <div>→</div>
+        <div class="to">would</div>
+        <div class="from">can</div>
+        <div>→</div>
+        <div class="to">could</div>
+        <div class="from">may</div>
+        <div>→</div>
+        <div class="to">might</div>
+        <div class="from">must / have to</div>
+        <div>→</div>
+        <div class="to">had to</div>
+      </div>
+    </div>
+    
+    <div class="theory-card mustard span-6 reveal">
+      <div class="tape"></div>
+      <span class="label">маленькие, но важные</span>
+      <h3>Местоимения меняются</h3>
+      <p>Когда мы пересказываем чьи-то слова, мы смотрим на ситуацию <em>со стороны</em> — поэтому местоимения тоже сдвигаются.</p>
+      <div class="chip-row">
+        <span class="chip"><span class="a">I</span><span class="arrow-sm">→</span><span class="b">he / she</span></span>
+        <span class="chip"><span class="a">we</span><span class="arrow-sm">→</span><span class="b">they</span></span>
+        <span class="chip"><span class="a">my</span><span class="arrow-sm">→</span><span class="b">his / her</span></span>
+        <span class="chip"><span class="a">our</span><span class="arrow-sm">→</span><span class="b">their</span></span>
+        <span class="chip"><span class="a">me</span><span class="arrow-sm">→</span><span class="b">him / her</span></span>
+        <span class="chip"><span class="a">you</span><span class="arrow-sm">→</span><span class="b">I / me</span></span>
+      </div>
+      <div class="example" style="margin-top:18px">
+        Kate: <em>"I love <strong>my</strong> dog."</em><br>
+        <span class="arrow">→</span> Kate said that <strong>she</strong> loved <strong>her</strong> dog.
+      </div>
+    </div>
+    
+    <div class="theory-card lilac span-6 reveal">
+      <div class="tape"></div>
+      <span class="label">время &amp; место</span>
+      <h3>Слова-маркеры</h3>
+      <p>Слова, которые "привязаны к моменту речи", тоже меняются:</p>
+      <div class="chip-row">
+        <span class="chip"><span class="a">now</span><span class="arrow-sm">→</span><span class="b">then</span></span>
+        <span class="chip"><span class="a">today</span><span class="arrow-sm">→</span><span class="b">that day</span></span>
+        <span class="chip"><span class="a">tomorrow</span><span class="arrow-sm">→</span><span class="b">the next day</span></span>
+        <span class="chip"><span class="a">yesterday</span><span class="arrow-sm">→</span><span class="b">the day before</span></span>
+        <span class="chip"><span class="a">this</span><span class="arrow-sm">→</span><span class="b">that</span></span>
+        <span class="chip"><span class="a">these</span><span class="arrow-sm">→</span><span class="b">those</span></span>
+        <span class="chip"><span class="a">here</span><span class="arrow-sm">→</span><span class="b">there</span></span>
+        <span class="chip"><span class="a">ago</span><span class="arrow-sm">→</span><span class="b">before</span></span>
+      </div>
+      <div class="example" style="margin-top:18px">
+        Max: <em>"I'll see you <strong>tomorrow</strong>."</em><br>
+        <span class="arrow">→</span> Max said he would see me <strong>the next day</strong>.
+      </div>
+    </div>
+    
+  </div>
+</section>
+
+<!-- TRANSFORMATION DEMO -->
+<section id="demo">
+  <div class="section-head">
+    <div class="section-num">03</div>
+    <div class="section-title"><em>watch closely —</em>Как это превращается</div>
+  </div>
+  
+  <div class="transform-demo reveal">
+    <div class="demo-controls">
+      <button class="demo-btn active" data-ex="0">example 1</button>
+      <button class="demo-btn" data-ex="1">example 2</button>
+      <button class="demo-btn" data-ex="2">example 3</button>
+    </div>
+    
+    <div style="margin-top:30px">
+      <div class="bubble direct">
+        <span id="demoSpeaker">Anna</span>: <span id="demoDirect">I <span class="highlight">am</span> reading <span class="highlight">this</span> book <span class="highlight">now</span>.</span>
+      </div>
+      <div class="transform-arrow">
+        <span class="down">↓</span>
+        backshift + pronouns + time markers
+      </div>
+      <div class="bubble reported">
+        <span id="demoReported">Anna said that she <span class="highlight">was</span> reading <span class="highlight">that</span> book <span class="highlight">then</span>.</span>
+      </div>
+    </div>
+    
+    <p style="text-align:center;margin-top:30px;font-family:'Caveat',cursive;font-size:22px;color:var(--ink-soft)">
+      Жёлтым выделены то, что поменялось. Переключай примеры ↑
+    </p>
+  </div>
+</section>
+
+<!-- EXERCISE 1: MULTIPLE CHOICE -->
+<section id="ex1">
+  <div class="section-head">
+    <div class="section-num">04</div>
+    <div class="section-title"><em>practice —</em>Multiple choice</div>
+  </div>
+  
+  <div class="exercise reveal">
+    <div class="ex-number">№ 1</div>
+    <p class="ex-instr"><small>задание</small>Выбери правильный вариант косвенной речи. Подумай о времени и местоимениях.</p>
+    
+    <div class="mc-block" data-correct="b">
+      <div class="mc-question">Mike: "I like ice cream."  →  Mike said that ___</div>
+      <div class="mc-options">
+        <div class="mc-opt" data-val="a"><span class="letter">A</span>he likes ice cream.</div>
+        <div class="mc-opt" data-val="b"><span class="letter">B</span>he liked ice cream.</div>
+        <div class="mc-opt" data-val="c"><span class="letter">C</span>I liked ice cream.</div>
+        <div class="mc-opt" data-val="d"><span class="letter">D</span>he had liked ice cream.</div>
+      </div>
+      <div class="ex-feedback"></div>
+    </div>
+  </div>
+  
+  <div class="exercise reveal">
+    <div class="ex-number">№ 2</div>
+    <p class="ex-instr"><small>задание</small>Помни про правило сдвига времени (backshift).</p>
+    
+    <div class="mc-block" data-correct="c">
+      <div class="mc-question">Sara: "I am doing my homework." → Sara said that ___</div>
+      <div class="mc-options">
+        <div class="mc-opt" data-val="a"><span class="letter">A</span>she is doing her homework.</div>
+        <div class="mc-opt" data-val="b"><span class="letter">B</span>she was doing my homework.</div>
+        <div class="mc-opt" data-val="c"><span class="letter">C</span>she was doing her homework.</div>
+        <div class="mc-opt" data-val="d"><span class="letter">D</span>she did her homework.</div>
+      </div>
+      <div class="ex-feedback"></div>
+    </div>
+  </div>
+  
+  <div class="exercise reveal">
+    <div class="ex-number">№ 3</div>
+    <p class="ex-instr"><small>задание</small>Будь внимателен — здесь меняется и время, и местоимения, и слово-маркер.</p>
+    
+    <div class="mc-block" data-correct="d">
+      <div class="mc-question">Liam: "I will visit my granny tomorrow." → Liam said that ___</div>
+      <div class="mc-options">
+        <div class="mc-opt" data-val="a"><span class="letter">A</span>he will visit his granny tomorrow.</div>
+        <div class="mc-opt" data-val="b"><span class="letter">B</span>he would visit my granny tomorrow.</div>
+        <div class="mc-opt" data-val="c"><span class="letter">C</span>he would visit his granny yesterday.</div>
+        <div class="mc-opt" data-val="d"><span class="letter">D</span>he would visit his granny the next day.</div>
+      </div>
+      <div class="ex-feedback"></div>
+    </div>
+  </div>
+  
+  <div class="exercise reveal">
+    <div class="ex-number">№ 4</div>
+    <p class="ex-instr"><small>задание</small>Модальный глагол <em>can</em> в косвенной речи становится...?</p>
+    
+    <div class="mc-block" data-correct="b">
+      <div class="mc-question">Emma: "I can play the guitar." → Emma told us that ___</div>
+      <div class="mc-options">
+        <div class="mc-opt" data-val="a"><span class="letter">A</span>she can play the guitar.</div>
+        <div class="mc-opt" data-val="b"><span class="letter">B</span>she could play the guitar.</div>
+        <div class="mc-opt" data-val="c"><span class="letter">C</span>she might play the guitar.</div>
+        <div class="mc-opt" data-val="d"><span class="letter">D</span>she had played the guitar.</div>
+      </div>
+      <div class="ex-feedback"></div>
+    </div>
+  </div>
+</section>
+
+<!-- EXERCISE 2: FILL IN THE BLANK -->
+<section id="ex2">
+  <div class="section-head">
+    <div class="section-num">05</div>
+    <div class="section-title"><em>your turn —</em>Заполни пропуски</div>
+  </div>
+  
+  <div class="exercise reveal">
+    <div class="ex-number">№ 5</div>
+    <p class="ex-instr"><small>задание</small>Преврати прямую речь в косвенную. Впиши одно слово в каждый пропуск.</p>
+    
+    <div class="fill-block">
+      <div class="fill-line">
+        <span class="original">I am happy.</span>
+        Ben said that he <input type="text" data-ans="was" size="6"> happy.
+      </div>
+      <div class="fill-line">
+        <span class="original">I want a cup of tea.</span>
+        Mary said that she <input type="text" data-ans="wanted" size="8"> a cup of tea.
+      </div>
+      <div class="fill-line">
+        <span class="original">I will help you.</span>
+        Dad told me that he <input type="text" data-ans="would" size="7"> help me.
+      </div>
+      <div class="fill-line">
+        <span class="original">I am reading a book now.</span>
+        Kate said that she <input type="text" data-ans="was" size="5"> reading a book <input type="text" data-ans="then" size="6">.
+      </div>
+      <div class="fill-line">
+        <span class="original">I have finished my project.</span>
+        Tom said that he <input type="text" data-ans="had" size="5"> finished <input type="text" data-ans="his" size="5"> project.
+      </div>
+    </div>
+    <button class="btn-check" data-target="fill-block">проверить ✓</button>
+    <div class="ex-feedback"></div>
+  </div>
+</section>
+
+<!-- EXERCISE 3: OGE-STYLE -->
+<section id="ex3">
+  <div class="section-head">
+    <div class="section-num">06</div>
+    <div class="section-title"><em>exam mode —</em>ОГЭ Format</div>
+  </div>
+  
+  <div class="exercise oge-task reveal">
+    <div class="ex-number">ОГЭ</div>
+    <p class="oge-warning">формат огэ · трансформация</p>
+    <p class="ex-instr">На экзамене встречается задание, где нужно преобразовать прямую речь в косвенную. Впиши пропущенные слова — обычно это <em>1–3 слова</em>.</p>
+    
+    <div class="oge-block">
+      <div class="oge-line">
+        <div class="oge-direct">Olga: "I am visiting my grandparents this weekend."</div>
+        <div class="oge-reported">Olga said that <input type="text" data-ans="she" size="5"> <input type="text" data-ans="was" size="5"> visiting <input type="text" data-ans="her" size="5"> grandparents that weekend.</div>
+      </div>
+      <div class="oge-line">
+        <div class="oge-direct">Peter: "I have never been to London."</div>
+        <div class="oge-reported">Peter said that he <input type="text" data-ans="had" size="5"> never <input type="text" data-ans="been" size="6"> to London.</div>
+      </div>
+      <div class="oge-line">
+        <div class="oge-direct">My teacher: "You must do your homework today."</div>
+        <div class="oge-reported">My teacher told me that I <input type="text" data-ans="had" size="5"> <input type="text" data-ans="to" size="4"> do my homework <input type="text" data-ans="that" size="6"> day.</div>
+      </div>
+      <div class="oge-line">
+        <div class="oge-direct">Nick: "I bought this present yesterday."</div>
+        <div class="oge-reported">Nick said that he <input type="text" data-ans="had" size="5"> <input type="text" data-ans="bought" size="8"> that present the day <input type="text" data-ans="before" size="7">.</div>
+      </div>
+      <div class="oge-line">
+        <div class="oge-direct">Anna: "I can speak three languages."</div>
+        <div class="oge-reported">Anna said that <input type="text" data-ans="she" size="5"> <input type="text" data-ans="could" size="6"> speak three languages.</div>
+      </div>
+    </div>
+    <button class="btn-check" data-target="oge-block">проверить ✓</button>
+    <div class="ex-feedback"></div>
+  </div>
+</section>
+
+<!-- SCORE -->
+<section id="score">
+  <div class="section-head">
+    <div class="section-num">07</div>
+    <div class="section-title"><em>your result —</em>Итог</div>
+  </div>
+  
+  <div class="score-card reveal">
+    <div class="num"><span id="scoreNum">0</span><small>/<span id="scoreMax">0</span></small></div>
+    <div class="label">правильных ответов</div>
+    <div class="verdict" id="verdict"></div>
+    <button class="btn-reset" onclick="location.reload()">начать заново</button>
+  </div>
+</section>
+
+</div>
+
+<script>
+// ============= GLOBAL STATE =============
+const state = {
+  correctAnswers: 0,
+  totalAnswers: 0,
+  matchPairs: 0,
+  totalMatchPairs: 5,
+};
+
+// ============= PROGRESS BAR =============
+window.addEventListener('scroll', () => {
+  const scrolled = (window.scrollY) / (document.documentElement.scrollHeight - window.innerHeight);
+  document.getElementById('progressFill').style.width = Math.min(scrolled * 100, 100) + '%';
+});
+
+// ============= REVEAL ON SCROLL =============
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      revealObserver.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.12 });
+document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+// ============= NAV ACTIVE STATE =============
+const navLinks = document.querySelectorAll('.navpill a');
+const sections = document.querySelectorAll('section');
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(s => {
+    const top = s.offsetTop - 120;
+    if (window.scrollY >= top) current = s.id;
+  });
+  navLinks.forEach(l => {
+    l.classList.toggle('active', l.getAttribute('href') === '#' + current);
+  });
+});
+
+// ============= WARM-UP MATCH =============
+let firstPick = null;
+document.querySelectorAll('.match-card').forEach(card => {
+  card.addEventListener('click', () => {
+    if (card.classList.contains('matched')) return;
+    if (!firstPick) {
+      // First pick — must be left
+      if (!card.classList.contains('left')) return;
+      firstPick = card;
+      card.classList.add('selected');
+    } else {
+      if (card === firstPick) {
+        card.classList.remove('selected');
+        firstPick = null;
+        return;
+      }
+      // Must be right side, different from first
+      if (card.classList.contains('left')) {
+        firstPick.classList.remove('selected');
+        firstPick = card;
+        card.classList.add('selected');
+        return;
+      }
+      // Check match
+      if (card.dataset.id === firstPick.dataset.id) {
+        card.classList.add('matched');
+        firstPick.classList.remove('selected');
+        firstPick.classList.add('matched');
+        state.matchPairs++;
+        updateMatchFeedback();
+        celebrateSmall(card);
+      } else {
+        card.classList.add('wrong');
+        firstPick.classList.add('wrong');
+        const fp = firstPick;
+        setTimeout(() => {
+          card.classList.remove('wrong');
+          fp.classList.remove('wrong', 'selected');
+        }, 600);
+      }
+      firstPick = null;
+    }
+  });
+});
+
+function updateMatchFeedback() {
+  const msgs = [
+    'Соедини 5 пар, чтобы продолжить ✿',
+    'Отлично, первая пара! ✿',
+    'Идёт хорошо ✿',
+    'Уже больше половины! ✿',
+    'Ещё одна пара ✿',
+    'Все пары собраны! Идём дальше ↓'
+  ];
+  const fb = document.getElementById('matchFeedback');
+  fb.textContent = msgs[state.matchPairs] || msgs[5];
+  if (state.matchPairs === state.totalMatchPairs) {
+    fb.style.color = 'var(--rose-deep)';
+    fb.style.fontSize = '28px';
+    confetti(40);
+  }
+}
+
+// ============= DEMO TRANSFORMATIONS =============
+const demoExamples = [
+  {
+    speaker: 'Anna',
+    direct: 'I <span class="highlight">am</span> reading <span class="highlight">this</span> book <span class="highlight">now</span>.',
+    reported: 'Anna said that <span class="highlight">she</span> <span class="highlight">was</span> reading <span class="highlight">that</span> book <span class="highlight">then</span>.'
+  },
+  {
+    speaker: 'David',
+    direct: '<span class="highlight">I</span> <span class="highlight">will</span> go to the cinema <span class="highlight">tomorrow</span>.',
+    reported: 'David said that <span class="highlight">he</span> <span class="highlight">would</span> go to the cinema <span class="highlight">the next day</span>.'
+  },
+  {
+    speaker: 'Mia',
+    direct: '<span class="highlight">I</span> <span class="highlight">have</span> finished <span class="highlight">my</span> homework.',
+    reported: 'Mia said that <span class="highlight">she</span> <span class="highlight">had</span> finished <span class="highlight">her</span> homework.'
+  }
+];
+document.querySelectorAll('.demo-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.demo-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const ex = demoExamples[parseInt(btn.dataset.ex)];
+    const direct = document.querySelector('.bubble.direct');
+    const reported = document.querySelector('.bubble.reported');
+    direct.style.opacity = '0';
+    reported.style.opacity = '0';
+    direct.style.transform = 'translateX(-20px)';
+    reported.style.transform = 'translateX(20px)';
+    setTimeout(() => {
+      document.getElementById('demoSpeaker').textContent = ex.speaker;
+      document.getElementById('demoDirect').innerHTML = ex.direct;
+      document.getElementById('demoReported').innerHTML = ex.reported;
+      direct.style.opacity = '1';
+      reported.style.opacity = '1';
+      direct.style.transform = 'translateX(0)';
+      reported.style.transform = 'translateX(0)';
+    }, 350);
+  });
+});
+
+// ============= MULTIPLE CHOICE =============
+document.querySelectorAll('.mc-block').forEach(block => {
+  const correct = block.dataset.correct;
+  const opts = block.querySelectorAll('.mc-opt');
+  const fb = block.querySelector('.ex-feedback');
+  state.totalAnswers++;
+  opts.forEach(opt => {
+    opt.addEventListener('click', () => {
+      if (opt.classList.contains('disabled') || block.classList.contains('answered')) return;
+      block.classList.add('answered');
+      opts.forEach(o => o.classList.add('disabled'));
+      const val = opt.dataset.val;
+      if (val === correct) {
+        opt.classList.add('correct');
+        fb.className = 'ex-feedback show good';
+        fb.textContent = '✓ Верно! Время сдвинулось на шаг назад — как и положено.';
+        state.correctAnswers++;
+        updateScore();
+        confetti(20);
+      } else {
+        opt.classList.add('wrong');
+        block.querySelector(`.mc-opt[data-val="${correct}"]`).classList.add('correct');
+        fb.className = 'ex-feedback show bad';
+        const tips = {
+          'b': 'Подумай: глагол ввода в прошедшем времени → значит и в придаточной части время идёт на шаг назад. <em>like → liked</em>.',
+          'c': 'Здесь нужны: <strong>was doing</strong> (backshift Present Cont. → Past Cont.) и местоимение <strong>her</strong> вместо my.',
+          'd': '<strong>Tomorrow</strong> в косвенной речи становится <strong>the next day</strong> — это важный маркер.',
+        };
+        fb.innerHTML = '✗ Не совсем. ' + (tips[correct] || 'Посмотри правильный ответ.');
+        updateScore();
+      }
+    });
+  });
+});
+
+// ============= FILL IN THE BLANK & OGE =============
+document.querySelectorAll('.btn-check').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const targetClass = btn.dataset.target;
+    const block = btn.closest('.exercise').querySelector('.' + targetClass);
+    const inputs = block.querySelectorAll('input');
+    const fb = btn.closest('.exercise').querySelector('.ex-feedback');
+    let right = 0, total = inputs.length;
+    
+    inputs.forEach(inp => {
+      const ans = inp.dataset.ans.toLowerCase().trim();
+      const val = inp.value.toLowerCase().trim();
+      if (val === ans) {
+        inp.classList.add('correct');
+        inp.classList.remove('wrong');
+        right++;
+      } else {
+        inp.classList.add('wrong');
+        inp.classList.remove('correct');
+        // Show correct on hover via title
+        inp.title = 'Правильный ответ: ' + inp.dataset.ans;
+      }
+    });
+    
+    // Each input counts as one answer
+    if (!btn.classList.contains('done')) {
+      state.totalAnswers += total;
+      state.correctAnswers += right;
+      btn.classList.add('done');
+      btn.textContent = 'проверено ✓';
+      updateScore();
+    }
+    
+    fb.className = 'ex-feedback show ' + (right === total ? 'good' : (right > total/2 ? 'good' : 'bad'));
+    if (right === total) {
+      fb.innerHTML = `✓ Идеально! ${right} из ${total}. Наведи на ответы — теперь всё на месте.`;
+      confetti(30);
+    } else {
+      fb.innerHTML = `Получилось ${right} из ${total}. Неверные подчёркнуты — наведи мышкой, чтобы увидеть правильный вариант.`;
+    }
+  });
+});
+
+// ============= SCORE =============
+function updateScore() {
+  document.getElementById('scoreNum').textContent = state.correctAnswers;
+  document.getElementById('scoreMax').textContent = state.totalAnswers;
+  const pct = state.totalAnswers ? state.correctAnswers / state.totalAnswers : 0;
+  const v = document.getElementById('verdict');
+  if (state.totalAnswers >= 4) {
+    if (pct >= 0.85) v.textContent = 'превосходно ✿ можно сдавать ОГЭ хоть завтра';
+    else if (pct >= 0.65) v.textContent = 'хорошо! ещё чуть-чуть практики и будет блестяще';
+    else if (pct >= 0.4) v.textContent = 'неплохо — повтори правила и пройди ещё раз';
+    else v.textContent = 'давай ещё раз — теория наверху, всё получится ✿';
+    v.classList.add('show');
+  }
+}
+
+// ============= CONFETTI =============
+function confetti(n) {
+  const colors = ['#D88A8A', '#8FA689', '#D4A85C', '#C46A4D', '#B8A4C9'];
+  for (let i = 0; i < n; i++) {
+    const piece = document.createElement('div');
+    piece.className = 'confetti';
+    piece.style.left = (Math.random() * 100) + '%';
+    piece.style.top = '-10px';
+    piece.style.background = colors[Math.floor(Math.random() * colors.length)];
+    piece.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
+    piece.style.opacity = '0.85';
+    document.body.appendChild(piece);
+    const duration = 2000 + Math.random() * 2000;
+    const drift = (Math.random() - 0.5) * 300;
+    piece.animate([
+      { transform: 'translate(0,0) rotate(0deg)', opacity: 1 },
+      { transform: `translate(${drift}px, ${window.innerHeight + 20}px) rotate(${Math.random() * 720}deg)`, opacity: 0 }
+    ], { duration, easing: 'cubic-bezier(.3,.1,.4,1)' }).onfinish = () => piece.remove();
+  }
+}
+
+function celebrateSmall(card) {
+  const rect = card.getBoundingClientRect();
+  const colors = ['#D88A8A', '#8FA689', '#D4A85C'];
+  for (let i = 0; i < 8; i++) {
+    const piece = document.createElement('div');
+    piece.className = 'confetti';
+    piece.style.left = (rect.left + rect.width/2) + 'px';
+    piece.style.top = (rect.top + rect.height/2) + 'px';
+    piece.style.background = colors[Math.floor(Math.random() * colors.length)];
+    piece.style.borderRadius = '50%';
+    document.body.appendChild(piece);
+    piece.animate([
+      { transform: 'translate(0,0)', opacity: 1 },
+      { transform: `translate(${(Math.random()-0.5)*200}px, ${(Math.random()-0.5)*200}px)`, opacity: 0 }
+    ], { duration: 800, easing: 'ease-out' }).onfinish = () => piece.remove();
+  }
+}
+
+// Init total
+updateScore();
+</script>
+</body>
+</html>
