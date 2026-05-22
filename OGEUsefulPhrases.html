@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Football Vocabulary Cards</title>
+<style>
+  :root {
+    --grass-1:#0f7a3b;
+    --grass-2:#0a5f2f;
+    --grass-3:#063f24;
+    --lime:#ccff33;
+    --white:#ffffff;
+    --ink:#102116;
+    --gold:#ffd34d;
+    --card:#f8fff6;
+    --red:#ff5c5c;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: "Inter", "Segoe UI", Arial, sans-serif;
+    color: var(--white);
+    background:
+      radial-gradient(circle at 10% 10%, rgba(255,255,255,.16), transparent 24%),
+      repeating-linear-gradient(90deg, var(--grass-1) 0 90px, var(--grass-2) 90px 180px);
+    overflow-x: hidden;
+  }
+  body::before {
+    content:"";
+    position: fixed;
+    inset: 0;
+    background:
+      linear-gradient(90deg, transparent 49.8%, rgba(255,255,255,.55) 50%, transparent 50.2%),
+      linear-gradient(0deg, transparent 8%, rgba(255,255,255,.35) 8.2%, transparent 8.5%, transparent 91.5%, rgba(255,255,255,.35) 91.8%, transparent 92%),
+      radial-gradient(circle at 50% 50%, transparent 0 78px, rgba(255,255,255,.45) 79px 81px, transparent 82px);
+    pointer-events:none;
+    opacity:.36;
+  }
+
+  .wrap {
+    position: relative;
+    z-index: 1;
+    max-width: 1220px;
+    margin: 0 auto;
+    padding: 34px 18px 60px;
+  }
+  header {
+    background: rgba(4, 38, 20, .72);
+    border: 1px solid rgba(255,255,255,.22);
+    border-radius: 28px;
+    padding: 28px;
+    box-shadow: 0 24px 60px rgba(0,0,0,.28);
+    backdrop-filter: blur(10px);
+    overflow: hidden;
+    position: relative;
+  }
+  header::after {
+    content:"";
+  }
+  .student-note {
+    margin: 0;
+    font-size: clamp(24px, 4vw, 44px);
+    line-height: 1.08;
+    font-weight: 1000;
+    letter-spacing: -0.8px;
+    color: rgba(255,255,255,.96);
+  }
+  h1 {
+    margin: 0 0 8px;
+    font-size: clamp(30px, 5vw, 58px);
+    line-height: .95;
+    letter-spacing: -1.5px;
+  }
+  .subtitle {
+    max-width: 830px;
+    margin: 0;
+    color: rgba(255,255,255,.86);
+    font-size: 17px;
+  }
+  .panel {
+    margin-top: 18px;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .controls {
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    align-items:center;
+    background: rgba(6, 49, 27, .76);
+    padding: 14px;
+    border-radius: 22px;
+    border: 1px solid rgba(255,255,255,.19);
+    box-shadow: 0 14px 38px rgba(0,0,0,.20);
+    backdrop-filter: blur(8px);
+  }
+  button, select, input {
+    border: none;
+    border-radius: 999px;
+    padding: 12px 16px;
+    font-weight: 800;
+    font-size: 14px;
+    outline: none;
+  }
+  button {
+    color: #092314;
+    background: var(--lime);
+    cursor: pointer;
+    box-shadow: 0 6px 0 rgba(0,0,0,.26);
+    transition: transform .15s ease, box-shadow .15s ease, filter .15s ease;
+  }
+  button:hover { transform: translateY(-2px); filter: brightness(1.05); }
+  button:active { transform: translateY(3px); box-shadow: 0 2px 0 rgba(0,0,0,.32); }
+  button.secondary { background: #fff; }
+  button.gold { background: var(--gold); }
+  button.red { background: var(--red); color: #fff; }
+  select, input {
+    background: rgba(255,255,255,.95);
+    color: var(--ink);
+    min-width: 210px;
+  }
+  input { min-width: min(100%, 280px); }
+  .scoreboard {
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    align-items:center;
+    margin-top:12px;
+  }
+  .badge {
+    background: rgba(0,0,0,.35);
+    border: 1px solid rgba(255,255,255,.22);
+    padding: 9px 13px;
+    border-radius: 999px;
+    font-weight: 800;
+    color: rgba(255,255,255,.95);
+  }
+  .sections {
+    display:flex;
+    gap: 10px;
+    overflow-x:auto;
+    padding: 16px 4px 8px;
+    scrollbar-width: thin;
+  }
+  .tab {
+    white-space: nowrap;
+    background: rgba(255,255,255,.92);
+    color: #0a3e22;
+    border-radius: 999px;
+    padding: 10px 14px;
+    font-weight: 900;
+    cursor:pointer;
+    border: 2px solid transparent;
+    transition:.18s ease;
+  }
+  .tab.active {
+    background: var(--gold);
+    border-color: white;
+    transform: translateY(-2px);
+  }
+  .pitch {
+    margin-top: 12px;
+    display:grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 16px;
+  }
+  .card {
+    height: 160px;
+    perspective: 1000px;
+    animation: pop .35s ease both;
+  }
+  @keyframes pop {
+    from { opacity:0; transform: translateY(12px) scale(.98); }
+    to { opacity:1; transform: translateY(0) scale(1); }
+  }
+  .inner {
+    position:relative;
+    height:100%;
+    transform-style:preserve-3d;
+    transition: transform .55s cubic-bezier(.2,.7,.2,1.2);
+    cursor:pointer;
+  }
+  .card.flipped .inner { transform: rotateY(180deg); }
+  .face {
+    position:absolute;
+    inset:0;
+    border-radius: 24px;
+    backface-visibility:hidden;
+    padding: 18px;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+    box-shadow: 0 18px 34px rgba(0,0,0,.24);
+    border: 2px solid rgba(255,255,255,.9);
+  }
+  .front {
+    background:
+      linear-gradient(135deg, rgba(255,255,255,.98), rgba(235,255,225,.98));
+    color: var(--ink);
+  }
+  .back {
+    transform: rotateY(180deg);
+    background:
+      radial-gradient(circle at 90% 10%, rgba(255,255,255,.35), transparent 24%),
+      linear-gradient(135deg, #102116, #0c6f38);
+    color: #fff;
+  }
+  .ru {
+    font-size: 23px;
+    font-weight: 1000;
+    line-height: 1.1;
+  }
+  .en {
+    font-size: 25px;
+    font-weight: 1000;
+    line-height: 1.08;
+  }
+  .section-label {
+    font-size: 12px;
+    font-weight: 900;
+    opacity: .75;
+    text-transform: uppercase;
+    letter-spacing: .5px;
+  }
+  .card-actions {
+    display:flex;
+    gap: 8px;
+    align-items:center;
+    justify-content:space-between;
+  }
+  .mini {
+    padding: 8px 10px;
+    font-size: 12px;
+    box-shadow:none;
+  }
+  .hint {
+    font-size: 13px;
+    opacity: .75;
+    font-weight:800;
+  }
+  .exercise {
+    margin-top: 26px;
+    background: rgba(4, 38, 20, .78);
+    border: 1px solid rgba(255,255,255,.22);
+    border-radius: 28px;
+    padding: 20px;
+    box-shadow: 0 24px 60px rgba(0,0,0,.25);
+    backdrop-filter: blur(10px);
+  }
+  .exercise h2 {
+    margin: 0 0 8px;
+    font-size: 28px;
+  }
+  .quiz-grid {
+    display:grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 12px;
+    margin-top: 14px;
+  }
+  .quiz-card {
+    background: rgba(255,255,255,.94);
+    color: var(--ink);
+    border-radius: 20px;
+    padding: 14px;
+    font-weight: 800;
+    border: 2px solid transparent;
+  }
+  .quiz-card.correct { border-color: var(--lime); background: #f4ffe8; }
+  .quiz-card.wrong { border-color: var(--red); background: #fff0f0; }
+  .quiz-card input, .quiz-card select {
+    width: 100%;
+    margin-top: 9px;
+    border: 2px solid rgba(15,122,59,.25);
+    border-radius: 14px;
+    min-width: 0;
+    font-weight: 800;
+  }
+  .result {
+    margin-top: 8px;
+    min-height: 20px;
+    color: #0a5f2f;
+    font-weight: 900;
+  }
+  .footer-note {
+    margin-top: 22px;
+    color: rgba(255,255,255,.75);
+    font-weight: 700;
+    text-align:center;
+  }
+  @media (max-width: 640px) {
+    header { padding: 22px; }
+    .controls { align-items: stretch; }
+    button, select, input { width: 100%; }
+    .pitch { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <p class="student-note">Митя, эти фразы нужны тебе для ОГЭ!</p>
+  </header>
+
+  <div class="panel">
+    <div class="controls">
+      <select id="sectionSelect"></select>
+      <input id="searchInput" placeholder="Search: Russian or English..." />
+      <button onclick="shuffleCards()">Shuffle ⚽</button>
+      <button class="secondary" onclick="flipAll(true)">Show English</button>
+      <button class="secondary" onclick="flipAll(false)">Hide English</button>
+      <button class="red" onclick="resetAll()">Reset</button>
+    </div>
+    <div class="sections" id="tabs"></div>
+  </div>
+
+  <main class="pitch" id="cards"></main>
+
+  <section class="exercise">
+    <h2>Exercise 1: Listen and choose</h2>
+    <p>Listen and choose the correct English phrase.</p>
+    <div class="controls">
+      <button onclick="buildMatchExercise()">New round</button>
+      <button class="secondary" onclick="checkMatchExercise()">Check</button>
+    </div>
+    <div class="quiz-grid" id="matchExercise"></div>
+  </section>
+
+  <section class="exercise">
+    <h2>Exercise 2: Listen and write</h2>
+    <p>Click the sound button, listen, and write the phrase in English.</p>
+    <div class="controls">
+      <button onclick="buildListenExercise()">New round</button>
+      <button class="secondary" onclick="checkListenExercise()">Check</button>
+    </div>
+    <div class="quiz-grid" id="listenExercise"></div>
+  </section>
+
+  <p class="footer-note">Tip: practise the cards by topic before the speaking exam.</p>
+</div>
+
+<script>
+const WORDS = [{"section": "Family and friends", "en": "support", "ru": "поддержка"}, {"section": "Family and friends", "en": "close friend", "ru": "близкий друг"}, {"section": "Family and friends", "en": "get on well", "ru": "хорошо ладить"}, {"section": "Family and friends", "en": "spend time together", "ru": "проводить время вместе"}, {"section": "Family and friends", "en": "trust", "ru": "доверять / доверие"}, {"section": "Your country and your hometown", "en": "hometown", "ru": "родной город"}, {"section": "Your country and your hometown", "en": "famous place", "ru": "известное место"}, {"section": "Your country and your hometown", "en": "quiet area", "ru": "тихий район"}, {"section": "Your country and your hometown", "en": "local people", "ru": "местные жители"}, {"section": "Your country and your hometown", "en": "be proud of", "ru": "гордиться"}, {"section": "Hobbies and leisure activities", "en": "be interested in", "ru": "интересоваться"}, {"section": "Hobbies and leisure activities", "en": "be good at", "ru": "хорошо уметь"}, {"section": "Hobbies and leisure activities", "en": "free time", "ru": "свободное время"}, {"section": "Hobbies and leisure activities", "en": "take photos", "ru": "фотографировать"}, {"section": "Hobbies and leisure activities", "en": "be fond of", "ru": "увлекаться"}, {"section": "Shopping", "en": "shopping centre", "ru": "торговый центр"}, {"section": "Shopping", "en": "try on clothes", "ru": "примерять одежду"}, {"section": "Shopping", "en": "price", "ru": "цена"}, {"section": "Shopping", "en": "spend money", "ru": "тратить деньги"}, {"section": "Shopping", "en": "online shopping", "ru": "покупки онлайн"}, {"section": "School life", "en": "school subject", "ru": "школьный предмет"}, {"section": "School life", "en": "classmates", "ru": "одноклассники"}, {"section": "School life", "en": "school rules", "ru": "школьные правила"}, {"section": "School life", "en": "get good marks", "ru": "получать хорошие оценки"}, {"section": "School life", "en": "prepare for exams", "ru": "готовиться к экзаменам"}, {"section": "Career and jobs", "en": "future job", "ru": "будущая работа"}, {"section": "Career and jobs", "en": "choose a career", "ru": "выбрать профессию"}, {"section": "Career and jobs", "en": "earn money", "ru": "зарабатывать деньги"}, {"section": "Career and jobs", "en": "help people", "ru": "помогать людям"}, {"section": "Career and jobs", "en": "work hard", "ru": "много работать"}, {"section": "Languages", "en": "foreign language", "ru": "иностранный язык"}, {"section": "Languages", "en": "speak English", "ru": "говорить по-английски"}, {"section": "Languages", "en": "learn new words", "ru": "учить новые слова"}, {"section": "Languages", "en": "watch films in English", "ru": "смотреть фильмы на английском"}, {"section": "Languages", "en": "useful skill", "ru": "полезный навык"}, {"section": "Holidays and celebrations", "en": "celebrate", "ru": "праздновать"}, {"section": "Holidays and celebrations", "en": "give presents", "ru": "дарить подарки"}, {"section": "Holidays and celebrations", "en": "family tradition", "ru": "семейная традиция"}, {"section": "Holidays and celebrations", "en": "special day", "ru": "особенный день"}, {"section": "Holidays and celebrations", "en": "spend holidays", "ru": "проводить каникулы"}, {"section": "Travelling", "en": "travel abroad", "ru": "путешествовать за границу"}, {"section": "Travelling", "en": "visit new places", "ru": "посещать новые места"}, {"section": "Travelling", "en": "go sightseeing", "ru": "осматривать достопримечательности"}, {"section": "Travelling", "en": "take pictures", "ru": "фотографировать"}, {"section": "Travelling", "en": "learn about culture", "ru": "узнавать о культуре"}, {"section": "Technological progress", "en": "modern technology", "ru": "современные технологии"}, {"section": "Technological progress", "en": "mobile phone", "ru": "мобильный телефон"}, {"section": "Technological progress", "en": "use the Internet", "ru": "пользоваться интернетом"}, {"section": "Technological progress", "en": "online lessons", "ru": "онлайн-уроки"}, {"section": "Technological progress", "en": "keep in touch", "ru": "поддерживать связь"}, {"section": "Global problems / ecology", "en": "protect nature", "ru": "защищать природу"}, {"section": "Global problems / ecology", "en": "air pollution", "ru": "загрязнение воздуха"}, {"section": "Global problems / ecology", "en": "water pollution", "ru": "загрязнение воды"}, {"section": "Global problems / ecology", "en": "throw away rubbish", "ru": "выбрасывать мусор"}, {"section": "Global problems / ecology", "en": "save animals", "ru": "спасать животных"}, {"section": "Mass media", "en": "watch the news", "ru": "смотреть новости"}, {"section": "Mass media", "en": "read articles", "ru": "читать статьи"}, {"section": "Mass media", "en": "use social networks", "ru": "пользоваться соцсетями"}, {"section": "Mass media", "en": "find information", "ru": "находить информацию"}, {"section": "Mass media", "en": "TV programme", "ru": "телепередача"}, {"section": "Nature", "en": "wild animals", "ru": "дикие животные"}, {"section": "Nature", "en": "domestic animals", "ru": "домашние животные"}, {"section": "Nature", "en": "weather forecast", "ru": "прогноз погоды"}, {"section": "Nature", "en": "beautiful nature", "ru": "красивая природа"}, {"section": "Nature", "en": "spend time outdoors", "ru": "проводить время на улице / на природе"}, {"section": "Healthy lifestyle", "en": "do exercise", "ru": "делать упражнения"}, {"section": "Healthy lifestyle", "en": "eat healthy food", "ru": "есть здоровую еду"}, {"section": "Healthy lifestyle", "en": "go for a walk", "ru": "ходить гулять"}, {"section": "Healthy lifestyle", "en": "feel better", "ru": "чувствовать себя лучше"}, {"section": "Healthy lifestyle", "en": "bad habits", "ru": "вредные привычки"}];
+let currentSection = "All";
+let visibleWords = [...WORDS];
+
+function speak(text) {
+  if (!("speechSynthesis" in window)) {
+    alert("Audio is not supported in this browser.");
+    return;
+  }
+  window.speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = "en-GB";
+  u.rate = 0.88;
+  u.pitch = 1;
+  window.speechSynthesis.speak(u);
+}
+
+function uniqueSections() {
+  return ["All", ...new Set(WORDS.map(w => w.section))];
+}
+
+function init() {
+  const select = document.getElementById("sectionSelect");
+  select.innerHTML = uniqueSections().map(s => `<option value="${escapeAttr(s)}">${s === "All" ? "All sections" : s}</option>`).join("");
+  select.addEventListener("change", e => {
+    currentSection = e.target.value;
+    renderTabs();
+    applyFilters();
+  });
+  document.getElementById("searchInput").addEventListener("input", applyFilters);
+  renderTabs();
+  applyFilters();
+  buildMatchExercise();
+  buildListenExercise();
+}
+
+function escapeAttr(str) {
+  return String(str).replaceAll("&","&amp;").replaceAll('"',"&quot;").replaceAll("<","&lt;").replaceAll(">","&gt;");
+}
+
+function renderTabs() {
+  const tabs = document.getElementById("tabs");
+  tabs.innerHTML = uniqueSections().map(s => `
+    <div class="tab ${s === currentSection ? "active" : ""}" onclick="setSection('${escapeAttr(s)}')">
+      ${s === "All" ? "🏆 All" : "⚽ " + s}
+    </div>`).join("");
+}
+
+function setSection(section) {
+  currentSection = section;
+  document.getElementById("sectionSelect").value = section;
+  renderTabs();
+  applyFilters();
+}
+
+function applyFilters() {
+  const q = document.getElementById("searchInput").value.trim().toLowerCase();
+  visibleWords = WORDS.filter(w => 
+    (currentSection === "All" || w.section === currentSection) &&
+    (!q || w.en.toLowerCase().includes(q) || w.ru.toLowerCase().includes(q) || w.section.toLowerCase().includes(q))
+  );
+  renderCards();
+}
+
+function renderCards() {
+  const box = document.getElementById("cards");
+  box.innerHTML = visibleWords.map((w, i) => `
+    <article class="card" style="animation-delay:${Math.min(i * 0.025, .35)}s" data-en="${escapeAttr(w.en)}">
+      <div class="inner" onclick="this.parentElement.classList.toggle('flipped')">
+        <div class="face front">
+          <div class="section-label">${w.section}</div>
+          <div class="ru">${w.ru}</div>
+          <div class="card-actions">
+            <span class="hint">Click to flip</span>
+            <button class="mini" onclick="event.stopPropagation(); speak('${escapeAttr(w.en)}')">🔊</button>
+          </div>
+        </div>
+        <div class="face back">
+          <div class="section-label">${w.section}</div>
+          <div class="en">${w.en}</div>
+          <div class="card-actions">
+            <span class="hint">English answer</span>
+            <button class="mini" onclick="event.stopPropagation(); speak('${escapeAttr(w.en)}')">🔊 Listen</button>
+          </div>
+        </div>
+      </div>
+    </article>
+  `).join("");
+}
+
+function shuffleCards() {
+  visibleWords = [...visibleWords].sort(() => Math.random() - 0.5);
+  renderCards();
+}
+
+function flipAll(show) {
+  document.querySelectorAll(".card").forEach(c => c.classList.toggle("flipped", show));
+}
+
+function resetAll() {
+  currentSection = "All";
+  document.getElementById("sectionSelect").value = "All";
+  document.getElementById("searchInput").value = "";
+  renderTabs();
+  applyFilters();
+  flipAll(false);
+}
+
+function speakVisible() {
+  const text = visibleWords.slice(0, 12).map(w => w.en).join(". ");
+  speak(text);
+}
+
+function sample(arr, n) {
+  return [...arr].sort(() => Math.random() - 0.5).slice(0, n);
+}
+
+function buildMatchExercise() {
+  const items = sample(WORDS, 10);
+  const allOptions = WORDS.map(w => w.en);
+  document.getElementById("matchExercise").innerHTML = items.map((w, idx) => {
+    const options = sample([...new Set([w.en, ...sample(allOptions, 5)])], 5);
+    if (!options.includes(w.en)) options[0] = w.en;
+    options.sort(() => Math.random() - 0.5);
+    return `<div class="quiz-card" data-answer="${escapeAttr(w.en)}">
+      <div>${idx + 1}. Topic: ${w.section}</div>
+      <button class="mini" onclick="speak('${escapeAttr(w.en)}')">🔊 Play</button>
+      <select>
+        <option value="">Choose...</option>
+        ${options.map(o => `<option value="${escapeAttr(o)}">${o}</option>`).join("")}
+      </select>
+      <div class="result"></div>
+    </div>`;
+  }).join("");
+}
+
+function checkMatchExercise() {
+  document.querySelectorAll("#matchExercise .quiz-card").forEach(card => {
+    const answer = card.dataset.answer.trim().toLowerCase();
+    const value = card.querySelector("select").value.trim().toLowerCase();
+    const ok = value === answer;
+    card.classList.toggle("correct", ok);
+    card.classList.toggle("wrong", !ok);
+    card.querySelector(".result").textContent = ok ? "Goal! ✅" : "Missed. Answer: " + card.dataset.answer;
+  });
+}
+
+function buildListenExercise() {
+  const items = sample(WORDS, 8);
+  document.getElementById("listenExercise").innerHTML = items.map((w, idx) => `
+    <div class="quiz-card" data-answer="${escapeAttr(w.en)}">
+      <div>${idx + 1}. Listen and write:</div>
+      <button class="mini" onclick="speak('${escapeAttr(w.en)}')">🔊 Play</button>
+      <input placeholder="Type in English..." />
+      <div class="result"></div>
+    </div>
+  `).join("");
+}
+
+function normalize(s) {
+  return s.toLowerCase().trim().replace(/[.,!?;:]/g, "").replace(/\s+/g, " ");
+}
+
+function checkListenExercise() {
+  document.querySelectorAll("#listenExercise .quiz-card").forEach(card => {
+    const answer = normalize(card.dataset.answer);
+    const value = normalize(card.querySelector("input").value);
+    const ok = value === answer;
+    card.classList.toggle("correct", ok);
+    card.classList.toggle("wrong", !ok);
+    card.querySelector(".result").textContent = ok ? "Perfect kick! ✅" : "Answer: " + card.dataset.answer;
+  });
+}
+
+init();
+</script>
+</body>
+</html>
