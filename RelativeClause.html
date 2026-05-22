@@ -1,0 +1,2245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Relative Clauses · A Mint Lesson</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,500&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  /* =========================================================
+     MINT PINTEREST LESSON · DEFINING & NON-DEFINING CLAUSES
+     ========================================================= */
+
+  :root{
+    --mint-50:  #F2FAF5;
+    --mint-100: #E3F2EA;
+    --mint-200: #C9E6D6;
+    --mint-300: #A8D5BA;
+    --mint-400: #7FBF9A;
+    --mint-500: #5BA681;
+    --mint-600: #418C68;
+    --mint-700: #2F6E51;
+    --sage:     #6B9080;
+    --deep:     #1F3A2E;
+
+    --cream:    #FBF7EF;
+    --cream-2:  #F4EDDE;
+    --paper:    #FFFBF1;
+
+    --blush:    #F4C8C4;
+    --blush-2:  #ECA9A4;
+    --peach:    #F7D9B7;
+    --butter:   #F7E7A0;
+    --sky:      #BFD7E0;
+    --lilac:    #D9C9E8;
+
+    --ink:      #233129;
+    --ink-soft: #4A5C53;
+
+    --shadow-sm: 0 2px 6px rgba(31,58,46,.08);
+    --shadow-md: 0 6px 18px rgba(31,58,46,.10);
+    --shadow-lg: 0 18px 40px rgba(31,58,46,.14);
+
+    --serif: 'Fraunces', Georgia, serif;
+    --sans:  'Quicksand', system-ui, sans-serif;
+    --hand:  'Caveat', cursive;
+  }
+
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  html{ scroll-behavior:smooth; }
+  body{
+    font-family: var(--sans);
+    color: var(--ink);
+    background: var(--cream);
+    background-image:
+      radial-gradient(circle at 12% 10%, rgba(168,213,186,.35), transparent 40%),
+      radial-gradient(circle at 88% 25%, rgba(244,200,196,.30), transparent 45%),
+      radial-gradient(circle at 30% 80%, rgba(191,215,224,.30), transparent 45%),
+      radial-gradient(circle at 85% 90%, rgba(247,231,160,.25), transparent 40%);
+    min-height: 100vh;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* paper grain overlay */
+  body::before{
+    content:"";
+    position:fixed; inset:0;
+    background-image:
+      radial-gradient(rgba(31,58,46,.04) 1px, transparent 1px);
+    background-size: 18px 18px;
+    pointer-events:none;
+    z-index:0;
+  }
+
+  .wrap{
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 40px 28px 120px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ---------- TOP NAV ---------- */
+  .topnav{
+    position: sticky;
+    top: 14px;
+    z-index: 50;
+    background: rgba(251,247,239,.78);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1.5px solid var(--mint-200);
+    border-radius: 999px;
+    padding: 10px 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: var(--shadow-md);
+    flex-wrap: wrap;
+    margin-bottom: 36px;
+  }
+  .topnav .logo{
+    font-family: var(--serif);
+    font-weight: 700;
+    font-style: italic;
+    font-size: 1.1rem;
+    color: var(--mint-700);
+    padding: 0 10px 0 6px;
+    display: flex; align-items: center; gap:8px;
+  }
+  .topnav .logo .dot{
+    width:10px; height:10px; border-radius:50%;
+    background: var(--mint-500);
+    box-shadow: 0 0 0 4px var(--mint-200);
+  }
+  .topnav a{
+    text-decoration: none;
+    color: var(--ink);
+    font-weight: 500;
+    font-size: .92rem;
+    padding: 6px 12px;
+    border-radius: 999px;
+    transition: all .2s ease;
+  }
+  .topnav a:hover{ background: var(--mint-200); color: var(--mint-700); }
+
+  .nav-progress{
+    margin-left:auto;
+    display:flex; align-items:center; gap:10px;
+    font-family: var(--hand);
+    font-size: 1.05rem;
+    color: var(--mint-700);
+  }
+  .nav-progress .bar{
+    width: 110px; height: 8px;
+    background: var(--mint-100);
+    border-radius:999px;
+    overflow:hidden;
+  }
+  .nav-progress .fill{
+    height:100%; width:0%;
+    background: linear-gradient(90deg, var(--mint-400), var(--mint-600));
+    border-radius:999px;
+    transition: width .5s ease;
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position: relative;
+    text-align: center;
+    padding: 30px 10px 50px;
+  }
+  .hero .kicker{
+    display:inline-block;
+    font-family: var(--hand);
+    font-size: 1.6rem;
+    color: var(--mint-600);
+    transform: rotate(-3deg);
+    padding: 4px 18px;
+    background: var(--butter);
+    border-radius: 4px;
+    box-shadow: var(--shadow-sm);
+  }
+  .hero h1{
+    font-family: var(--serif);
+    font-weight: 900;
+    font-size: clamp(2.6rem, 6vw, 4.6rem);
+    line-height: 1;
+    margin: 22px auto 14px;
+    letter-spacing: -.02em;
+    color: var(--deep);
+    max-width: 900px;
+  }
+  .hero h1 em{
+    font-style: italic;
+    color: var(--mint-600);
+    position: relative;
+  }
+  .hero h1 em::after{
+    content:"";
+    position:absolute; left:0; right:0; bottom:-6px;
+    height: 12px;
+    background: var(--mint-200);
+    border-radius: 50%;
+    z-index:-1;
+    transform: skew(-12deg);
+  }
+  .hero p.sub{
+    max-width: 560px;
+    margin: 0 auto;
+    color: var(--ink-soft);
+    font-size: 1.05rem;
+  }
+  .hero .meta{
+    margin-top: 26px;
+    display:flex; flex-wrap:wrap; gap:10px; justify-content:center;
+  }
+  .pill{
+    display:inline-flex; align-items:center; gap:8px;
+    padding: 8px 16px;
+    background: white;
+    border: 1.5px solid var(--mint-200);
+    border-radius: 999px;
+    font-size: .88rem;
+    font-weight: 500;
+    color: var(--ink-soft);
+    box-shadow: var(--shadow-sm);
+  }
+  .pill .ico{ font-size: 1rem; }
+
+  /* floating decorations */
+  .deco{
+    position:absolute; pointer-events:none;
+    opacity:.9;
+    animation: float 6s ease-in-out infinite;
+  }
+  .deco.d1{ top: 10px; left: 4%; transform: rotate(-10deg); }
+  .deco.d2{ top: 30px; right: 6%; transform: rotate(12deg); animation-delay: -2s;}
+  .deco.d3{ bottom: 10px; left: 12%; animation-delay: -4s;}
+  .deco.d4{ bottom: 20px; right: 10%; animation-delay: -1s;}
+  @keyframes float{
+    0%,100%{ transform: translateY(0) rotate(var(--r,0deg)); }
+    50%{ transform: translateY(-12px) rotate(var(--r,0deg)); }
+  }
+
+  /* ---------- TIMELINE / PLAN BOARD ---------- */
+  .board-title{
+    display:flex; align-items:flex-end; gap:16px;
+    margin: 70px 0 20px;
+  }
+  .board-title h2{
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 700;
+    font-size: clamp(2rem, 4vw, 3rem);
+    color: var(--deep);
+    letter-spacing: -.01em;
+  }
+  .board-title .scribble{
+    font-family: var(--hand);
+    color: var(--mint-600);
+    font-size: 1.5rem;
+    transform: rotate(-4deg);
+  }
+  .board-title hr{
+    flex:1; height: 2px; border:none;
+    background: repeating-linear-gradient(90deg, var(--mint-300) 0 8px, transparent 8px 16px);
+    margin-bottom: 10px;
+  }
+
+  /* PIN GRID (masonry-like) */
+  .pin-grid{
+    column-count: 4;
+    column-gap: 20px;
+  }
+  @media (max-width: 1100px){ .pin-grid{ column-count: 3; } }
+  @media (max-width: 800px){  .pin-grid{ column-count: 2; } }
+  @media (max-width: 520px){  .pin-grid{ column-count: 1; } }
+
+  .pin{
+    break-inside: avoid;
+    background: white;
+    border-radius: 18px;
+    padding: 18px 18px 16px;
+    margin-bottom: 20px;
+    box-shadow: var(--shadow-md);
+    position: relative;
+    transition: transform .3s ease, box-shadow .3s ease;
+    cursor: pointer;
+    border: 1px solid rgba(31,58,46,.05);
+  }
+  .pin:hover{
+    transform: translateY(-4px) rotate(-.5deg);
+    box-shadow: var(--shadow-lg);
+  }
+  .pin .tape{
+    position:absolute;
+    top:-10px; left: 50%;
+    transform: translateX(-50%) rotate(-2deg);
+    width: 70px; height: 18px;
+    background: rgba(168,213,186,.55);
+    border-radius:2px;
+    box-shadow: 0 2px 6px rgba(0,0,0,.08);
+  }
+  .pin .num{
+    font-family: var(--hand);
+    font-size: 1.2rem;
+    color: var(--mint-600);
+    font-weight: 700;
+  }
+  .pin h3{
+    font-family: var(--serif);
+    font-weight: 700;
+    font-size: 1.2rem;
+    color: var(--deep);
+    margin: 4px 0 8px;
+    line-height: 1.2;
+  }
+  .pin .time{
+    display:inline-block;
+    font-size: .78rem;
+    background: var(--mint-100);
+    color: var(--mint-700);
+    padding: 3px 10px;
+    border-radius: 999px;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  .pin p{
+    font-size: .92rem;
+    color: var(--ink-soft);
+  }
+  .pin.alt-blush{ background: var(--blush); }
+  .pin.alt-peach{ background: var(--peach); }
+  .pin.alt-butter{ background: var(--butter); }
+  .pin.alt-sky{ background: var(--sky); }
+  .pin.alt-lilac{ background: var(--lilac); }
+  .pin.alt-mint{ background: var(--mint-200); }
+  .pin.alt-cream{ background: var(--cream-2); }
+
+  /* ---------- SECTIONS ---------- */
+  section.lesson-section{
+    margin-top: 80px;
+    position: relative;
+  }
+
+  .section-head{
+    display:flex; flex-wrap:wrap; align-items:center; gap:16px;
+    margin-bottom: 30px;
+  }
+  .section-head .step-badge{
+    width: 72px; height: 72px;
+    background: var(--mint-500);
+    color: white;
+    border-radius: 50%;
+    display:grid; place-items:center;
+    font-family: var(--serif);
+    font-weight: 900;
+    font-size: 1.8rem;
+    box-shadow: 0 8px 20px rgba(91,166,129,.35);
+    position: relative;
+    flex-shrink:0;
+  }
+  .section-head .step-badge::after{
+    content:"";
+    position:absolute;
+    inset: -8px;
+    border: 2px dashed var(--mint-400);
+    border-radius:50%;
+    animation: spin 22s linear infinite;
+  }
+  @keyframes spin{ to{ transform: rotate(360deg);} }
+
+  .section-head .step-text h2{
+    font-family: var(--serif);
+    font-weight: 700;
+    font-size: clamp(1.9rem, 3.6vw, 2.6rem);
+    color: var(--deep);
+    line-height: 1.05;
+    letter-spacing: -.01em;
+  }
+  .section-head .step-text h2 em{
+    font-style: italic; color: var(--mint-600);
+  }
+  .section-head .step-text .time-chip{
+    font-family: var(--hand);
+    color: var(--mint-600);
+    font-size: 1.2rem;
+  }
+
+  /* ---------- WARM-UP ---------- */
+  .warmup-grid{
+    display:grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 22px;
+  }
+  @media(max-width:900px){ .warmup-grid{ grid-template-columns: 1fr; } }
+
+  .card{
+    background: white;
+    border-radius: 22px;
+    padding: 26px;
+    box-shadow: var(--shadow-md);
+    border: 1px solid rgba(31,58,46,.05);
+  }
+  .card h3{
+    font-family: var(--serif);
+    font-weight: 700;
+    font-size: 1.4rem;
+    color: var(--deep);
+    margin-bottom: 14px;
+  }
+  .chip-row{
+    display:flex; flex-wrap:wrap; gap:10px;
+    margin-top: 10px;
+  }
+  .chip{
+    padding: 10px 16px;
+    border-radius: 999px;
+    background: var(--mint-100);
+    color: var(--mint-700);
+    font-weight: 600;
+    font-size: .95rem;
+    cursor: pointer;
+    transition: all .2s ease;
+    border: 2px solid transparent;
+    user-select: none;
+  }
+  .chip:hover{ transform: translateY(-2px); background: var(--mint-200); }
+  .chip.active{
+    background: var(--mint-500);
+    color: white;
+    border-color: var(--mint-600);
+    box-shadow: 0 4px 12px rgba(91,166,129,.3);
+  }
+
+  .speech{
+    position: relative;
+    background: var(--peach);
+    padding: 22px 24px;
+    border-radius: 22px 22px 22px 4px;
+    box-shadow: var(--shadow-md);
+    font-family: var(--serif);
+    font-size: 1.15rem;
+    line-height: 1.4;
+    color: var(--deep);
+  }
+  .speech::before{
+    content:"❝";
+    position: absolute;
+    top: -10px; left: 18px;
+    font-size: 3rem;
+    color: white;
+    font-family: var(--serif);
+    line-height: 1;
+  }
+  .speech .src{
+    display:block;
+    margin-top: 12px;
+    font-family: var(--hand);
+    font-size: 1.1rem;
+    color: var(--mint-700);
+    font-style: normal;
+  }
+
+  /* ---------- RULE BOX ---------- */
+  .rule-grid{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    align-items: start;
+  }
+  @media(max-width:900px){ .rule-grid{ grid-template-columns: 1fr; } }
+
+  .rule-card{
+    background: white;
+    border-radius: 24px;
+    padding: 30px;
+    box-shadow: var(--shadow-md);
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(31,58,46,.05);
+  }
+  .rule-card .ribbon{
+    position:absolute;
+    top: 18px; right: -38px;
+    background: var(--mint-500);
+    color: white;
+    padding: 4px 44px;
+    font-family: var(--hand);
+    font-size: 1.1rem;
+    transform: rotate(35deg);
+    box-shadow: 0 4px 10px rgba(91,166,129,.3);
+  }
+  .rule-card.non .ribbon{ background: var(--blush-2); }
+
+  .rule-card h3{
+    font-family: var(--serif);
+    font-weight: 700;
+    font-size: 1.6rem;
+    color: var(--deep);
+    margin-bottom: 6px;
+  }
+  .rule-card .lead{
+    color: var(--ink-soft);
+    margin-bottom: 18px;
+    font-size: .98rem;
+  }
+  .rule-list{ list-style:none; }
+  .rule-list li{
+    padding: 12px 14px;
+    margin-bottom: 8px;
+    background: var(--mint-50);
+    border-radius: 14px;
+    border-left: 4px solid var(--mint-400);
+    font-size: .98rem;
+    transition: all .25s ease;
+    cursor: pointer;
+  }
+  .rule-card.non .rule-list li{
+    background: #fdf2f1;
+    border-left-color: var(--blush-2);
+  }
+  .rule-list li:hover{
+    transform: translateX(4px);
+    background: var(--mint-100);
+  }
+  .rule-card.non .rule-list li:hover{ background: #fce6e3; }
+
+  .rule-list strong{ color: var(--mint-700); font-weight: 700; }
+  .rule-card.non .rule-list strong{ color: var(--blush-2); }
+
+  .example{
+    margin-top: 16px;
+    padding: 14px 16px;
+    background: var(--paper);
+    border: 1.5px dashed var(--mint-300);
+    border-radius: 14px;
+    font-family: var(--serif);
+    font-size: 1.05rem;
+    color: var(--deep);
+    font-style: italic;
+  }
+  .example b{
+    background: var(--mint-200);
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-style: normal;
+    color: var(--deep);
+  }
+  .rule-card.non .example{ border-color: var(--blush-2); }
+  .rule-card.non .example b{ background: var(--blush); }
+
+  /* Pronoun reference cards */
+  .pronoun-grid{
+    display:grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 14px;
+    margin-top: 20px;
+  }
+  .pronoun{
+    background: white;
+    border-radius: 18px;
+    padding: 18px 16px;
+    text-align: center;
+    box-shadow: var(--shadow-sm);
+    cursor: pointer;
+    transition: all .3s ease;
+    border: 2px solid var(--mint-100);
+    position: relative;
+    overflow: hidden;
+  }
+  .pronoun:hover{
+    transform: translateY(-6px) rotate(-1deg);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--mint-400);
+  }
+  .pronoun .word{
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 700;
+    font-size: 1.8rem;
+    color: var(--mint-700);
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+  .pronoun .use{
+    font-size: .82rem;
+    color: var(--ink-soft);
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    margin-bottom: 8px;
+    font-weight: 600;
+  }
+  .pronoun .ex{
+    font-size: .88rem;
+    color: var(--ink);
+    font-style: italic;
+    opacity: 0;
+    max-height: 0;
+    transition: all .35s ease;
+  }
+  .pronoun.open{
+    background: var(--mint-50);
+    border-color: var(--mint-500);
+  }
+  .pronoun.open .ex{
+    opacity: 1;
+    max-height: 100px;
+    margin-top: 6px;
+  }
+
+  /* ---------- COMPARE CARD ---------- */
+  .compare{
+    background: white;
+    border-radius: 24px;
+    padding: 30px;
+    box-shadow: var(--shadow-md);
+    margin-top: 26px;
+    border: 1px solid rgba(31,58,46,.05);
+  }
+  .compare h3{
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 1.5rem;
+    color: var(--deep);
+    margin-bottom: 16px;
+  }
+  .compare-grid{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  @media(max-width:760px){ .compare-grid{ grid-template-columns: 1fr; } }
+  .col{
+    padding: 18px 20px;
+    border-radius: 18px;
+  }
+  .col.def{ background: var(--mint-100); }
+  .col.non{ background: #fdf2f1; }
+  .col h4{
+    font-family: var(--serif);
+    font-weight: 700;
+    color: var(--deep);
+    margin-bottom: 12px;
+    font-size: 1.1rem;
+    display: flex; align-items:center; gap: 8px;
+  }
+  .col .badge{
+    width:24px; height:24px;
+    border-radius:50%;
+    display:grid; place-items:center;
+    color:white;
+    font-size: .8rem;
+    font-weight:700;
+  }
+  .col.def .badge{ background: var(--mint-500); }
+  .col.non .badge{ background: var(--blush-2); }
+  .col ul{ list-style:none; }
+  .col li{
+    padding: 8px 0;
+    border-bottom: 1px dashed rgba(31,58,46,.1);
+    font-size: .95rem;
+  }
+  .col li:last-child{ border-bottom: none; }
+  .col li::before{
+    content:"✦  ";
+    color: var(--mint-600);
+  }
+  .col.non li::before{ color: var(--blush-2); }
+
+  /* ---------- EXAMPLES CAROUSEL ---------- */
+  .examples-flow{
+    display:grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 18px;
+    margin-top: 14px;
+  }
+  .ex-card{
+    background: white;
+    border-radius: 20px;
+    padding: 22px;
+    box-shadow: var(--shadow-md);
+    border-top: 6px solid var(--mint-400);
+    position: relative;
+    transition: all .3s ease;
+    cursor: pointer;
+  }
+  .ex-card:nth-child(2n){ border-top-color: var(--blush-2); transform: rotate(.6deg); }
+  .ex-card:nth-child(3n){ border-top-color: var(--butter); transform: rotate(-.4deg); }
+  .ex-card:nth-child(4n){ border-top-color: var(--sky); }
+  .ex-card:hover{
+    transform: translateY(-6px) rotate(0deg) !important;
+    box-shadow: var(--shadow-lg);
+  }
+  .ex-card .label{
+    font-family: var(--hand);
+    color: var(--mint-600);
+    font-size: 1.05rem;
+    margin-bottom: 6px;
+  }
+  .ex-card .sentence{
+    font-family: var(--serif);
+    font-size: 1.1rem;
+    line-height: 1.4;
+    color: var(--deep);
+    font-style: italic;
+  }
+  .ex-card .sentence b{
+    background: var(--mint-200);
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-style: normal;
+    font-weight: 600;
+  }
+  .ex-card .sentence u{
+    text-decoration: underline wavy var(--blush-2);
+    text-underline-offset: 4px;
+    font-weight: 600;
+    color: var(--mint-700);
+  }
+  .ex-card .note{
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px dashed var(--mint-200);
+    font-size: .85rem;
+    color: var(--ink-soft);
+    display: none;
+  }
+  .ex-card.open .note{ display: block; animation: fade .3s ease; }
+  @keyframes fade{ from{opacity:0; transform: translateY(4px);} to{opacity:1; transform: translateY(0);} }
+  .ex-card::after{
+    content: "tap me ✨";
+    position: absolute;
+    top: 10px; right: 14px;
+    font-family: var(--hand);
+    font-size: .9rem;
+    color: var(--mint-500);
+    opacity: 0.7;
+  }
+  .ex-card.open::after{ content: "↑ closed"; }
+
+  /* ---------- EXERCISES ---------- */
+  .exercise{
+    background: white;
+    border-radius: 24px;
+    padding: 30px;
+    box-shadow: var(--shadow-md);
+    border: 1px solid rgba(31,58,46,.05);
+  }
+  .ex-head{
+    display:flex; flex-wrap:wrap; align-items:center; gap:12px;
+    margin-bottom: 18px;
+  }
+  .ex-head .tag{
+    background: var(--mint-500);
+    color:white;
+    font-family: var(--hand);
+    padding: 4px 14px;
+    border-radius: 999px;
+    font-size: 1.1rem;
+  }
+  .ex-head h3{
+    font-family: var(--serif);
+    font-weight: 700;
+    font-size: 1.35rem;
+    color: var(--deep);
+  }
+  .ex-head .hint{
+    margin-left:auto;
+    font-family: var(--hand);
+    color: var(--ink-soft);
+    font-size: 1rem;
+  }
+
+  .q-item{
+    padding: 14px 16px;
+    margin: 10px 0;
+    background: var(--mint-50);
+    border-radius: 14px;
+    border-left: 4px solid var(--mint-300);
+    font-size: 1rem;
+    transition: background .25s ease;
+  }
+  .q-item.correct{
+    background: #e6f5ec;
+    border-left-color: var(--mint-500);
+  }
+  .q-item.wrong{
+    background: #fce6e3;
+    border-left-color: var(--blush-2);
+  }
+  .q-item .qtext{
+    font-family: var(--serif);
+    font-size: 1.08rem;
+    line-height: 1.5;
+    color: var(--deep);
+  }
+  .q-item .num{
+    font-family: var(--hand);
+    color: var(--mint-600);
+    font-weight: 700;
+    margin-right: 6px;
+  }
+
+  /* multiple choice options */
+  .opts{
+    display:flex; flex-wrap:wrap; gap:8px;
+    margin-top: 10px;
+  }
+  .opt{
+    padding: 8px 16px;
+    border-radius: 999px;
+    background: white;
+    border: 2px solid var(--mint-200);
+    cursor: pointer;
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 1rem;
+    transition: all .2s ease;
+    user-select:none;
+    color: var(--ink);
+  }
+  .opt:hover{ background: var(--mint-100); transform: translateY(-2px); }
+  .opt.picked{
+    background: var(--mint-500);
+    color: white;
+    border-color: var(--mint-600);
+  }
+  .opt.ok{
+    background: var(--mint-500);
+    color: white;
+    border-color: var(--mint-600);
+    animation: pop .3s ease;
+  }
+  .opt.no{
+    background: var(--blush);
+    color: var(--deep);
+    border-color: var(--blush-2);
+  }
+  @keyframes pop{
+    0%{ transform: scale(1); }
+    40%{ transform: scale(1.1); }
+    100%{ transform: scale(1); }
+  }
+
+  /* gap-fill blank */
+  .blank{
+    display:inline-block;
+    min-width: 70px;
+    padding: 2px 8px;
+    margin: 0 2px;
+    border-bottom: 2px dashed var(--mint-500);
+    text-align: center;
+    font-family: var(--serif);
+    font-weight: 600;
+    color: var(--mint-700);
+    font-style: normal;
+  }
+  .blank.filled{
+    background: var(--mint-200);
+    border-bottom: none;
+    border-radius: 6px;
+  }
+  .blank.right{
+    background: var(--mint-200);
+    color: var(--mint-700);
+    border: none;
+    border-radius: 6px;
+  }
+  .blank.miss{
+    background: var(--blush);
+    color: var(--deep);
+    border: none;
+    border-radius: 6px;
+  }
+
+  .reveal-btn{
+    background: var(--mint-500);
+    color: white;
+    border: none;
+    padding: 10px 22px;
+    border-radius: 999px;
+    font-family: var(--sans);
+    font-weight: 600;
+    cursor: pointer;
+    font-size: .95rem;
+    margin-top: 10px;
+    transition: all .25s ease;
+    box-shadow: 0 4px 12px rgba(91,166,129,.3);
+  }
+  .reveal-btn:hover{
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(91,166,129,.4);
+    background: var(--mint-600);
+  }
+  .reveal-btn.alt{ background: var(--blush-2); box-shadow: 0 4px 12px rgba(236,169,164,.35); }
+  .reveal-btn.alt:hover{ background: #d99089; }
+
+  .feedback{
+    margin-top: 12px;
+    padding: 12px 14px;
+    background: var(--butter);
+    border-radius: 12px;
+    font-size: .92rem;
+    color: var(--deep);
+    display: none;
+    font-family: var(--serif);
+  }
+  .feedback.show{ display:block; animation: fade .3s ease;}
+  .feedback strong{ color: var(--mint-700); }
+
+  /* Combine sentences task */
+  .combine-task{
+    padding: 16px;
+    margin: 12px 0;
+    background: var(--mint-50);
+    border-radius: 14px;
+  }
+  .combine-task .pair{
+    font-family: var(--serif);
+    font-size: 1.04rem;
+    color: var(--deep);
+    line-height: 1.5;
+  }
+  .combine-task .pair span.a{ color: var(--mint-700); font-weight:600; }
+  .combine-task .pair span.b{ color: var(--blush-2); font-weight:600; }
+  .combine-task .answer{
+    margin-top: 10px;
+    padding: 12px;
+    background: white;
+    border-radius: 10px;
+    font-family: var(--serif);
+    font-style: italic;
+    color: var(--deep);
+    display: none;
+    border-left: 3px solid var(--mint-500);
+  }
+  .combine-task .answer.show{ display:block; animation: fade .3s ease;}
+  .combine-task .answer b{
+    background: var(--mint-200);
+    padding: 1px 5px;
+    border-radius: 4px;
+  }
+
+  /* yes/no buttons (defining vs non-defining) */
+  .yn{
+    display:flex; gap: 8px;
+    margin-top: 8px;
+    flex-wrap: wrap;
+  }
+  .yn button{
+    border:none;
+    padding: 8px 18px;
+    border-radius: 999px;
+    font-family: var(--sans);
+    font-weight: 600;
+    cursor: pointer;
+    transition: all .25s ease;
+    font-size: .9rem;
+  }
+  .yn button.def{ background: var(--mint-200); color: var(--mint-700); }
+  .yn button.non{ background: var(--blush); color: var(--deep); }
+  .yn button:hover{ transform: translateY(-2px); }
+  .yn button.picked.def{ background: var(--mint-500); color: white; }
+  .yn button.picked.non{ background: var(--blush-2); color: white; }
+  .yn button.wrong{ opacity:.4; }
+
+  /* drag-and-drop section */
+  .dnd-wrap{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 22px;
+    margin-top: 14px;
+  }
+  @media(max-width:820px){ .dnd-wrap{ grid-template-columns: 1fr; } }
+
+  .dnd-zone{
+    background: var(--mint-50);
+    border: 2.5px dashed var(--mint-400);
+    border-radius: 18px;
+    padding: 18px;
+    min-height: 160px;
+  }
+  .dnd-zone.non{
+    background: #fdf2f1;
+    border-color: var(--blush-2);
+  }
+  .dnd-zone h4{
+    font-family: var(--serif);
+    color: var(--deep);
+    margin-bottom: 8px;
+    font-size: 1.1rem;
+  }
+  .dnd-tags{
+    display:flex; flex-wrap:wrap; gap:8px;
+    min-height: 80px;
+  }
+  .tag-item{
+    padding: 8px 14px;
+    background: white;
+    border-radius: 999px;
+    font-family: var(--serif);
+    font-size: .95rem;
+    cursor: grab;
+    border: 1.5px solid var(--mint-300);
+    transition: all .2s ease;
+    user-select:none;
+  }
+  .tag-item.in-non{ border-color: var(--blush-2); }
+  .tag-item:hover{ transform: translateY(-2px); box-shadow: var(--shadow-sm); }
+  .tag-item.dragging{ opacity:.5; cursor: grabbing; }
+
+  .pool{
+    background: white;
+    border-radius: 18px;
+    padding: 18px;
+    box-shadow: var(--shadow-sm);
+    margin-bottom: 16px;
+    border: 1px solid var(--mint-200);
+  }
+
+  /* comma toggle exercise */
+  .comma-q{
+    padding: 14px;
+    background: var(--mint-50);
+    border-radius: 14px;
+    margin: 10px 0;
+    font-family: var(--serif);
+    line-height: 1.7;
+    font-size: 1.05rem;
+  }
+  .comma-slot{
+    display:inline-block;
+    width: 24px; height: 24px;
+    border-radius: 50%;
+    background: white;
+    border: 2px dashed var(--mint-400);
+    margin: 0 2px;
+    cursor: pointer;
+    vertical-align: middle;
+    transition: all .2s ease;
+    position: relative;
+    top: 4px;
+  }
+  .comma-slot:hover{ background: var(--mint-200); }
+  .comma-slot.has-comma{
+    background: var(--mint-500);
+    border-color: var(--mint-600);
+    color: white;
+  }
+  .comma-slot.has-comma::after{
+    content: ",";
+    color: white;
+    font-weight: 700;
+    font-size: 1.2rem;
+    position: absolute;
+    top: -8px; left: 50%;
+    transform: translateX(-50%);
+  }
+  .comma-slot.right{ background: var(--mint-400); border-color: var(--mint-500); }
+  .comma-slot.wrong{ background: var(--blush-2); border-color: var(--blush-2); }
+
+  /* Final reflection */
+  .reflect{
+    background: linear-gradient(135deg, var(--mint-200), var(--mint-100));
+    border-radius: 28px;
+    padding: 40px;
+    text-align:center;
+    box-shadow: var(--shadow-lg);
+    position: relative;
+    overflow: hidden;
+  }
+  .reflect::before{
+    content:"";
+    position:absolute;
+    top:-40px; left:-40px;
+    width: 200px; height: 200px;
+    background: radial-gradient(circle, rgba(255,255,255,.6), transparent 70%);
+    border-radius:50%;
+  }
+  .reflect h2{
+    font-family: var(--serif);
+    font-weight: 900;
+    font-style: italic;
+    font-size: 2.4rem;
+    color: var(--deep);
+    margin-bottom: 8px;
+  }
+  .reflect p.tag{
+    font-family: var(--hand);
+    color: var(--mint-700);
+    font-size: 1.4rem;
+  }
+  .stars{
+    margin: 20px 0;
+    display:flex; justify-content:center; gap: 10px;
+  }
+  .star{
+    font-size: 2.4rem;
+    color: var(--mint-300);
+    cursor: pointer;
+    transition: all .2s ease;
+    user-select:none;
+  }
+  .star:hover{ transform: scale(1.2) rotate(-8deg); color: var(--butter); }
+  .star.on{ color: #E8B53A; transform: scale(1.1); }
+
+  .reflect-q{
+    background: white;
+    border-radius: 16px;
+    padding: 16px;
+    margin: 12px auto;
+    max-width: 600px;
+    font-family: var(--serif);
+    font-size: 1.05rem;
+    text-align: left;
+    color: var(--deep);
+    cursor: pointer;
+    transition: all .25s ease;
+    box-shadow: var(--shadow-sm);
+  }
+  .reflect-q:hover{ transform: translateY(-3px); box-shadow: var(--shadow-md);}
+  .reflect-q .ans{
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px dashed var(--mint-200);
+    color: var(--ink-soft);
+    font-style: italic;
+    font-size: .95rem;
+    display: none;
+  }
+  .reflect-q.open .ans{ display:block; animation: fade .3s ease;}
+  .reflect-q .q::before{
+    content:"Q: ";
+    color: var(--mint-600);
+    font-weight: 700;
+  }
+
+  /* ---------- BREAK CARD ---------- */
+  .break-card{
+    background: var(--butter);
+    border-radius: 24px;
+    padding: 26px 30px;
+    text-align: center;
+    margin: 40px 0;
+    box-shadow: var(--shadow-md);
+    transform: rotate(-1deg);
+  }
+  .break-card .icon{ font-size: 2.4rem; }
+  .break-card h3{
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 1.6rem;
+    color: var(--deep);
+    margin: 6px 0;
+  }
+  .break-card p{
+    font-family: var(--hand);
+    font-size: 1.2rem;
+    color: var(--mint-700);
+  }
+
+  /* MINI-DICTIONARY */
+  .dict{
+    background: white;
+    border-radius: 22px;
+    padding: 26px;
+    box-shadow: var(--shadow-md);
+    border: 1px solid rgba(31,58,46,.05);
+  }
+  .dict h3{
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 1.4rem;
+    color: var(--deep);
+    margin-bottom: 12px;
+  }
+  .dict-list{
+    display:grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 10px;
+  }
+  .word-card{
+    padding: 10px 14px;
+    background: var(--mint-50);
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all .25s ease;
+  }
+  .word-card:hover{ background: var(--mint-200);}
+  .word-card .w{
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 700;
+    color: var(--mint-700);
+    font-size: 1.05rem;
+  }
+  .word-card .d{
+    font-size: .86rem;
+    color: var(--ink-soft);
+    margin-top: 2px;
+  }
+
+  /* Footer */
+  footer{
+    margin-top: 80px;
+    padding: 30px;
+    text-align: center;
+    font-family: var(--hand);
+    font-size: 1.3rem;
+    color: var(--mint-700);
+  }
+  footer .h{
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 1.6rem;
+    color: var(--deep);
+  }
+
+  /* Sparkles & doodles (svg holders) */
+  .doodle-svg{ display: inline-block; vertical-align: middle; }
+
+  /* Selected highlight on hover for example b/u */
+  .ex-card:hover .sentence b{ background: var(--mint-300); }
+
+  /* Animations entrance */
+  .reveal{
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity .8s ease, transform .8s ease;
+  }
+  .reveal.in{ opacity: 1; transform: translateY(0); }
+
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <!-- ===== TOP NAV ===== -->
+  <nav class="topnav" aria-label="Lesson navigation">
+    <div class="logo"><span class="dot"></span> Mint &amp; Grammar</div>
+    <a href="#plan">Plan</a>
+    <a href="#warmup">Warm-up</a>
+    <a href="#defining">Defining</a>
+    <a href="#non-defining">Non-defining</a>
+    <a href="#practice">Practice</a>
+    <a href="#review">Review</a>
+    <div class="nav-progress">
+      <span>progress</span>
+      <div class="bar"><div class="fill" id="progFill"></div></div>
+    </div>
+  </nav>
+
+  <!-- ===== HERO ===== -->
+  <header class="hero">
+    <!-- floating doodles -->
+    <svg class="deco d1" width="60" height="60" viewBox="0 0 60 60" style="--r:-10deg">
+      <path d="M30 5c-4 12-10 18-22 22 12 4 18 10 22 22 4-12 10-18 22-22-12-4-18-10-22-22Z" fill="#A8D5BA"/>
+    </svg>
+    <svg class="deco d2" width="44" height="44" viewBox="0 0 44 44" style="--r:12deg">
+      <circle cx="22" cy="22" r="20" fill="none" stroke="#F4C8C4" stroke-width="3" stroke-dasharray="4 4"/>
+    </svg>
+    <svg class="deco d3" width="52" height="52" viewBox="0 0 52 52">
+      <path d="M26 4 31 21l17 1-14 10 5 16-13-10-13 10 5-16L4 22l17-1Z" fill="#F7E7A0"/>
+    </svg>
+    <svg class="deco d4" width="50" height="50" viewBox="0 0 50 50">
+      <path d="M5 25c8-20 32-20 40 0-8 20-32 20-40 0Z" fill="#BFD7E0" opacity=".8"/>
+      <circle cx="25" cy="25" r="5" fill="#6B9080"/>
+    </svg>
+
+    <span class="kicker">grammar, but make it cute</span>
+    <h1>Relative Clauses, <em>uncovered</em>.</h1>
+    <p class="sub">A slow, sweet 120-minute lesson about <b>who</b>, <b>which</b>, <b>that</b>, <b>where</b>, <b>when</b> and <b>whose</b> — the little words that connect ideas in English.</p>
+    <div class="meta">
+      <span class="pill"><span class="ico">⏱️</span> 120 minutes</span>
+      <span class="pill"><span class="ico">🌱</span> Level A2+</span>
+      <span class="pill"><span class="ico">📚</span> Grammar focus</span>
+      <span class="pill"><span class="ico">✨</span> All interactive</span>
+    </div>
+  </header>
+
+  <!-- ===== PLAN PINBOARD ===== -->
+  <section id="plan" class="reveal">
+    <div class="board-title">
+      <h2>Today's plan</h2>
+      <span class="scribble">— pin it up ↓</span>
+      <hr/>
+    </div>
+
+    <div class="pin-grid">
+      <div class="pin" data-skip><div class="tape"></div>
+        <div class="num">01</div>
+        <span class="time">5 min</span>
+        <h3>Welcome &amp; warm-up</h3>
+        <p>Get ready, meet a thinker, choose your mood, set goals.</p>
+      </div>
+      <div class="pin alt-mint" data-skip><div class="tape"></div>
+        <div class="num">02</div>
+        <span class="time">10 min</span>
+        <h3>What you already know</h3>
+        <p>Quick brainstorm: how do we describe people and things?</p>
+      </div>
+      <div class="pin alt-cream" data-skip><div class="tape"></div>
+        <div class="num">03</div>
+        <span class="time">20 min</span>
+        <h3>Defining clauses</h3>
+        <p>The rule, the pronouns, the magic of <em>that</em>.</p>
+      </div>
+      <div class="pin alt-peach" data-skip><div class="tape"></div>
+        <div class="num">04</div>
+        <span class="time">15 min</span>
+        <h3>Examples gallery</h3>
+        <p>Real sentences. Tap each one to see why it works.</p>
+      </div>
+      <div class="pin alt-butter" data-skip><div class="tape"></div>
+        <div class="num">05</div>
+        <span class="time">15 min</span>
+        <h3>Practice round 1</h3>
+        <p>Choose the pronoun · fill the gaps · combine sentences.</p>
+      </div>
+      <div class="pin alt-blush" data-skip><div class="tape"></div>
+        <div class="num">06</div>
+        <span class="time">5 min</span>
+        <h3>Stretch break ☕</h3>
+        <p>Walk to the kettle. Look out of the window. Breathe.</p>
+      </div>
+      <div class="pin alt-sky" data-skip><div class="tape"></div>
+        <div class="num">07</div>
+        <span class="time">20 min</span>
+        <h3>Non-defining clauses</h3>
+        <p>Extra info, commas, and the things you cannot do.</p>
+      </div>
+      <div class="pin alt-lilac" data-skip><div class="tape"></div>
+        <div class="num">08</div>
+        <span class="time">15 min</span>
+        <h3>Compare &amp; spot</h3>
+        <p>Defining or non-defining? Add commas where needed.</p>
+      </div>
+      <div class="pin alt-mint" data-skip><div class="tape"></div>
+        <div class="num">09</div>
+        <span class="time">10 min</span>
+        <h3>Mixed challenge</h3>
+        <p>Combine, correct, decide. All clauses welcome.</p>
+      </div>
+      <div class="pin alt-peach" data-skip><div class="tape"></div>
+        <div class="num">10</div>
+        <span class="time">5 min</span>
+        <h3>Review &amp; reflect</h3>
+        <p>Rate the lesson, answer 3 questions, save your notes.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== WARM-UP ===== -->
+  <section id="warmup" class="lesson-section reveal">
+    <div class="section-head">
+      <div class="step-badge">1</div>
+      <div class="step-text">
+        <h2>Warm-up: <em>describe a person</em></h2>
+        <div class="time-chip">~ 10 minutes · talk &amp; think</div>
+      </div>
+    </div>
+
+    <div class="warmup-grid">
+      <div class="card">
+        <h3>Think about your best friend.</h3>
+        <p>Tap the words that describe them. There are no wrong answers — this is just a warm-up for your brain. 🧠</p>
+        <div class="chip-row" id="warmChips">
+          <div class="chip">funny</div>
+          <div class="chip">kind</div>
+          <div class="chip">loud</div>
+          <div class="chip">quiet</div>
+          <div class="chip">smart</div>
+          <div class="chip">creative</div>
+          <div class="chip">honest</div>
+          <div class="chip">loyal</div>
+          <div class="chip">strong</div>
+          <div class="chip">romantic</div>
+          <div class="chip">brave</div>
+          <div class="chip">curious</div>
+        </div>
+        <p style="margin-top:18px; font-family:var(--hand); font-size:1.2rem; color:var(--mint-700);">
+          Now finish this sentence aloud:
+        </p>
+        <div class="example" style="margin-top:8px;">
+          My best friend is someone <b>who</b> ____________ .
+        </div>
+        <p style="margin-top:12px; font-size:.9rem; color:var(--ink-soft);">
+          ✦ That little word <b>who</b> just opened a <i>relative clause</i>. Today you will learn how to use it like a pro.
+        </p>
+      </div>
+
+      <div>
+        <div class="speech">
+          "Language is not a thing you learn, it's a place where you live."
+          <span class="src">— a friendly idea to start with</span>
+        </div>
+
+        <div class="card" style="margin-top:18px;">
+          <h3>Goals for today 🎯</h3>
+          <ul style="list-style:none; padding:0;">
+            <li style="padding:8px 0; border-bottom:1px dashed var(--mint-200);">
+              ✅ Understand what a <b>relative clause</b> is.
+            </li>
+            <li style="padding:8px 0; border-bottom:1px dashed var(--mint-200);">
+              ✅ Use <i>who, which, that, where, when, whose</i> correctly.
+            </li>
+            <li style="padding:8px 0; border-bottom:1px dashed var(--mint-200);">
+              ✅ See the difference between <b>defining</b> and <b>non-defining</b>.
+            </li>
+            <li style="padding:8px 0;">
+              ✅ Know exactly when to use commas.
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- noticing activity -->
+    <div class="card" style="margin-top:22px;">
+      <h3>Noticing: which sentence is clearer?</h3>
+      <p style="margin-bottom:14px;">Read both options. Tap the one that gives you more information.</p>
+      <div style="display:grid; grid-template-columns: 1fr 1fr; gap:14px;" id="noticing">
+        <button class="combine-task" style="border:none; text-align:left; cursor:pointer;" data-id="A">
+          <div class="pair"><b>A.</b> I have a friend. She lives in Italy.</div>
+        </button>
+        <button class="combine-task" style="border:none; text-align:left; cursor:pointer; background: var(--mint-100);" data-id="B">
+          <div class="pair"><b>B.</b> I have a friend who lives in Italy.</div>
+        </button>
+      </div>
+      <div class="feedback" id="noticingFb">
+        <strong>Both are correct!</strong> But sentence <b>B</b> sounds more natural and connected. The word <i>who</i> joins two ideas into one smooth sentence. That is what relative clauses do. ✨
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SECTION: DEFINING ===== -->
+  <section id="defining" class="lesson-section reveal">
+    <div class="section-head">
+      <div class="step-badge">2</div>
+      <div class="step-text">
+        <h2>Defining <em>relative clauses</em></h2>
+        <div class="time-chip">~ 20 minutes · the rule</div>
+      </div>
+    </div>
+
+    <div class="rule-grid">
+      <div class="rule-card">
+        <div class="ribbon">the rule</div>
+        <h3>What is a defining clause?</h3>
+        <p class="lead">A <b>defining</b> relative clause tells us <i>which</i> person or thing we are talking about. The information is <b>necessary</b>: without it, the sentence loses meaning.</p>
+
+        <ul class="rule-list">
+          <li>👉 It identifies the noun — <strong>which one</strong>?</li>
+          <li>👉 It uses <strong>who, which, that, where, when, whose</strong>.</li>
+          <li>👉 <strong>No commas</strong> around the clause.</li>
+          <li>👉 <strong>That</strong> can replace <i>who</i> or <i>which</i> (very common in spoken English).</li>
+          <li>👉 If the pronoun is the <strong>object</strong>, you can leave it out.</li>
+        </ul>
+
+        <div class="example">
+          The girl <b>who lives next door</b> is my best friend.<br>
+          <span style="font-family:var(--sans); font-style:normal; font-size:.9rem; color:var(--ink-soft);">
+            → Which girl? The one who lives next door. We need this information!
+          </span>
+        </div>
+      </div>
+
+      <div>
+        <div class="card">
+          <h3 style="font-family:var(--serif); font-style:italic; color:var(--deep);">Meet the pronouns ✿</h3>
+          <p style="font-size:.92rem; color:var(--ink-soft);">Tap each card to see an example.</p>
+          <div class="pronoun-grid" id="pronouns">
+            <div class="pronoun" data-ex="The man who called you is here.">
+              <div class="word">who</div>
+              <div class="use">for people</div>
+              <div class="ex">The man <b>who called you</b> is here.</div>
+            </div>
+            <div class="pronoun" data-ex="The book which I bought is amazing.">
+              <div class="word">which</div>
+              <div class="use">for things</div>
+              <div class="ex">The book <b>which I bought</b> is amazing.</div>
+            </div>
+            <div class="pronoun" data-ex="The song that won the prize is mine.">
+              <div class="word">that</div>
+              <div class="use">people / things</div>
+              <div class="ex">The song <b>that won the prize</b> is mine.</div>
+            </div>
+            <div class="pronoun" data-ex="The café where we met has closed.">
+              <div class="word">where</div>
+              <div class="use">for places</div>
+              <div class="ex">The café <b>where we met</b> has closed.</div>
+            </div>
+            <div class="pronoun" data-ex="I'll never forget the day when we met.">
+              <div class="word">when</div>
+              <div class="use">for time</div>
+              <div class="ex">I'll never forget the day <b>when we met</b>.</div>
+            </div>
+            <div class="pronoun" data-ex="That's the girl whose dog is so cute.">
+              <div class="word">whose</div>
+              <div class="use">for possession</div>
+              <div class="ex">That's the girl <b>whose dog</b> is so cute.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- examples gallery -->
+    <div style="margin-top:30px;">
+      <div class="board-title">
+        <h2 style="font-size:1.8rem;">Examples to live by</h2>
+        <span class="scribble">tap to expand 👆</span>
+        <hr/>
+      </div>
+
+      <div class="examples-flow" id="exGallery">
+        <div class="ex-card" data-note="The relative clause says WHICH woman. Without it, we don't know who we mean.">
+          <div class="label">people · who</div>
+          <div class="sentence">The woman <b>who teaches us English</b> is from Canada.</div>
+        </div>
+        <div class="ex-card" data-note="“That” is used here because it's a thing. We could also say 'which', but 'that' is more natural in everyday speech.">
+          <div class="label">things · that</div>
+          <div class="sentence">This is the laptop <b>that I bought last summer</b>.</div>
+        </div>
+        <div class="ex-card" data-note="The clause defines WHICH café. We need it to know which one closed.">
+          <div class="label">places · where</div>
+          <div class="sentence">The café <b>where we used to study</b> has closed.</div>
+        </div>
+        <div class="ex-card" data-note="We say 'whose' to show possession. The boy owns the bike.">
+          <div class="label">possession · whose</div>
+          <div class="sentence">That's the boy <b>whose bike was stolen</b>.</div>
+        </div>
+        <div class="ex-card" data-note="Here the pronoun is the OBJECT of the clause, so we can leave it out: 'The film I watched last night was scary.'">
+          <div class="label">no pronoun · zero</div>
+          <div class="sentence">The film <b>(that) I watched last night</b> was scary.</div>
+        </div>
+        <div class="ex-card" data-note="“When” introduces a moment in time. Common with words like day, year, moment, time.">
+          <div class="label">time · when</div>
+          <div class="sentence">I remember the day <b>when I first saw the sea</b>.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- mini dictionary -->
+    <div class="dict" style="margin-top: 26px;">
+      <h3>Vocabulary you may need</h3>
+      <div class="dict-list">
+        <div class="word-card"><div class="w">to identify</div><div class="d">to say exactly which one</div></div>
+        <div class="word-card"><div class="w">necessary</div><div class="d">important; we cannot remove it</div></div>
+        <div class="word-card"><div class="w">extra</div><div class="d">additional, not necessary</div></div>
+        <div class="word-card"><div class="w">clause</div><div class="d">a part of a sentence with a verb</div></div>
+        <div class="word-card"><div class="w">pronoun</div><div class="d">a small word that stands for a noun</div></div>
+        <div class="word-card"><div class="w">to omit</div><div class="d">to leave out, to not say</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== EXERCISE 1: choose pronoun ===== -->
+  <section id="practice" class="lesson-section reveal">
+    <div class="section-head">
+      <div class="step-badge">3</div>
+      <div class="step-text">
+        <h2>Practice <em>round 1</em></h2>
+        <div class="time-chip">~ 15 minutes · choose · fill · build</div>
+      </div>
+    </div>
+
+    <div class="exercise">
+      <div class="ex-head">
+        <span class="tag">Task 1</span>
+        <h3>Choose the correct pronoun</h3>
+        <span class="hint">tap your answer</span>
+      </div>
+
+      <div id="task1"></div>
+
+      <button class="reveal-btn" onclick="checkTask1()">Check my answers</button>
+      <div class="feedback" id="task1Fb"></div>
+    </div>
+
+    <!-- Task 2: gap fill (full sentences) -->
+    <div class="exercise" style="margin-top:22px;">
+      <div class="ex-head">
+        <span class="tag">Task 2</span>
+        <h3>Fill the gap with: who · which · where · when · whose</h3>
+        <span class="hint">tap the blank to choose</span>
+      </div>
+
+      <div id="task2"></div>
+
+      <button class="reveal-btn" onclick="revealTask2()">Show answers</button>
+      <div class="feedback" id="task2Fb"></div>
+    </div>
+
+    <!-- Task 3: combine sentences -->
+    <div class="exercise" style="margin-top:22px;">
+      <div class="ex-head">
+        <span class="tag">Task 3</span>
+        <h3>Combine the two sentences into one</h3>
+        <span class="hint">try first, then reveal</span>
+      </div>
+
+      <div id="task3"></div>
+    </div>
+  </section>
+
+  <!-- ===== BREAK ===== -->
+  <div class="break-card reveal">
+    <div class="icon">☕</div>
+    <h3>Take five.</h3>
+    <p>stretch · sip · breathe · come back curious</p>
+  </div>
+
+  <!-- ===== SECTION: NON-DEFINING ===== -->
+  <section id="non-defining" class="lesson-section reveal">
+    <div class="section-head">
+      <div class="step-badge">4</div>
+      <div class="step-text">
+        <h2>Non-defining <em>relative clauses</em></h2>
+        <div class="time-chip">~ 20 minutes · extra info, with care</div>
+      </div>
+    </div>
+
+    <div class="rule-grid">
+      <div class="rule-card non">
+        <div class="ribbon">the rule</div>
+        <h3>What is a non-defining clause?</h3>
+        <p class="lead">A <b>non-defining</b> clause gives us <i>extra</i> information. It is <b>not necessary</b> — if we remove it, the sentence still makes sense.</p>
+
+        <ul class="rule-list">
+          <li>👉 The information is <strong>extra</strong> — like a comment.</li>
+          <li>👉 Always <strong>between commas</strong> (or after a comma at the end).</li>
+          <li>👉 We <strong>cannot use “that”</strong>. Only <i>who, which, where, when, whose</i>.</li>
+          <li>👉 We <strong>cannot omit</strong> the pronoun.</li>
+          <li>👉 Often used in writing and more formal speech.</li>
+        </ul>
+
+        <div class="example">
+          My sister, <b>who lives in Paris</b>, is a doctor.<br>
+          <span style="font-family:var(--sans); font-style:normal; font-size:.9rem; color:var(--ink-soft);">
+            → I have only one sister. The fact she lives in Paris is just extra information.
+          </span>
+        </div>
+      </div>
+
+      <div>
+        <div class="compare">
+          <h3>Defining vs non-defining — at a glance</h3>
+          <div class="compare-grid">
+            <div class="col def">
+              <h4><span class="badge">D</span> Defining</h4>
+              <ul>
+                <li>Tells us <b>which</b> one</li>
+                <li>Necessary information</li>
+                <li><b>No commas</b></li>
+                <li>Can use <i>that</i></li>
+                <li>Can omit pronoun (object)</li>
+                <li>Spoken &amp; written</li>
+              </ul>
+            </div>
+            <div class="col non">
+              <h4><span class="badge">N</span> Non-defining</h4>
+              <ul>
+                <li>Gives <b>extra</b> information</li>
+                <li>Not necessary</li>
+                <li><b>Always commas</b></li>
+                <li>Cannot use <i>that</i></li>
+                <li>Cannot omit pronoun</li>
+                <li>More formal/written</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="card" style="margin-top:18px;">
+          <h3 style="font-family:var(--serif); font-style:italic;">A tiny trick 🪄</h3>
+          <p style="font-size:.95rem;">If you can put the relative clause inside <b>brackets ( )</b> — like a quiet little comment — it is <b>non-defining</b>. If removing it changes the meaning, it is <b>defining</b>.</p>
+          <div class="example" style="margin-top:14px;">
+            Warsaw, <b>which is the capital of Poland</b>, is a beautiful city.<br>
+            <span style="font-family:var(--sans); font-style:normal; font-size:.88rem; color:var(--ink-soft);">
+              → Warsaw is a beautiful city. (still makes sense → non-defining ✓)
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- gallery -->
+    <div style="margin-top:30px;">
+      <div class="board-title">
+        <h2 style="font-size:1.8rem;">More examples · with commas</h2>
+        <span class="scribble">notice the pauses 🌿</span>
+        <hr/>
+      </div>
+
+      <div class="examples-flow" id="exGalleryNon">
+        <div class="ex-card" data-note="My mother is unique — there is only one. The clause just adds information about her.">
+          <div class="label">people · who</div>
+          <div class="sentence">My mother, <b>who is a teacher</b>, makes the best cookies.</div>
+        </div>
+        <div class="ex-card" data-note="The Eiffel Tower is the only one. Where it is, is extra info.">
+          <div class="label">things · which</div>
+          <div class="sentence">The Eiffel Tower, <b>which is in Paris</b>, is very famous.</div>
+        </div>
+        <div class="ex-card" data-note="We already know which town — the speaker's town. The clause is extra.">
+          <div class="label">places · where</div>
+          <div class="sentence">Krakow, <b>where my grandparents live</b>, is full of history.</div>
+        </div>
+        <div class="ex-card" data-note="A specific moment, already identified. We just add more about it.">
+          <div class="label">time · when</div>
+          <div class="sentence">In 2020, <b>when the world stopped</b>, I learnt to bake bread.</div>
+        </div>
+        <div class="ex-card" data-note="My brother is one specific person. The clause gives bonus information.">
+          <div class="label">possession · whose</div>
+          <div class="sentence">My brother, <b>whose dog is huge</b>, lives in Berlin.</div>
+        </div>
+        <div class="ex-card" data-note="“Which” can refer to the whole previous idea — common in non-defining clauses.">
+          <div class="label">whole idea · which</div>
+          <div class="sentence">She forgot my birthday, <b>which made me sad</b>.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== EXERCISE: spot defining/non-defining ===== -->
+  <section class="lesson-section reveal">
+    <div class="section-head">
+      <div class="step-badge">5</div>
+      <div class="step-text">
+        <h2>Spot <em>the difference</em></h2>
+        <div class="time-chip">~ 15 minutes · D or N?</div>
+      </div>
+    </div>
+
+    <div class="exercise">
+      <div class="ex-head">
+        <span class="tag">Task 4</span>
+        <h3>Defining or Non-defining?</h3>
+        <span class="hint">click D or N for each</span>
+      </div>
+
+      <div id="task4"></div>
+
+      <button class="reveal-btn" onclick="checkTask4()">See the answers</button>
+      <div class="feedback" id="task4Fb"></div>
+    </div>
+
+    <!-- Task 5: add commas -->
+    <div class="exercise" style="margin-top:22px;">
+      <div class="ex-head">
+        <span class="tag">Task 5</span>
+        <h3>Add commas where you need them</h3>
+        <span class="hint">tap the small circles to add a comma</span>
+      </div>
+
+      <div id="task5"></div>
+
+      <button class="reveal-btn alt" onclick="checkTask5()">Check my commas</button>
+      <div class="feedback" id="task5Fb"></div>
+    </div>
+  </section>
+
+  <!-- ===== MIXED PRACTICE ===== -->
+  <section class="lesson-section reveal">
+    <div class="section-head">
+      <div class="step-badge">6</div>
+      <div class="step-text">
+        <h2>Mixed <em>challenge</em></h2>
+        <div class="time-chip">~ 10 minutes · everything together</div>
+      </div>
+    </div>
+
+    <!-- Task 6: error correction -->
+    <div class="exercise">
+      <div class="ex-head">
+        <span class="tag">Task 6</span>
+        <h3>Find the mistake — tap to see the correction</h3>
+        <span class="hint">each sentence has one error</span>
+      </div>
+      <div id="task6"></div>
+    </div>
+
+    <!-- Task 7: combine sentences (non-defining) -->
+    <div class="exercise" style="margin-top:22px;">
+      <div class="ex-head">
+        <span class="tag">Task 7</span>
+        <h3>Combine the sentences — use a relative clause with commas</h3>
+        <span class="hint">these are all non-defining</span>
+      </div>
+      <div id="task7"></div>
+    </div>
+  </section>
+
+  <!-- ===== REVIEW & REFLECT ===== -->
+  <section id="review" class="lesson-section reveal">
+    <div class="section-head">
+      <div class="step-badge">7</div>
+      <div class="step-text">
+        <h2>Review &amp; <em>reflect</em></h2>
+        <div class="time-chip">~ 5 minutes · take a breath</div>
+      </div>
+    </div>
+
+    <div class="reflect">
+      <h2>Beautiful work today.</h2>
+      <p class="tag">how did it feel?</p>
+      <div class="stars" id="stars">
+        <span class="star">★</span>
+        <span class="star">★</span>
+        <span class="star">★</span>
+        <span class="star">★</span>
+        <span class="star">★</span>
+      </div>
+
+      <div style="max-width:640px; margin: 18px auto 0;">
+        <div class="reflect-q">
+          <div class="q">What is the difference between defining and non-defining clauses?</div>
+          <div class="ans">A defining clause says <b>which</b> one (necessary, no commas). A non-defining clause gives <b>extra</b> info (always commas, no <i>that</i>, no omission).</div>
+        </div>
+        <div class="reflect-q">
+          <div class="q">When can I leave the pronoun out?</div>
+          <div class="ans">Only in <b>defining</b> clauses, when the pronoun is the <b>object</b>. Example: <i>The book (that) I read…</i></div>
+        </div>
+        <div class="reflect-q">
+          <div class="q">Can I use “that” in a non-defining clause?</div>
+          <div class="ans">No 🚫. In non-defining clauses we use only <i>who, which, where, when, whose</i>.</div>
+        </div>
+        <div class="reflect-q">
+          <div class="q">Write your own sentence using a relative clause about someone you love.</div>
+          <div class="ans">Whatever you wrote — say it out loud once more. Saying it makes it yours. 💚</div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <footer>
+    <div class="h">that's a wrap ✨</div>
+    keep these pages close · revisit anytime · <i>relative clauses are now your friends</i>
+  </footer>
+
+</div>
+
+<script>
+/* ===============================================================
+   INTERACTIVITY
+   =============================================================== */
+
+/* ---- Progress bar on scroll ---- */
+const progFill = document.getElementById('progFill');
+window.addEventListener('scroll', () => {
+  const h = document.documentElement;
+  const total = h.scrollHeight - h.clientHeight;
+  const pct = total > 0 ? (h.scrollTop / total) * 100 : 0;
+  progFill.style.width = pct + '%';
+});
+
+/* ---- Reveal on scroll ---- */
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if(e.isIntersecting){ e.target.classList.add('in'); }
+  });
+},{threshold: .12});
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+/* ---- Warm-up chips (toggle) ---- */
+document.querySelectorAll('#warmChips .chip').forEach(c => {
+  c.addEventListener('click', () => c.classList.toggle('active'));
+});
+
+/* ---- Noticing activity ---- */
+document.querySelectorAll('#noticing button').forEach(b => {
+  b.addEventListener('click', () => {
+    document.getElementById('noticingFb').classList.add('show');
+  });
+});
+
+/* ---- Pronoun cards toggle ---- */
+document.querySelectorAll('#pronouns .pronoun').forEach(p => {
+  p.addEventListener('click', () => p.classList.toggle('open'));
+});
+
+/* ---- Example cards (both galleries) ---- */
+document.querySelectorAll('.ex-card').forEach(card => {
+  // build note element
+  const note = document.createElement('div');
+  note.className = 'note';
+  note.textContent = card.dataset.note || '';
+  card.appendChild(note);
+  card.addEventListener('click', () => card.classList.toggle('open'));
+});
+
+/* ============================================================
+   TASK 1: Multiple choice (choose pronoun)
+   ============================================================ */
+const t1Data = [
+  {q: 'The woman ___ lives next to me is a nurse.', opts:['who','which','where','whose'], a:'who'},
+  {q: 'I love the dress ___ you bought yesterday.', opts:['who','that','whose','when'], a:'that'},
+  {q: "That's the hotel ___ we stayed last summer.", opts:['which','that','where','who'], a:'where'},
+  {q: 'Do you know the boy ___ phone is on the table?', opts:['who','that','whose','which'], a:'whose'},
+  {q: 'Sunday is the day ___ I usually sleep late.', opts:['where','when','which','who'], a:'when'},
+  {q: 'This is the song ___ won the competition.', opts:['who','which','where','when'], a:'which'},
+  {q: 'The student ___ is in red is from Spain.', opts:['who','where','whose','when'], a:'who'},
+  {q: 'I have a friend ___ mother is an actress.', opts:['who','that','which','whose'], a:'whose'}
+];
+const t1Wrap = document.getElementById('task1');
+t1Data.forEach((it, i) => {
+  const q = document.createElement('div');
+  q.className = 'q-item';
+  q.innerHTML = `<div class="qtext"><span class="num">Q${i+1}.</span> ${it.q.replace('___','<span class="blank" data-i="'+i+'">___</span>')}</div>
+    <div class="opts">${it.opts.map(o => `<button class="opt" data-i="${i}" data-v="${o}">${o}</button>`).join('')}</div>`;
+  t1Wrap.appendChild(q);
+});
+const t1Picks = {};
+t1Wrap.querySelectorAll('.opt').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const i = +btn.dataset.i;
+    t1Picks[i] = btn.dataset.v;
+    // mark this one picked, unmark siblings
+    btn.parentElement.querySelectorAll('.opt').forEach(x => x.classList.remove('picked'));
+    btn.classList.add('picked');
+    // fill the blank visually
+    const blank = btn.closest('.q-item').querySelector('.blank');
+    blank.textContent = btn.dataset.v;
+    blank.classList.add('filled');
+  });
+});
+function checkTask1(){
+  let score = 0;
+  t1Data.forEach((it, i) => {
+    const opts = document.querySelectorAll(`#task1 .opt[data-i="${i}"]`);
+    opts.forEach(o => {
+      o.classList.remove('ok','no');
+      if(o.dataset.v === it.a){ o.classList.add('ok'); }
+      else if(o.dataset.v === t1Picks[i]){ o.classList.add('no'); }
+    });
+    if(t1Picks[i] === it.a) score++;
+  });
+  const fb = document.getElementById('task1Fb');
+  fb.classList.add('show');
+  fb.innerHTML = `<strong>You got ${score} out of ${t1Data.length}.</strong> ${score === t1Data.length ? '✨ Perfect! You really understand which pronoun to choose.' : 'Look at the green options — those are the correct answers. Read each sentence aloud, then move on. 💚'}`;
+}
+
+/* ============================================================
+   TASK 2: Gap fill from a set
+   ============================================================ */
+const t2Data = [
+  {parts:['The hospital ', ' my mother works is new.'], a:'where'},
+  {parts:['August is the month ', ' I usually go on holiday.'], a:'when'},
+  {parts:['I met a girl ', ' speaks five languages.'], a:'who'},
+  {parts:['This is the book ', ' changed my life.'], a:'which'},
+  {parts:['He has a brother ', ' wife is a singer.'], a:'whose'},
+  {parts:['That is the restaurant ', ' we ate the best pasta.'], a:'where'},
+  {parts:['I love stories ', ' have a happy ending.'], a:'which'},
+  {parts:["Do you remember the moment ", ' we first met?'], a:'when'}
+];
+const t2Wrap = document.getElementById('task2');
+const t2Choices = ['who','which','where','when','whose'];
+t2Data.forEach((it, i) => {
+  const q = document.createElement('div');
+  q.className = 'q-item';
+  q.innerHTML = `<div class="qtext"><span class="num">${i+1}.</span> ${it.parts[0]}<span class="blank" id="t2b${i}">___</span>${it.parts[1]}</div>
+    <div class="opts">${t2Choices.map(o => `<button class="opt" data-i="${i}" data-v="${o}">${o}</button>`).join('')}</div>`;
+  t2Wrap.appendChild(q);
+});
+const t2Picks = {};
+t2Wrap.querySelectorAll('.opt').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const i = +btn.dataset.i;
+    t2Picks[i] = btn.dataset.v;
+    btn.parentElement.querySelectorAll('.opt').forEach(x => x.classList.remove('picked'));
+    btn.classList.add('picked');
+    const blank = document.getElementById('t2b'+i);
+    blank.textContent = btn.dataset.v;
+    blank.classList.add('filled');
+  });
+});
+function revealTask2(){
+  let score = 0;
+  t2Data.forEach((it, i) => {
+    const blank = document.getElementById('t2b'+i);
+    if(t2Picks[i] === it.a){
+      blank.classList.remove('miss'); blank.classList.add('right');
+      score++;
+    }else{
+      blank.classList.add('miss');
+      blank.textContent = it.a;
+    }
+  });
+  const fb = document.getElementById('task2Fb');
+  fb.classList.add('show');
+  fb.innerHTML = `<strong>Score: ${score} / ${t2Data.length}.</strong> The correct words are now shown in the gaps. Read every sentence twice — first slowly, then naturally. 🌿`;
+}
+
+/* ============================================================
+   TASK 3: Combine sentences
+   ============================================================ */
+const t3Data = [
+  {
+    a: 'I have a friend.',
+    b: 'She speaks Japanese.',
+    ans: 'I have a friend <b>who speaks Japanese</b>.'
+  },
+  {
+    a: "This is the cake.",
+    b: 'My grandmother made it.',
+    ans: 'This is the cake <b>(that) my grandmother made</b>.'
+  },
+  {
+    a: "We visited a museum.",
+    b: 'The museum was built in 1820.',
+    ans: 'We visited a museum <b>which was built in 1820</b>.'
+  },
+  {
+    a: 'I met a man.',
+    b: 'His dog can do tricks.',
+    ans: 'I met a man <b>whose dog can do tricks</b>.'
+  },
+  {
+    a: "She remembers the day.",
+    b: 'She arrived in London on that day.',
+    ans: 'She remembers the day <b>when she arrived in London</b>.'
+  },
+  {
+    a: 'That is the school.',
+    b: 'I studied at the school.',
+    ans: 'That is the school <b>where I studied</b>.'
+  }
+];
+const t3Wrap = document.getElementById('task3');
+t3Data.forEach((it, i) => {
+  const q = document.createElement('div');
+  q.className = 'combine-task';
+  q.innerHTML = `<div class="pair"><span class="a">${i+1}a.</span> ${it.a} <br/><span class="b">${i+1}b.</span> ${it.b}</div>
+    <button class="reveal-btn" style="margin-top:8px;" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide' : 'Reveal'">Reveal</button>
+    <div class="answer">${it.ans}</div>`;
+  t3Wrap.appendChild(q);
+});
+
+/* ============================================================
+   TASK 4: defining or non-defining
+   ============================================================ */
+const t4Data = [
+  {s: 'The man who is wearing a hat is my uncle.', a:'D'},
+  {s: 'Albert Einstein, who was born in Germany, won the Nobel Prize.', a:'N'},
+  {s: 'The film that we watched last night was scary.', a:'D'},
+  {s: 'My laptop, which I bought last year, is already broken.', a:'N'},
+  {s: 'I love the song which is playing now.', a:'D'},
+  {s: 'Paris, where my cousin lives, is beautiful in spring.', a:'N'},
+  {s: 'The students who study hard pass their exams.', a:'D'},
+  {s: 'My grandfather, whose stories I love, is 90 today.', a:'N'}
+];
+const t4Wrap = document.getElementById('task4');
+const t4Picks = {};
+t4Data.forEach((it, i) => {
+  const q = document.createElement('div');
+  q.className = 'q-item';
+  q.innerHTML = `<div class="qtext"><span class="num">${i+1}.</span> ${it.s}</div>
+    <div class="yn">
+      <button class="def" data-i="${i}" data-v="D">Defining</button>
+      <button class="non" data-i="${i}" data-v="N">Non-defining</button>
+    </div>`;
+  t4Wrap.appendChild(q);
+});
+t4Wrap.querySelectorAll('.yn button').forEach(b => {
+  b.addEventListener('click', () => {
+    const i = +b.dataset.i;
+    t4Picks[i] = b.dataset.v;
+    b.parentElement.querySelectorAll('button').forEach(x => x.classList.remove('picked','wrong'));
+    b.classList.add('picked');
+  });
+});
+function checkTask4(){
+  let score = 0;
+  t4Data.forEach((it, i) => {
+    const buttons = document.querySelectorAll(`#task4 .yn button[data-i="${i}"]`);
+    const qItem = buttons[0].closest('.q-item');
+    qItem.classList.remove('correct','wrong');
+    if(t4Picks[i] === it.a){ qItem.classList.add('correct'); score++; }
+    else{ qItem.classList.add('wrong'); }
+    buttons.forEach(btn => {
+      if(btn.dataset.v === it.a){ btn.classList.add('picked'); }
+      else { btn.classList.remove('picked'); }
+    });
+  });
+  const fb = document.getElementById('task4Fb');
+  fb.classList.add('show');
+  fb.innerHTML = `<strong>You scored ${score} / ${t4Data.length}.</strong> Look closely at the commas in each sentence — commas are the biggest clue! Sentences with commas around the clause are non-defining. ✨`;
+}
+
+/* ============================================================
+   TASK 5: Add commas (clickable slots)
+   ============================================================ */
+const t5Data = [
+  {
+    text: "My brother [1] who lives in Rome [2] is a chef.",
+    correct: [1,2]
+  },
+  {
+    text: "The book [1] that I am reading [2] is excellent.",
+    correct: []
+  },
+  {
+    text: "Warsaw [1] which is the capital of Poland [2] has a great old town.",
+    correct: [1,2]
+  },
+  {
+    text: "The girl [1] who sits next to me [2] is from France.",
+    correct: []
+  },
+  {
+    text: "Mr Brown [1] whose son is my classmate [2] teaches maths.",
+    correct: [1,2]
+  },
+  {
+    text: "I'll never forget the day [1] when I met you [2].",
+    correct: []
+  }
+];
+const t5Wrap = document.getElementById('task5');
+t5Data.forEach((it, idx) => {
+  const q = document.createElement('div');
+  q.className = 'comma-q';
+  // Replace [n] markers with clickable slots
+  let html = `<span class="num">${idx+1}.</span> ` + it.text.replace(/\[(\d+)\]/g, (m, n) => {
+    return `<span class="comma-slot" data-q="${idx}" data-pos="${n}"></span>`;
+  });
+  q.innerHTML = html;
+  t5Wrap.appendChild(q);
+});
+t5Wrap.querySelectorAll('.comma-slot').forEach(s => {
+  s.addEventListener('click', () => s.classList.toggle('has-comma'));
+});
+function checkTask5(){
+  let allOk = 0;
+  t5Data.forEach((it, idx) => {
+    const slots = document.querySelectorAll(`#task5 .comma-slot[data-q="${idx}"]`);
+    let correctThis = true;
+    slots.forEach(s => {
+      const pos = +s.dataset.pos;
+      const has = s.classList.contains('has-comma');
+      const should = it.correct.includes(pos);
+      s.classList.remove('right','wrong');
+      if(has === should){
+        if(should) s.classList.add('right');
+      }else{
+        s.classList.add('wrong');
+        correctThis = false;
+        // also force the correct state
+        if(should){ s.classList.add('has-comma','right'); }
+        else{ s.classList.remove('has-comma'); }
+      }
+    });
+    if(correctThis) allOk++;
+  });
+  const fb = document.getElementById('task5Fb');
+  fb.classList.add('show');
+  fb.innerHTML = `<strong>${allOk} of ${t5Data.length} sentences are perfectly punctuated.</strong> Pink circles were wrong — green ones are right. Remember: <b>extra info</b> needs commas, <b>necessary info</b> does not. 🌿`;
+}
+
+/* ============================================================
+   TASK 6: Find the mistake
+   ============================================================ */
+const t6Data = [
+  {
+    bad: 'My mother, that is a doctor, works in Warsaw.',
+    good: 'My mother, <b>who</b> is a doctor, works in Warsaw.',
+    why: 'We cannot use “that” in non-defining clauses (between commas). Use “who” for people.'
+  },
+  {
+    bad: 'The film who I saw yesterday was boring.',
+    good: 'The film <b>which / that</b> I saw yesterday was boring.',
+    why: '“Who” is only for people. For things, we use “which” or “that”.'
+  },
+  {
+    bad: 'I have a friend who he lives in Spain.',
+    good: 'I have a friend who lives in Spain.',
+    why: 'Do not use both the pronoun (who) and the subject (he). The relative pronoun already replaces the subject.'
+  },
+  {
+    bad: 'This is the city where I was born in.',
+    good: 'This is the city where I was born. / This is the city <b>which/that</b> I was born in.',
+    why: 'With “where”, no extra preposition is needed at the end.'
+  },
+  {
+    bad: 'Anna who is my cousin lives in Berlin.',
+    good: 'Anna, who is my cousin, lives in Berlin.',
+    why: 'Anna is a name — only one Anna. The information is extra → non-defining, so we need commas.'
+  },
+  {
+    bad: 'The book what I read was great.',
+    good: 'The book <b>that / which</b> I read was great.',
+    why: 'We do not use “what” as a relative pronoun. Use “that” or “which”.'
+  }
+];
+const t6Wrap = document.getElementById('task6');
+t6Data.forEach((it, i) => {
+  const q = document.createElement('div');
+  q.className = 'combine-task';
+  q.innerHTML = `<div class="pair"><span class="a">${i+1}.</span> <span style="text-decoration: line-through wavy var(--blush-2); text-decoration-thickness: 1px;">${it.bad}</span></div>
+    <button class="reveal-btn alt" style="margin-top:8px;" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide' : 'Reveal correction'">Reveal correction</button>
+    <div class="answer">✓ ${it.good}<br><span style="font-family:var(--sans); font-style:normal; font-size:.88rem; color:var(--ink-soft);">${it.why}</span></div>`;
+  t6Wrap.appendChild(q);
+});
+
+/* ============================================================
+   TASK 7: Combine using non-defining
+   ============================================================ */
+const t7Data = [
+  {
+    a: 'My best friend is a wonderful person.',
+    b: 'She has known me since we were five.',
+    ans: 'My best friend, <b>who has known me since we were five</b>, is a wonderful person.'
+  },
+  {
+    a: 'My phone is two years old.',
+    b: 'I use it every day.',
+    ans: 'My phone, <b>which I use every day</b>, is two years old.'
+  },
+  {
+    a: 'London has many museums.',
+    b: 'I lived in London for two years.',
+    ans: 'London, <b>where I lived for two years</b>, has many museums.'
+  },
+  {
+    a: 'My grandfather is 85.',
+    b: 'His garden is full of flowers.',
+    ans: 'My grandfather, <b>whose garden is full of flowers</b>, is 85.'
+  },
+  {
+    a: 'Last summer was very hot.',
+    b: 'I travelled to Greece last summer.',
+    ans: 'Last summer, <b>when I travelled to Greece</b>, was very hot.'
+  }
+];
+const t7Wrap = document.getElementById('task7');
+t7Data.forEach((it, i) => {
+  const q = document.createElement('div');
+  q.className = 'combine-task';
+  q.innerHTML = `<div class="pair"><span class="a">${i+1}a.</span> ${it.a}<br/><span class="b">${i+1}b.</span> ${it.b}</div>
+    <button class="reveal-btn" style="margin-top:8px;" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide' : 'Reveal'">Reveal</button>
+    <div class="answer">${it.ans}</div>`;
+  t7Wrap.appendChild(q);
+});
+
+/* ============================================================
+   Reflection — stars & expandable Q&A
+   ============================================================ */
+const stars = document.querySelectorAll('#stars .star');
+stars.forEach((s, i) => {
+  s.addEventListener('click', () => {
+    stars.forEach((x, j) => x.classList.toggle('on', j <= i));
+  });
+});
+document.querySelectorAll('.reflect-q').forEach(q => {
+  q.addEventListener('click', () => q.classList.toggle('open'));
+});
+
+</script>
+</body>
+</html>
