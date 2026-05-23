@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Moscow Fire Service — Reading Match</title>
+  <style>
+    :root {
+      --bg:#f6eee7;
+      --paper:#fffaf4;
+      --text:#2f2722;
+      --muted:#7d6c62;
+      --red:#b85d4f;
+      --red-dark:#8e3d34;
+      --blue:#6f8fa3;
+      --shadow:rgba(92,57,42,.16);
+    }
+
+    * { box-sizing:border-box; }
+
+    body {
+      margin:0;
+      min-height:100vh;
+      padding:28px;
+      font-family:"Trebuchet MS", Arial, sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(circle at 10% 12%, rgba(255,255,255,.9), transparent 24%),
+        radial-gradient(circle at 88% 10%, rgba(184,93,79,.18), transparent 25%),
+        radial-gradient(circle at 25% 88%, rgba(111,143,163,.20), transparent 28%),
+        linear-gradient(135deg, #f8f0e9, #ead7ca 52%, #d7e0dc);
+    }
+
+    .wrap {
+      max-width:1120px;
+      margin:0 auto;
+    }
+
+    header {
+      text-align:center;
+      padding:30px 26px;
+      border-radius:32px;
+      background:rgba(255,250,244,.82);
+      box-shadow:0 18px 42px var(--shadow);
+      border:1px solid rgba(85,60,48,.14);
+    }
+
+    .label {
+      display:inline-block;
+      padding:8px 14px;
+      border-radius:999px;
+      background:#f0d8cf;
+      color:var(--red-dark);
+      font-size:13px;
+      letter-spacing:2px;
+      text-transform:uppercase;
+      font-weight:800;
+      margin-bottom:12px;
+    }
+
+    h1 {
+      margin:0;
+      font-family:Georgia, "Times New Roman", serif;
+      font-size:42px;
+      line-height:1.05;
+      color:#3a2c25;
+    }
+
+    .subtitle {
+      margin:12px auto 0;
+      max-width:820px;
+      font-size:18px;
+      line-height:1.45;
+      color:var(--muted);
+    }
+
+    .task-box {
+      margin:22px 0;
+      padding:18px 20px;
+      border-radius:24px;
+      background:rgba(255,250,244,.78);
+      box-shadow:0 12px 30px var(--shadow);
+      border-left:10px solid var(--red);
+      font-size:18px;
+      line-height:1.45;
+    }
+
+    .questions {
+      margin:0;
+      padding-left:22px;
+      columns:2;
+      column-gap:34px;
+    }
+
+    .questions li {
+      break-inside:avoid;
+      margin:0 0 9px;
+    }
+
+    .texts {
+      display:grid;
+      grid-template-columns:repeat(auto-fit, minmax(320px, 1fr));
+      gap:18px;
+      margin-top:20px;
+    }
+
+    .text-card {
+      position:relative;
+      padding:24px 20px 20px;
+      border-radius:28px;
+      background:rgba(255,250,244,.88);
+      box-shadow:0 16px 34px var(--shadow);
+      border:1px solid rgba(85,60,48,.12);
+      overflow:hidden;
+    }
+
+    .text-card:before {
+      content:"";
+      position:absolute;
+      right:-40px;
+      top:-40px;
+      width:130px;
+      height:130px;
+      border-radius:50%;
+      background:rgba(184,93,79,.10);
+    }
+
+    .letter {
+      position:absolute;
+      top:16px;
+      right:18px;
+      width:44px;
+      height:44px;
+      border-radius:50%;
+      display:grid;
+      place-items:center;
+      background:linear-gradient(135deg, var(--red), var(--red-dark));
+      color:white;
+      font-family:Georgia, "Times New Roman", serif;
+      font-size:24px;
+      font-weight:700;
+      box-shadow:0 8px 18px rgba(142,61,52,.25);
+    }
+
+    .text-card p {
+      margin:28px 0 18px;
+      font-family:Georgia, "Times New Roman", serif;
+      font-size:18px;
+      line-height:1.45;
+    }
+
+    label {
+      display:flex;
+      align-items:center;
+      gap:12px;
+      flex-wrap:wrap;
+      padding-top:12px;
+      border-top:1px solid rgba(85,60,48,.14);
+      color:var(--muted);
+      font-weight:700;
+    }
+
+    select {
+      min-width:90px;
+      border:2px solid #d5b9aa;
+      border-radius:14px;
+      padding:9px 12px;
+      background:#fff6ec;
+      color:#2f2722;
+      font-size:17px;
+      font-weight:800;
+      outline:none;
+    }
+
+    select:focus {
+      border-color:var(--red);
+      box-shadow:0 0 0 4px rgba(184,93,79,.14);
+    }
+
+    .controls {
+      display:flex;
+      justify-content:center;
+      flex-wrap:wrap;
+      gap:12px;
+      margin:24px 0 10px;
+    }
+
+    button {
+      cursor:pointer;
+      border:0;
+      border-radius:999px;
+      padding:12px 18px;
+      font-family:"Trebuchet MS", Arial, sans-serif;
+      font-size:16px;
+      font-weight:800;
+      color:white;
+      background:linear-gradient(135deg, var(--red), var(--red-dark));
+      box-shadow:0 10px 22px rgba(142,61,52,.22);
+      transition:.16s transform, .16s box-shadow, .16s filter;
+    }
+
+    button:hover {
+      transform:translateY(-2px);
+      filter:brightness(1.04);
+      box-shadow:0 14px 26px rgba(142,61,52,.28);
+    }
+
+    button:active {
+      transform:translateY(1px);
+    }
+
+    .secondary {
+      background:linear-gradient(135deg, var(--blue), #557588);
+      box-shadow:0 10px 22px rgba(85,117,136,.22);
+    }
+
+    .result {
+      min-height:30px;
+      text-align:center;
+      font-size:18px;
+      font-weight:800;
+      color:#63463a;
+      margin-bottom:8px;
+    }
+
+    .answer-table {
+      margin:20px auto 0;
+      width:min(620px, 100%);
+      border-collapse:separate;
+      border-spacing:0;
+      overflow:hidden;
+      border-radius:20px;
+      box-shadow:0 14px 30px var(--shadow);
+      background:rgba(255,250,244,.9);
+    }
+
+    .answer-table th, .answer-table td {
+      border-bottom:1px solid rgba(85,60,48,.14);
+      border-right:1px solid rgba(85,60,48,.14);
+      padding:12px;
+      text-align:center;
+      font-size:17px;
+    }
+
+    .answer-table th {
+      background:#f0d8cf;
+      color:#7d3b32;
+    }
+
+    .answer-table th:first-child, .answer-table td:first-child {
+      text-align:left;
+      font-weight:800;
+      color:#63463a;
+      width:120px;
+    }
+
+    .answer-table th:last-child, .answer-table td:last-child {
+      border-right:0;
+    }
+
+    .answer-table tr:last-child td {
+      border-bottom:0;
+    }
+
+    .table-cell {
+      font-weight:800;
+      color:#2f2722;
+    }
+
+    .footer {
+      text-align:center;
+      margin-top:18px;
+      color:#7d6c62;
+      font-size:14px;
+    }
+
+    @media (max-width:760px){
+      body { padding:14px; }
+      header { padding:24px 18px; }
+      h1 { font-size:32px; }
+      .questions { columns:1; }
+      .texts { grid-template-columns:1fr; }
+      .text-card p { font-size:17px; }
+      .answer-table th, .answer-table td { padding:9px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="label">Reading task</div>
+      <h1>Moscow Fire Service</h1>
+      <p class="subtitle">Read texts A–F and match them with questions 1–7. One question is extra.</p>
+    </header>
+
+    <section class="task-box">
+      <ol class="questions">
+        <li><b>1.</b> How was firefighting organized in Moscow in the 19th century?</li>
+<li><b>2.</b> Where did the firefighters learn how to do their job in the past?</li>
+<li><b>3.</b> How have the yearly fire statistics in Moscow changed recently?</li>
+<li><b>4.</b> What types of professionals work for Moscow Fire Service?</li>
+<li><b>5.</b> How many fire stations are there in Moscow today?</li>
+<li><b>6.</b> What equipment helps firefighters in places that are difficult to get to?</li>
+<li><b>7.</b> Where in Moscow can children learn about the job of a firefighter?</li>
+      </ol>
+    </section>
+
+    <div class="controls">
+      <button onclick="checkScore()">Check Score</button>
+      <button class="secondary" onclick="resetTask()">Reset</button>
+    </div>
+
+    <div id="result" class="result"></div>
+
+    <section class="texts">
+      
+      <article class="text-card">
+        <div class="letter">A</div>
+        <p>Today, the Moscow Fire Service has around 18,000 firefighters working in fire stations and specialized departments. Along with front-line firefighters, the service includes engineers, medical staff, communication specialists, and investigators, all working to prevent and respond to emergencies. There are also special teams trained to rescue people from other accidents.</p>
+        <label>
+          Choose the question:
+          <select id="ans-A" data-text="A">
+            <option value="">—</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+          </select>
+        </label>
+      </article>
+
+      <article class="text-card">
+        <div class="letter">B</div>
+        <p>Recently, fire station excursions have become a popular activity for schools and families in Moscow. Visitors get a behind-the-scenes look at firefighting equipment, vehicles, and training areas. Firefighters demonstrate gear, letting kids try on helmets or see hoses in action. These visits promote safety awareness and inspire future generations to consider firefighting careers.</p>
+        <label>
+          Choose the question:
+          <select id="ans-B" data-text="B">
+            <option value="">—</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+          </select>
+        </label>
+      </article>
+
+      <article class="text-card">
+        <div class="letter">C</div>
+        <p>In the past, Moscow suffered from fires due to its wooden buildings. This is why Moscow's fire service has its roots in the 17th century. The first organized firefighting efforts relied on townspeople and a small group of watchmen. In 1804, Tsar Alexander I established the first official fire brigade, marking the start of a professional fire service. This brigade adopted a structured approach, dividing the city into districts with firemen stationed in all of them.</p>
+        <label>
+          Choose the question:
+          <select id="ans-C" data-text="C">
+            <option value="">—</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+          </select>
+        </label>
+      </article>
+
+      <article class="text-card">
+        <div class="letter">D</div>
+        <p>Helicopters play an important role in Moscow's firefighting efforts, especially for monitoring forest fires or putting out fires in hard-to-reach areas. They are equipped with water tanks and firefighting tools for quick deployment. Firefighting ships, with powerful water cannons, are also essential, especially for fires near the Moskva River or other waterfront locations in the city.</p>
+        <label>
+          Choose the question:
+          <select id="ans-D" data-text="D">
+            <option value="">—</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+          </select>
+        </label>
+      </article>
+
+      <article class="text-card">
+        <div class="letter">E</div>
+        <p>Historically, Moscow firefighters received on-the-job training and instruction from experienced fire masters. In the 19th century, as the fire service became more organized, formal training schools were established, where firefighters learned not only how to extinguish fires but also how to operate the emerging technology of the time, including horse-drawn fire pumps and steam-powered equipment.</p>
+        <label>
+          Choose the question:
+          <select id="ans-E" data-text="E">
+            <option value="">—</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+          </select>
+        </label>
+      </article>
+
+      <article class="text-card">
+        <div class="letter">F</div>
+        <p>Moscow experiences about 7,000-10,000 fire-related incidents each year. Despite this high number, the Moscow Fire Service's quick response and modern technology have significantly reduced fatalities and property damage over time. In 2024, during the 220th anniversary celebration of the Fire Service, Mayor Sobyanin reported that systematic prevention efforts have cut the number of fires by more than threefold since 2011.</p>
+        <label>
+          Choose the question:
+          <select id="ans-F" data-text="F">
+            <option value="">—</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+          </select>
+        </label>
+      </article>
+
+    </section>
+
+    <table class="answer-table">
+      <tr>
+        <th>Text</th>
+        <th>A</th>
+        <th>B</th>
+        <th>C</th>
+        <th>D</th>
+        <th>E</th>
+        <th>F</th>
+      </tr>
+      <tr>
+        <td>Question</td>
+        <td class="table-cell" id="table-A">—</td>
+        <td class="table-cell" id="table-B">—</td>
+        <td class="table-cell" id="table-C">—</td>
+        <td class="table-cell" id="table-D">—</td>
+        <td class="table-cell" id="table-E">—</td>
+        <td class="table-cell" id="table-F">—</td>
+      </tr>
+    </table>
+
+    <div class="footer">No answer key is shown to the student.</div>
+  </div>
+
+  <script>
+    const correctAnswers = {"A":"4","B":"7","C":"1","D":"6","E":"2","F":"3"};
+    const letters = ["A", "B", "C", "D", "E", "F"];
+
+    letters.forEach(letter => {
+      const select = document.getElementById("ans-" + letter);
+      select.addEventListener("change", () => {
+        document.getElementById("table-" + letter).textContent = select.value || "—";
+        document.getElementById("result").textContent = "";
+      });
+    });
+
+    function checkScore() {
+      let score = 0;
+      let filled = 0;
+
+      letters.forEach(letter => {
+        const value = document.getElementById("ans-" + letter).value;
+        if (value) filled++;
+        if (value === correctAnswers[letter]) score++;
+      });
+
+      const result = document.getElementById("result");
+
+      if (filled < letters.length) {
+        result.textContent = "Please choose an answer for every text first.";
+        return;
+      }
+
+      result.textContent = "Your score: " + score + " / " + letters.length + ".";
+    }
+
+    function resetTask() {
+      letters.forEach(letter => {
+        const select = document.getElementById("ans-" + letter);
+        select.value = "";
+        document.getElementById("table-" + letter).textContent = "—";
+      });
+      document.getElementById("result").textContent = "";
+    }
+  </script>
+</body>
+</html>
