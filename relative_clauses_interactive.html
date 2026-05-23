@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Defining and Non-defining Relative Clauses</title>
+<style>
+  :root{
+    --bg:#f5fbf7;
+    --card:#edf8f1;
+    --card2:#ffffff;
+    --green:#58ad7d;
+    --green-dark:#24714d;
+    --mint:#d9f0e2;
+    --pink:#f3a19e;
+    --ink:#073b35;
+    --muted:#60756f;
+    --wrong:#d75a5a;
+    --right:#2e9b61;
+    --shadow: 0 12px 30px rgba(31, 91, 67, .12);
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0;
+    font-family: Georgia, "Times New Roman", serif;
+    color:var(--ink);
+    background:
+      radial-gradient(circle at top left, #dff5e8 0, transparent 28rem),
+      linear-gradient(180deg, #fbfffd, var(--bg));
+    min-height:100vh;
+  }
+  .wrap{max-width:1050px;margin:0 auto;padding:32px 18px 60px}
+  header{
+    background:linear-gradient(135deg, #e6f7ed, #ffffff);
+    border:1px solid #d7efe2;
+    border-radius:28px;
+    padding:30px;
+    box-shadow:var(--shadow);
+    position:relative;
+    overflow:hidden;
+  }
+  header:after{
+    content:"";
+    position:absolute;
+    right:-60px; top:-80px;
+    width:220px;height:220px;border-radius:50%;
+    background:rgba(88,173,125,.15);
+  }
+  h1{margin:0 0 10px;font-size:34px;line-height:1.1}
+  .subtitle{font-family:Arial, sans-serif;color:var(--muted);font-size:16px;max-width:760px;line-height:1.5}
+  .toolbar{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
+  button{
+    border:0;
+    border-radius:999px;
+    padding:11px 18px;
+    background:var(--green);
+    color:white;
+    font:700 15px Arial, sans-serif;
+    cursor:pointer;
+    box-shadow:0 8px 18px rgba(58, 130, 91, .22);
+    transition:.18s ease;
+  }
+  button:hover{transform:translateY(-1px);filter:brightness(.98)}
+  button.secondary{background:#fff;color:var(--green-dark);border:1px solid #cfe9d9;box-shadow:none}
+  button.small{font-size:13px;padding:8px 13px}
+  .scorebox{
+    margin-top:16px;
+    display:inline-flex;
+    gap:12px;
+    align-items:center;
+    background:#fff;
+    border:1px solid #d7efe2;
+    border-radius:999px;
+    padding:10px 16px;
+    font:700 15px Arial, sans-serif;
+  }
+  .scorebox span{color:var(--green-dark)}
+  section{margin-top:26px}
+  .section-title{
+    display:flex;align-items:center;gap:14px;margin-bottom:16px;
+  }
+  .pill{
+    background:var(--green);
+    color:#fff;
+    padding:10px 17px;
+    border-radius:999px;
+    font:700 15px Arial, sans-serif;
+    box-shadow:0 8px 18px rgba(58,130,91,.18);
+    white-space:nowrap;
+  }
+  h2{font-size:28px;margin:0}
+  .hint{
+    font-family:Arial, sans-serif;
+    color:var(--muted);
+    background:#fff;
+    border-left:5px solid var(--green);
+    padding:12px 16px;
+    border-radius:14px;
+    margin:0 0 16px;
+    line-height:1.45;
+  }
+  .grid{display:grid;gap:14px}
+  .card{
+    background:var(--card);
+    border:1px solid #dff1e7;
+    border-radius:22px;
+    padding:20px;
+    box-shadow:0 8px 24px rgba(34, 94, 66, .06);
+  }
+  .pair{
+    font-size:22px;
+    line-height:1.45;
+    margin-bottom:14px;
+  }
+  .numA{color:#18784e;font-weight:700}
+  .numB{color:var(--pink);font-weight:700}
+  input[type="text"]{
+    width:100%;
+    border:2px solid #cfe9d9;
+    border-radius:16px;
+    padding:13px 15px;
+    font:18px Georgia, "Times New Roman", serif;
+    color:var(--ink);
+    background:#fff;
+    outline:none;
+  }
+  input[type="text"]:focus{border-color:var(--green);box-shadow:0 0 0 4px rgba(88,173,125,.14)}
+  .actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px;align-items:center}
+  .feedback{
+    font:700 14px Arial, sans-serif;
+    min-height:20px;
+  }
+  .ok{color:var(--right)}
+  .bad{color:var(--wrong)}
+  .answer{
+    margin-top:10px;
+    padding:12px 14px;
+    background:#fff;
+    border:1px dashed #abd7bd;
+    border-radius:14px;
+    font-size:18px;
+    display:none;
+  }
+  .answer.show{display:block}
+  .comma-line{
+    font-size:23px;
+    line-height:1.7;
+  }
+  .comma-slot{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    width:28px;height:28px;
+    margin:0 4px;
+    border:2px dashed #8fd0ac;
+    border-radius:50%;
+    vertical-align:middle;
+    cursor:pointer;
+    background:#fff;
+    color:transparent;
+    font-weight:700;
+    transition:.15s ease;
+    user-select:none;
+  }
+  .comma-slot.active{
+    background:#dff5e8;
+    color:var(--green-dark);
+    border-style:solid;
+  }
+  .comma-slot.right{border-color:var(--right);background:#e7f7ee;color:var(--right)}
+  .comma-slot.wrong{border-color:var(--wrong);background:#fff0f0;color:var(--wrong)}
+  .mini-note{
+    margin-top:8px;
+    font-family:Arial, sans-serif;
+    color:var(--muted);
+    font-size:14px;
+    display:none;
+  }
+  .mini-note.show{display:block}
+  .footer{
+    margin-top:28px;
+    text-align:center;
+    font-family:Arial, sans-serif;
+    color:var(--muted);
+  }
+  @media(max-width:650px){
+    h1{font-size:28px}
+    h2{font-size:23px}
+    .pair,.comma-line{font-size:20px}
+    header{padding:22px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Defining & Non-defining Relative Clauses</h1>
+    <div class="subtitle">
+      Practise joining sentences and choosing commas. Use <b>who / which / whose / where / when / that</b>. 
+      Click “Check” for one answer, or reveal answers when you want to self-check.
+    </div>
+    <div class="toolbar">
+      <button onclick="checkAll()">Check all</button>
+      <button class="secondary" onclick="revealAll()">Reveal all</button>
+      <button class="secondary" onclick="resetAll()">Reset</button>
+    </div>
+    <div class="scorebox">Score: <span id="score">0</span>/<span id="total">0</span></div>
+  </header>
+
+  <section>
+    <div class="section-title">
+      <div class="pill">Task 1</div>
+      <h2>Join the sentences: non-defining</h2>
+    </div>
+    <p class="hint">The second sentence gives extra information. Use commas.</p>
+    <div class="grid" id="task1"></div>
+  </section>
+
+  <section>
+    <div class="section-title">
+      <div class="pill">Task 2</div>
+      <h2>Add commas where you need them</h2>
+    </div>
+    <p class="hint">Click the dotted circles only where commas are necessary. No comma? Leave the circle empty.</p>
+    <div class="grid" id="task2"></div>
+  </section>
+
+  <section>
+    <div class="section-title">
+      <div class="pill">Task 3</div>
+      <h2>Join the sentences: defining</h2>
+    </div>
+    <p class="hint">The second sentence gives essential information. Do not use commas.</p>
+    <div class="grid" id="task3"></div>
+  </section>
+
+  <div class="footer">Tip: in defining clauses, <b>that</b> is often possible for people/things, but not after commas.</div>
+</div>
+
+<script>
+const norm = s => (s || "")
+  .toLowerCase()
+  .replace(/[’‘]/g,"'")
+  .replace(/[.,!?]/g,"")
+  .replace(/\s+/g," ")
+  .trim();
+
+const task1Data = [
+  {
+    a:"My best friend is a wonderful person.",
+    b:"She has known me since we were five.",
+    answers:["My best friend, who has known me since we were five, is a wonderful person."]
+  },
+  {
+    a:"My phone is two years old.",
+    b:"I use it every day.",
+    answers:["My phone, which I use every day, is two years old."]
+  },
+  {
+    a:"London has many museums.",
+    b:"I lived in London for two years.",
+    answers:["London, where I lived for two years, has many museums."]
+  },
+  {
+    a:"My grandfather is 85.",
+    b:"His garden is full of flowers.",
+    answers:["My grandfather, whose garden is full of flowers, is 85."]
+  },
+  {
+    a:"Last summer was very hot.",
+    b:"I travelled to Greece last summer.",
+    answers:["Last summer, when I travelled to Greece, was very hot."]
+  }
+];
+
+const task3Data = [
+  {
+    a:"I have a friend.",
+    b:"He plays the guitar.",
+    answers:["I have a friend who plays the guitar.","I have a friend that plays the guitar."]
+  },
+  {
+    a:"This is the film.",
+    b:"We watched it yesterday.",
+    answers:["This is the film that we watched yesterday.","This is the film which we watched yesterday.","This is the film we watched yesterday."]
+  },
+  {
+    a:"We visited a museum.",
+    b:"The museum was built in 1820.",
+    answers:["We visited a museum that was built in 1820.","We visited a museum which was built in 1820."]
+  },
+  {
+    a:"I met a man.",
+    b:"His dog can do tricks.",
+    answers:["I met a man whose dog can do tricks."]
+  },
+  {
+    a:"She remembers the day.",
+    b:"She arrived in London on that day.",
+    answers:["She remembers the day when she arrived in London.","She remembers the day that she arrived in London.","She remembers the day she arrived in London."]
+  },
+  {
+    a:"That is the school.",
+    b:"I studied at the school.",
+    answers:["That is the school where I studied.","That is the school that I studied at.","That is the school which I studied at.","That is the school I studied at."]
+  }
+];
+
+const commaData = [
+  {
+    parts:["My brother","who lives in Rome","is a chef."],
+    correct:[true,true],
+    answer:"My brother, who lives in Rome, is a chef.",
+    note:"Extra information: we already know which brother."
+  },
+  {
+    parts:["The book","that I am reading","is excellent."],
+    correct:[false,false],
+    answer:"The book that I am reading is excellent.",
+    note:"Essential information: which book?"
+  },
+  {
+    parts:["Warsaw","which is the capital of Poland","has a great old town."],
+    correct:[true,true],
+    answer:"Warsaw, which is the capital of Poland, has a great old town.",
+    note:"Extra information about a unique place."
+  },
+  {
+    parts:["The girl","who sits next to me","is from France."],
+    correct:[false,false],
+    answer:"The girl who sits next to me is from France.",
+    note:"Essential information: which girl?"
+  },
+  {
+    parts:["Mr Brown","whose son is my classmate","teaches maths."],
+    correct:[true,true],
+    answer:"Mr Brown, whose son is my classmate, teaches maths.",
+    note:"Extra information about Mr Brown."
+  },
+  {
+    parts:["I'll never forget the day","when I met you","."],
+    correct:[false,false],
+    answer:"I'll never forget the day when I met you.",
+    note:"Essential information: which day?"
+  }
+];
+
+function makeJoinTask(containerId, data, prefix){
+  const box = document.getElementById(containerId);
+  data.forEach((item, i)=>{
+    const card = document.createElement("div");
+    card.className = "card join-card";
+    card.dataset.answers = JSON.stringify(item.answers.map(norm));
+    card.innerHTML = `
+      <div class="pair">
+        <div><span class="numA">${i+1}a.</span> ${item.a}</div>
+        <div><span class="numB">${i+1}b.</span> ${item.b}</div>
+      </div>
+      <input type="text" placeholder="Type your sentence here..." aria-label="answer ${prefix}${i+1}">
+      <div class="actions">
+        <button class="small" onclick="checkJoin(this)">Check</button>
+        <button class="small secondary" onclick="revealAnswer(this)">Reveal</button>
+        <span class="feedback"></span>
+      </div>
+      <div class="answer">${item.answers[0]}</div>
+    `;
+    box.appendChild(card);
+  });
+}
+
+function makeCommaTask(){
+  const box = document.getElementById("task2");
+  commaData.forEach((item,i)=>{
+    const card = document.createElement("div");
+    card.className = "card comma-card";
+    card.dataset.correct = JSON.stringify(item.correct);
+    let line = `<span>${i+1}. ${item.parts[0]}</span><span class="comma-slot" onclick="toggleComma(this)">,</span><span>${item.parts[1]}</span><span class="comma-slot" onclick="toggleComma(this)">,</span><span>${item.parts[2]}</span>`;
+    card.innerHTML = `
+      <div class="comma-line">${line}</div>
+      <div class="actions">
+        <button class="small" onclick="checkComma(this)">Check</button>
+        <button class="small secondary" onclick="revealComma(this)">Reveal</button>
+        <span class="feedback"></span>
+      </div>
+      <div class="answer">${item.answer}</div>
+      <div class="mini-note">${item.note}</div>
+    `;
+    box.appendChild(card);
+  });
+}
+
+function checkJoin(btn){
+  const card = btn.closest(".join-card");
+  const value = norm(card.querySelector("input").value);
+  const answers = JSON.parse(card.dataset.answers);
+  const fb = card.querySelector(".feedback");
+  if(!value){fb.textContent="Type an answer first."; fb.className="feedback bad"; return false;}
+  const ok = answers.includes(value);
+  fb.textContent = ok ? "Correct!" : "Not quite. Try again or reveal the answer.";
+  fb.className = "feedback " + (ok ? "ok" : "bad");
+  card.dataset.done = ok ? "1" : "0";
+  updateScore();
+  return ok;
+}
+
+function revealAnswer(btn){
+  const card = btn.closest(".card");
+  card.querySelector(".answer").classList.toggle("show");
+}
+
+function toggleComma(slot){
+  slot.classList.toggle("active");
+  slot.classList.remove("right","wrong");
+}
+
+function checkComma(btn){
+  const card = btn.closest(".comma-card");
+  const correct = JSON.parse(card.dataset.correct);
+  const slots = [...card.querySelectorAll(".comma-slot")];
+  let ok = true;
+  slots.forEach((s,idx)=>{
+    const active = s.classList.contains("active");
+    s.classList.remove("right","wrong");
+    if(active === correct[idx]){
+      if(correct[idx]) s.classList.add("right");
+    } else {
+      ok = false;
+      s.classList.add("wrong");
+    }
+  });
+  const fb = card.querySelector(".feedback");
+  fb.textContent = ok ? "Correct!" : "Check the commas again.";
+  fb.className = "feedback " + (ok ? "ok" : "bad");
+  card.dataset.done = ok ? "1" : "0";
+  updateScore();
+  return ok;
+}
+
+function revealComma(btn){
+  const card = btn.closest(".comma-card");
+  const correct = JSON.parse(card.dataset.correct);
+  const slots = [...card.querySelectorAll(".comma-slot")];
+  slots.forEach((s,idx)=>{
+    s.classList.toggle("active", correct[idx]);
+    s.classList.remove("wrong");
+    if(correct[idx]) s.classList.add("right");
+  });
+  card.querySelector(".answer").classList.add("show");
+  card.querySelector(".mini-note").classList.add("show");
+}
+
+function checkAll(){
+  document.querySelectorAll(".join-card .actions button:first-child").forEach(b=>checkJoin(b));
+  document.querySelectorAll(".comma-card .actions button:first-child").forEach(b=>checkComma(b));
+  updateScore(true);
+}
+
+function revealAll(){
+  document.querySelectorAll(".join-card .answer").forEach(a=>a.classList.add("show"));
+  document.querySelectorAll(".comma-card .actions button.secondary").forEach(b=>revealComma(b));
+}
+
+function resetAll(){
+  document.querySelectorAll("input").forEach(i=>i.value="");
+  document.querySelectorAll(".feedback").forEach(f=>{f.textContent=""; f.className="feedback";});
+  document.querySelectorAll(".answer").forEach(a=>a.classList.remove("show"));
+  document.querySelectorAll(".mini-note").forEach(n=>n.classList.remove("show"));
+  document.querySelectorAll(".card").forEach(c=>delete c.dataset.done);
+  document.querySelectorAll(".comma-slot").forEach(s=>s.className="comma-slot");
+  updateScore();
+}
+
+function updateScore(){
+  const cards = [...document.querySelectorAll(".join-card,.comma-card")];
+  const got = cards.filter(c=>c.dataset.done === "1").length;
+  document.getElementById("score").textContent = got;
+  document.getElementById("total").textContent = cards.length;
+}
+
+makeJoinTask("task1", task1Data, "nondef");
+makeCommaTask();
+makeJoinTask("task3", task3Data, "def");
+updateScore();
+</script>
+</body>
+</html>
