@@ -1,0 +1,1231 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>English Vocabulary</title>
+  <style>
+    :root {
+      --bg: #f7fbf8;
+      --card: #ffffff;
+      --ink: #22332f;
+      --muted: #6d817b;
+      --accent: #7fb8aa;
+      --accent-dark: #47766c;
+      --line: #d8e9e4;
+      --shadow: 0 12px 30px rgba(58, 95, 87, 0.12);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(127, 184, 170, 0.22), transparent 34%),
+        radial-gradient(circle at bottom right, rgba(180, 218, 207, 0.35), transparent 30%),
+        var(--bg);
+      color: var(--ink);
+    }
+
+    .page {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 42px 22px 60px;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 28px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(32px, 5vw, 58px);
+      letter-spacing: -0.04em;
+      color: var(--accent-dark);
+    }
+
+    .subtitle {
+      margin: 12px auto 0;
+      max-width: 680px;
+      color: var(--muted);
+      font-size: 18px;
+      line-height: 1.5;
+    }
+
+    .panel {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      margin: 26px 0 28px;
+      background: rgba(247, 251, 248, 0.86);
+      backdrop-filter: blur(14px);
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+    }
+
+    input {
+      width: min(520px, 100%);
+      padding: 14px 18px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: white;
+      color: var(--ink);
+      font-size: 16px;
+      outline: none;
+    }
+
+    input:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 4px rgba(127, 184, 170, 0.18);
+    }
+
+    button {
+      border: 0;
+      border-radius: 999px;
+      padding: 14px 18px;
+      background: var(--accent-dark);
+      color: white;
+      font-size: 15px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      filter: brightness(1.05);
+    }
+
+    .count {
+      color: var(--muted);
+      font-size: 15px;
+      min-width: 120px;
+      text-align: center;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+      gap: 16px;
+    }
+
+    .card {
+      min-height: 136px;
+      padding: 18px 18px 16px;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      box-shadow: 0 8px 22px rgba(58, 95, 87, 0.08);
+      transition: transform 0.18s ease, box-shadow 0.18s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow);
+    }
+
+    .number {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 32px;
+      height: 26px;
+      padding: 0 8px;
+      border-radius: 999px;
+      background: #e8f4f0;
+      color: var(--accent-dark);
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 14px;
+    }
+
+    .english {
+      font-size: 21px;
+      line-height: 1.22;
+      font-weight: 800;
+      color: var(--ink);
+      margin-bottom: 10px;
+    }
+
+    .russian {
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.35;
+    }
+
+    .hidden .russian {
+      color: transparent;
+      text-shadow: 0 0 10px rgba(109, 129, 123, 0.45);
+      user-select: none;
+    }
+
+    .empty {
+      display: none;
+      text-align: center;
+      color: var(--muted);
+      padding: 34px 0;
+      font-size: 18px;
+    }
+
+    @media print {
+      .panel {
+        display: none;
+      }
+
+      body {
+        background: white;
+      }
+
+      .card {
+        break-inside: avoid;
+        box-shadow: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header>
+      <h1>English Vocabulary</h1>
+      <p class="subtitle">Слова и фразы с переводом в красивом HTML-формате.</p>
+    </header>
+
+    <section class="panel">
+      <input id="search" type="search" placeholder="Search / поиск..." />
+      <button id="toggle">Hide translations</button>
+      <div class="count" id="count"></div>
+    </section>
+
+    <section class="grid" id="grid">
+      
+      <article class="card" data-text="always всегда">
+        <div class="number">1</div>
+        <div class="english">always</div>
+        <div class="russian">всегда</div>
+      </article>
+      <article class="card" data-text="usually обычно">
+        <div class="number">2</div>
+        <div class="english">usually</div>
+        <div class="russian">обычно</div>
+      </article>
+      <article class="card" data-text="often часто">
+        <div class="number">3</div>
+        <div class="english">often</div>
+        <div class="russian">часто</div>
+      </article>
+      <article class="card" data-text="sometimes иногда">
+        <div class="number">4</div>
+        <div class="english">sometimes</div>
+        <div class="russian">иногда</div>
+      </article>
+      <article class="card" data-text="hardly ever / rarely почти никогда / редко">
+        <div class="number">5</div>
+        <div class="english">hardly ever / rarely</div>
+        <div class="russian">почти никогда / редко</div>
+      </article>
+      <article class="card" data-text="never никогда">
+        <div class="number">6</div>
+        <div class="english">never</div>
+        <div class="russian">никогда</div>
+      </article>
+      <article class="card" data-text="take care of yourself заботиться о себе">
+        <div class="number">7</div>
+        <div class="english">take care of yourself</div>
+        <div class="russian">заботиться о себе</div>
+      </article>
+      <article class="card" data-text="plan your time well хорошо планировать своё время">
+        <div class="number">8</div>
+        <div class="english">plan your time well</div>
+        <div class="russian">хорошо планировать своё время</div>
+      </article>
+      <article class="card" data-text="try new things пробовать новое">
+        <div class="number">9</div>
+        <div class="english">try new things</div>
+        <div class="russian">пробовать новое</div>
+      </article>
+      <article class="card" data-text="have clear goals иметь ясные цели">
+        <div class="number">10</div>
+        <div class="english">have clear goals</div>
+        <div class="russian">иметь ясные цели</div>
+      </article>
+      <article class="card" data-text="take time off брать перерыв / выходной">
+        <div class="number">11</div>
+        <div class="english">take time off</div>
+        <div class="russian">брать перерыв / выходной</div>
+      </article>
+      <article class="card" data-text="start again начинать снова">
+        <div class="number">12</div>
+        <div class="english">start again</div>
+        <div class="russian">начинать снова</div>
+      </article>
+      <article class="card" data-text="ask a lot of questions задавать много вопросов">
+        <div class="number">13</div>
+        <div class="english">ask a lot of questions</div>
+        <div class="russian">задавать много вопросов</div>
+      </article>
+      <article class="card" data-text="listen carefully слушать внимательно">
+        <div class="number">14</div>
+        <div class="english">listen carefully</div>
+        <div class="russian">слушать внимательно</div>
+      </article>
+      <article class="card" data-text="be late опаздывать">
+        <div class="number">15</div>
+        <div class="english">be late</div>
+        <div class="russian">опаздывать</div>
+      </article>
+      <article class="card" data-text="be really busy быть очень занятым">
+        <div class="number">16</div>
+        <div class="english">be really busy</div>
+        <div class="russian">быть очень занятым</div>
+      </article>
+      <article class="card" data-text="eat pizza есть пиццу">
+        <div class="number">17</div>
+        <div class="english">eat pizza</div>
+        <div class="russian">есть пиццу</div>
+      </article>
+      <article class="card" data-text="get angry злиться">
+        <div class="number">18</div>
+        <div class="english">get angry</div>
+        <div class="russian">злиться</div>
+      </article>
+      <article class="card" data-text="go for a swim пойти поплавать">
+        <div class="number">19</div>
+        <div class="english">go for a swim</div>
+        <div class="russian">пойти поплавать</div>
+      </article>
+      <article class="card" data-text="go to the cinema ходить в кино">
+        <div class="number">20</div>
+        <div class="english">go to the cinema</div>
+        <div class="russian">ходить в кино</div>
+      </article>
+      <article class="card" data-text="send something by post отправить что-то по почте">
+        <div class="number">21</div>
+        <div class="english">send something by post</div>
+        <div class="russian">отправить что-то по почте</div>
+      </article>
+      <article class="card" data-text="sing in the shower петь в душе">
+        <div class="number">22</div>
+        <div class="english">sing in the shower</div>
+        <div class="russian">петь в душе</div>
+      </article>
+      <article class="card" data-text="he/she sounds amazing / brilliant / fantastic! он/она звучит потрясающе / блестяще / фантастически!">
+        <div class="number">23</div>
+        <div class="english">He/She sounds amazing / brilliant / fantastic!</div>
+        <div class="russian">Он/она звучит потрясающе / блестяще / фантастически!</div>
+      </article>
+      <article class="card" data-text="tell me / us more. расскажи мне / нам больше.">
+        <div class="number">24</div>
+        <div class="english">Tell me / us more.</div>
+        <div class="russian">Расскажи мне / нам больше.</div>
+      </article>
+      <article class="card" data-text="that’s great! это здорово!">
+        <div class="number">25</div>
+        <div class="english">That’s great!</div>
+        <div class="russian">Это здорово!</div>
+      </article>
+      <article class="card" data-text="what else does he / she do? что ещё он / она делает?">
+        <div class="number">26</div>
+        <div class="english">What else does he / she do?</div>
+        <div class="russian">Что ещё он / она делает?</div>
+      </article>
+      <article class="card" data-text="take a break сделать перерыв">
+        <div class="number">27</div>
+        <div class="english">take a break</div>
+        <div class="russian">сделать перерыв</div>
+      </article>
+      <article class="card" data-text="take a picture сфотографировать / сделать фотографию">
+        <div class="number">28</div>
+        <div class="english">take a picture</div>
+        <div class="russian">сфотографировать / сделать фотографию</div>
+      </article>
+      <article class="card" data-text="play cards играть в карты">
+        <div class="number">29</div>
+        <div class="english">play cards</div>
+        <div class="russian">играть в карты</div>
+      </article>
+      <article class="card" data-text="play video games играть в видеоигры">
+        <div class="number">30</div>
+        <div class="english">play video games</div>
+        <div class="russian">играть в видеоигры</div>
+      </article>
+      <article class="card" data-text="watch tv смотреть телевизор">
+        <div class="number">31</div>
+        <div class="english">watch TV</div>
+        <div class="russian">смотреть телевизор</div>
+      </article>
+      <article class="card" data-text="watch a film смотреть фильм">
+        <div class="number">32</div>
+        <div class="english">watch a film</div>
+        <div class="russian">смотреть фильм</div>
+      </article>
+      <article class="card" data-text="have a shower принимать душ">
+        <div class="number">33</div>
+        <div class="english">have a shower</div>
+        <div class="russian">принимать душ</div>
+      </article>
+      <article class="card" data-text="have lunch обедать">
+        <div class="number">34</div>
+        <div class="english">have lunch</div>
+        <div class="russian">обедать</div>
+      </article>
+      <article class="card" data-text="start work начинать работу">
+        <div class="number">35</div>
+        <div class="english">start work</div>
+        <div class="russian">начинать работу</div>
+      </article>
+      <article class="card" data-text="finish work заканчивать работу">
+        <div class="number">36</div>
+        <div class="english">finish work</div>
+        <div class="russian">заканчивать работу</div>
+      </article>
+      <article class="card" data-text="start school начинать учёбу / занятия">
+        <div class="number">37</div>
+        <div class="english">start school</div>
+        <div class="russian">начинать учёбу / занятия</div>
+      </article>
+      <article class="card" data-text="finish school заканчивать учёбу / занятия">
+        <div class="number">38</div>
+        <div class="english">finish school</div>
+        <div class="russian">заканчивать учёбу / занятия</div>
+      </article>
+      <article class="card" data-text="get up вставать">
+        <div class="number">39</div>
+        <div class="english">get up</div>
+        <div class="russian">вставать</div>
+      </article>
+      <article class="card" data-text="get dressed одеваться">
+        <div class="number">40</div>
+        <div class="english">get dressed</div>
+        <div class="russian">одеваться</div>
+      </article>
+      <article class="card" data-text="check your email проверять электронную почту">
+        <div class="number">41</div>
+        <div class="english">check your email</div>
+        <div class="russian">проверять электронную почту</div>
+      </article>
+      <article class="card" data-text="check social media проверять соцсети">
+        <div class="number">42</div>
+        <div class="english">check social media</div>
+        <div class="russian">проверять соцсети</div>
+      </article>
+      <article class="card" data-text="spend time with friends проводить время с друзьями">
+        <div class="number">43</div>
+        <div class="english">spend time with friends</div>
+        <div class="russian">проводить время с друзьями</div>
+      </article>
+      <article class="card" data-text="spend time with family проводить время с семьёй">
+        <div class="number">44</div>
+        <div class="english">spend time with family</div>
+        <div class="russian">проводить время с семьёй</div>
+      </article>
+      <article class="card" data-text="what do i need to do? что мне нужно сделать?">
+        <div class="number">45</div>
+        <div class="english">What do I need to do?</div>
+        <div class="russian">Что мне нужно сделать?</div>
+      </article>
+      <article class="card" data-text="can you help me? вы можете мне помочь? / ты можешь мне помочь?">
+        <div class="number">46</div>
+        <div class="english">Can you help me?</div>
+        <div class="russian">Вы можете мне помочь? / Ты можешь мне помочь?</div>
+      </article>
+      <article class="card" data-text="it’s this one here. это вот этот / эта / это здесь.">
+        <div class="number">47</div>
+        <div class="english">It’s this one here.</div>
+        <div class="russian">Это вот этот / эта / это здесь.</div>
+      </article>
+      <article class="card" data-text="you need to (buy a ticket). вам / тебе нужно (купить билет).">
+        <div class="number">48</div>
+        <div class="english">You need to (buy a ticket).</div>
+        <div class="russian">Вам / тебе нужно (купить билет).</div>
+      </article>
+      <article class="card" data-text="did you get that? ты понял(а)? / вы поняли?">
+        <div class="number">49</div>
+        <div class="english">Did you get that?</div>
+        <div class="russian">Ты понял(а)? / Вы поняли?</div>
+      </article>
+      <article class="card" data-text="is that clear? это понятно?">
+        <div class="number">50</div>
+        <div class="english">Is that clear?</div>
+        <div class="russian">Это понятно?</div>
+      </article>
+      <article class="card" data-text="which (one) is it? который из них? / какой именно?">
+        <div class="number">51</div>
+        <div class="english">Which (one) is it?</div>
+        <div class="russian">Который из них? / Какой именно?</div>
+      </article>
+      <article class="card" data-text="can you repeat that, please? повторите, пожалуйста. / можешь повторить, пожалуйста?">
+        <div class="number">52</div>
+        <div class="english">Can you repeat that, please?</div>
+        <div class="russian">Повторите, пожалуйста. / Можешь повторить, пожалуйста?</div>
+      </article>
+      <article class="card" data-text="afraid испуганный; боящийся">
+        <div class="number">53</div>
+        <div class="english">afraid</div>
+        <div class="russian">испуганный; боящийся</div>
+      </article>
+      <article class="card" data-text="angry злой; сердитый">
+        <div class="number">54</div>
+        <div class="english">angry</div>
+        <div class="russian">злой; сердитый</div>
+      </article>
+      <article class="card" data-text="bored скучающий">
+        <div class="number">55</div>
+        <div class="english">bored</div>
+        <div class="russian">скучающий</div>
+      </article>
+      <article class="card" data-text="excited взволнованный; радостно возбуждённый">
+        <div class="number">56</div>
+        <div class="english">excited</div>
+        <div class="russian">взволнованный; радостно возбуждённый</div>
+      </article>
+      <article class="card" data-text="happy счастливый; довольный">
+        <div class="number">57</div>
+        <div class="english">happy</div>
+        <div class="russian">счастливый; довольный</div>
+      </article>
+      <article class="card" data-text="nervous нервничающий">
+        <div class="number">58</div>
+        <div class="english">nervous</div>
+        <div class="russian">нервничающий</div>
+      </article>
+      <article class="card" data-text="relaxed расслабленный">
+        <div class="number">59</div>
+        <div class="english">relaxed</div>
+        <div class="russian">расслабленный</div>
+      </article>
+      <article class="card" data-text="stressed напряжённый; в стрессе">
+        <div class="number">60</div>
+        <div class="english">stressed</div>
+        <div class="russian">напряжённый; в стрессе</div>
+      </article>
+      <article class="card" data-text="surprised удивлённый">
+        <div class="number">61</div>
+        <div class="english">surprised</div>
+        <div class="russian">удивлённый</div>
+      </article>
+      <article class="card" data-text="worried обеспокоенный; взволнованный">
+        <div class="number">62</div>
+        <div class="english">worried</div>
+        <div class="russian">обеспокоенный; взволнованный</div>
+      </article>
+      <article class="card" data-text="arrived прибыл / прибыла; приехал(а)">
+        <div class="number">63</div>
+        <div class="english">arrived</div>
+        <div class="russian">прибыл / прибыла; приехал(а)</div>
+      </article>
+      <article class="card" data-text="decided решил(а)">
+        <div class="number">64</div>
+        <div class="english">decided</div>
+        <div class="russian">решил(а)</div>
+      </article>
+      <article class="card" data-text="deleted удалил(а)">
+        <div class="number">65</div>
+        <div class="english">deleted</div>
+        <div class="russian">удалил(а)</div>
+      </article>
+      <article class="card" data-text="ended закончил(а) / закончился">
+        <div class="number">66</div>
+        <div class="english">ended</div>
+        <div class="russian">закончил(а) / закончился</div>
+      </article>
+      <article class="card" data-text="played играл(а)">
+        <div class="number">67</div>
+        <div class="english">played</div>
+        <div class="russian">играл(а)</div>
+      </article>
+      <article class="card" data-text="looked смотрел(а); выглядел(а)">
+        <div class="number">68</div>
+        <div class="english">looked</div>
+        <div class="russian">смотрел(а); выглядел(а)</div>
+      </article>
+      <article class="card" data-text="showed показал(а)">
+        <div class="number">69</div>
+        <div class="english">showed</div>
+        <div class="russian">показал(а)</div>
+      </article>
+      <article class="card" data-text="stopped остановил(а); остановился / остановилась">
+        <div class="number">70</div>
+        <div class="english">stopped</div>
+        <div class="russian">остановил(а); остановился / остановилась</div>
+      </article>
+      <article class="card" data-text="talked разговаривал(а)">
+        <div class="number">71</div>
+        <div class="english">talked</div>
+        <div class="russian">разговаривал(а)</div>
+      </article>
+      <article class="card" data-text="tried пытался / пыталась; пробовал(а)">
+        <div class="number">72</div>
+        <div class="english">tried</div>
+        <div class="russian">пытался / пыталась; пробовал(а)</div>
+      </article>
+      <article class="card" data-text="wanted хотел(а)">
+        <div class="number">73</div>
+        <div class="english">wanted</div>
+        <div class="russian">хотел(а)</div>
+      </article>
+      <article class="card" data-text="watched смотрел(а)">
+        <div class="number">74</div>
+        <div class="english">watched</div>
+        <div class="russian">смотрел(а)</div>
+      </article>
+      <article class="card" data-text="it started well / badly. это началось хорошо / плохо.">
+        <div class="number">75</div>
+        <div class="english">It started well / badly.</div>
+        <div class="russian">Это началось хорошо / плохо.</div>
+      </article>
+      <article class="card" data-text="first of all, ... прежде всего, ... / сначала, ...">
+        <div class="number">76</div>
+        <div class="english">First of all, ...</div>
+        <div class="russian">Прежде всего, ... / Сначала, ...</div>
+      </article>
+      <article class="card" data-text="then, ... затем, ... / потом, ...">
+        <div class="number">77</div>
+        <div class="english">Then, ...</div>
+        <div class="russian">Затем, ... / Потом, ...</div>
+      </article>
+      <article class="card" data-text="after that, ... после этого, ...">
+        <div class="number">78</div>
+        <div class="english">After that, ...</div>
+        <div class="russian">После этого, ...</div>
+      </article>
+      <article class="card" data-text="finally, ... наконец, ... / в конце концов, ...">
+        <div class="number">79</div>
+        <div class="english">Finally, ...</div>
+        <div class="russian">Наконец, ... / В конце концов, ...</div>
+      </article>
+      <article class="card" data-text="delicious вкусный">
+        <div class="number">80</div>
+        <div class="english">delicious</div>
+        <div class="russian">вкусный</div>
+      </article>
+      <article class="card" data-text="dry сухой">
+        <div class="number">81</div>
+        <div class="english">dry</div>
+        <div class="russian">сухой</div>
+      </article>
+      <article class="card" data-text="creamy кремовый; сливочный">
+        <div class="number">82</div>
+        <div class="english">creamy</div>
+        <div class="russian">кремовый; сливочный</div>
+      </article>
+      <article class="card" data-text="fresh свежий">
+        <div class="number">83</div>
+        <div class="english">fresh</div>
+        <div class="russian">свежий</div>
+      </article>
+      <article class="card" data-text="hot горячий; острый">
+        <div class="number">84</div>
+        <div class="english">hot</div>
+        <div class="russian">горячий; острый</div>
+      </article>
+      <article class="card" data-text="light лёгкий; светлый">
+        <div class="number">85</div>
+        <div class="english">light</div>
+        <div class="russian">лёгкий; светлый</div>
+      </article>
+      <article class="card" data-text="plain простой; без добавок">
+        <div class="number">86</div>
+        <div class="english">plain</div>
+        <div class="russian">простой; без добавок</div>
+      </article>
+      <article class="card" data-text="sour кислый">
+        <div class="number">87</div>
+        <div class="english">sour</div>
+        <div class="russian">кислый</div>
+      </article>
+      <article class="card" data-text="sweet сладкий">
+        <div class="number">88</div>
+        <div class="english">sweet</div>
+        <div class="russian">сладкий</div>
+      </article>
+      <article class="card" data-text="beautiful красивый">
+        <div class="number">89</div>
+        <div class="english">beautiful</div>
+        <div class="russian">красивый</div>
+      </article>
+      <article class="card" data-text="cheap дешёвый">
+        <div class="number">90</div>
+        <div class="english">cheap</div>
+        <div class="russian">дешёвый</div>
+      </article>
+      <article class="card" data-text="clean чистый">
+        <div class="number">91</div>
+        <div class="english">clean</div>
+        <div class="russian">чистый</div>
+      </article>
+      <article class="card" data-text="crowded многолюдный; переполненный">
+        <div class="number">92</div>
+        <div class="english">crowded</div>
+        <div class="russian">многолюдный; переполненный</div>
+      </article>
+      <article class="card" data-text="dirty грязный">
+        <div class="number">93</div>
+        <div class="english">dirty</div>
+        <div class="russian">грязный</div>
+      </article>
+      <article class="card" data-text="exciting увлекательный; захватывающий">
+        <div class="number">94</div>
+        <div class="english">exciting</div>
+        <div class="russian">увлекательный; захватывающий</div>
+      </article>
+      <article class="card" data-text="interesting интересный">
+        <div class="number">95</div>
+        <div class="english">interesting</div>
+        <div class="russian">интересный</div>
+      </article>
+      <article class="card" data-text="lively оживлённый">
+        <div class="number">96</div>
+        <div class="english">lively</div>
+        <div class="russian">оживлённый</div>
+      </article>
+      <article class="card" data-text="modern современный">
+        <div class="number">97</div>
+        <div class="english">modern</div>
+        <div class="russian">современный</div>
+      </article>
+      <article class="card" data-text="noisy шумный">
+        <div class="number">98</div>
+        <div class="english">noisy</div>
+        <div class="russian">шумный</div>
+      </article>
+      <article class="card" data-text="old старый">
+        <div class="number">99</div>
+        <div class="english">old</div>
+        <div class="russian">старый</div>
+      </article>
+      <article class="card" data-text="peaceful мирный; спокойный">
+        <div class="number">100</div>
+        <div class="english">peaceful</div>
+        <div class="russian">мирный; спокойный</div>
+      </article>
+      <article class="card" data-text="popular популярный">
+        <div class="number">101</div>
+        <div class="english">popular</div>
+        <div class="russian">популярный</div>
+      </article>
+      <article class="card" data-text="airport transfer трансфер из/в аэропорт">
+        <div class="number">102</div>
+        <div class="english">airport transfer</div>
+        <div class="russian">трансфер из/в аэропорт</div>
+      </article>
+      <article class="card" data-text="breakfast included завтрак включён">
+        <div class="number">103</div>
+        <div class="english">breakfast included</div>
+        <div class="russian">завтрак включён</div>
+      </article>
+      <article class="card" data-text="organised tour организованная экскурсия / тур">
+        <div class="number">104</div>
+        <div class="english">organised tour</div>
+        <div class="russian">организованная экскурсия / тур</div>
+      </article>
+      <article class="card" data-text="free parking бесплатная парковка">
+        <div class="number">105</div>
+        <div class="english">free parking</div>
+        <div class="russian">бесплатная парковка</div>
+      </article>
+      <article class="card" data-text="room service обслуживание номеров">
+        <div class="number">106</div>
+        <div class="english">room service</div>
+        <div class="russian">обслуживание номеров</div>
+      </article>
+      <article class="card" data-text="double room двухместный номер">
+        <div class="number">107</div>
+        <div class="english">double room</div>
+        <div class="russian">двухместный номер</div>
+      </article>
+      <article class="card" data-text="sea view вид на море">
+        <div class="number">108</div>
+        <div class="english">sea view</div>
+        <div class="russian">вид на море</div>
+      </article>
+      <article class="card" data-text="four-star четырёхзвёздочный">
+        <div class="number">109</div>
+        <div class="english">four-star</div>
+        <div class="russian">четырёхзвёздочный</div>
+      </article>
+      <article class="card" data-text="24-hour reception круглосуточная стойка регистрации">
+        <div class="number">110</div>
+        <div class="english">24-hour reception</div>
+        <div class="russian">круглосуточная стойка регистрации</div>
+      </article>
+      <article class="card" data-text="check out выселяться из отеля; оформлять выезд">
+        <div class="number">111</div>
+        <div class="english">check out</div>
+        <div class="russian">выселяться из отеля; оформлять выезд</div>
+      </article>
+      <article class="card" data-text="be on tv быть по телевизору / выступать на тв">
+        <div class="number">112</div>
+        <div class="english">be on TV</div>
+        <div class="russian">быть по телевизору / выступать на ТВ</div>
+      </article>
+      <article class="card" data-text="break a bone сломать кость">
+        <div class="number">113</div>
+        <div class="english">break a bone</div>
+        <div class="russian">сломать кость</div>
+      </article>
+      <article class="card" data-text="cook a meal приготовить еду / блюдо">
+        <div class="number">114</div>
+        <div class="english">cook a meal</div>
+        <div class="russian">приготовить еду / блюдо</div>
+      </article>
+      <article class="card" data-text="drive a sports car водить спортивную машину">
+        <div class="number">115</div>
+        <div class="english">drive a sports car</div>
+        <div class="russian">водить спортивную машину</div>
+      </article>
+      <article class="card" data-text="eat with chopsticks есть палочками">
+        <div class="number">116</div>
+        <div class="english">eat with chopsticks</div>
+        <div class="russian">есть палочками</div>
+      </article>
+      <article class="card" data-text="fall asleep in public заснуть в общественном месте">
+        <div class="number">117</div>
+        <div class="english">fall asleep in public</div>
+        <div class="russian">заснуть в общественном месте</div>
+      </article>
+      <article class="card" data-text="go skiing кататься на лыжах">
+        <div class="number">118</div>
+        <div class="english">go skiing</div>
+        <div class="russian">кататься на лыжах</div>
+      </article>
+      <article class="card" data-text="learn to swim научиться плавать">
+        <div class="number">119</div>
+        <div class="english">learn to swim</div>
+        <div class="russian">научиться плавать</div>
+      </article>
+      <article class="card" data-text="ride a bike кататься на велосипеде">
+        <div class="number">120</div>
+        <div class="english">ride a bike</div>
+        <div class="russian">кататься на велосипеде</div>
+      </article>
+      <article class="card" data-text="share a photo online поделиться фото онлайн">
+        <div class="number">121</div>
+        <div class="english">share a photo online</div>
+        <div class="russian">поделиться фото онлайн</div>
+      </article>
+      <article class="card" data-text="visit an art gallery посетить художественную галерею">
+        <div class="number">122</div>
+        <div class="english">visit an art gallery</div>
+        <div class="russian">посетить художественную галерею</div>
+      </article>
+      <article class="card" data-text="watch a football match смотреть футбольный матч">
+        <div class="number">123</div>
+        <div class="english">watch a football match</div>
+        <div class="russian">смотреть футбольный матч</div>
+      </article>
+      <article class="card" data-text="drive водить машину; ехать за рулём">
+        <div class="number">124</div>
+        <div class="english">drive</div>
+        <div class="russian">водить машину; ехать за рулём</div>
+      </article>
+      <article class="card" data-text="eat есть">
+        <div class="number">125</div>
+        <div class="english">eat</div>
+        <div class="russian">есть</div>
+      </article>
+      <article class="card" data-text="learn учиться; узнавать">
+        <div class="number">126</div>
+        <div class="english">learn</div>
+        <div class="russian">учиться; узнавать</div>
+      </article>
+      <article class="card" data-text="meet встречать(ся); знакомиться">
+        <div class="number">127</div>
+        <div class="english">meet</div>
+        <div class="russian">встречать(ся); знакомиться</div>
+      </article>
+      <article class="card" data-text="ride ездить верхом / кататься">
+        <div class="number">128</div>
+        <div class="english">ride</div>
+        <div class="russian">ездить верхом / кататься</div>
+      </article>
+      <article class="card" data-text="share делиться">
+        <div class="number">129</div>
+        <div class="english">share</div>
+        <div class="russian">делиться</div>
+      </article>
+      <article class="card" data-text="visit посещать">
+        <div class="number">130</div>
+        <div class="english">visit</div>
+        <div class="russian">посещать</div>
+      </article>
+      <article class="card" data-text="watch смотреть; наблюдать">
+        <div class="number">131</div>
+        <div class="english">watch</div>
+        <div class="russian">смотреть; наблюдать</div>
+      </article>
+      <article class="card" data-text="celebrate праздновать">
+        <div class="number">132</div>
+        <div class="english">celebrate</div>
+        <div class="russian">праздновать</div>
+      </article>
+      <article class="card" data-text="contact old friends связаться со старыми друзьями">
+        <div class="number">133</div>
+        <div class="english">contact old friends</div>
+        <div class="russian">связаться со старыми друзьями</div>
+      </article>
+      <article class="card" data-text="festivals фестивали; праздники">
+        <div class="number">134</div>
+        <div class="english">festivals</div>
+        <div class="russian">фестивали; праздники</div>
+      </article>
+      <article class="card" data-text="get together собираться вместе">
+        <div class="number">135</div>
+        <div class="english">get together</div>
+        <div class="russian">собираться вместе</div>
+      </article>
+      <article class="card" data-text="give gifts дарить подарки">
+        <div class="number">136</div>
+        <div class="english">give gifts</div>
+        <div class="russian">дарить подарки</div>
+      </article>
+      <article class="card" data-text="go out for a meal пойти куда-то поесть">
+        <div class="number">137</div>
+        <div class="english">go out for a meal</div>
+        <div class="russian">пойти куда-то поесть</div>
+      </article>
+      <article class="card" data-text="have dinner parties устраивать званые ужины / вечеринки с ужином">
+        <div class="number">138</div>
+        <div class="english">have dinner parties</div>
+        <div class="russian">устраивать званые ужины / вечеринки с ужином</div>
+      </article>
+      <article class="card" data-text="have fun веселиться; хорошо проводить время">
+        <div class="number">139</div>
+        <div class="english">have fun</div>
+        <div class="russian">веселиться; хорошо проводить время</div>
+      </article>
+      <article class="card" data-text="public holiday государственный праздник / выходной">
+        <div class="number">140</div>
+        <div class="english">public holiday</div>
+        <div class="russian">государственный праздник / выходной</div>
+      </article>
+      <article class="card" data-text="traditional традиционный">
+        <div class="number">141</div>
+        <div class="english">traditional</div>
+        <div class="russian">традиционный</div>
+      </article>
+      <article class="card" data-text="available доступный; имеющийся в наличии">
+        <div class="number">142</div>
+        <div class="english">available</div>
+        <div class="russian">доступный; имеющийся в наличии</div>
+      </article>
+      <article class="card" data-text="anxious тревожный; взволнованный">
+        <div class="number">143</div>
+        <div class="english">anxious</div>
+        <div class="russian">тревожный; взволнованный</div>
+      </article>
+      <article class="card" data-text="suggest предлагать">
+        <div class="number">144</div>
+        <div class="english">suggest</div>
+        <div class="russian">предлагать</div>
+      </article>
+      <article class="card" data-text="offer предлагать; предложение">
+        <div class="number">145</div>
+        <div class="english">offer</div>
+        <div class="russian">предлагать; предложение</div>
+      </article>
+      <article class="card" data-text="during во время; в течение">
+        <div class="number">146</div>
+        <div class="english">during</div>
+        <div class="russian">во время; в течение</div>
+      </article>
+      <article class="card" data-text="remind напоминать">
+        <div class="number">147</div>
+        <div class="english">remind</div>
+        <div class="russian">напоминать</div>
+      </article>
+      <article class="card" data-text="set (verb) устанавливать; назначать">
+        <div class="number">148</div>
+        <div class="english">set (verb)</div>
+        <div class="russian">устанавливать; назначать</div>
+      </article>
+      <article class="card" data-text="childhood детство">
+        <div class="number">149</div>
+        <div class="english">childhood</div>
+        <div class="russian">детство</div>
+      </article>
+      <article class="card" data-text="move двигаться; переезжать">
+        <div class="number">150</div>
+        <div class="english">move</div>
+        <div class="russian">двигаться; переезжать</div>
+      </article>
+      <article class="card" data-text="skate кататься на коньках / роликах">
+        <div class="number">151</div>
+        <div class="english">skate</div>
+        <div class="russian">кататься на коньках / роликах</div>
+      </article>
+      <article class="card" data-text="roller-skates роликовые коньки">
+        <div class="number">152</div>
+        <div class="english">roller-skates</div>
+        <div class="russian">роликовые коньки</div>
+      </article>
+      <article class="card" data-text="recently недавно">
+        <div class="number">153</div>
+        <div class="english">recently</div>
+        <div class="russian">недавно</div>
+      </article>
+      <article class="card" data-text="championship чемпионат">
+        <div class="number">154</div>
+        <div class="english">championship</div>
+        <div class="russian">чемпионат</div>
+      </article>
+      <article class="card" data-text="wear носить (одежду)">
+        <div class="number">155</div>
+        <div class="english">wear</div>
+        <div class="russian">носить (одежду)</div>
+      </article>
+      <article class="card" data-text="break ломать; перерыв">
+        <div class="number">156</div>
+        <div class="english">break</div>
+        <div class="russian">ломать; перерыв</div>
+      </article>
+      <article class="card" data-text="the rest остальные">
+        <div class="number">157</div>
+        <div class="english">the rest</div>
+        <div class="russian">остальные</div>
+      </article>
+      <article class="card" data-text="boil кипятить; кипеть">
+        <div class="number">158</div>
+        <div class="english">boil</div>
+        <div class="russian">кипятить; кипеть</div>
+      </article>
+      <article class="card" data-text="kindergarten детский сад">
+        <div class="number">159</div>
+        <div class="english">kindergarten</div>
+        <div class="russian">детский сад</div>
+      </article>
+      <article class="card" data-text="throw бросать">
+        <div class="number">160</div>
+        <div class="english">throw</div>
+        <div class="russian">бросать</div>
+      </article>
+      <article class="card" data-text="path тропа; путь">
+        <div class="number">161</div>
+        <div class="english">path</div>
+        <div class="russian">тропа; путь</div>
+      </article>
+      <article class="card" data-text="however однако">
+        <div class="number">162</div>
+        <div class="english">however</div>
+        <div class="russian">однако</div>
+      </article>
+      <article class="card" data-text="even даже">
+        <div class="number">163</div>
+        <div class="english">even</div>
+        <div class="russian">даже</div>
+      </article>
+      <article class="card" data-text="carry нести; носить">
+        <div class="number">164</div>
+        <div class="english">carry</div>
+        <div class="russian">нести; носить</div>
+      </article>
+      <article class="card" data-text="at all совсем; вообще">
+        <div class="number">165</div>
+        <div class="english">at all</div>
+        <div class="russian">совсем; вообще</div>
+      </article>
+      <article class="card" data-text="describe описывать">
+        <div class="number">166</div>
+        <div class="english">describe</div>
+        <div class="russian">описывать</div>
+      </article>
+      <article class="card" data-text="responsible ответственный">
+        <div class="number">167</div>
+        <div class="english">responsible</div>
+        <div class="russian">ответственный</div>
+      </article>
+      <article class="card" data-text="responsibility ответственность">
+        <div class="number">168</div>
+        <div class="english">responsibility</div>
+        <div class="russian">ответственность</div>
+      </article>
+      <article class="card" data-text="prepare готовить; подготавливать">
+        <div class="number">169</div>
+        <div class="english">prepare</div>
+        <div class="russian">готовить; подготавливать</div>
+      </article>
+      <article class="card" data-text="warm тёплый; согревать">
+        <div class="number">170</div>
+        <div class="english">warm</div>
+        <div class="russian">тёплый; согревать</div>
+      </article>
+      <article class="card" data-text="the weather forecast прогноз погоды">
+        <div class="number">171</div>
+        <div class="english">the weather forecast</div>
+        <div class="russian">прогноз погоды</div>
+      </article>
+      <article class="card" data-text="amused развеселённый; забавляющийся">
+        <div class="number">172</div>
+        <div class="english">amused</div>
+        <div class="russian">развеселённый; забавляющийся</div>
+      </article>
+      <article class="card" data-text="annoyed раздражённый">
+        <div class="number">173</div>
+        <div class="english">annoyed</div>
+        <div class="russian">раздражённый</div>
+      </article>
+      <article class="card" data-text="charmed очарованный">
+        <div class="number">174</div>
+        <div class="english">charmed</div>
+        <div class="russian">очарованный</div>
+      </article>
+      <article class="card" data-text="confused смущённый; растерянный">
+        <div class="number">175</div>
+        <div class="english">confused</div>
+        <div class="russian">смущённый; растерянный</div>
+      </article>
+      <article class="card" data-text="disappointed разочарованный">
+        <div class="number">176</div>
+        <div class="english">disappointed</div>
+        <div class="russian">разочарованный</div>
+      </article>
+      <article class="card" data-text="disturbed обеспокоенный; потревоженный">
+        <div class="number">177</div>
+        <div class="english">disturbed</div>
+        <div class="russian">обеспокоенный; потревоженный</div>
+      </article>
+      <article class="card" data-text="embarrassed смущённый; неловко себя чувствующий">
+        <div class="number">178</div>
+        <div class="english">embarrassed</div>
+        <div class="russian">смущённый; неловко себя чувствующий</div>
+      </article>
+      <article class="card" data-text="encouraged воодушевлённый; ободрённый">
+        <div class="number">179</div>
+        <div class="english">encouraged</div>
+        <div class="russian">воодушевлённый; ободрённый</div>
+      </article>
+      <article class="card" data-text="touched тронутый; растроганный">
+        <div class="number">180</div>
+        <div class="english">touched</div>
+        <div class="russian">тронутый; растроганный</div>
+      </article>
+      <article class="card" data-text="join присоединяться">
+        <div class="number">181</div>
+        <div class="english">join</div>
+        <div class="russian">присоединяться</div>
+      </article>
+      <article class="card" data-text="shall модальный глагол: shall; давай(те) / следует">
+        <div class="number">182</div>
+        <div class="english">shall</div>
+        <div class="russian">модальный глагол: shall; давай(те) / следует</div>
+      </article>
+      <article class="card" data-text="invite приглашать">
+        <div class="number">183</div>
+        <div class="english">invite</div>
+        <div class="russian">приглашать</div>
+      </article>
+      <article class="card" data-text="architect архитектор">
+        <div class="number">184</div>
+        <div class="english">architect</div>
+        <div class="russian">архитектор</div>
+      </article>
+      <article class="card" data-text="businessperson предприниматель; деловой человек">
+        <div class="number">185</div>
+        <div class="english">businessperson</div>
+        <div class="russian">предприниматель; деловой человек</div>
+      </article>
+      <article class="card" data-text="film extra актёр массовки">
+        <div class="number">186</div>
+        <div class="english">film extra</div>
+        <div class="russian">актёр массовки</div>
+      </article>
+      <article class="card" data-text="shop assistant продавец-консультант">
+        <div class="number">187</div>
+        <div class="english">shop assistant</div>
+        <div class="russian">продавец-консультант</div>
+      </article>
+      <article class="card" data-text="tour guide экскурсовод; гид">
+        <div class="number">188</div>
+        <div class="english">tour guide</div>
+        <div class="russian">экскурсовод; гид</div>
+      </article>
+      <article class="card" data-text="writer писатель">
+        <div class="number">189</div>
+        <div class="english">writer</div>
+        <div class="russian">писатель</div>
+      </article>
+      <article class="card" data-text="creative творческий; креативный">
+        <div class="number">190</div>
+        <div class="english">creative</div>
+        <div class="russian">творческий; креативный</div>
+      </article>
+      <article class="card" data-text="customers клиенты; покупатели">
+        <div class="number">191</div>
+        <div class="english">customers</div>
+        <div class="russian">клиенты; покупатели</div>
+      </article>
+      <article class="card" data-text="well paid хорошо оплачиваемый">
+        <div class="number">192</div>
+        <div class="english">well paid</div>
+        <div class="russian">хорошо оплачиваемый</div>
+      </article>
+      <article class="card" data-text="from home из дома; удалённо">
+        <div class="number">193</div>
+        <div class="english">from home</div>
+        <div class="russian">из дома; удалённо</div>
+      </article>
+      <article class="card" data-text="part time неполный рабочий день / частичная занятость">
+        <div class="number">194</div>
+        <div class="english">part time</div>
+        <div class="russian">неполный рабочий день / частичная занятость</div>
+      </article>
+      <article class="card" data-text="communication общение; коммуникация">
+        <div class="number">195</div>
+        <div class="english">communication</div>
+        <div class="russian">общение; коммуникация</div>
+      </article>
+      <article class="card" data-text="long hours долгий рабочий день; много часов работы">
+        <div class="number">196</div>
+        <div class="english">long hours</div>
+        <div class="russian">долгий рабочий день; много часов работы</div>
+      </article>
+      <article class="card" data-text="team команда">
+        <div class="number">197</div>
+        <div class="english">team</div>
+        <div class="russian">команда</div>
+      </article>
+    </section>
+
+    <div class="empty" id="empty">Ничего не найдено.</div>
+  </main>
+
+  <script>
+    const search = document.getElementById('search');
+    const cards = [...document.querySelectorAll('.card')];
+    const count = document.getElementById('count');
+    const empty = document.getElementById('empty');
+    const toggle = document.getElementById('toggle');
+    let translationsHidden = false;
+
+    function update() {
+      const q = search.value.trim().toLowerCase();
+      let visible = 0;
+
+      cards.forEach(card => {
+        const ok = card.dataset.text.includes(q);
+        card.style.display = ok ? '' : 'none';
+        if (ok) visible++;
+      });
+
+      count.textContent = visible + ' / ' + cards.length;
+      empty.style.display = visible ? 'none' : 'block';
+    }
+
+    toggle.addEventListener('click', () => {
+      translationsHidden = !translationsHidden;
+      document.body.classList.toggle('hidden', translationsHidden);
+      toggle.textContent = translationsHidden ? 'Show translations' : 'Hide translations';
+    });
+
+    search.addEventListener('input', update);
+    update();
+  </script>
+</body>
+</html>
