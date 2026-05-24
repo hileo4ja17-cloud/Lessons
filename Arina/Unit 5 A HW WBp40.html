@@ -1,0 +1,2012 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>TV & Series — Vocabulary in Context</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Caveat:wght@500;600;700&family=Noto+Serif+JP:wght@400;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#f5ead4;
+  --paper-2:#ecdcb8;
+  --paper-3:#e5d2a5;
+  --ink:#1c1c1c;
+  --red:#a8201a;
+  --red-deep:#7c1610;
+  --red-light:#c93126;
+  --gold:#b08938;
+  --gold-light:#d4a84b;
+  --sakura:#e8a4a4;
+  --sakura-deep:#c97676;
+  --jade:#3d6c5e;
+  --shadow:0 8px 24px -8px rgba(28,16,8,0.3);
+  --shadow-deep:0 12px 40px -10px rgba(28,16,8,0.4);
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{
+  font-family:'Inter',sans-serif;
+  background:var(--paper);
+  color:var(--ink);
+  min-height:100vh;
+  overflow-x:hidden;
+}
+/* Paper texture with subtle red wave pattern */
+body{
+  background-image:
+    radial-gradient(circle at 15% 20%, rgba(168,32,26,0.04) 0, transparent 35%),
+    radial-gradient(circle at 85% 80%, rgba(168,32,26,0.03) 0, transparent 35%),
+    repeating-linear-gradient(45deg, transparent 0, transparent 80px, rgba(124,22,16,0.012) 80px, rgba(124,22,16,0.012) 81px),
+    radial-gradient(ellipse at center, var(--paper) 0%, var(--paper-2) 100%);
+  position:relative;
+}
+body::before{
+  content:'';position:fixed;inset:0;pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3CfeColorMatrix values='0 0 0 0 0.4 0 0 0 0 0.2 0 0 0 0 0.1 0 0 0 0.08 0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity:0.4;mix-blend-mode:multiply;z-index:0;
+}
+
+/* SAKURA PETALS */
+.petals{position:fixed;inset:0;pointer-events:none;z-index:1;overflow:hidden}
+.petal{
+  position:absolute;width:14px;height:14px;
+  background:radial-gradient(circle at 30% 30%, #f9c7c7 0%, var(--sakura) 60%, var(--sakura-deep) 100%);
+  border-radius:0 100% 50% 100%;
+  opacity:0.7;
+  animation:fall linear infinite;
+}
+@keyframes fall{
+  0%{transform:translateY(-20vh) rotate(0deg) translateX(0);opacity:0}
+  10%{opacity:0.6}
+  100%{transform:translateY(110vh) rotate(720deg) translateX(50px);opacity:0}
+}
+
+/* DECORATIVE KANJI */
+.kanji-watermark{
+  position:fixed;
+  font-family:'Noto Serif JP',serif;
+  font-weight:700;
+  color:rgba(168,32,26,0.05);
+  pointer-events:none;
+  user-select:none;
+  z-index:0;
+}
+.kanji-watermark.k1{top:8%;right:-2%;font-size:280px;writing-mode:vertical-rl}
+.kanji-watermark.k2{bottom:5%;left:-3%;font-size:240px;writing-mode:vertical-rl}
+
+/* MAX WIDTH WRAPPER */
+.wrap{
+  max-width:920px;
+  margin:0 auto;
+  padding:0 24px;
+  position:relative;z-index:2;
+}
+
+/* HEADER */
+header{
+  padding:80px 0 60px;
+  text-align:center;
+  position:relative;
+}
+.head-line{
+  display:inline-flex;align-items:center;gap:14px;
+  font-family:'Caveat',cursive;font-size:20px;color:var(--red);
+  margin-bottom:8px;letter-spacing:0.05em;
+}
+.head-line::before, .head-line::after{
+  content:'';width:40px;height:1px;background:var(--red);
+}
+header h1{
+  font-family:'Cormorant Garamond',serif;
+  font-weight:600;
+  font-size:clamp(50px,9vw,90px);
+  line-height:0.95;
+  letter-spacing:-0.02em;
+  color:var(--ink);
+  position:relative;
+  display:inline-block;
+}
+header h1 em{
+  font-style:italic;color:var(--red);
+  font-family:'Cormorant Garamond',serif;
+  font-weight:500;
+}
+header h1::before{
+  content:'';position:absolute;
+  left:-30px;top:-10px;
+  width:80px;height:80px;
+  background:var(--red);
+  border-radius:50%;
+  z-index:-1;
+  opacity:0.85;
+  box-shadow:0 0 60px rgba(168,32,26,0.4);
+}
+header .subtitle{
+  font-family:'Caveat',cursive;
+  font-size:28px;
+  color:var(--gold);
+  margin-top:18px;
+  letter-spacing:0.02em;
+}
+.jp-side{
+  font-family:'Noto Serif JP',serif;
+  font-size:14px;color:var(--red);
+  letter-spacing:0.3em;margin-top:24px;
+  opacity:0.8;
+}
+
+/* TIP BOX */
+.tip-box{
+  background:linear-gradient(135deg, rgba(168,32,26,0.08) 0%, rgba(176,137,56,0.08) 100%);
+  border:1px solid var(--red);
+  border-left:6px solid var(--red);
+  padding:24px 28px;
+  margin:30px 0 60px;
+  position:relative;
+  box-shadow:var(--shadow);
+}
+.tip-box::before{
+  content:'✦';position:absolute;
+  top:-14px;left:20px;
+  background:var(--paper);
+  color:var(--red);
+  padding:0 8px;font-size:22px;
+}
+.tip-box h3{
+  font-family:'Cormorant Garamond',serif;
+  font-weight:600;font-size:22px;color:var(--red-deep);
+  margin-bottom:8px;font-style:italic;
+}
+.tip-box p{font-size:16px;line-height:1.7;color:var(--ink)}
+
+/* EXERCISE SECTION */
+.exercise{
+  margin:70px 0;
+  position:relative;
+}
+.ex-header{
+  display:flex;align-items:flex-start;gap:24px;
+  margin-bottom:32px;
+}
+.ex-num{
+  font-family:'Cormorant Garamond',serif;
+  font-weight:700;font-style:italic;
+  font-size:80px;line-height:0.9;
+  color:var(--red);
+  position:relative;flex-shrink:0;
+}
+.ex-num::after{
+  content:'';position:absolute;
+  bottom:8px;left:-6px;right:-6px;
+  height:14px;background:var(--gold);
+  z-index:-1;opacity:0.4;
+}
+.ex-title{flex:1;padding-top:16px}
+.ex-title h2{
+  font-family:'Cormorant Garamond',serif;
+  font-weight:600;font-size:34px;
+  color:var(--ink);line-height:1.1;
+  letter-spacing:-0.01em;
+}
+.ex-title .instr{
+  font-family:'Inter',sans-serif;
+  font-size:15px;color:var(--red-deep);
+  margin-top:6px;line-height:1.5;
+  font-weight:500;
+}
+
+/* EXERCISE 1 - Read & Choose */
+.q-item{
+  background:rgba(255,253,247,0.7);
+  border:1px solid var(--paper-3);
+  padding:20px 24px;
+  margin-bottom:14px;
+  position:relative;
+  transition:all .3s ease;
+}
+.q-item:hover{
+  background:rgba(255,253,247,0.95);
+  transform:translateX(4px);
+  border-color:var(--red);
+}
+.q-item .q-num{
+  font-family:'Cormorant Garamond',serif;
+  font-style:italic;font-size:22px;
+  color:var(--red);font-weight:600;
+  margin-right:8px;
+}
+.q-item .q-text{
+  font-size:16px;line-height:1.6;color:var(--ink);
+  display:inline;
+}
+.q-opts{
+  display:flex;gap:10px;margin-top:14px;flex-wrap:wrap;
+}
+.q-opt{
+  background:transparent;
+  border:1.5px solid var(--ink);
+  padding:8px 18px;
+  font-family:'Inter',sans-serif;
+  font-size:14px;font-weight:500;
+  cursor:pointer;
+  color:var(--ink);
+  transition:all .2s ease;
+  position:relative;
+  letter-spacing:0.01em;
+}
+.q-opt:hover{
+  background:var(--ink);color:var(--paper);
+  transform:translateY(-2px);
+}
+.q-opt.chosen{
+  background:var(--red);color:var(--paper);
+  border-color:var(--red);
+}
+.q-opt.chosen::after{
+  content:'';position:absolute;
+  bottom:-6px;left:0;right:0;
+  height:3px;background:var(--gold);
+}
+
+/* DIVIDER (brush stroke) */
+.divider{
+  margin:80px auto;
+  width:200px;text-align:center;
+  position:relative;
+  display:flex;align-items:center;justify-content:center;gap:12px;
+}
+.divider::before,.divider::after{
+  content:'';flex:1;height:1px;
+  background:linear-gradient(90deg, transparent, var(--red), transparent);
+}
+.divider .glyph{
+  font-family:'Noto Serif JP',serif;
+  color:var(--red);font-size:18px;
+}
+
+/* EXERCISE 2 - Gap fill with word bank */
+.word-bank{
+  display:flex;flex-wrap:wrap;gap:10px;
+  background:rgba(168,32,26,0.06);
+  border:1px dashed var(--red);
+  padding:18px;margin-bottom:30px;
+  position:relative;
+}
+.word-bank::before{
+  content:'word bank';
+  position:absolute;top:-10px;left:16px;
+  background:var(--paper);padding:0 8px;
+  font-family:'Caveat',cursive;font-size:18px;
+  color:var(--red);
+}
+.word-tile{
+  background:var(--paper);
+  border:1.5px solid var(--ink);
+  padding:7px 14px;
+  font-family:'Inter',sans-serif;
+  font-size:14px;font-weight:500;
+  cursor:pointer;
+  color:var(--ink);
+  transition:all .2s ease;
+  user-select:none;
+}
+.word-tile:hover{
+  background:var(--ink);color:var(--paper);
+  transform:translateY(-2px);
+  box-shadow:0 4px 0 var(--red);
+}
+.word-tile.selected{
+  background:var(--red);color:var(--paper);
+  border-color:var(--red);
+  box-shadow:0 4px 0 var(--gold);
+}
+.word-tile.used{
+  opacity:0.25;pointer-events:none;
+  text-decoration:line-through;
+}
+
+.article-card{
+  background:rgba(255,253,247,0.85);
+  border:1px solid var(--paper-3);
+  padding:32px 36px;
+  position:relative;
+  box-shadow:var(--shadow);
+  font-family:'Cormorant Garamond',serif;
+}
+.article-card::before{
+  content:'';position:absolute;
+  top:-1px;right:-1px;
+  width:60px;height:60px;
+  background:linear-gradient(135deg, transparent 50%, var(--red) 50%);
+}
+.article-card h3{
+  font-family:'Cormorant Garamond',serif;
+  font-weight:600;font-style:italic;
+  font-size:32px;color:var(--red-deep);
+  margin-bottom:18px;
+  letter-spacing:-0.01em;
+}
+.article-card h3::before{
+  content:'❝ ';color:var(--gold);font-style:normal;
+}
+.article-card h3::after{
+  content:' ❞';color:var(--gold);font-style:normal;
+}
+.article-card p{
+  font-size:19px;line-height:1.85;
+  color:var(--ink);margin-bottom:16px;
+}
+.gap{
+  display:inline-block;
+  min-width:120px;
+  padding:2px 12px;
+  border-bottom:2px solid var(--red);
+  margin:0 4px;
+  font-family:'Caveat',cursive;
+  font-size:24px;color:var(--red-deep);
+  cursor:pointer;
+  text-align:center;
+  vertical-align:baseline;
+  transition:all .2s ease;
+  position:relative;
+}
+.gap::before{
+  content:attr(data-num);
+  position:absolute;
+  top:-14px;left:0;
+  font-family:'Inter',sans-serif;
+  font-size:11px;
+  color:var(--red);
+  font-weight:600;
+}
+.gap:empty::after{
+  content:'click me';
+  font-family:'Inter',sans-serif;
+  font-size:11px;color:var(--ink);
+  opacity:0.4;font-style:italic;
+}
+.gap.active{
+  background:rgba(244,196,80,0.3);
+  border-bottom-width:3px;
+  box-shadow:0 0 0 2px var(--gold);
+}
+.gap.filled{
+  background:var(--paper-2);
+  border-bottom-color:var(--ink);
+}
+
+/* EXERCISE 3 - Adjective puzzle */
+.puzzle-grid{
+  display:flex;flex-direction:column;gap:18px;
+}
+.puzzle-row{
+  display:flex;align-items:center;gap:18px;
+  background:rgba(255,253,247,0.7);
+  border:1px solid var(--paper-3);
+  border-left:4px solid var(--red);
+  padding:16px 20px;
+  flex-wrap:wrap;
+}
+.clue-num{
+  font-family:'Cormorant Garamond',serif;
+  font-style:italic;font-weight:700;
+  font-size:28px;color:var(--red);
+  width:34px;flex-shrink:0;
+}
+.clue-text{
+  flex:1;min-width:180px;
+  font-family:'Cormorant Garamond',serif;
+  font-style:italic;font-size:19px;
+  color:var(--ink);
+}
+.letter-row{
+  display:flex;gap:4px;flex-wrap:wrap;
+}
+.letter-box{
+  width:34px;height:38px;
+  border:1.5px solid var(--ink);
+  background:var(--paper);
+  font-family:'Cormorant Garamond',serif;
+  font-weight:600;font-size:22px;
+  text-align:center;
+  color:var(--red-deep);
+  text-transform:uppercase;
+  transition:all .15s ease;
+}
+.letter-box:focus{
+  outline:none;
+  background:rgba(244,196,80,0.3);
+  border-color:var(--red);
+  transform:translateY(-2px);
+  box-shadow:0 2px 0 var(--red);
+}
+
+/* EXERCISE 4 - Match collocations */
+.match-board{
+  display:grid;
+  grid-template-columns:1fr 80px 1fr;
+  gap:12px;
+  align-items:center;
+}
+@media(max-width:600px){
+  .match-board{grid-template-columns:1fr 30px 1fr;gap:8px}
+}
+.match-col{display:flex;flex-direction:column;gap:10px}
+.match-card{
+  background:var(--paper);
+  border:1.5px solid var(--ink);
+  padding:14px 18px;
+  font-family:'Cormorant Garamond',serif;
+  font-weight:600;
+  font-size:20px;
+  color:var(--ink);
+  cursor:pointer;
+  text-align:center;
+  transition:all .2s ease;
+  position:relative;
+  letter-spacing:0.01em;
+}
+.match-card:hover{
+  background:var(--ink);color:var(--paper);
+  transform:translateY(-2px);
+}
+.match-card.selected{
+  background:var(--red);
+  color:var(--paper);
+  border-color:var(--red);
+  box-shadow:0 0 0 3px var(--gold);
+}
+.match-card.paired{
+  background:var(--paper-2);
+  border-color:var(--gold);
+  border-width:2px;
+  color:var(--red-deep);
+}
+.match-card .pair-num{
+  position:absolute;top:-8px;right:-8px;
+  width:24px;height:24px;border-radius:50%;
+  background:var(--gold);color:var(--ink);
+  font-family:'Inter',sans-serif;
+  font-weight:700;font-size:12px;
+  display:none;align-items:center;justify-content:center;
+}
+.match-card.paired .pair-num{display:flex}
+.match-link{
+  text-align:center;
+  font-family:'Cormorant Garamond',serif;
+  font-style:italic;
+  color:var(--red);
+  font-size:24px;
+  align-self:center;
+  pointer-events:none;
+}
+
+/* EXERCISE 5 - Sentences with collocations */
+.sent-list{display:flex;flex-direction:column;gap:14px}
+.sent-row{
+  background:rgba(255,253,247,0.7);
+  border:1px solid var(--paper-3);
+  padding:18px 22px;
+  font-family:'Cormorant Garamond',serif;
+  font-size:19px;line-height:1.7;
+  color:var(--ink);
+  display:flex;align-items:flex-start;gap:14px;
+}
+.sent-row .s-num{
+  font-style:italic;font-weight:700;
+  color:var(--red);font-size:24px;
+  flex-shrink:0;
+}
+.sent-row .s-text{flex:1}
+.gap-coll{
+  display:inline-block;
+  min-width:180px;
+  padding:2px 14px;
+  border-bottom:2px solid var(--red);
+  margin:0 4px;
+  font-family:'Caveat',cursive;
+  font-size:24px;color:var(--red-deep);
+  cursor:pointer;
+  text-align:center;
+  vertical-align:baseline;
+  transition:all .2s ease;
+}
+.gap-coll:empty::after{
+  content:'tap';
+  font-family:'Inter',sans-serif;
+  font-size:12px;color:var(--ink);
+  opacity:0.4;
+}
+.gap-coll.active{
+  background:rgba(244,196,80,0.3);
+  box-shadow:0 0 0 2px var(--gold);
+}
+.gap-coll.filled{
+  background:var(--paper-2);
+}
+.coll-bank{
+  display:flex;flex-wrap:wrap;gap:10px;
+  background:rgba(168,32,26,0.06);
+  border:1px dashed var(--red);
+  padding:18px;margin-top:20px;
+  position:relative;
+}
+.coll-bank::before{
+  content:'collocation bank';
+  position:absolute;top:-10px;left:16px;
+  background:var(--paper);padding:0 8px;
+  font-family:'Caveat',cursive;font-size:18px;
+  color:var(--red);
+}
+
+/* FINALE / DOWNLOAD SECTION */
+.finale{
+  margin:80px 0 40px;
+  text-align:center;
+  position:relative;
+}
+.finale h2{
+  font-family:'Cormorant Garamond',serif;
+  font-style:italic;
+  font-weight:600;
+  font-size:50px;
+  color:var(--red);
+  margin-bottom:8px;
+}
+.finale .sub{
+  font-family:'Caveat',cursive;
+  font-size:24px;
+  color:var(--ink);
+  margin-bottom:28px;
+}
+.progress-display{
+  display:inline-flex;align-items:center;gap:14px;
+  background:var(--paper);
+  border:1px solid var(--red);
+  padding:8px 20px;
+  margin-bottom:28px;
+  font-family:'Inter',sans-serif;
+  font-size:14px;font-weight:500;
+}
+.progress-display .dot{
+  width:10px;height:10px;border-radius:50%;
+  background:var(--red);
+  animation:pulse 1.8s infinite;
+}
+@keyframes pulse{
+  0%,100%{transform:scale(1);opacity:1}
+  50%{transform:scale(1.4);opacity:0.5}
+}
+.btn-download{
+  display:inline-flex;align-items:center;gap:12px;
+  background:var(--ink);
+  color:var(--paper);
+  border:none;
+  padding:18px 42px;
+  font-family:'Cormorant Garamond',serif;
+  font-weight:600;
+  font-style:italic;
+  font-size:22px;
+  cursor:pointer;
+  position:relative;
+  transition:all .3s ease;
+  letter-spacing:0.02em;
+  box-shadow:6px 6px 0 var(--red);
+}
+.btn-download:hover{
+  transform:translate(-3px,-3px);
+  box-shadow:9px 9px 0 var(--red);
+}
+.btn-download:active{
+  transform:translate(3px,3px);
+  box-shadow:3px 3px 0 var(--red);
+}
+.btn-download::before{
+  content:'';position:absolute;
+  top:-4px;left:-4px;right:-4px;bottom:-4px;
+  border:1px solid var(--gold);
+  pointer-events:none;
+}
+
+/* ANSWER KEY */
+.answer-key{
+  margin-top:60px;
+  background:rgba(255,253,247,0.6);
+  border:2px solid var(--red);
+  border-style:double;
+  padding:40px;
+  position:relative;
+  min-height:200px;
+}
+.answer-key::before, .answer-key::after{
+  content:'';position:absolute;
+  width:24px;height:24px;
+  border:2px solid var(--gold);
+}
+.answer-key::before{top:8px;left:8px;border-right:none;border-bottom:none}
+.answer-key::after{bottom:8px;right:8px;border-left:none;border-top:none}
+
+.locked-state{text-align:center;padding:30px 0}
+.lock-glyph{
+  font-family:'Noto Serif JP',serif;
+  font-size:60px;color:var(--red);
+  opacity:0.4;margin-bottom:14px;
+  display:block;
+}
+.locked-state p{
+  font-family:'Caveat',cursive;
+  font-size:22px;
+  color:var(--ink);
+  opacity:0.7;
+}
+
+.reveal-state{display:none;text-align:center}
+.btn-reveal{
+  background:var(--red);
+  color:var(--paper);
+  border:none;
+  padding:16px 38px;
+  font-family:'Cormorant Garamond',serif;
+  font-style:italic;
+  font-weight:600;
+  font-size:20px;
+  cursor:pointer;
+  position:relative;
+  transition:all .3s ease;
+  box-shadow:6px 6px 0 var(--ink);
+}
+.btn-reveal:hover{
+  transform:translate(-3px,-3px);
+  box-shadow:9px 9px 0 var(--ink);
+}
+.btn-reveal::before{
+  content:'✦ ';color:var(--gold);
+}
+.btn-reveal::after{
+  content:' ✦';color:var(--gold);
+}
+
+.answers-content{
+  display:none;
+  margin-top:30px;
+  text-align:left;
+  animation:unfold .8s ease-out;
+}
+@keyframes unfold{
+  from{opacity:0;transform:translateY(20px)}
+  to{opacity:1;transform:translateY(0)}
+}
+.ans-block{
+  margin-bottom:32px;
+  padding-bottom:24px;
+  border-bottom:1px dashed var(--red);
+}
+.ans-block:last-child{border-bottom:none}
+.ans-block h4{
+  font-family:'Cormorant Garamond',serif;
+  font-style:italic;
+  font-weight:600;
+  font-size:24px;
+  color:var(--red);
+  margin-bottom:14px;
+}
+.ans-block ol{padding-left:24px}
+.ans-block li{
+  font-family:'Cormorant Garamond',serif;
+  font-size:18px;
+  line-height:1.7;
+  color:var(--ink);
+  margin-bottom:6px;
+}
+.ans-block li strong{
+  color:var(--red-deep);
+  font-style:italic;
+}
+.your-vs-correct{
+  display:flex;gap:10px;align-items:center;
+  font-size:15px;
+  font-family:'Inter',sans-serif;
+  margin-top:2px;
+}
+.your-vs-correct .you{
+  background:var(--paper-2);
+  padding:1px 8px;
+  color:var(--ink);
+  font-style:italic;
+}
+.your-vs-correct .you.right{background:#bce5c4;color:#1f5e2c}
+.your-vs-correct .you.wrong{background:#f5c4c4;color:#7c1610;text-decoration:line-through}
+
+/* FOOTER */
+footer{
+  text-align:center;padding:60px 0 40px;
+  font-family:'Caveat',cursive;
+  font-size:20px;color:var(--red);
+}
+footer .jp{
+  font-family:'Noto Serif JP',serif;
+  font-size:12px;
+  letter-spacing:0.4em;
+  color:var(--ink);opacity:0.5;
+  margin-top:8px;
+}
+
+/* TOAST */
+.toast{
+  position:fixed;
+  top:30px;left:50%;
+  transform:translateX(-50%) translateY(-100px);
+  background:var(--ink);
+  color:var(--paper);
+  padding:14px 26px;
+  font-family:'Inter',sans-serif;
+  font-weight:500;font-size:15px;
+  z-index:1000;
+  border-left:4px solid var(--red);
+  box-shadow:var(--shadow-deep);
+  transition:transform .4s cubic-bezier(.4,1.5,.5,1);
+}
+.toast.show{transform:translateX(-50%) translateY(0)}
+
+/* MOBILE */
+@media(max-width:600px){
+  .wrap{padding:0 18px}
+  header{padding:50px 0 40px}
+  header h1::before{width:50px;height:50px;left:-15px}
+  .ex-header{flex-direction:column;gap:6px}
+  .ex-num{font-size:60px}
+  .ex-title h2{font-size:26px}
+  .article-card{padding:24px 22px}
+  .article-card p{font-size:17px}
+  .gap{min-width:90px}
+  .letter-box{width:30px;height:34px;font-size:18px}
+  .answer-key{padding:24px 18px}
+}
+
+/* PAGE LOAD ANIMATIONS */
+.exercise{opacity:0;transform:translateY(20px);animation:rise .8s ease-out forwards}
+.exercise:nth-child(1){animation-delay:0.1s}
+.exercise:nth-child(2){animation-delay:0.2s}
+.exercise:nth-child(3){animation-delay:0.3s}
+.exercise:nth-child(4){animation-delay:0.4s}
+.exercise:nth-child(5){animation-delay:0.5s}
+.exercise:nth-child(6){animation-delay:0.6s}
+@keyframes rise{
+  to{opacity:1;transform:translateY(0)}
+}
+header h1, header .subtitle, header .head-line{
+  opacity:0;animation:rise .8s ease-out forwards;
+}
+header .head-line{animation-delay:0s}
+header h1{animation-delay:0.15s}
+header .subtitle{animation-delay:0.35s}
+</style>
+</head>
+<body>
+
+<!-- Sakura petals -->
+<div class="petals" id="petalsHost"></div>
+
+<!-- Decorative kanji watermarks -->
+<div class="kanji-watermark k1">観</div>
+<div class="kanji-watermark k2">物語</div>
+
+<div class="wrap">
+
+<!-- HEADER -->
+<header>
+  <div class="head-line">vocabulary in context · level B2</div>
+  <h1>Television <em>&amp;</em> Series</h1>
+  <p class="subtitle">screens, stories &amp; spoilers</p>
+  <div class="jp-side">テレビ · ドラマ · 物語</div>
+</header>
+
+<!-- TIP BOX -->
+<aside class="tip-box">
+  <h3>Great students' tip — writing down new vocabulary</h3>
+  <p>Keep a notebook of new words. For each one, write down a synonym, a short definition, a sentence that uses it, or a translation — even a quick drawing works! Group words by topic, and you'll remember them much faster.</p>
+</aside>
+
+<!-- ===================== EXERCISE 1 ===================== -->
+<section class="exercise">
+  <div class="ex-header">
+    <div class="ex-num">01</div>
+    <div class="ex-title">
+      <h2>Read &amp; choose</h2>
+      <p class="instr">Which kind of TV programme is each show? Tap your answer.</p>
+    </div>
+  </div>
+
+  <div id="q1"></div>
+</section>
+
+<div class="divider"><span class="glyph">❀</span></div>
+
+<!-- ===================== EXERCISE 2 ===================== -->
+<section class="exercise">
+  <div class="ex-header">
+    <div class="ex-num">02</div>
+    <div class="ex-title">
+      <h2>Complete the article</h2>
+      <p class="instr">Tap a gap, then tap a word from the bank to fill it. Two words won't be used.</p>
+    </div>
+  </div>
+
+  <div class="word-bank" id="wordBank"></div>
+
+  <div class="article-card">
+    <h3>Why I love binge-watching</h3>
+    <p>
+      My favourite hobby is watching shows online. The
+      <span class="gap" data-num="1" data-id="g1"></span>
+      I use the most is Netflix, but I love Disney+ too. I usually watch on my phone
+      <span class="gap" data-num="2" data-id="g2"></span>,
+      but sometimes I switch to the big TV in the living room.
+    </p>
+    <p>
+      Last weekend, my older sister and I started a new
+      <span class="gap" data-num="3" data-id="g3"></span>
+      of our favourite K-drama. Twelve hours later, we had finished every
+      <span class="gap" data-num="4" data-id="g4"></span>!
+      That is classic
+      <span class="gap" data-num="5" data-id="g5"></span>
+      behaviour.
+    </p>
+    <p>
+      The next morning, I was too sleepy to remember anything. Oh, and one rule for everyone
+      — please never share a
+      <span class="gap" data-num="6" data-id="g6"></span>
+      before someone has watched the final episode!
+    </p>
+  </div>
+</section>
+
+<div class="divider"><span class="glyph">❀</span></div>
+
+<!-- ===================== EXERCISE 3 ===================== -->
+<section class="exercise">
+  <div class="ex-header">
+    <div class="ex-num">03</div>
+    <div class="ex-title">
+      <h2>Adjective puzzle</h2>
+      <p class="instr">Type the adjective that matches each clue, one letter per box.</p>
+    </div>
+  </div>
+
+  <div class="puzzle-grid" id="puzzleGrid"></div>
+</section>
+
+<div class="divider"><span class="glyph">❀</span></div>
+
+<!-- ===================== EXERCISE 4 ===================== -->
+<section class="exercise">
+  <div class="ex-header">
+    <div class="ex-num">04</div>
+    <div class="ex-title">
+      <h2>Match the collocations</h2>
+      <p class="instr">Tap a word on the left, then tap a word on the right to pair them.</p>
+    </div>
+  </div>
+
+  <div class="match-board">
+    <div class="match-col" id="matchLeft"></div>
+    <div class="match-link">+</div>
+    <div class="match-col" id="matchRight"></div>
+  </div>
+
+  <div style="text-align:center;margin-top:24px">
+    <button class="word-tile" onclick="resetMatching()">↻ reset matching</button>
+  </div>
+</section>
+
+<div class="divider"><span class="glyph">❀</span></div>
+
+<!-- ===================== EXERCISE 5 ===================== -->
+<section class="exercise">
+  <div class="ex-header">
+    <div class="ex-num">05</div>
+    <div class="ex-title">
+      <h2>Use the collocations</h2>
+      <p class="instr">Tap a gap, then tap a collocation from the bank below.</p>
+    </div>
+  </div>
+
+  <div class="sent-list" id="sentList"></div>
+
+  <div class="coll-bank" id="collBank"></div>
+</section>
+
+<!-- ===================== FINALE ===================== -->
+<section class="finale">
+  <h2>Finished?</h2>
+  <p class="sub">save your answers, then unlock the key</p>
+
+  <div class="progress-display">
+    <span class="dot"></span>
+    <span><strong id="answeredCount">0</strong> / <strong id="totalCount">38</strong> answers filled in</span>
+  </div>
+
+  <br>
+  <button class="btn-download" id="downloadBtn" onclick="downloadResults()">
+    ✦ Download my answers ✦
+  </button>
+
+  <!-- ANSWER KEY -->
+  <div class="answer-key" id="answerKey">
+    <div class="locked-state" id="lockedState">
+      <span class="lock-glyph">鍵</span>
+      <p>Save your answers as an image first to unlock the correct ones</p>
+    </div>
+
+    <div class="reveal-state" id="revealState">
+      <button class="btn-reveal" onclick="revealAnswers()">Reveal the correct answers</button>
+    </div>
+
+    <div class="answers-content" id="answersContent"></div>
+  </div>
+</section>
+
+</div>
+
+<footer>
+  ✦ made for you ✦
+  <div class="jp">勉 強 頑 張 っ て</div>
+</footer>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ===================== DATA =====================
+const EX1 = [
+  {
+    n:1,
+    text:"Bluey is a popular show about an animated cattle dog who learns about life with her family. Most viewers in Australia watch every new episode.",
+    options:["cartoon","drama"],
+    answer:"cartoon"
+  },
+  {
+    n:2,
+    text:"Brooklyn Nine-Nine is famous for making millions of viewers laugh with its workplace humour and silly police detectives.",
+    options:["comedy","drama"],
+    answer:"comedy"
+  },
+  {
+    n:3,
+    text:"Sky Sports News broadcasts live updates about football, tennis and rugby matches happening around the world.",
+    options:["sports programme","science-fiction series"],
+    answer:"sports programme"
+  },
+  {
+    n:4,
+    text:"Wheel of Fortune contestants try to win money by guessing the missing letters in a secret word or phrase.",
+    options:["chat show","game show"],
+    answer:"game show"
+  },
+  {
+    n:5,
+    text:"Planet Earth takes us deep into the rainforest and the ocean to show real wild animals living in their natural habitats.",
+    options:["documentary","drama"],
+    answer:"documentary"
+  },
+  {
+    n:6,
+    text:"Love Island puts a group of singles in a sunny villa where cameras film their every move as they look for romance.",
+    options:["food programme","reality show"],
+    answer:"reality show"
+  }
+];
+
+const EX2_BANK = ['binge-watching','channel','episode','screen','season','spoiler','streaming service','viewer'];
+const EX2_ANSWERS = {
+  g1:'streaming service',
+  g2:'screen',
+  g3:'season',
+  g4:'episode',
+  g5:'binge-watching',
+  g6:'spoiler'
+};
+const EX2_UNUSED = ['channel','viewer'];
+
+const EX3 = [
+  {n:1, clue:"Makes you feel frightened.", answer:"scary"},
+  {n:2, clue:"Really excellent, top quality.", answer:"awesome"},
+  {n:3, clue:"Touches your emotions deeply.", answer:"moving"},
+  {n:4, clue:"Really, really bad — terrible.", answer:"awful"},
+  {n:5, clue:"Irritating — makes you angry.", answer:"annoying"},
+  {n:6, clue:"Not interesting at all.", answer:"boring"},
+  {n:7, clue:"Extremely funny — you can't stop laughing.", answer:"hilarious"},
+  {n:8, clue:"Completely new and different.", answer:"original"}
+];
+
+const EX4_PAIRS = [
+  {left:"breaking",  right:"news",        match:"breaking news"},
+  {left:"sports",    right:"commentator", match:"sports commentator"},
+  {left:"main",      right:"character",   match:"main character"},
+  {left:"special",   right:"effects",     match:"special effects"},
+  {left:"advert",    right:"breaks",      match:"advert breaks"},
+  {left:"rave",      right:"reviews",     match:"rave reviews"}
+];
+
+const EX5 = [
+  {n:1, before:"We interrupt this programme with ", after:". A major earthquake has just hit Tokyo.", answer:"breaking news"},
+  {n:2, before:"This sci-fi movie has incredible ", after:" — the aliens look completely real!", answer:"special effects"},
+  {n:3, before:"The ", after:" in this anime is a quiet girl who discovers she has magical powers.", answer:"main character"},
+  {n:4, before:"The new Studio Ghibli film is getting ", after:" from critics all over the world.", answer:"rave reviews"},
+  {n:5, before:"I hate it when this drama keeps stopping for ", after:" — I can't follow the story!", answer:"advert breaks"},
+  {n:6, before:"Did you hear the ", after:" shouting during the World Cup final?", answer:"sports commentator"}
+];
+
+// ===================== STATE =====================
+const state = {
+  ex1: {},       // {1: 'cartoon', 2: '...'}
+  ex2: {},       // {g1: 'screen', ...}
+  ex2Selected: null,  // which word tile is selected
+  ex2ActiveGap: null, // which gap is active
+  ex3: {},       // {1: 'scary', ...}
+  ex4Pairs: {},  // {breaking: 'news', ...}
+  ex4SelectedLeft: null,
+  ex4SelectedRight: null,
+  ex5: {},       // {1: 'breaking news', ...}
+  ex5Selected: null,
+  ex5ActiveGap: null,
+  downloaded: false,
+  revealed: false
+};
+
+const TOTAL_GAPS = 6 + 6 + 8 + 6 + 6; // = 32 ... let me recount
+// ex1: 6, ex2: 6 gaps, ex3: 8 words, ex4: 6 pairs, ex5: 6 gaps = 32 total
+document.getElementById('totalCount').textContent = 32;
+
+// ===================== TOAST =====================
+function toast(msg){
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toast._t);
+  toast._t = setTimeout(()=>t.classList.remove('show'),2400);
+}
+
+// ===================== PROGRESS =====================
+function updateProgress(){
+  let count = 0;
+  count += Object.keys(state.ex1).length;
+  count += Object.values(state.ex2).filter(Boolean).length;
+  count += Object.keys(state.ex3).length;
+  count += Object.keys(state.ex4Pairs).length;
+  count += Object.values(state.ex5).filter(Boolean).length;
+  document.getElementById('answeredCount').textContent = count;
+}
+
+// ===================== EX 1 =====================
+function buildEx1(){
+  const c = document.getElementById('q1');
+  EX1.forEach(q=>{
+    const div = document.createElement('div');
+    div.className = 'q-item';
+    div.innerHTML = `
+      <span class="q-num">${q.n}.</span>
+      <span class="q-text">${q.text}</span>
+      <div class="q-opts">
+        ${q.options.map(o=>`<button class="q-opt" data-q="${q.n}" data-o="${o}">${o}</button>`).join('')}
+      </div>
+    `;
+    c.appendChild(div);
+  });
+  c.addEventListener('click',e=>{
+    const btn = e.target.closest('.q-opt');
+    if(!btn) return;
+    const q = btn.dataset.q;
+    const o = btn.dataset.o;
+    document.querySelectorAll(`.q-opt[data-q="${q}"]`).forEach(b=>b.classList.remove('chosen'));
+    btn.classList.add('chosen');
+    state.ex1[q] = o;
+    updateProgress();
+  });
+}
+
+// ===================== EX 2 =====================
+function buildEx2(){
+  const bank = document.getElementById('wordBank');
+  bank.innerHTML = '';
+  EX2_BANK.forEach(w=>{
+    const t = document.createElement('div');
+    t.className = 'word-tile';
+    t.textContent = w;
+    t.dataset.word = w;
+    t.onclick = ()=>selectWord(t, w);
+    bank.appendChild(t);
+  });
+  document.querySelectorAll('#ex2 .gap, .article-card .gap').forEach(g=>{
+    g.onclick = ()=>activateGap(g);
+  });
+}
+
+function selectWord(tile, word){
+  if(tile.classList.contains('used')) return;
+  // deselect others
+  document.querySelectorAll('#wordBank .word-tile').forEach(t=>t.classList.remove('selected'));
+  if(state.ex2Selected === word){
+    state.ex2Selected = null;
+    return;
+  }
+  tile.classList.add('selected');
+  state.ex2Selected = word;
+  // if a gap is active, fill it
+  if(state.ex2ActiveGap){
+    fillGap(state.ex2ActiveGap, word);
+  }
+}
+
+function activateGap(gap){
+  // If gap is already filled, return its word to bank
+  if(gap.classList.contains('filled')){
+    const oldWord = gap.dataset.word;
+    if(oldWord){
+      // free that word in bank
+      document.querySelectorAll('#wordBank .word-tile').forEach(t=>{
+        if(t.dataset.word === oldWord) t.classList.remove('used');
+      });
+    }
+    gap.classList.remove('filled');
+    gap.textContent = '';
+    delete gap.dataset.word;
+    state.ex2[gap.dataset.id] = null;
+    updateProgress();
+    return;
+  }
+
+  // toggle active
+  document.querySelectorAll('.gap').forEach(g=>g.classList.remove('active'));
+  if(state.ex2ActiveGap === gap){
+    state.ex2ActiveGap = null;
+    return;
+  }
+  gap.classList.add('active');
+  state.ex2ActiveGap = gap;
+  // if a word is already selected, fill immediately
+  if(state.ex2Selected){
+    fillGap(gap, state.ex2Selected);
+  }
+}
+
+function fillGap(gap, word){
+  gap.textContent = word;
+  gap.classList.add('filled');
+  gap.classList.remove('active');
+  gap.dataset.word = word;
+  state.ex2[gap.dataset.id] = word;
+  // mark word used in bank
+  document.querySelectorAll('#wordBank .word-tile').forEach(t=>{
+    if(t.dataset.word === word){
+      t.classList.add('used');
+      t.classList.remove('selected');
+    }
+  });
+  state.ex2Selected = null;
+  state.ex2ActiveGap = null;
+  updateProgress();
+}
+
+// ===================== EX 3 =====================
+function buildEx3(){
+  const grid = document.getElementById('puzzleGrid');
+  EX3.forEach(p=>{
+    const row = document.createElement('div');
+    row.className = 'puzzle-row';
+    let letters = '';
+    for(let i=0;i<p.answer.length;i++){
+      letters += `<input type="text" class="letter-box" maxlength="1" data-q="${p.n}" data-i="${i}">`;
+    }
+    row.innerHTML = `
+      <div class="clue-num">${p.n}</div>
+      <div class="clue-text">${p.clue}</div>
+      <div class="letter-row">${letters}</div>
+    `;
+    grid.appendChild(row);
+  });
+
+  // Auto-advance behaviour
+  grid.addEventListener('input',e=>{
+    if(!e.target.classList.contains('letter-box')) return;
+    const inp = e.target;
+    inp.value = inp.value.toLowerCase().replace(/[^a-zа-я]/i,'');
+    if(inp.value){
+      const next = inp.parentElement.querySelector(`[data-i="${parseInt(inp.dataset.i)+1}"]`);
+      if(next) next.focus();
+    }
+    // collect word
+    const q = inp.dataset.q;
+    const word = [...inp.parentElement.querySelectorAll('.letter-box')].map(x=>x.value || ' ').join('').trim();
+    if(word.replace(/\s/g,'').length > 0){
+      state.ex3[q] = word;
+    } else {
+      delete state.ex3[q];
+    }
+    updateProgress();
+  });
+  grid.addEventListener('keydown',e=>{
+    if(!e.target.classList.contains('letter-box')) return;
+    if(e.key === 'Backspace' && !e.target.value){
+      const prev = e.target.parentElement.querySelector(`[data-i="${parseInt(e.target.dataset.i)-1}"]`);
+      if(prev){ prev.focus(); prev.value = ''; }
+    }
+  });
+}
+
+// ===================== EX 4 =====================
+function buildEx4(){
+  const L = document.getElementById('matchLeft');
+  const R = document.getElementById('matchRight');
+  L.innerHTML = '';
+  R.innerHTML = '';
+  // shuffle right column
+  const rights = EX4_PAIRS.map(p=>p.right);
+  for(let i=rights.length-1;i>0;i--){
+    const j = Math.floor(Math.random()*(i+1));
+    [rights[i],rights[j]] = [rights[j],rights[i]];
+  }
+  EX4_PAIRS.forEach(p=>{
+    const lc = document.createElement('div');
+    lc.className = 'match-card';
+    lc.dataset.word = p.left;
+    lc.innerHTML = `${p.left}<span class="pair-num"></span>`;
+    lc.onclick = ()=>pickLeft(lc, p.left);
+    L.appendChild(lc);
+  });
+  rights.forEach(r=>{
+    const rc = document.createElement('div');
+    rc.className = 'match-card';
+    rc.dataset.word = r;
+    rc.innerHTML = `${r}<span class="pair-num"></span>`;
+    rc.onclick = ()=>pickRight(rc, r);
+    R.appendChild(rc);
+  });
+}
+
+function pickLeft(card, word){
+  // if already paired, unpair
+  if(card.classList.contains('paired')){
+    const partner = state.ex4Pairs[word];
+    delete state.ex4Pairs[word];
+    card.classList.remove('paired');
+    document.querySelectorAll('#matchRight .match-card').forEach(c=>{
+      if(c.dataset.word === partner) c.classList.remove('paired');
+    });
+    renumberPairs();
+    updateProgress();
+    return;
+  }
+  document.querySelectorAll('#matchLeft .match-card').forEach(c=>c.classList.remove('selected'));
+  if(state.ex4SelectedLeft === word){
+    state.ex4SelectedLeft = null;
+    return;
+  }
+  card.classList.add('selected');
+  state.ex4SelectedLeft = word;
+  if(state.ex4SelectedRight){
+    pairThem();
+  }
+}
+
+function pickRight(card, word){
+  if(card.classList.contains('paired')){
+    // unpair: find which left points to this
+    let leftKey = null;
+    Object.entries(state.ex4Pairs).forEach(([l,r])=>{ if(r===word) leftKey=l; });
+    if(leftKey){
+      delete state.ex4Pairs[leftKey];
+      card.classList.remove('paired');
+      document.querySelectorAll('#matchLeft .match-card').forEach(c=>{
+        if(c.dataset.word === leftKey) c.classList.remove('paired');
+      });
+      renumberPairs();
+      updateProgress();
+    }
+    return;
+  }
+  document.querySelectorAll('#matchRight .match-card').forEach(c=>c.classList.remove('selected'));
+  if(state.ex4SelectedRight === word){
+    state.ex4SelectedRight = null;
+    return;
+  }
+  card.classList.add('selected');
+  state.ex4SelectedRight = word;
+  if(state.ex4SelectedLeft){
+    pairThem();
+  }
+}
+
+function pairThem(){
+  const L = state.ex4SelectedLeft;
+  const R = state.ex4SelectedRight;
+  state.ex4Pairs[L] = R;
+  document.querySelectorAll('#matchLeft .match-card').forEach(c=>{
+    if(c.dataset.word === L){c.classList.add('paired'); c.classList.remove('selected');}
+  });
+  document.querySelectorAll('#matchRight .match-card').forEach(c=>{
+    if(c.dataset.word === R){c.classList.add('paired'); c.classList.remove('selected');}
+  });
+  state.ex4SelectedLeft = null;
+  state.ex4SelectedRight = null;
+  renumberPairs();
+  updateProgress();
+}
+
+function renumberPairs(){
+  // assign matching numbers to paired tiles for visual feedback
+  const pairs = Object.entries(state.ex4Pairs);
+  pairs.forEach(([l,r],i)=>{
+    document.querySelectorAll('#matchLeft .match-card').forEach(c=>{
+      if(c.dataset.word === l) c.querySelector('.pair-num').textContent = i+1;
+    });
+    document.querySelectorAll('#matchRight .match-card').forEach(c=>{
+      if(c.dataset.word === r) c.querySelector('.pair-num').textContent = i+1;
+    });
+  });
+}
+
+function resetMatching(){
+  state.ex4Pairs = {};
+  state.ex4SelectedLeft = null;
+  state.ex4SelectedRight = null;
+  buildEx4();
+  updateProgress();
+}
+
+// ===================== EX 5 =====================
+function buildEx5(){
+  const list = document.getElementById('sentList');
+  list.innerHTML = '';
+  EX5.forEach(s=>{
+    const row = document.createElement('div');
+    row.className = 'sent-row';
+    row.innerHTML = `
+      <span class="s-num">${s.n}.</span>
+      <span class="s-text">${s.before}<span class="gap-coll" data-id="s${s.n}"></span>${s.after}</span>
+    `;
+    list.appendChild(row);
+  });
+  // collocation bank
+  const bank = document.getElementById('collBank');
+  bank.innerHTML = '';
+  const colls = EX4_PAIRS.map(p=>p.match);
+  // shuffle
+  for(let i=colls.length-1;i>0;i--){
+    const j = Math.floor(Math.random()*(i+1));
+    [colls[i],colls[j]] = [colls[j],colls[i]];
+  }
+  colls.forEach(c=>{
+    const t = document.createElement('div');
+    t.className = 'word-tile';
+    t.textContent = c;
+    t.dataset.word = c;
+    t.onclick = ()=>selectColl(t, c);
+    bank.appendChild(t);
+  });
+  // gap click
+  document.querySelectorAll('.gap-coll').forEach(g=>{
+    g.onclick = ()=>activateCollGap(g);
+  });
+}
+
+function selectColl(tile, word){
+  if(tile.classList.contains('used')) return;
+  document.querySelectorAll('#collBank .word-tile').forEach(t=>t.classList.remove('selected'));
+  if(state.ex5Selected === word){
+    state.ex5Selected = null;
+    return;
+  }
+  tile.classList.add('selected');
+  state.ex5Selected = word;
+  if(state.ex5ActiveGap){
+    fillCollGap(state.ex5ActiveGap, word);
+  }
+}
+
+function activateCollGap(gap){
+  if(gap.classList.contains('filled')){
+    const oldWord = gap.dataset.word;
+    if(oldWord){
+      document.querySelectorAll('#collBank .word-tile').forEach(t=>{
+        if(t.dataset.word === oldWord) t.classList.remove('used');
+      });
+    }
+    gap.classList.remove('filled');
+    gap.textContent = '';
+    delete gap.dataset.word;
+    state.ex5[gap.dataset.id] = null;
+    updateProgress();
+    return;
+  }
+  document.querySelectorAll('.gap-coll').forEach(g=>g.classList.remove('active'));
+  if(state.ex5ActiveGap === gap){
+    state.ex5ActiveGap = null;
+    return;
+  }
+  gap.classList.add('active');
+  state.ex5ActiveGap = gap;
+  if(state.ex5Selected){
+    fillCollGap(gap, state.ex5Selected);
+  }
+}
+
+function fillCollGap(gap, word){
+  gap.textContent = word;
+  gap.classList.add('filled');
+  gap.classList.remove('active');
+  gap.dataset.word = word;
+  state.ex5[gap.dataset.id] = word;
+  document.querySelectorAll('#collBank .word-tile').forEach(t=>{
+    if(t.dataset.word === word){
+      t.classList.add('used');
+      t.classList.remove('selected');
+    }
+  });
+  state.ex5Selected = null;
+  state.ex5ActiveGap = null;
+  updateProgress();
+}
+
+// ===================== DOWNLOAD =====================
+async function downloadResults(){
+  let count = 0;
+  count += Object.keys(state.ex1).length;
+  count += Object.values(state.ex2).filter(Boolean).length;
+  count += Object.keys(state.ex3).length;
+  count += Object.keys(state.ex4Pairs).length;
+  count += Object.values(state.ex5).filter(Boolean).length;
+
+  if(count === 0){
+    toast('✗ fill in at least one answer first');
+    return;
+  }
+
+  toast('✦ creating your image…');
+
+  // Make sure fonts are loaded before drawing on canvas
+  if(document.fonts && document.fonts.ready){
+    try{ await document.fonts.ready; }catch(e){}
+  }
+  await new Promise(r=>setTimeout(r,80));
+
+  await renderAnswersImage(count);
+
+  state.downloaded = true;
+  unlockKey();
+  toast('✓ image saved');
+}
+
+async function renderAnswersImage(filledCount){
+  const W = 900;
+  const MAX_H = 5200;
+  const SCALE = 2;
+  const PAD = 60;
+
+  // Source canvas (oversized — we'll crop later)
+  const src = document.createElement('canvas');
+  src.width = W * SCALE;
+  src.height = MAX_H * SCALE;
+  const ctx = src.getContext('2d');
+  ctx.scale(SCALE, SCALE);
+  ctx.textBaseline = 'alphabetic';
+  ctx.imageSmoothingQuality = 'high';
+
+  // === PAPER BACKGROUND ===
+  const bg = ctx.createLinearGradient(0,0,0,MAX_H);
+  bg.addColorStop(0,'#f5ead4');
+  bg.addColorStop(1,'#ecdcb8');
+  ctx.fillStyle = bg;
+  ctx.fillRect(0,0,W,MAX_H);
+
+  // Subtle paper grain
+  for(let i=0;i<2400;i++){
+    ctx.fillStyle = `rgba(124,22,16,${0.008+Math.random()*0.025})`;
+    ctx.fillRect(Math.random()*W, Math.random()*MAX_H, 1, 1);
+  }
+
+  // Red sun decoration top-right
+  const sunX = W-100, sunY=110, sunR=58;
+  const sun = ctx.createRadialGradient(sunX-15,sunY-15,4,sunX,sunY,sunR);
+  sun.addColorStop(0,'#c93126');
+  sun.addColorStop(1,'#a8201a');
+  ctx.fillStyle = sun;
+  ctx.beginPath();
+  ctx.arc(sunX,sunY,sunR,0,Math.PI*2);
+  ctx.fill();
+
+  // Kanji watermarks
+  ctx.save();
+  ctx.font='700 220px "Noto Serif JP"';
+  ctx.fillStyle='rgba(168,32,26,0.05)';
+  ctx.textAlign='right';
+  ctx.fillText('観', W-30, 720);
+  ctx.fillText('物', W-30, 2400);
+  ctx.fillText('語', W-30, 3700);
+  ctx.restore();
+  ctx.textAlign='left';
+
+  let y = 110;
+
+  // top tagline
+  ctx.font='500 18px "Caveat"';
+  ctx.fillStyle='#a8201a';
+  ctx.fillText('— vocabulary in context · level B2 —', PAD, y);
+  y += 52;
+
+  // === TITLE ===
+  ctx.fillStyle='#1c1c1c';
+  ctx.font='600 64px "Cormorant Garamond"';
+  ctx.fillText('Television', PAD, y);
+  const tlW = ctx.measureText('Television').width;
+  ctx.fillStyle='#a8201a';
+  ctx.font='italic 600 64px "Cormorant Garamond"';
+  ctx.fillText(' &', PAD+tlW, y);
+  const amW = ctx.measureText(' &').width;
+  ctx.fillStyle='#1c1c1c';
+  ctx.font='600 64px "Cormorant Garamond"';
+  ctx.fillText(' Series', PAD+tlW+amW, y);
+  y += 36;
+
+  // subtitle
+  ctx.font='600 30px "Caveat"';
+  ctx.fillStyle='#b08938';
+  ctx.fillText('my answers', PAD, y);
+  y += 28;
+
+  // date · time
+  const now = new Date();
+  const dateStr = now.toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'});
+  const timeStr = now.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'});
+  ctx.font='500 14px "Inter"';
+  ctx.fillStyle='rgba(28,28,28,0.55)';
+  ctx.fillText(`${dateStr}  ·  ${timeStr}`, PAD, y);
+  y += 38;
+
+  // top hairline
+  ctx.strokeStyle='#a8201a';
+  ctx.lineWidth=1;
+  ctx.beginPath();
+  ctx.moveTo(PAD,y);
+  ctx.lineTo(W-PAD,y);
+  ctx.stroke();
+  y += 50;
+
+  // === EXERCISE 1 ===
+  y = drawExHeader(ctx, y, '01', 'Read & choose', PAD);
+  EX1.forEach(q=>{
+    const my = state.ex1[q.n];
+    ctx.font='italic 600 18px "Cormorant Garamond"';
+    ctx.fillStyle='#a8201a';
+    ctx.fillText(q.n+'.', PAD, y);
+
+    ctx.font='400 14px "Inter"';
+    ctx.fillStyle='#1c1c1c';
+    y = wrapText(ctx, q.text, PAD+28, y, W-PAD*2-28, 21);
+
+    y += 4;
+    ctx.font='500 13px "Inter"';
+    ctx.fillStyle='rgba(28,28,28,0.5)';
+    ctx.fillText('chosen:', PAD+28, y);
+    const chW = ctx.measureText('chosen: ').width;
+    let cx = PAD+28+chW;
+    q.options.forEach((opt,i)=>{
+      if(i>0){
+        ctx.font='400 14px "Inter"';
+        ctx.fillStyle='rgba(28,28,28,0.3)';
+        ctx.fillText(' / ', cx, y);
+        cx += ctx.measureText(' / ').width;
+      }
+      if(my===opt){
+        ctx.font='italic 600 17px "Cormorant Garamond"';
+        ctx.fillStyle='#a8201a';
+        ctx.fillText(opt, cx, y);
+        const w = ctx.measureText(opt).width;
+        // red underline
+        ctx.strokeStyle='#a8201a';
+        ctx.lineWidth=1.5;
+        ctx.beginPath();
+        ctx.moveTo(cx, y+3);
+        ctx.lineTo(cx+w, y+3);
+        ctx.stroke();
+        cx += w;
+      } else {
+        ctx.font='400 14px "Inter"';
+        ctx.fillStyle='rgba(28,28,28,0.35)';
+        ctx.fillText(opt, cx, y);
+        cx += ctx.measureText(opt).width;
+      }
+    });
+    if(!my){
+      ctx.font='500 16px "Caveat"';
+      ctx.fillStyle='rgba(28,28,28,0.4)';
+      ctx.fillText('  (not answered)', cx, y);
+    }
+    y += 30;
+  });
+
+  y = drawDivider(ctx, W, y);
+
+  // === EXERCISE 2 ===
+  y = drawExHeader(ctx, y, '02', 'Complete the article', PAD);
+  ctx.font='italic 600 22px "Cormorant Garamond"';
+  ctx.fillStyle='#7c1610';
+  ctx.fillText('❝ Why I love binge-watching ❞', PAD, y);
+  y += 32;
+
+  for(let i=1;i<=6;i++){
+    const my = state.ex2['g'+i];
+    // red numbered circle
+    ctx.beginPath();
+    ctx.arc(PAD+12, y-6, 11, 0, Math.PI*2);
+    ctx.fillStyle='#a8201a';
+    ctx.fill();
+    ctx.font='700 11px "Inter"';
+    ctx.fillStyle='#f5ead4';
+    ctx.textAlign='center';
+    ctx.fillText(i, PAD+12, y-2);
+    ctx.textAlign='left';
+
+    if(my){
+      ctx.font='600 24px "Caveat"';
+      ctx.fillStyle='#1c1c1c';
+      ctx.fillText(my, PAD+38, y);
+    } else {
+      ctx.font='500 18px "Caveat"';
+      ctx.fillStyle='rgba(28,28,28,0.4)';
+      ctx.fillText('(not answered)', PAD+38, y);
+    }
+    y += 32;
+  }
+
+  y = drawDivider(ctx, W, y);
+
+  // === EXERCISE 3 ===
+  y = drawExHeader(ctx, y, '03', 'Adjective puzzle', PAD);
+  EX3.forEach(p=>{
+    const my = state.ex3[p.n];
+    ctx.font='italic 600 18px "Cormorant Garamond"';
+    ctx.fillStyle='#a8201a';
+    ctx.fillText(p.n+'.', PAD, y);
+    ctx.font='italic 400 16px "Cormorant Garamond"';
+    ctx.fillStyle='#1c1c1c';
+    ctx.fillText(p.clue, PAD+28, y);
+
+    y += 24;
+    if(my){
+      const cleaned = my.toLowerCase().replace(/\s/g,'');
+      ctx.font='italic 600 20px "Cormorant Garamond"';
+      ctx.fillStyle='#a8201a';
+      ctx.fillText('→  '+cleaned, PAD+28, y);
+    } else {
+      ctx.font='500 16px "Caveat"';
+      ctx.fillStyle='rgba(28,28,28,0.4)';
+      ctx.fillText('→  (not answered)', PAD+28, y);
+    }
+    y += 30;
+  });
+
+  y = drawDivider(ctx, W, y);
+
+  // === EXERCISE 4 ===
+  y = drawExHeader(ctx, y, '04', 'Match the collocations', PAD);
+  EX4_PAIRS.forEach(p=>{
+    const my = state.ex4Pairs[p.left];
+
+    ctx.font='italic 600 22px "Cormorant Garamond"';
+    ctx.fillStyle='#1c1c1c';
+    ctx.fillText(p.left, PAD+28, y);
+    const lW = ctx.measureText(p.left).width;
+
+    ctx.font='400 20px "Cormorant Garamond"';
+    ctx.fillStyle='#a8201a';
+    ctx.fillText(' + ', PAD+28+lW, y);
+    const pW = ctx.measureText(' + ').width;
+
+    if(my){
+      ctx.font='italic 600 22px "Cormorant Garamond"';
+      ctx.fillStyle='#a8201a';
+      ctx.fillText(my, PAD+28+lW+pW, y);
+    } else {
+      ctx.font='500 16px "Caveat"';
+      ctx.fillStyle='rgba(28,28,28,0.4)';
+      ctx.fillText('(not matched)', PAD+28+lW+pW, y);
+    }
+    y += 34;
+  });
+
+  y = drawDivider(ctx, W, y);
+
+  // === EXERCISE 5 ===
+  y = drawExHeader(ctx, y, '05', 'Use the collocations', PAD);
+  EX5.forEach(s=>{
+    const my = state.ex5['s'+s.n];
+    ctx.font='italic 600 18px "Cormorant Garamond"';
+    ctx.fillStyle='#a8201a';
+    ctx.fillText(s.n+'.', PAD, y);
+
+    const startX = PAD+28;
+    const maxLineW = W-PAD*2-28;
+    const lineH = 23;
+
+    // tokenize into words; mark the answer as a single token
+    const tokens = [];
+    s.before.split(' ').forEach(w=>{ if(w) tokens.push({t:w, kind:'plain'}); });
+    tokens.push({t: my ? `[ ${my} ]` : '[ … ]', kind:'answer'});
+    s.after.split(' ').forEach(w=>{ if(w) tokens.push({t:w, kind:'plain'}); });
+
+    const setKind = (k)=>{
+      if(k==='answer'){
+        if(my){
+          ctx.font='italic 600 17px "Cormorant Garamond"';
+          ctx.fillStyle='#a8201a';
+        } else {
+          ctx.font='italic 400 15px "Cormorant Garamond"';
+          ctx.fillStyle='rgba(28,28,28,0.4)';
+        }
+      } else {
+        ctx.font='400 15px "Cormorant Garamond"';
+        ctx.fillStyle='#1c1c1c';
+      }
+    };
+
+    let cx = startX;
+    let yy = y;
+    for(const tok of tokens){
+      setKind(tok.kind);
+      const piece = tok.t + ' ';
+      const w = ctx.measureText(piece).width;
+      if(cx + w > startX + maxLineW){
+        cx = startX;
+        yy += lineH;
+      }
+      ctx.fillText(piece, cx, yy);
+      cx += w;
+    }
+    y = yy + lineH + 6;
+  });
+
+  // === FOOTER ===
+  y += 18;
+  ctx.strokeStyle='#a8201a';
+  ctx.lineWidth=1;
+  ctx.beginPath();
+  ctx.moveTo(W/2-140, y);
+  ctx.lineTo(W/2+140, y);
+  ctx.stroke();
+  y += 32;
+
+  ctx.font='italic 600 22px "Cormorant Garamond"';
+  ctx.fillStyle='#a8201a';
+  ctx.textAlign='center';
+  ctx.fillText(`answers filled  ·  ${filledCount} / 32`, W/2, y);
+  y += 32;
+
+  ctx.font='500 22px "Caveat"';
+  ctx.fillStyle='#1c1c1c';
+  ctx.fillText('✦  now unlock the key in the page  ✦', W/2, y);
+  y += 28;
+
+  ctx.font='700 12px "Noto Serif JP"';
+  ctx.fillStyle='rgba(28,28,28,0.4)';
+  ctx.fillText('勉   強   頑   張   っ   て', W/2, y);
+  y += 50;
+  ctx.textAlign='left';
+
+  const finalH = Math.min(y, MAX_H);
+
+  // Crop to final dimensions
+  const out = document.createElement('canvas');
+  out.width = W * SCALE;
+  out.height = finalH * SCALE;
+  const outCtx = out.getContext('2d');
+  outCtx.drawImage(src, 0, 0, W*SCALE, finalH*SCALE, 0, 0, W*SCALE, finalH*SCALE);
+
+  return new Promise(resolve=>{
+    out.toBlob(blob=>{
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      const dateForFile = now.toISOString().slice(0,10);
+      a.download = `tv-vocab-answers_${dateForFile}.png`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      setTimeout(()=>{URL.revokeObjectURL(url); resolve();}, 120);
+    },'image/png');
+  });
+}
+
+function drawExHeader(ctx, y, num, title, PAD){
+  ctx.font='italic 600 60px "Cormorant Garamond"';
+  ctx.fillStyle='#a8201a';
+  ctx.fillText(num, PAD, y+36);
+
+  ctx.font='600 30px "Cormorant Garamond"';
+  ctx.fillStyle='#1c1c1c';
+  ctx.fillText(title, PAD+92, y+18);
+
+  ctx.strokeStyle='#a8201a';
+  ctx.lineWidth=1.5;
+  ctx.beginPath();
+  ctx.moveTo(PAD+92, y+30);
+  ctx.lineTo(PAD+92+48, y+30);
+  ctx.stroke();
+
+  return y + 78;
+}
+
+function drawDivider(ctx, W, y){
+  y += 28;
+  ctx.font='400 22px "Cormorant Garamond"';
+  ctx.fillStyle='#a8201a';
+  ctx.textAlign='center';
+  ctx.fillText('❀', W/2, y);
+  ctx.textAlign='left';
+  return y + 28;
+}
+
+function wrapText(ctx, text, x, y, maxWidth, lineHeight){
+  const words = text.split(' ');
+  let line = '';
+  let yy = y;
+  for(const w of words){
+    const test = line ? line + ' ' + w : w;
+    if(ctx.measureText(test).width > maxWidth && line){
+      ctx.fillText(line, x, yy);
+      line = w;
+      yy += lineHeight;
+    } else {
+      line = test;
+    }
+  }
+  if(line){
+    ctx.fillText(line, x, yy);
+    yy += lineHeight;
+  }
+  return yy;
+}
+
+function unlockKey(){
+  document.getElementById('lockedState').style.display = 'none';
+  document.getElementById('revealState').style.display = 'block';
+  // scroll into view smoothly
+  setTimeout(()=>{
+    document.getElementById('answerKey').scrollIntoView({behavior:'smooth',block:'start'});
+  },300);
+}
+
+// ===================== REVEAL =====================
+function revealAnswers(){
+  state.revealed = true;
+  document.getElementById('revealState').style.display = 'none';
+  const c = document.getElementById('answersContent');
+  c.style.display = 'block';
+
+  let html = '';
+
+  // EX 1
+  html += '<div class="ans-block"><h4>01 · Read &amp; choose</h4><ol>';
+  EX1.forEach(q=>{
+    const my = state.ex1[q.n];
+    const right = my === q.answer;
+    const youCls = my ? (right ? 'right' : 'wrong') : '';
+    html += `<li><strong>${q.answer}</strong>`;
+    if(my){
+      html += `<div class="your-vs-correct">your answer: <span class="you ${youCls}">${my}</span></div>`;
+    }
+    html += `</li>`;
+  });
+  html += '</ol></div>';
+
+  // EX 2
+  html += '<div class="ans-block"><h4>02 · Complete the article</h4><ol>';
+  for(let i=1;i<=6;i++){
+    const correct = EX2_ANSWERS['g'+i];
+    const my = state.ex2['g'+i];
+    const right = my === correct;
+    const youCls = my ? (right ? 'right' : 'wrong') : '';
+    html += `<li><strong>${correct}</strong>`;
+    if(my){
+      html += `<div class="your-vs-correct">you wrote: <span class="you ${youCls}">${my}</span></div>`;
+    }
+    html += `</li>`;
+  }
+  html += `</ol><p style="font-family:'Caveat',cursive;font-size:18px;color:var(--ink);opacity:0.7;margin-top:10px">two unused words: <em>${EX2_UNUSED.join(', ')}</em></p></div>`;
+
+  // EX 3
+  html += '<div class="ans-block"><h4>03 · Adjective puzzle</h4><ol>';
+  EX3.forEach(p=>{
+    const my = state.ex3[p.n] ? state.ex3[p.n].toLowerCase().replace(/\s/g,'') : null;
+    const right = my === p.answer;
+    const youCls = my ? (right ? 'right' : 'wrong') : '';
+    html += `<li><strong>${p.answer}</strong> — <em>${p.clue}</em>`;
+    if(my){
+      html += `<div class="your-vs-correct">you wrote: <span class="you ${youCls}">${my}</span></div>`;
+    }
+    html += `</li>`;
+  });
+  html += '</ol></div>';
+
+  // EX 4
+  html += '<div class="ans-block"><h4>04 · Match the collocations</h4><ol>';
+  EX4_PAIRS.forEach(p=>{
+    const my = state.ex4Pairs[p.left];
+    const right = my === p.right;
+    const youCls = my ? (right ? 'right' : 'wrong') : '';
+    html += `<li><strong>${p.left} + ${p.right}</strong>`;
+    if(my){
+      html += `<div class="your-vs-correct">your match: <span class="you ${youCls}">${p.left} + ${my}</span></div>`;
+    }
+    html += `</li>`;
+  });
+  html += '</ol></div>';
+
+  // EX 5
+  html += '<div class="ans-block"><h4>05 · Use the collocations</h4><ol>';
+  EX5.forEach(s=>{
+    const my = state.ex5['s'+s.n];
+    const right = my === s.answer;
+    const youCls = my ? (right ? 'right' : 'wrong') : '';
+    html += `<li><strong>${s.answer}</strong> — <em>${s.before}[…]${s.after}</em>`;
+    if(my){
+      html += `<div class="your-vs-correct">you chose: <span class="you ${youCls}">${my}</span></div>`;
+    }
+    html += `</li>`;
+  });
+  html += '</ol></div>';
+
+  // score summary
+  let scoreParts = [];
+  let total = 0, correct = 0;
+  EX1.forEach(q=>{ total++; if(state.ex1[q.n]===q.answer) correct++; });
+  Object.keys(EX2_ANSWERS).forEach(k=>{ total++; if(state.ex2[k]===EX2_ANSWERS[k]) correct++; });
+  EX3.forEach(p=>{ total++; if(state.ex3[p.n] && state.ex3[p.n].toLowerCase().replace(/\s/g,'')===p.answer) correct++; });
+  EX4_PAIRS.forEach(p=>{ total++; if(state.ex4Pairs[p.left]===p.right) correct++; });
+  EX5.forEach(s=>{ total++; if(state.ex5['s'+s.n]===s.answer) correct++; });
+
+  html += `<div style="text-align:center;margin-top:30px;padding:24px;background:rgba(168,32,26,0.06);border:1px solid var(--red)">
+    <p style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:22px;color:var(--red-deep)">final score</p>
+    <p style="font-family:'Cormorant Garamond',serif;font-weight:700;font-size:48px;color:var(--red);margin-top:8px">${correct} / ${total}</p>
+    <p style="font-family:'Caveat',cursive;font-size:22px;color:var(--ink);margin-top:8px">${
+      correct === total ? "perfect — flawless work ✦" :
+      correct >= total*0.8 ? "wonderful work ✿" :
+      correct >= total*0.6 ? "solid — keep going" :
+      correct >= total*0.4 ? "good start — review the words" :
+      "review the section and try again"
+    }</p>
+  </div>`;
+
+  c.innerHTML = html;
+}
+
+// ===================== SAKURA =====================
+function spawnPetals(){
+  const host = document.getElementById('petalsHost');
+  for(let i=0;i<18;i++){
+    const p = document.createElement('div');
+    p.className = 'petal';
+    p.style.left = Math.random()*100 + '%';
+    p.style.animationDuration = (10 + Math.random()*15) + 's';
+    p.style.animationDelay = -(Math.random()*15) + 's';
+    p.style.opacity = 0.4 + Math.random()*0.5;
+    p.style.transform = `scale(${0.6 + Math.random()*0.8})`;
+    host.appendChild(p);
+  }
+}
+
+// ===================== INIT =====================
+window.addEventListener('DOMContentLoaded',()=>{
+  buildEx1();
+  buildEx2();
+  buildEx3();
+  buildEx4();
+  buildEx5();
+  spawnPetals();
+  updateProgress();
+});
+</script>
+
+</body>
+</html>
