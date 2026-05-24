@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Blarney Stone — Shrek Swamp Exercise</title>
+  <style>
+    :root{
+      --swamp-dark:#18351f;
+      --swamp:#466b2f;
+      --swamp-light:#7d9b45;
+      --mud:#6b4a2b;
+      --mud-dark:#3b2717;
+      --cream:#f3e0ad;
+      --cream-light:#fff0c7;
+      --ogre:#9bb957;
+      --ogre-dark:#4f6d2a;
+      --ink:#271b10;
+      --wrong:#b64b36;
+      --right:#477a2c;
+    }
+
+    *{box-sizing:border-box}
+
+    body{
+      margin:0;
+      min-height:100vh;
+      padding:24px;
+      font-family: Georgia, "Times New Roman", serif;
+      color:var(--ink);
+      background:
+        radial-gradient(circle at 12% 18%, rgba(218, 182, 82, .35), transparent 16%),
+        radial-gradient(circle at 78% 12%, rgba(132, 169, 75, .45), transparent 18%),
+        radial-gradient(circle at 85% 78%, rgba(91, 68, 38, .55), transparent 20%),
+        linear-gradient(135deg, #102517 0%, #244524 42%, #6f8739 100%);
+    }
+
+    .wrap{
+      max-width:1060px;
+      margin:0 auto;
+    }
+
+    .card{
+      position:relative;
+      overflow:hidden;
+      border:5px solid var(--mud-dark);
+      border-radius:30px;
+      background:
+        linear-gradient(rgba(255,238,188,.94), rgba(226,194,128,.96)),
+        repeating-linear-gradient(-8deg, transparent 0 18px, rgba(92,61,27,.08) 18px 22px);
+      box-shadow:0 20px 45px rgba(0,0,0,.45);
+    }
+
+    .card:before{
+      content:"";
+      position:absolute;
+      inset:0;
+      pointer-events:none;
+      background:
+        radial-gradient(circle at 6% 7%, rgba(82,112,42,.28) 0 34px, transparent 35px),
+        radial-gradient(circle at 96% 92%, rgba(82,112,42,.25) 0 42px, transparent 43px),
+        radial-gradient(circle at 50% 101%, rgba(72,48,24,.22) 0 80px, transparent 81px);
+      opacity:.9;
+    }
+
+    .top{
+      position:relative;
+      padding:28px 30px 18px;
+      background:
+        linear-gradient(90deg, rgba(91,121,48,.45), rgba(255,232,159,.25)),
+        linear-gradient(rgba(255,255,255,.12), rgba(0,0,0,0));
+      border-bottom:4px solid rgba(61,39,19,.9);
+    }
+
+    .ears{
+      display:flex;
+      gap:10px;
+      align-items:center;
+      margin-bottom:8px;
+      font-size:34px;
+      letter-spacing:4px;
+    }
+
+    h1{
+      margin:0;
+      font-size:36px;
+      line-height:1.08;
+      color:#264016;
+      text-shadow:2px 2px 0 #e5c779;
+    }
+
+    .subtitle{
+      margin:10px 0 0;
+      max-width:780px;
+      font-size:19px;
+      line-height:1.35;
+      color:#4a311a;
+    }
+
+    .badges{
+      position:relative;
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin:18px 30px 0;
+    }
+
+    .badge{
+      padding:8px 13px;
+      border:3px solid var(--mud-dark);
+      border-radius:999px;
+      background:var(--ogre);
+      font-weight:bold;
+      box-shadow:3px 4px 0 rgba(0,0,0,.22);
+    }
+
+    .main{
+      position:relative;
+      padding:22px 30px 30px;
+    }
+
+    .instructions{
+      margin-bottom:20px;
+      padding:15px 17px;
+      border:3px solid var(--mud-dark);
+      border-left:12px solid var(--ogre-dark);
+      border-radius:18px;
+      background:rgba(255,240,199,.9);
+      font-size:18px;
+      line-height:1.45;
+      box-shadow: inset 0 0 0 2px rgba(125,155,69,.22);
+    }
+
+    .story-box{
+      border:4px solid var(--mud-dark);
+      border-radius:24px;
+      padding:22px;
+      background:
+        linear-gradient(rgba(255,247,217,.92), rgba(241,220,166,.95)),
+        radial-gradient(circle at 15% 20%, rgba(155,185,87,.26), transparent 23%);
+      box-shadow: inset 0 0 25px rgba(91,68,38,.13);
+    }
+
+    .text{
+      font-size:20px;
+      line-height:1.72;
+    }
+
+    .text p{
+      margin:0 0 20px;
+    }
+
+    .text p:last-child{
+      margin-bottom:0;
+    }
+
+    .gap{
+      display:inline-flex;
+      align-items:center;
+      gap:7px;
+      white-space:nowrap;
+      margin:0 3px;
+      vertical-align:baseline;
+    }
+
+    .num{
+      display:inline-grid;
+      place-items:center;
+      min-width:36px;
+      height:31px;
+      border:3px solid var(--mud-dark);
+      background:#d6ad58;
+      border-radius:8px;
+      font-size:15px;
+      font-weight:bold;
+      box-shadow:2px 3px 0 rgba(0,0,0,.22);
+    }
+
+    input{
+      width:160px;
+      max-width:38vw;
+      border:3px solid var(--mud-dark);
+      background:#fff3c8;
+      padding:7px 9px;
+      border-radius:13px;
+      font-family:Georgia, "Times New Roman", serif;
+      font-size:19px;
+      color:#203016;
+      outline:none;
+      box-shadow: inset 0 2px 0 rgba(255,255,255,.7);
+    }
+
+    input:focus{
+      background:#fff8dc;
+      box-shadow:0 0 0 4px rgba(155,185,87,.45), inset 0 2px 0 rgba(255,255,255,.7);
+    }
+
+    input.correct{
+      background:#dff0bd;
+      border-color:var(--right);
+    }
+
+    input.wrong{
+      background:#f3c5b9;
+      border-color:var(--wrong);
+    }
+
+    .base{
+      display:inline-block;
+      min-width:76px;
+      text-align:center;
+      font-weight:bold;
+      color:#2d4018;
+      padding:4px 9px;
+      border:2px solid rgba(59,39,23,.7);
+      border-radius:10px;
+      background:#b7c76a;
+      box-shadow:1px 2px 0 rgba(0,0,0,.18);
+    }
+
+    .answer-btn{
+      border:3px solid var(--mud-dark);
+      border-radius:12px;
+      padding:6px 10px;
+      font-size:15px;
+      background:#c28d4b;
+      box-shadow:2px 3px 0 rgba(0,0,0,.22);
+    }
+
+    .answer-btn:hover{
+      transform:translateY(-1px);
+      box-shadow:3px 4px 0 rgba(0,0,0,.24);
+    }
+
+    .answer-pill{
+      display:none;
+      min-width:98px;
+      text-align:center;
+      padding:5px 9px;
+      border:3px solid var(--mud-dark);
+      border-radius:13px;
+      background:#fff0c7;
+      color:#2d4018;
+      font-weight:bold;
+      box-shadow:2px 3px 0 rgba(0,0,0,.18);
+    }
+
+    .answer-pill.open{
+      display:inline-block;
+    }
+
+    .controls{
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      margin-top:22px;
+    }
+
+    button{
+      cursor:pointer;
+      border:4px solid var(--mud-dark);
+      border-radius:17px;
+      padding:12px 17px;
+      font-family:Georgia, "Times New Roman", serif;
+      font-size:17px;
+      font-weight:bold;
+      color:#211408;
+      background:#9bb957;
+      box-shadow:4px 5px 0 rgba(0,0,0,.28);
+      transition:.12s transform, .12s box-shadow, .12s filter;
+    }
+
+    button:hover{
+      transform:translateY(-1px);
+      filter:brightness(1.05);
+      box-shadow:5px 6px 0 rgba(0,0,0,.3);
+    }
+
+    button:active{
+      transform:translateY(2px);
+      box-shadow:2px 3px 0 rgba(0,0,0,.25);
+    }
+
+    .reset-button{
+      background:#e0c075;
+    }
+
+    .feedback{
+      min-height:30px;
+      margin-top:15px;
+      font-size:19px;
+      font-weight:bold;
+      color:#273a17;
+    }
+
+    .swamp-footer{
+      margin-top:14px;
+      text-align:center;
+      color:#fff1c0;
+      font-size:15px;
+      text-shadow:1px 1px 2px rgba(0,0,0,.7);
+    }
+
+    @media (max-width:760px){
+      body{padding:12px;}
+      .top{padding:22px 18px 14px;}
+      .badges{margin-left:18px;margin-right:18px;}
+      .main{padding:18px;}
+      h1{font-size:30px;}
+      .text{font-size:18px;}
+      input{width:140px;}
+      .gap{
+        white-space:normal;
+        margin-top:5px;
+        margin-bottom:5px;
+      }
+      .answer-pill{min-width:auto;}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <section class="card">
+      <div class="top">
+        <div class="ears">🧅 🟢 🐸 🌿</div>
+        <h1>Blarney Stone: Shrek Swamp Quest</h1>
+        <p class="subtitle">Помоги пройти болото словобразования: впиши правильные формы слов и проверяй ключи по одному, когда они понадобятся.</p>
+      </div>
+
+      <div class="badges">
+        <span class="badge">Ogre-approved grammar</span>
+        <span class="badge">Swamp vocabulary magic</span>
+        <span class="badge">No Farquaad allowed</span>
+      </div>
+
+      <div class="main">
+        <div class="instructions">
+          Прочитайте текст. Преобразуйте слова, данные справа, так, чтобы они грамматически и лексически соответствовали содержанию текста. Впишите ответы в поля 29–34.
+        </div>
+
+        <div class="story-box">
+          <div class="text">
+            <p>
+              Each year, thousands of people visit Blarney Castle in Ireland. They come to see and kiss the Blarney Stone. The stone is thought to be half of the
+              <span class="gap">
+                <span class="num">29</span><input id="q29" autocomplete="off" data-answer="original"><span class="base">ORIGIN</span>
+                <button class="answer-btn" onclick="toggleOneAnswer('a29')">ключ</button><span id="a29" class="answer-pill">original</span>
+              </span>
+              Stone of Scone, which allegedly had magical powers.
+            </p>
+
+            <p>
+              How the Blarney Stone earned these alleged powers is
+              <span class="gap">
+                <span class="num">30</span><input id="q30" autocomplete="off" data-answer="unclear"><span class="base">CLEAR</span>
+                <button class="answer-btn" onclick="toggleOneAnswer('a30')">ключ</button><span id="a30" class="answer-pill">unclear</span>
+              </span>.
+              One legend says that an old woman cast a spell on the stone to reward a king for saving her. Kissing the stone gave the king blarney, which is the ability to speak convincingly.
+            </p>
+
+            <p>
+              The term <em>blarney</em> may have originated from the unfulfilled promises of Cormac McCarthy, who promised to give his castle to the Queen of England. But he delayed doing so by speaking
+              <span class="gap">
+                <span class="num">31</span><input id="q31" autocomplete="off" data-answer="softly"><span class="base">SOFT</span>
+                <button class="answer-btn" onclick="toggleOneAnswer('a31')">ключ</button><span id="a31" class="answer-pill">softly</span>
+              </span>,
+              which Queen Elizabeth I described as “blarney talk”.
+            </p>
+
+            <p>
+              Other legends say that the
+              <span class="gap">
+                <span class="num">32</span><input id="q32" autocomplete="off" data-answer="definition"><span class="base">DEFINE</span>
+                <button class="answer-btn" onclick="toggleOneAnswer('a32')">ключ</button><span id="a32" class="answer-pill">definition</span>
+              </span>
+              came from another king who once lived in the castle.
+            </p>
+
+            <p>
+              He had the ability to remain in the middle of an
+              <span class="gap">
+                <span class="num">33</span><input id="q33" autocomplete="off" data-answer="argument"><span class="base">ARGUE</span>
+                <button class="answer-btn" onclick="toggleOneAnswer('a33')">ключ</button><span id="a33" class="answer-pill">argument</span>
+              </span>
+              without taking sides.
+            </p>
+
+            <p>
+              <span class="gap">
+                <span class="num">34</span><input id="q34" autocomplete="off" data-answer="tourists"><span class="base">TOUR</span>
+                <button class="answer-btn" onclick="toggleOneAnswer('a34')">ключ</button><span id="a34" class="answer-pill">tourists</span>
+              </span>
+              who want to kiss the Blarney Stone do so with great difficulty. They have to lie on their backs and bend backward and down, holding iron bars for support.
+            </p>
+          </div>
+        </div>
+
+        <div class="controls">
+          <button onclick="checkAnswers()">Проверить болото</button>
+          <button class="reset-button" onclick="resetExercise()">Сбросить</button>
+        </div>
+
+        <div id="feedback" class="feedback"></div>
+      </div>
+    </section>
+
+    <div class="swamp-footer">Shrek edition ✦ onion layers of grammar ✦ онлайн-доска готова</div>
+  </div>
+
+  <script>
+    const ids = ["q29","q30","q31","q32","q33","q34"];
+    const answerIds = ["a29","a30","a31","a32","a33","a34"];
+
+    function normalise(value){
+      return value.trim().toLowerCase().replace(/\s+/g, " ");
+    }
+
+    function checkAnswers(){
+      let correct = 0;
+      ids.forEach(id => {
+        const input = document.getElementById(id);
+        const answer = normalise(input.dataset.answer);
+        const value = normalise(input.value);
+        input.classList.remove("correct","wrong");
+
+        if(value === answer){
+          input.classList.add("correct");
+          correct++;
+        } else {
+          input.classList.add("wrong");
+        }
+      });
+
+      const fb = document.getElementById("feedback");
+      if(correct === ids.length){
+        fb.textContent = "Все ответы верные! Шрек доволен, Осёл аплодирует.";
+      } else {
+        fb.textContent = `Верных ответов: ${correct} из ${ids.length}. Болото пока не пройдено.`;
+      }
+    }
+
+    function toggleOneAnswer(answerId){
+      document.getElementById(answerId).classList.toggle("open");
+    }
+
+    function resetExercise(){
+      ids.forEach(id => {
+        const input = document.getElementById(id);
+        input.value = "";
+        input.classList.remove("correct","wrong");
+      });
+      answerIds.forEach(id => {
+        document.getElementById(id).classList.remove("open");
+      });
+      document.getElementById("feedback").textContent = "";
+    }
+  </script>
+</body>
+</html>
