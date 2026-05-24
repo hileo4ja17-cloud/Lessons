@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chapter I — Three Men in a Boat</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg-deep:       #1F120A;
+  --bg-base:       #2B1A0F;
+  --bg-mid:        #3A2418;
+  --bg-warm:       #4D2F1F;
+
+  --ink:           #F0DFC4;
+  --ink-bright:    #FAF0E0;
+  --ink-soft:      #D4BFA0;
+  --ink-faded:     #B19A7C;
+
+  --gold:          #D4A574;
+  --gold-bright:   #E8C99A;
+  --brass:         #C9A86B;
+  --rust:          #B8723F;
+  --copper:        #B8923F;
+
+  --clickable-bg:        rgba(212, 165, 116, 0.10);
+  --clickable-bg-hover:  rgba(212, 165, 116, 0.22);
+  --clickable-rule:      rgba(212, 165, 116, 0.30);
+  --clickable-rule-hover:rgba(232, 201, 154, 0.55);
+  --active-bg:           #D4A574;
+
+  --rule:          rgba(212, 165, 116, 0.18);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg-base);
+  color: var(--ink);
+  font-family: 'Lora', Georgia, 'Times New Roman', serif;
+  font-size: 18px;
+  line-height: 1.85;
+  background-image:
+    radial-gradient(ellipse 70% 50% at 50% 0%, rgba(212, 165, 116, 0.12), transparent 60%),
+    radial-gradient(ellipse 50% 40% at 15% 30%, rgba(184, 114, 63, 0.08), transparent 60%),
+    radial-gradient(ellipse 50% 40% at 85% 70%, rgba(232, 201, 154, 0.06), transparent 60%),
+    radial-gradient(ellipse 70% 50% at 50% 100%, rgba(184, 114, 63, 0.08), transparent 60%);
+  background-attachment: fixed;
+  min-height: 100vh;
+  padding: 0 0 80px;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Paper-grain noise overlay */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.35;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.3  0 0 0 0 0.2  0 0 0 0 0.1  0 0 0 0.35 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+
+.container {
+  position: relative;
+  z-index: 2;
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 64px 32px 0;
+}
+
+/* Header */
+.ornament {
+  text-align: center;
+  color: var(--gold);
+  font-size: 1.2rem;
+  letter-spacing: 1em;
+  padding-left: 1em;
+  margin-bottom: 32px;
+  opacity: 0;
+  animation: rise 0.9s 0.05s ease forwards, sparkle 5s 1.4s ease-in-out infinite;
+}
+
+.eyebrow {
+  text-align: center;
+  font-family: 'Fraunces', serif;
+  font-weight: 300;
+  font-style: italic;
+  font-size: 0.92rem;
+  letter-spacing: 0.42em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 14px;
+  padding-left: 0.42em;
+  opacity: 0;
+  animation: rise 0.9s 0.2s ease forwards;
+}
+
+.chapter-num {
+  text-align: center;
+  font-family: 'Fraunces', serif;
+  font-weight: 300;
+  font-size: 1rem;
+  letter-spacing: 0.5em;
+  text-transform: uppercase;
+  color: var(--ink-faded);
+  margin-bottom: 30px;
+  padding-left: 0.5em;
+  opacity: 0;
+  animation: rise 0.9s 0.35s ease forwards;
+}
+
+h1.chapter-title {
+  text-align: center;
+  font-family: 'Fraunces', serif;
+  font-weight: 400;
+  font-style: italic;
+  font-size: clamp(2.2rem, 5.2vw, 3.2rem);
+  line-height: 1.18;
+  color: var(--ink-bright);
+  margin-bottom: 26px;
+  letter-spacing: -0.005em;
+  opacity: 0;
+  animation: rise 1s 0.5s ease forwards;
+  text-shadow: 0 1px 30px rgba(212, 165, 116, 0.18);
+}
+
+.author {
+  text-align: center;
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  font-weight: 400;
+  color: var(--gold-bright);
+  font-size: 1.05rem;
+  margin-bottom: 28px;
+  opacity: 0;
+  animation: rise 1s 0.7s ease forwards;
+}
+
+.divider {
+  text-align: center;
+  color: var(--gold);
+  font-size: 1.45rem;
+  margin: 28px 0 32px;
+  animation: float 6s ease-in-out infinite;
+  display: block;
+}
+
+.tip {
+  text-align: center;
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  color: var(--gold);
+  font-size: 0.92rem;
+  padding: 14px 22px;
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+  margin-bottom: 52px;
+  letter-spacing: 0.06em;
+  opacity: 0;
+  animation: rise 1s 0.9s ease forwards;
+}
+
+/* Paragraphs */
+p {
+  margin-bottom: 1.35em;
+  text-align: justify;
+  hyphens: auto;
+  word-spacing: 0.02em;
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+  will-change: opacity, transform;
+}
+.reveal.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.first-para.in-view::first-letter {
+  font-family: 'Fraunces', serif;
+  font-weight: 500;
+  font-size: 4.6rem;
+  float: left;
+  line-height: 0.86;
+  padding: 6px 12px 0 0;
+  color: var(--gold-bright);
+  font-style: italic;
+  text-shadow: 0 2px 20px rgba(232, 201, 154, 0.3);
+}
+
+/* Clickable items — only specific phrases, not every word */
+.w {
+  position: relative;
+  cursor: pointer;
+  display: inline;
+  padding: 0 4px;
+  border-radius: 3px;
+  background: var(--clickable-bg);
+  box-shadow: inset 0 -1px 0 var(--clickable-rule);
+  transition: background-color 0.22s ease, color 0.22s ease, box-shadow 0.22s ease, text-shadow 0.22s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+.w:hover {
+  background: var(--clickable-bg-hover);
+  color: var(--gold-bright);
+  box-shadow: inset 0 -1px 0 var(--clickable-rule-hover);
+  text-shadow: 0 0 12px rgba(232, 201, 154, 0.18);
+}
+
+.w.active {
+  background: var(--active-bg);
+  color: var(--bg-deep) !important;
+  text-shadow: none;
+  box-shadow:
+    0 2px 14px rgba(212, 165, 116, 0.35),
+    0 0 0 1px rgba(232, 201, 154, 0.5);
+  animation: glow 1.8s ease-in-out infinite;
+}
+
+/* Tooltip */
+.tooltip {
+  position: absolute;
+  bottom: calc(100% + 10px);
+  left: 50%;
+  transform: translateX(-50%) translateY(6px);
+  background: var(--ink-bright);
+  color: var(--bg-deep);
+  font-family: 'Lora', serif;
+  font-size: 0.86rem;
+  font-style: normal;
+  font-weight: 500;
+  white-space: nowrap;
+  padding: 9px 16px;
+  border-radius: 6px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  z-index: 100;
+  box-shadow:
+    0 14px 36px rgba(0, 0, 0, 0.55),
+    0 2px 8px rgba(0, 0, 0, 0.35),
+    0 0 0 1px rgba(212, 165, 116, 0.18);
+  line-height: 1.4;
+  letter-spacing: 0.01em;
+  max-width: 320px;
+}
+.tooltip::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -7px;
+  border: 7px solid transparent;
+  border-top-color: var(--ink-bright);
+  filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.35));
+}
+.w.active .tooltip {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* Legend */
+.legend {
+  display: flex;
+  justify-content: center;
+  gap: 22px 30px;
+  margin: 50px 0 14px;
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  color: var(--gold);
+  font-size: 0.92rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.legend-dot {
+  display: inline-block;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--gold);
+  box-shadow: 0 0 0 2px rgba(212, 165, 116, 0.18);
+}
+
+.end {
+  text-align: center;
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  font-size: 1.55rem;
+  color: var(--gold);
+  margin: 54px 0 24px;
+  letter-spacing: 0.25em;
+  padding-left: 0.25em;
+}
+
+.listen-btn {
+  display: block;
+  margin: 16px auto 0;
+  padding: 11px 32px;
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  font-size: 0.95rem;
+  background: transparent;
+  color: var(--gold);
+  border: 1px solid var(--gold);
+  border-radius: 100px;
+  cursor: pointer;
+  letter-spacing: 0.18em;
+  text-transform: lowercase;
+  transition: all 0.3s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+.listen-btn:hover {
+  background: var(--gold);
+  color: var(--bg-deep);
+  letter-spacing: 0.22em;
+  box-shadow: 0 6px 24px rgba(212, 165, 116, 0.28);
+}
+.listen-btn:active { transform: translateY(1px); }
+
+/* Keyframes */
+@keyframes rise {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-6px); }
+}
+@keyframes sparkle {
+  0%, 100% { filter: brightness(1); }
+  50%      { filter: brightness(1.35); }
+}
+@keyframes glow {
+  0%, 100% {
+    box-shadow:
+      0 2px 14px rgba(212, 165, 116, 0.35),
+      0 0 0 1px rgba(232, 201, 154, 0.5);
+  }
+  50% {
+    box-shadow:
+      0 2px 22px rgba(232, 201, 154, 0.55),
+      0 0 0 1px rgba(232, 201, 154, 0.75);
+  }
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .container { padding: 44px 22px 0; }
+  body { font-size: 17px; line-height: 1.78; }
+  .legend { flex-direction: column; gap: 14px; align-items: center; margin-top: 40px; }
+  .tooltip { white-space: normal; max-width: 220px; text-align: center; }
+  h1.chapter-title { font-size: 2.1rem; }
+  .first-para.in-view::first-letter { font-size: 3.8rem; }
+  .ornament { font-size: 1rem; letter-spacing: 0.7em; }
+  .chapter-num { letter-spacing: 0.4em; font-size: 0.9rem; }
+  p { text-align: left; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, .ornament, .eyebrow, .chapter-num, h1.chapter-title, .author, .tip, .divider {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .reveal { opacity: 1 !important; transform: none !important; }
+  .w, .tooltip, .listen-btn { transition: none; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="ornament">✦ ✦ ✦</div>
+  <div class="eyebrow">Three Men in a Boat</div>
+  <div class="chapter-num">Chapter One</div>
+  <h1 class="chapter-title">A Hospital in Myself</h1>
+  <p class="author">— Jerome K. Jerome —</p>
+  <div class="divider">❦</div>
+  <div class="tip">tap any highlighted phrase to reveal its meaning &amp; hear the sound</div>
+
+  <p class="reveal first-para">There were four of us — <span class="w cat-name" data-tr="Джордж (имя)">George</span>, and <span class="w cat-name" data-tr="Уильям Сэмюэль Гаррис (имя)">William Samuel Harris</span>, and myself, and <span class="w cat-name" data-tr="Монморанси (имя пса)">Montmorency</span>. We were sitting in my room, smoking, and talking about how bad we were — bad <span class="w cat-expr" data-tr="с медицинской точки зрения">from a medical point of view</span>, of course.</p>
+  <p class="reveal">We were all <span class="w cat-expr" data-tr="плохо себя чувствовали">feeling bad</span>, and we were quite nervous about it. <span class="w cat-name" data-tr="Гаррис">Harris</span> said he had such a very bad <span class="w cat-disease" data-tr="головная боль">headache</span> that he hardly knew what he was doing. And then <span class="w cat-name" data-tr="Джордж">George</span> said that he had a <span class="w cat-disease" data-tr="головная боль">headache</span> too. As for me, it was my <span class="w cat-disease" data-tr="печень">liver</span> that was <span class="w cat-expr" data-tr="не в порядке / барахлит">out of order</span>. I read about the various symptoms of a sick liver in a circular that offered <span class="w cat-disease" data-tr="таблетки для печени">liver-pills</span>. I had them all.</p>
+  <p class="reveal">It is a most extraordinary thing, but when I read a medicine advertisement I usually <span class="w cat-expr" data-tr="прихожу к выводу">come to the conclusion</span> that I am <span class="w cat-phrasal" data-tr="страдаю от">suffering from</span> the disease that was described.</p>
+  <p class="reveal">One day I went to the <span class="w cat-name" data-tr="Британский музей">British Museum</span> to read about <span class="w cat-disease" data-tr="сенная лихорадка">hay fever</span>, <span class="w cat-expr" data-tr="мне показалось, что она у меня есть">I fancy I had it</span>. I took the book, and read all I needed; and then I idly <span class="w cat-expr" data-tr="перелистывал страницы">turned the leaves</span>, and began to study diseases, generally. Immediately I understood that I had some <span class="w cat-expr" data-tr="ужасная, разрушительная болезнь">fearful, devastating illness</span>.</p>
+  <p class="reveal">I sat for a while, <span class="w cat-expr" data-tr="застывший от ужаса">frozen with horror</span>; and then, <span class="w cat-expr" data-tr="в отчаянии">in despair</span>, I again <span class="w cat-phrasal" data-tr="перелистнул">turned over</span> the pages. I came to <span class="w cat-disease" data-tr="брюшной тиф">typhoid fever</span> — read the symptoms — discovered that I had typhoid fever, <span class="w cat-expr" data-tr="должно быть, она у меня была">must have had it</span> for months without knowing it — wondered what else I had got; <span class="w cat-phrasal" data-tr="наткнулся на">turned up</span> <span class="w cat-disease" data-tr="пляска святого Витта (болезнь)">St. Vitus's Dance</span> — found, <span class="w cat-expr" data-tr="как я и ожидал">as I expected</span>, that I had that too — and so started <span class="w cat-expr" data-tr="по алфавиту">alphabetically</span>. I had every <span class="w cat-disease" data-tr="болезнь / недуг">malady</span> they wrote about! The only malady I had not got was <span class="w cat-disease" data-tr="воспаление сумки надколенника (досл. «колено горничной»)">housemaid's knee</span>.</p>
+  <p class="reveal"><span class="w cat-expr" data-tr="я почувствовал себя задетым">I felt rather hurt</span> about this at first. Why hadn't I got housemaid's knee? <span class="w cat-expr" data-tr="через некоторое время">After a while</span>, however, I reflected that I had every other known malady in the <span class="w cat-disease" data-tr="фармакология">pharmacology</span>, and I <span class="w cat-expr" data-tr="стал менее эгоистичным">grew less selfish</span>, and <span class="w cat-expr" data-tr="решил">determined to</span> <span class="w cat-phrasal" data-tr="обойтись без">do without</span> housemaid's knee.</p>
+  <p class="reveal">There were no more diseases after <span class="w cat-disease" data-tr="зимоз / инфекционная болезнь">zymosis</span>, so I <span class="w cat-expr" data-tr="пришёл к выводу">concluded</span> <span class="w cat-expr" data-tr="больше мне ничто не угрожает">there was nothing else the matter with me</span>.</p>
+  <p class="reveal">I thought what an interesting case I must be <span class="w cat-expr" data-tr="с медицинской точки зрения">from a medical point of view</span>! Students would have no need to <span class="w cat-expr" data-tr="проходить практику в больницах">walk the hospitals</span>, if they had me. <span class="w cat-expr" data-tr="я сам был ходячей больницей">I was a hospital in myself</span>. All they need do would be to walk round me, and, after that, <span class="w cat-expr" data-tr="получить диплом">take their diploma</span>.</p>
+  <p class="reveal">Then I wondered <span class="w cat-expr" data-tr="сколько мне осталось жить">how long I had to live</span>. I tried to examine myself. I felt my <span class="w cat-disease" data-tr="пульс">pulse</span>. I could not at first feel any pulse <span class="w cat-expr" data-tr="вообще / совсем">at all</span>. Then, <span class="w cat-expr" data-tr="вдруг / неожиданно">all of a sudden</span>, it seemed to <span class="w cat-phrasal" data-tr="запуститься / появиться">start off</span>. I <span class="w cat-phrasal" data-tr="вытащил">pulled out</span> my watch. I made it a hundred and forty-seven <span class="w cat-expr" data-tr="в минуту">to the minute</span>. I tried to feel my heart. I could not feel my heart. <span class="w cat-expr" data-tr="оно перестало биться">It had stopped beating</span>. I could not feel or hear anything. I had <span class="w cat-phrasal" data-tr="вошёл в">walked into</span> that reading-room a happy, healthy man. I <span class="w cat-phrasal" data-tr="выполз">crawled out</span> <span class="w cat-expr" data-tr="жалкая развалина">a decrepit wreck</span>.</p>
+  <p class="reveal">I went to my doctor. He is an old friend of mine, and feels my pulse, and <span class="w cat-phrasal" data-tr="смотрит на">looks at</span> my tongue, and talks about the weather. “What a doctor wants,” I said, “is practice. <span class="w cat-expr" data-tr="пусть он меня и осмотрит">He shall have me</span>.” So he said:</p>
+  <p class="reveal">“Well, <span class="w cat-expr" data-tr="что с вами / что у вас болит">what's the matter with you</span>?”</p>
+  <p class="reveal">I said:</p>
+  <p class="reveal">“I will not <span class="w cat-phrasal" data-tr="отнимать (время)">take up</span> your time with telling you what is the matter with me. But I will tell you what is not the matter with me. I have not got housemaid's knee. Why I have not got housemaid's knee, I cannot tell you; but <span class="w cat-expr" data-tr="факт остаётся фактом">the fact remains</span> that I have not got it. Everything else, however, I have got.”</p>
+  <p class="reveal">Then he examined me, and then he <span class="w cat-expr" data-tr="ударил меня по груди">hit me over the chest</span> when I wasn't expecting it. After that, he <span class="w cat-phrasal" data-tr="сел">sat down</span> and <span class="w cat-phrasal" data-tr="выписал">wrote out</span> a <span class="w cat-disease" data-tr="рецепт (мед.)">prescription</span>, and <span class="w cat-phrasal" data-tr="сложил его">folded it up</span> and gave it me, and I put it in my pocket and <span class="w cat-phrasal" data-tr="вышел">went out</span>.</p>
+  <p class="reveal">I did not open it. I took it to the nearest <span class="w cat-disease" data-tr="аптека">chemist's</span>, and <span class="w cat-phrasal" data-tr="подал / отдал его">handed it in</span>. The man read it, and then <span class="w cat-phrasal" data-tr="вернул его обратно">handed it back</span>.</p>
+  <p class="reveal">I read the prescription. It said:</p>
+  <p class="reveal">“1 lb. <span class="w cat-expr" data-tr="бифштекс">beefsteak</span>, with 1 pt. <span class="w cat-expr" data-tr="горькое пиво">bitter beer</span> every 6 hours. 1 <span class="w cat-expr" data-tr="десятимильная прогулка">ten-mile walk</span> every morning. 1 <span class="w cat-expr" data-tr="в постель ровно в 11">bed at 11 sharp</span> every night.”</p>
+  <p class="reveal">I <span class="w cat-expr" data-tr="следовал указаниям">followed the directions</span>, with the happy result — my life was saved, and <span class="w cat-phrasal" data-tr="всё ещё продолжается">is still going on</span>.</p>
+  <p class="reveal">But <span class="w cat-phrasal" data-tr="возвращаясь к">going back to</span> the liver-pill circular, I had the symptoms, <span class="w cat-expr" data-tr="без всяких сомнений">beyond all mistake</span>, the chief among them being ‘<span class="w cat-expr" data-tr="общее отвращение к любому труду">a general disinclination to work of any kind</span>’.</p>
+  <p class="reveal">What I suffer in that way <span class="w cat-expr" data-tr="ни одним языком не описать">no tongue can tell</span>. <span class="w cat-expr" data-tr="с самого раннего детства">From my earliest infancy</span> I have been <span class="w cat-expr" data-tr="её мучеником">a martyr to it</span>. As a boy, the disease <span class="w cat-expr" data-tr="почти никогда">hardly ever</span> left me for a day. My family did not know, then, that it was my liver. Medical science was <span class="w cat-expr" data-tr="в гораздо менее развитом состоянии">in a far less advanced state</span> than now, and they thought it was <span class="w cat-expr" data-tr="лень">laziness</span>.</p>
+  <p class="reveal">“Are you still sleeping,” they would say, “<span class="w cat-phrasal" data-tr="вставай">get up</span> and <span class="w cat-expr" data-tr="зарабатывай на жизнь">do something for your living</span>, can't you?” — not knowing, of course, that I was ill.</p>
+  <p class="reveal">We sat there for half-an-hour, describing to each other our <span class="w cat-disease" data-tr="недуги / болезни">maladies</span>. I explained to George and <span class="w cat-name" data-tr="Уильям Гаррис">William Harris</span> how I felt when I <span class="w cat-phrasal" data-tr="встал">got up</span> in the morning, and William Harris told us how he felt when he <span class="w cat-phrasal" data-tr="лёг спать">went to bed</span>; and George told us how he felt in the night.</p>
+  <p class="reveal">Suddenly, <span class="w cat-name" data-tr="миссис Поппитс (имя)">Mrs. Poppets</span> <span class="w cat-expr" data-tr="постучала в дверь">knocked at the door</span> to know if we were <span class="w cat-expr" data-tr="готовы к ужину">ready for supper</span>. We smiled sadly, and decided to eat a little.</p>
+  <p class="reveal">I seemed to <span class="w cat-phrasal" data-tr="не проявлять интереса к">take no interest in</span> my food — an unusual thing for me — and I didn't want any cheese.</p>
+  <p class="reveal">We <span class="w cat-expr" data-tr="снова наполнили стаканы">refilled our glasses</span>, <span class="w cat-expr" data-tr="зажгли трубки">lit our pipes</span>, and <span class="w cat-expr" data-tr="возобновили обсуждение">resumed the discussion</span> upon our <span class="w cat-expr" data-tr="состояние здоровья">state of health</span>.</p>
+  <p class="reveal">“What we want is rest,” said Harris.</p>
+  <p class="reveal">“Rest and a complete change,” said George. “The <span class="w cat-expr" data-tr="перенапряжение нашего мозга">overstrain upon our brains</span> has produced a <span class="w cat-disease" data-tr="общая депрессия">general depression</span>. Changes and absence of the necessity for thought will <span class="w cat-expr" data-tr="восстановить душевное равновесие">restore the mental equilibrium</span>.”</p>
+  <p class="reveal">“If you want rest and change,” said Harris, “let's make a <span class="w cat-expr" data-tr="морское путешествие">sea trip</span>.”</p>
+  <p class="reveal">I <span class="w cat-phrasal" data-tr="возразил против">objected to</span> the sea trip strongly. I was afraid for George. George said that he <span class="w cat-expr" data-tr="был уверен">felt sure</span> we should both be ill.</p>
+  <p class="reveal">It is a curious fact, but nobody ever is <span class="w cat-disease" data-tr="морская болезнь (страдает ею)">seasick</span> — on land. At sea, you <span class="w cat-phrasal" data-tr="встречаешь / попадаешь на">come across</span> plenty of people very bad indeed, <span class="w cat-expr" data-tr="целые лодки таких">whole boat of them</span>; but I never met a man yet, on land, who had ever known <span class="w cat-expr" data-tr="вообще / сколько-нибудь">at all</span> what it was to be <span class="w cat-disease" data-tr="страдающий морской болезнью">sea-sick</span>.</p>
+  <p class="reveal"><span class="w cat-expr" data-tr="что касается меня">For myself</span>, I have discovered an excellent <span class="w cat-expr" data-tr="средство от морской болезни">preventive against seasickness</span>, in balancing myself. You stand in the centre of the deck, and you <span class="w cat-phrasal" data-tr="двигайте корпусом туда-сюда">move your body about</span>, so as to <span class="w cat-expr" data-tr="держать его всегда прямо">keep it always straight</span>. When the front of the ship rises, you <span class="w cat-phrasal" data-tr="наклонитесь вперёд">lean forward</span>, till the deck almost touches your nose; and when its <span class="w cat-expr" data-tr="корма поднимается">back end gets up</span>, you <span class="w cat-phrasal" data-tr="наклонитесь назад">lean backwards</span>. <span class="w cat-expr" data-tr="всё это хорошо">This is all very well</span> for an hour or two; but you can't balance yourself for a week.</p>
+  <p class="reveal">George said:</p>
+  <p class="reveal">“Let's <span class="w cat-expr" data-tr="подняться вверх по реке">go up the river</span>.”</p>
+  <p class="reveal">He said we should have <span class="w cat-expr" data-tr="свежий воздух">fresh air</span>, exercise and quiet; and the hard work would <span class="w cat-expr" data-tr="вызовет у нас хороший аппетит">give us a good appetite</span>, and <span class="w cat-expr" data-tr="заставит нас хорошо спать">make us sleep well</span>.</p>
+  <p class="reveal">Harris said he didn't think George <span class="w cat-expr" data-tr="следовало бы">ought to</span> do anything that would make him sleepier than he always was, as it might be dangerous. He might <span class="w cat-expr" data-tr="с тем же успехом мог бы быть мёртвым">just as well be dead</span>, and so <span class="w cat-expr" data-tr="сэкономить на еде и жилье">save his board and lodging</span>.</p>
+  <p class="reveal">Harris and I both said it was a good idea of George's. The only one who was not <span class="w cat-expr" data-tr="проникся предложением">struck with the suggestion</span> was Montmorency.</p>
+  <p class="reveal">“<span class="w cat-expr" data-tr="вам, ребята, легко говорить">It's all very well for you fellows</span>,” he says; “you like it, but I don't. There's nothing for me to do. <span class="w cat-expr" data-tr="если хотите знать моё мнение">If you ask me</span>, I call the whole thing <span class="w cat-expr" data-tr="глупость / вздор">foolishness</span>.”</p>
+  <p class="reveal">We were <span class="w cat-expr" data-tr="трое против одного">three to one</span>, however.</p>
+  <div class="divider">❦</div>
+
+  <div class="legend">
+    <div class="legend-item"><span class="legend-dot"></span><span>names &amp; places</span></div>
+    <div class="legend-item"><span class="legend-dot"></span><span>maladies &amp; medicine</span></div>
+    <div class="legend-item"><span class="legend-dot"></span><span>phrasal verbs</span></div>
+    <div class="legend-item"><span class="legend-dot"></span><span>idioms &amp; expressions</span></div>
+  </div>
+
+  <div class="end">Finis</div>
+  <button class="listen-btn" id="listenAll">listen to chapter</button>
+</div>
+
+<script>
+(function() {
+  const words = document.querySelectorAll('.w');
+  const synth = window.speechSynthesis;
+  let activeWord = null;
+  let voices = [];
+
+  function loadVoices() {
+    if (!synth) return;
+    voices = synth.getVoices();
+  }
+  loadVoices();
+  if (synth && typeof synth.onvoiceschanged !== 'undefined') {
+    synth.onvoiceschanged = loadVoices;
+  }
+
+  function pickEnglishVoice() {
+    if (!voices.length && synth) voices = synth.getVoices();
+    if (!voices.length) return null;
+    return voices.find(v => /en-GB/i.test(v.lang) && /female|samantha|kate|google uk english female|serena|daniel/i.test(v.name))
+        || voices.find(v => /en-GB/i.test(v.lang))
+        || voices.find(v => /en-US/i.test(v.lang))
+        || voices.find(v => /^en/i.test(v.lang))
+        || null;
+  }
+
+  function speak(text) {
+    if (!('speechSynthesis' in window)) return;
+    synth.cancel();
+    const u = new SpeechSynthesisUtterance(text);
+    const voice = pickEnglishVoice();
+    if (voice) u.voice = voice;
+    u.lang = (voice && voice.lang) || 'en-GB';
+    u.rate = 0.92;
+    u.pitch = 1.0;
+    synth.speak(u);
+  }
+
+  // Save original text before injecting tooltips
+  words.forEach(w => {
+    w.dataset.text = w.textContent.trim();
+    const tip = document.createElement('span');
+    tip.className = 'tooltip';
+    tip.textContent = w.dataset.tr;
+    w.appendChild(tip);
+  });
+
+  words.forEach(w => {
+    w.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const wasActive = w.classList.contains('active');
+      if (activeWord && activeWord !== w) {
+        activeWord.classList.remove('active');
+      }
+      if (!wasActive) {
+        w.classList.add('active');
+        activeWord = w;
+        speak(w.dataset.text);
+      } else {
+        w.classList.remove('active');
+        activeWord = null;
+        if (synth) synth.cancel();
+      }
+    });
+  });
+
+  document.addEventListener('click', () => {
+    if (activeWord) {
+      activeWord.classList.remove('active');
+      activeWord = null;
+    }
+  });
+
+  // Scroll-triggered paragraph reveal
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('in-view');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.05, rootMargin: '0px 0px -8% 0px' });
+
+  document.querySelectorAll('.reveal').forEach(p => io.observe(p));
+
+  // Listen to full chapter
+  const listenBtn = document.getElementById('listenAll');
+  let isReading = false;
+  listenBtn.addEventListener('click', () => {
+    if (!('speechSynthesis' in window)) {
+      listenBtn.textContent = 'speech not supported';
+      listenBtn.disabled = true;
+      return;
+    }
+    if (isReading) {
+      synth.cancel();
+      isReading = false;
+      listenBtn.textContent = 'listen to chapter';
+      return;
+    }
+    const paragraphs = document.querySelectorAll('.container p');
+    let text = '';
+    paragraphs.forEach(p => {
+      const clone = p.cloneNode(true);
+      clone.querySelectorAll('.tooltip').forEach(t => t.remove());
+      text += clone.textContent.replace(/\s+/g, ' ') + ' ';
+    });
+    isReading = true;
+    listenBtn.textContent = 'stop reading';
+    const u = new SpeechSynthesisUtterance(text);
+    const voice = pickEnglishVoice();
+    if (voice) u.voice = voice;
+    u.lang = (voice && voice.lang) || 'en-GB';
+    u.rate = 0.92;
+    u.onend = () => {
+      isReading = false;
+      listenBtn.textContent = 'listen to chapter';
+    };
+    u.onerror = () => {
+      isReading = false;
+      listenBtn.textContent = 'listen to chapter';
+    };
+    synth.cancel();
+    synth.speak(u);
+  });
+})();
+</script>
+</body>
+</html>
