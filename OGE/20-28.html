@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Coral Reefs — Word Formation Quest</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=EB+Garamond:wght@400;500;700&display=swap');
+
+    :root {
+      --bg: #100d08;
+      --parchment: #ead8ad;
+      --parchment-2: #d5bd82;
+      --ink: #241707;
+      --gold: #caa24a;
+      --gold-dark: #7b5b1e;
+      --green: #243b25;
+      --green-2: #132416;
+      --red: #7d2b1d;
+      --line: rgba(75, 43, 10, .45);
+      --shadow: rgba(0,0,0,.45);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--ink);
+      font-family: "EB Garamond", Georgia, serif;
+      background:
+        radial-gradient(circle at 50% 0%, rgba(255, 214, 110, .18), transparent 28%),
+        radial-gradient(circle at 10% 20%, rgba(22, 57, 28, .55), transparent 32%),
+        radial-gradient(circle at 90% 80%, rgba(87, 46, 18, .5), transparent 35%),
+        linear-gradient(135deg, #080704 0%, #161109 45%, #070704 100%);
+      padding: 34px 18px;
+    }
+
+    .page {
+      max-width: 1060px;
+      margin: 0 auto;
+      border: 2px solid var(--gold-dark);
+      border-radius: 26px;
+      background:
+        linear-gradient(rgba(234,216,173,.94), rgba(225,199,139,.96)),
+        repeating-linear-gradient(90deg, rgba(84,55,15,.06) 0 1px, transparent 1px 9px);
+      box-shadow: 0 25px 70px var(--shadow), inset 0 0 0 8px rgba(84,55,15,.10);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .page::before, .page::after {
+      content: "✦";
+      position: absolute;
+      color: rgba(88, 58, 18, .32);
+      font-size: 120px;
+      line-height: 1;
+      pointer-events: none;
+    }
+
+    .page::before { top: 10px; left: 20px; transform: rotate(-12deg); }
+    .page::after { bottom: 10px; right: 24px; transform: rotate(12deg); }
+
+    header {
+      padding: 34px 34px 24px;
+      text-align: center;
+      background:
+        linear-gradient(90deg, transparent, rgba(51, 84, 48, .25), transparent),
+        linear-gradient(rgba(255,255,255,.08), transparent);
+      border-bottom: 1px solid var(--line);
+      position: relative;
+      z-index: 1;
+    }
+
+    .subtitle {
+      font-family: "Cinzel", serif;
+      letter-spacing: .16em;
+      font-size: 13px;
+      color: var(--green);
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    h1 {
+      margin: 0;
+      font-family: "Cinzel", serif;
+      font-size: clamp(30px, 5vw, 56px);
+      color: #2a1b08;
+      text-shadow: 0 1px 0 rgba(255,255,255,.35);
+    }
+
+    .instructions {
+      max-width: 820px;
+      margin: 14px auto 0;
+      font-size: 20px;
+      line-height: 1.35;
+    }
+
+    main {
+      padding: 28px 34px 38px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .text-card {
+      background: rgba(255,248,221,.48);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 24px;
+      box-shadow: inset 0 0 25px rgba(79, 51, 15, .08);
+    }
+
+    .intro {
+      font-size: 21px;
+      line-height: 1.42;
+      margin: 0 0 18px;
+    }
+
+    .task {
+      display: grid;
+      grid-template-columns: 44px minmax(0, 1fr) 136px;
+      gap: 14px;
+      align-items: center;
+      padding: 14px 0;
+      border-top: 1px solid rgba(88, 58, 18, .22);
+    }
+
+    .task:first-of-type { border-top: 0; }
+
+    .num {
+      width: 38px;
+      height: 38px;
+      display: grid;
+      place-items: center;
+      border: 2px solid var(--gold-dark);
+      border-radius: 50%;
+      background: radial-gradient(circle, #f5e3ad, #b88c38);
+      font-family: "Cinzel", serif;
+      font-weight: 900;
+      color: #211405;
+      box-shadow: 0 3px 8px rgba(0,0,0,.20);
+    }
+
+    .sentence {
+      font-size: 21px;
+      line-height: 1.35;
+    }
+
+    .answer-line {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      vertical-align: middle;
+      margin: 0 5px;
+    }
+
+    input {
+      width: 178px;
+      max-width: 42vw;
+      padding: 7px 10px 6px;
+      border: 0;
+      border-bottom: 2px solid #4b2e0a;
+      background: rgba(255,255,255,.35);
+      border-radius: 8px 8px 0 0;
+      color: var(--ink);
+      font-family: "EB Garamond", Georgia, serif;
+      font-size: 20px;
+      outline: none;
+      transition: .18s;
+    }
+
+    input:focus {
+      background: rgba(255,255,255,.62);
+      box-shadow: 0 0 0 3px rgba(202,162,74,.25);
+    }
+
+    .key {
+      min-width: 116px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 6px 9px;
+      border-radius: 999px;
+      border: 1px solid rgba(84,55,15,.35);
+      background: rgba(36,59,37,.12);
+      color: transparent;
+      user-select: none;
+      font-size: 18px;
+      font-weight: 700;
+      transition: .2s;
+    }
+
+    .key.open {
+      color: #193117;
+      background: rgba(202,162,74,.22);
+      border-color: rgba(123,91,30,.55);
+    }
+
+    .prompt {
+      justify-self: end;
+      padding: 7px 12px;
+      min-width: 92px;
+      text-align: center;
+      border-radius: 12px;
+      background: linear-gradient(135deg, rgba(19,36,22,.92), rgba(47,75,43,.92));
+      color: #f6e4af;
+      font-family: "Cinzel", serif;
+      font-size: 16px;
+      letter-spacing: .05em;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,.12);
+    }
+
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin: 24px 0 0;
+      justify-content: center;
+    }
+
+    button {
+      border: 1px solid rgba(45,30,7,.45);
+      border-radius: 999px;
+      padding: 11px 18px;
+      cursor: pointer;
+      font-family: "Cinzel", serif;
+      font-weight: 700;
+      letter-spacing: .04em;
+      background: linear-gradient(135deg, #d8b860, #8f641f);
+      color: #1d1204;
+      box-shadow: 0 5px 12px rgba(0,0,0,.2);
+      transition: transform .15s, filter .15s;
+    }
+
+    button:hover { transform: translateY(-1px); filter: brightness(1.05); }
+
+    button.secondary {
+      background: linear-gradient(135deg, #344d31, #152416);
+      color: #f4df9f;
+    }
+
+    .note {
+      text-align: center;
+      margin: 16px 0 0;
+      font-size: 18px;
+      color: rgba(36,23,7,.8);
+    }
+
+    .result {
+      display: none;
+      margin-top: 22px;
+      padding: 18px 20px;
+      border: 1px solid rgba(125,43,29,.35);
+      border-radius: 18px;
+      background: rgba(125,43,29,.08);
+      font-size: 20px;
+      line-height: 1.45;
+    }
+
+    .result.show { display: block; }
+
+    .correct { border-bottom-color: #285a26; background: rgba(88, 140, 77, .22); }
+    .wrong { border-bottom-color: #8d281d; background: rgba(160, 54, 36, .18); }
+
+    .footer {
+      text-align: center;
+      padding: 18px 28px 28px;
+      font-family: "Cinzel", serif;
+      font-size: 13px;
+      letter-spacing: .12em;
+      color: rgba(36,23,7,.72);
+    }
+
+    @media (max-width: 760px) {
+      body { padding: 12px; }
+      header, main { padding-left: 16px; padding-right: 16px; }
+      .text-card { padding: 16px; }
+      .task {
+        grid-template-columns: 38px 1fr;
+        gap: 10px;
+      }
+      .prompt {
+        grid-column: 2;
+        justify-self: start;
+      }
+      .sentence { font-size: 19px; }
+      .intro { font-size: 19px; }
+      .key { min-width: 96px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <div class="subtitle">The Fellowship of Word Formation</div>
+      <h1>Coral Reefs Quest</h1>
+      <p class="instructions">Прочитайте текст и впишите правильные формы слов. Ключи открываются по одному — прямо рядом с нужной строкой.</p>
+    </header>
+
+    <main>
+      <section class="text-card">
+        <p class="intro">
+          A coral reef is like a complex city that supports an array of life almost as diverse as that of a rain forest.
+        </p>
+
+        <div class="task" data-answer="These">
+          <div class="num">20</div>
+          <div class="sentence">
+            The architects of 
+            <span class="answer-line"><input id="q20" autocomplete="off"><span class="key">•••••</span></span>
+            underwater habitats are animals called coral polyps.
+          </div>
+          <div class="prompt">THIS</div>
+        </div>
+
+        <div class="task" data-answer="looks">
+          <div class="num">21</div>
+          <div class="sentence">
+            Usually no bigger than a pea, a coral polyp
+            <span class="answer-line"><input id="q21" autocomplete="off"><span class="key">•••••</span></span>
+            like a tiny colorful flower.
+          </div>
+          <div class="prompt">LOOK</div>
+        </div>
+
+        <div class="task" data-answer="its">
+          <div class="num">22</div>
+          <div class="sentence">
+            Each polyp attaches to
+            <span class="answer-line"><input id="q22" autocomplete="off"><span class="key">•••</span></span>
+            neighbor with the skeleton formed by the outer skin, forming coral colonies.
+          </div>
+          <div class="prompt">IT</div>
+        </div>
+
+        <div class="task" data-answer="called">
+          <div class="num">23</div>
+          <div class="sentence">
+            As polyps grow, they build new cup skeletons on top of old ones. Limestone formations built by millions of coral polyps
+            <span class="answer-line"><input id="q23" autocomplete="off"><span class="key">••••••</span></span>
+            coral reefs.
+          </div>
+          <div class="prompt">CALL</div>
+        </div>
+
+        <div class="task" data-answer="populated">
+          <div class="num">24</div>
+          <div class="sentence">
+            Densely
+            <span class="answer-line"><input id="q24" autocomplete="off"><span class="key">•••••••••</span></span>
+            coral reefs provide habitats for an amazing diversity of marine life, including neon-colored fish, sponges, barracuda sharks, sea turtles, lobsters, crabs and shrimp.
+          </div>
+          <div class="prompt">POPULATE</div>
+        </div>
+
+        <div class="task" data-answer="have existed">
+          <div class="num">25</div>
+          <div class="sentence">
+            Coral fossils indicate that coral reefs
+            <span class="answer-line"><input id="q25" autocomplete="off"><span class="key">•••• •••••••</span></span>
+            for millions of years.
+          </div>
+          <div class="prompt">EXIST</div>
+        </div>
+
+        <div class="task" data-answer="us">
+          <div class="num">26</div>
+          <div class="sentence">
+            The solid appearance of reefs might lead
+            <span class="answer-line"><input id="q26" autocomplete="off"><span class="key">••</span></span>
+            to think they are permanent. However, coral reefs are fragile, carefully balanced ecosystems that are easily threatened. A change in the temperature, water quality, or light can kill the coral polyps.
+          </div>
+          <div class="prompt">WE</div>
+        </div>
+
+        <div class="task" data-answer="greatest">
+          <div class="num">27</div>
+          <div class="sentence">
+            Some destruction of coral reefs may result from these natural causes, but humans cause the
+            <span class="answer-line"><input id="q27" autocomplete="off"><span class="key">••••••••</span></span>
+            damage to reefs.
+          </div>
+          <div class="prompt">GREAT</div>
+        </div>
+
+        <div class="task" data-answer="cannot">
+          <div class="num">28</div>
+          <div class="sentence">
+            Often, once a reef is damaged, it
+            <span class="answer-line"><input id="q28" autocomplete="off"><span class="key">••••••</span></span>
+            recover, and the entire coral community may be lost.
+          </div>
+          <div class="prompt">NOT CAN</div>
+        </div>
+
+        <div class="controls">
+          <button onclick="revealNext()">Открыть следующий ключ</button>
+          <button class="secondary" onclick="checkAnswers()">Проверить ответы</button>
+          <button class="secondary" onclick="hideKeys()">Скрыть ключи</button>
+          <button class="secondary" onclick="resetAll()">Очистить</button>
+        </div>
+
+        <p class="note">Кольцо открывает ответы по одному. Проверка подсветит верные и неверные формы.</p>
+
+        <div id="result" class="result"></div>
+      </section>
+    </main>
+
+    <div class="footer">Not all those who wander are lost — but every blank needs its word.</div>
+  </div>
+
+  <script>
+    const tasks = Array.from(document.querySelectorAll('.task'));
+    let opened = 0;
+
+    function normalize(value) {
+      return value.trim().toLowerCase().replace(/\s+/g, ' ');
+    }
+
+    function revealTask(task) {
+      const answer = task.dataset.answer;
+      const key = task.querySelector('.key');
+      key.textContent = answer;
+      key.classList.add('open');
+    }
+
+    function revealNext() {
+      if (opened < tasks.length) {
+        revealTask(tasks[opened]);
+        opened++;
+      }
+    }
+
+    function hideKeys() {
+      opened = 0;
+      tasks.forEach(task => {
+        const key = task.querySelector('.key');
+        key.classList.remove('open');
+        key.textContent = '•'.repeat(task.dataset.answer.length);
+      });
+    }
+
+    function checkAnswers() {
+      let score = 0;
+      tasks.forEach(task => {
+        const input = task.querySelector('input');
+        const ok = normalize(input.value) === normalize(task.dataset.answer);
+        input.classList.remove('correct', 'wrong');
+        input.classList.add(ok ? 'correct' : 'wrong');
+        if (ok) score++;
+      });
+
+      const result = document.getElementById('result');
+      result.classList.add('show');
+      result.innerHTML = `<strong>Результат: ${score} / ${tasks.length}</strong><br>` +
+        (score === tasks.length
+          ? 'Отлично! Все слова найдены верно.'
+          : 'Проверьте подсвеченные строки или открывайте ключи по одному.');
+    }
+
+    function resetAll() {
+      tasks.forEach(task => {
+        const input = task.querySelector('input');
+        input.value = '';
+        input.classList.remove('correct', 'wrong');
+      });
+      document.getElementById('result').classList.remove('show');
+      hideKeys();
+    }
+
+    hideKeys();
+  </script>
+</body>
+</html>
