@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chapter II — Three Men in a Boat</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg-deep:       #1F120A;
+  --bg-base:       #2B1A0F;
+  --bg-mid:        #3A2418;
+  --bg-warm:       #4D2F1F;
+
+  --ink:           #F0DFC4;
+  --ink-bright:    #FAF0E0;
+  --ink-soft:      #D4BFA0;
+  --ink-faded:     #B19A7C;
+
+  --gold:          #D4A574;
+  --gold-bright:   #E8C99A;
+  --brass:         #C9A86B;
+  --rust:          #B8723F;
+  --copper:        #B8923F;
+
+  --clickable-bg:        rgba(212, 165, 116, 0.10);
+  --clickable-bg-hover:  rgba(212, 165, 116, 0.22);
+  --clickable-rule:      rgba(212, 165, 116, 0.30);
+  --clickable-rule-hover:rgba(232, 201, 154, 0.55);
+  --active-bg:           #D4A574;
+
+  --rule:          rgba(212, 165, 116, 0.18);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg-base);
+  color: var(--ink);
+  font-family: 'Lora', Georgia, 'Times New Roman', serif;
+  font-size: 18px;
+  line-height: 1.85;
+  background-image:
+    radial-gradient(ellipse 70% 50% at 50% 0%, rgba(212, 165, 116, 0.12), transparent 60%),
+    radial-gradient(ellipse 50% 40% at 15% 30%, rgba(184, 114, 63, 0.08), transparent 60%),
+    radial-gradient(ellipse 50% 40% at 85% 70%, rgba(232, 201, 154, 0.06), transparent 60%),
+    radial-gradient(ellipse 70% 50% at 50% 100%, rgba(184, 114, 63, 0.08), transparent 60%);
+  background-attachment: fixed;
+  min-height: 100vh;
+  padding: 0 0 80px;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Paper-grain noise overlay */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.35;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.3  0 0 0 0 0.2  0 0 0 0 0.1  0 0 0 0.35 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+
+.container {
+  position: relative;
+  z-index: 2;
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 64px 32px 0;
+}
+
+/* Header */
+.ornament {
+  text-align: center;
+  color: var(--gold);
+  font-size: 1.2rem;
+  letter-spacing: 1em;
+  padding-left: 1em;
+  margin-bottom: 32px;
+  opacity: 0;
+  animation: rise 0.9s 0.05s ease forwards, sparkle 5s 1.4s ease-in-out infinite;
+}
+
+.eyebrow {
+  text-align: center;
+  font-family: 'Fraunces', serif;
+  font-weight: 300;
+  font-style: italic;
+  font-size: 0.92rem;
+  letter-spacing: 0.42em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 14px;
+  padding-left: 0.42em;
+  opacity: 0;
+  animation: rise 0.9s 0.2s ease forwards;
+}
+
+.chapter-num {
+  text-align: center;
+  font-family: 'Fraunces', serif;
+  font-weight: 300;
+  font-size: 1rem;
+  letter-spacing: 0.5em;
+  text-transform: uppercase;
+  color: var(--ink-faded);
+  margin-bottom: 30px;
+  padding-left: 0.5em;
+  opacity: 0;
+  animation: rise 0.9s 0.35s ease forwards;
+}
+
+h1.chapter-title {
+  text-align: center;
+  font-family: 'Fraunces', serif;
+  font-weight: 400;
+  font-style: italic;
+  font-size: clamp(2.2rem, 5.2vw, 3.2rem);
+  line-height: 1.18;
+  color: var(--ink-bright);
+  margin-bottom: 26px;
+  letter-spacing: -0.005em;
+  opacity: 0;
+  animation: rise 1s 0.5s ease forwards;
+  text-shadow: 0 1px 30px rgba(212, 165, 116, 0.18);
+}
+
+.author {
+  text-align: center;
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  font-weight: 400;
+  color: var(--gold-bright);
+  font-size: 1.05rem;
+  margin-bottom: 28px;
+  opacity: 0;
+  animation: rise 1s 0.7s ease forwards;
+}
+
+.divider {
+  text-align: center;
+  color: var(--gold);
+  font-size: 1.45rem;
+  margin: 28px 0 32px;
+  animation: float 6s ease-in-out infinite;
+  display: block;
+}
+
+.tip {
+  text-align: center;
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  color: var(--gold);
+  font-size: 0.92rem;
+  padding: 14px 22px;
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+  margin-bottom: 52px;
+  letter-spacing: 0.06em;
+  opacity: 0;
+  animation: rise 1s 0.9s ease forwards;
+}
+
+/* Paragraphs */
+p {
+  margin-bottom: 1.35em;
+  text-align: justify;
+  hyphens: auto;
+  word-spacing: 0.02em;
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+  will-change: opacity, transform;
+}
+.reveal.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.first-para.in-view::first-letter {
+  font-family: 'Fraunces', serif;
+  font-weight: 500;
+  font-size: 4.6rem;
+  float: left;
+  line-height: 0.86;
+  padding: 6px 12px 0 0;
+  color: var(--gold-bright);
+  font-style: italic;
+  text-shadow: 0 2px 20px rgba(232, 201, 154, 0.3);
+}
+
+/* Clickable items — only specific phrases, not every word */
+.w {
+  position: relative;
+  cursor: pointer;
+  display: inline;
+  padding: 0 4px;
+  border-radius: 3px;
+  background: var(--clickable-bg);
+  box-shadow: inset 0 -1px 0 var(--clickable-rule);
+  transition: background-color 0.22s ease, color 0.22s ease, box-shadow 0.22s ease, text-shadow 0.22s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+.w:hover {
+  background: var(--clickable-bg-hover);
+  color: var(--gold-bright);
+  box-shadow: inset 0 -1px 0 var(--clickable-rule-hover);
+  text-shadow: 0 0 12px rgba(232, 201, 154, 0.18);
+}
+
+.w.active {
+  background: var(--active-bg);
+  color: var(--bg-deep) !important;
+  text-shadow: none;
+  box-shadow:
+    0 2px 14px rgba(212, 165, 116, 0.35),
+    0 0 0 1px rgba(232, 201, 154, 0.5);
+  animation: glow 1.8s ease-in-out infinite;
+}
+
+/* Tooltip */
+.tooltip {
+  position: absolute;
+  bottom: calc(100% + 10px);
+  left: 50%;
+  transform: translateX(-50%) translateY(6px);
+  background: var(--ink-bright);
+  color: var(--bg-deep);
+  font-family: 'Lora', serif;
+  font-size: 0.86rem;
+  font-style: normal;
+  font-weight: 500;
+  white-space: nowrap;
+  padding: 9px 16px;
+  border-radius: 6px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  z-index: 100;
+  box-shadow:
+    0 14px 36px rgba(0, 0, 0, 0.55),
+    0 2px 8px rgba(0, 0, 0, 0.35),
+    0 0 0 1px rgba(212, 165, 116, 0.18);
+  line-height: 1.4;
+  letter-spacing: 0.01em;
+  max-width: 320px;
+}
+.tooltip::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -7px;
+  border: 7px solid transparent;
+  border-top-color: var(--ink-bright);
+  filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.35));
+}
+.w.active .tooltip {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* Legend */
+.legend {
+  display: flex;
+  justify-content: center;
+  gap: 22px 30px;
+  margin: 50px 0 14px;
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  color: var(--gold);
+  font-size: 0.92rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.legend-dot {
+  display: inline-block;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--gold);
+  box-shadow: 0 0 0 2px rgba(212, 165, 116, 0.18);
+}
+
+.end {
+  text-align: center;
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  font-size: 1.55rem;
+  color: var(--gold);
+  margin: 54px 0 24px;
+  letter-spacing: 0.25em;
+  padding-left: 0.25em;
+}
+
+.listen-btn {
+  display: block;
+  margin: 16px auto 0;
+  padding: 11px 32px;
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  font-size: 0.95rem;
+  background: transparent;
+  color: var(--gold);
+  border: 1px solid var(--gold);
+  border-radius: 100px;
+  cursor: pointer;
+  letter-spacing: 0.18em;
+  text-transform: lowercase;
+  transition: all 0.3s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+.listen-btn:hover {
+  background: var(--gold);
+  color: var(--bg-deep);
+  letter-spacing: 0.22em;
+  box-shadow: 0 6px 24px rgba(212, 165, 116, 0.28);
+}
+.listen-btn:active { transform: translateY(1px); }
+
+/* Keyframes */
+@keyframes rise {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-6px); }
+}
+@keyframes sparkle {
+  0%, 100% { filter: brightness(1); }
+  50%      { filter: brightness(1.35); }
+}
+@keyframes glow {
+  0%, 100% {
+    box-shadow:
+      0 2px 14px rgba(212, 165, 116, 0.35),
+      0 0 0 1px rgba(232, 201, 154, 0.5);
+  }
+  50% {
+    box-shadow:
+      0 2px 22px rgba(232, 201, 154, 0.55),
+      0 0 0 1px rgba(232, 201, 154, 0.75);
+  }
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .container { padding: 44px 22px 0; }
+  body { font-size: 17px; line-height: 1.78; }
+  .legend { flex-direction: column; gap: 14px; align-items: center; margin-top: 40px; }
+  .tooltip { white-space: normal; max-width: 220px; text-align: center; }
+  h1.chapter-title { font-size: 2.1rem; }
+  .first-para.in-view::first-letter { font-size: 3.8rem; }
+  .ornament { font-size: 1rem; letter-spacing: 0.7em; }
+  .chapter-num { letter-spacing: 0.4em; font-size: 0.9rem; }
+  p { text-align: left; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, .ornament, .eyebrow, .chapter-num, h1.chapter-title, .author, .tip, .divider {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .reveal { opacity: 1 !important; transform: none !important; }
+  .w, .tooltip, .listen-btn { transition: none; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="ornament">✦ ✦ ✦</div>
+  <div class="eyebrow">Three Men in a Boat</div>
+  <div class="chapter-num">Chapter Two</div>
+  <h1 class="chapter-title">Of Plans and a Fox-Terrier</h1>
+  <p class="author">— Jerome K. Jerome —</p>
+  <div class="divider">❦</div>
+  <div class="tip">tap any highlighted phrase to reveal its meaning &amp; hear the sound</div>
+
+  <p class="reveal first-para">We <span class="w cat-phrasal" data-tr="вытащили / достали">pulled out</span> the maps, and discussed plans. We <span class="w cat-expr" data-tr="договорились отправиться">arranged to start</span> on the following Saturday from <span class="w cat-name" data-tr="Кингстон (город)">Kingston</span>. Harris and I would <span class="w cat-phrasal" data-tr="поехать / спуститься">go down</span> in the morning, and <span class="w cat-expr" data-tr="поднять лодку до">take the boat up to</span> <span class="w cat-name" data-tr="Чертси (город)">Chertsey</span>, and George would <span class="w cat-expr" data-tr="встретить нас">meet us</span> there.</p>
+  <p class="reveal">Should we ‘<span class="w cat-phrasal" data-tr="ночевать под открытым небом">camp out</span>’ or <span class="w cat-expr" data-tr="ночевать в гостиницах">sleep at inns</span>?</p>
+  <p class="reveal">George and I <span class="w cat-phrasal" data-tr="были за">were for</span> camping out. We said it would be so wild and free, so <span class="w cat-expr" data-tr="патриархально / по-простому">patriarchal</span>.</p>
+  <p class="reveal">Harris said:</p>
+  <p class="reveal">“<span class="w cat-expr" data-tr="а как насчёт">How about</span> when it rained?”</p>
+  <p class="reveal"><span class="w cat-phrasal" data-tr="ночёвка под открытым небом">Camping out</span> in <span class="w cat-expr" data-tr="дождливая погода">rainy weather</span> is not pleasant. We therefore decided that we would <span class="w cat-phrasal" data-tr="ночевать на улице">sleep out</span> on <span class="w cat-expr" data-tr="хорошие / ясные ночи">fine nights</span>; and in hotels and inns, like <span class="w cat-expr" data-tr="приличные люди">respectable folks</span>, when it was wet. <span class="w cat-name" data-tr="Монморанси (имя пса)">Montmorency</span> <span class="w cat-expr" data-tr="одобрил этот компромисс">approved this compromise</span>. <span class="w cat-phrasal" data-tr="если посмотреть на">To look at</span> Montmorency you would imagine that he was <span class="w cat-expr" data-tr="ангел, посланный на землю">an angel sent upon the earth</span>, for some reason in the shape of a small <span class="w cat-name" data-tr="фокстерьер (порода)">fox-terrier</span>. When first he <span class="w cat-expr" data-tr="поселился у меня">came to live with me</span>, I never thought I should be <span class="w cat-expr" data-tr="способен держать его долго">able to have him long</span>. I <span class="w cat-expr" data-tr="обычно садился">used to sit down</span> and <span class="w cat-phrasal" data-tr="смотреть на">look at</span> him, and think: “Oh, that dog will never live.” But I was wrong.</p>
+  <p class="reveal">To <span class="w cat-phrasal" data-tr="околачиваться / ошиваться">hang about</span> a stable, and <span class="w cat-expr" data-tr="собрать банду / шайку">collect a gang</span> of the most <span class="w cat-expr" data-tr="псы с самой дурной репутацией">disreputable dogs</span> <span class="w cat-expr" data-tr="что можно найти">to be found</span> in the town, and <span class="w cat-phrasal" data-tr="вывести их">lead them out</span> to fight other disreputable dogs, is Montmorency's <span class="w cat-expr" data-tr="представление о «жизни»">idea of 'life'</span>.</p>
+  <p class="reveal">Harris <span class="w cat-expr" data-tr="предложил">proposed</span> that we should <span class="w cat-phrasal" data-tr="выйти / сходить">go out</span> and <span class="w cat-expr" data-tr="пропустить по глоточку">get a drop of</span> good <span class="w cat-name" data-tr="ирландский виски">Irish whiskey</span>.</p>
+  <p class="reveal">George said he <span class="w cat-expr" data-tr="испытывал жажду">felt thirsty</span> (I never knew George when he didn't); and we <span class="w cat-phrasal" data-tr="надели шляпы">put on our hats</span> and <span class="w cat-phrasal" data-tr="вышли">went out</span>.</p>
+  <div class="divider">❦</div>
+
+  <div class="legend">
+    <div class="legend-item"><span class="legend-dot"></span><span>names &amp; places</span></div>
+    <div class="legend-item"><span class="legend-dot"></span><span>maladies &amp; medicine</span></div>
+    <div class="legend-item"><span class="legend-dot"></span><span>phrasal verbs</span></div>
+    <div class="legend-item"><span class="legend-dot"></span><span>idioms &amp; expressions</span></div>
+  </div>
+
+  <div class="end">Finis</div>
+  <button class="listen-btn" id="listenAll">listen to chapter</button>
+</div>
+
+<script>
+(function() {
+  const words = document.querySelectorAll('.w');
+  const synth = window.speechSynthesis;
+  let activeWord = null;
+  let voices = [];
+
+  function loadVoices() {
+    if (!synth) return;
+    voices = synth.getVoices();
+  }
+  loadVoices();
+  if (synth && typeof synth.onvoiceschanged !== 'undefined') {
+    synth.onvoiceschanged = loadVoices;
+  }
+
+  function pickEnglishVoice() {
+    if (!voices.length && synth) voices = synth.getVoices();
+    if (!voices.length) return null;
+    return voices.find(v => /en-GB/i.test(v.lang) && /female|samantha|kate|google uk english female|serena|daniel/i.test(v.name))
+        || voices.find(v => /en-GB/i.test(v.lang))
+        || voices.find(v => /en-US/i.test(v.lang))
+        || voices.find(v => /^en/i.test(v.lang))
+        || null;
+  }
+
+  function speak(text) {
+    if (!('speechSynthesis' in window)) return;
+    synth.cancel();
+    const u = new SpeechSynthesisUtterance(text);
+    const voice = pickEnglishVoice();
+    if (voice) u.voice = voice;
+    u.lang = (voice && voice.lang) || 'en-GB';
+    u.rate = 0.92;
+    u.pitch = 1.0;
+    synth.speak(u);
+  }
+
+  // Save original text before injecting tooltips
+  words.forEach(w => {
+    w.dataset.text = w.textContent.trim();
+    const tip = document.createElement('span');
+    tip.className = 'tooltip';
+    tip.textContent = w.dataset.tr;
+    w.appendChild(tip);
+  });
+
+  words.forEach(w => {
+    w.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const wasActive = w.classList.contains('active');
+      if (activeWord && activeWord !== w) {
+        activeWord.classList.remove('active');
+      }
+      if (!wasActive) {
+        w.classList.add('active');
+        activeWord = w;
+        speak(w.dataset.text);
+      } else {
+        w.classList.remove('active');
+        activeWord = null;
+        if (synth) synth.cancel();
+      }
+    });
+  });
+
+  document.addEventListener('click', () => {
+    if (activeWord) {
+      activeWord.classList.remove('active');
+      activeWord = null;
+    }
+  });
+
+  // Scroll-triggered paragraph reveal
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('in-view');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.05, rootMargin: '0px 0px -8% 0px' });
+
+  document.querySelectorAll('.reveal').forEach(p => io.observe(p));
+
+  // Listen to full chapter
+  const listenBtn = document.getElementById('listenAll');
+  let isReading = false;
+  listenBtn.addEventListener('click', () => {
+    if (!('speechSynthesis' in window)) {
+      listenBtn.textContent = 'speech not supported';
+      listenBtn.disabled = true;
+      return;
+    }
+    if (isReading) {
+      synth.cancel();
+      isReading = false;
+      listenBtn.textContent = 'listen to chapter';
+      return;
+    }
+    const paragraphs = document.querySelectorAll('.container p');
+    let text = '';
+    paragraphs.forEach(p => {
+      const clone = p.cloneNode(true);
+      clone.querySelectorAll('.tooltip').forEach(t => t.remove());
+      text += clone.textContent.replace(/\s+/g, ' ') + ' ';
+    });
+    isReading = true;
+    listenBtn.textContent = 'stop reading';
+    const u = new SpeechSynthesisUtterance(text);
+    const voice = pickEnglishVoice();
+    if (voice) u.voice = voice;
+    u.lang = (voice && voice.lang) || 'en-GB';
+    u.rate = 0.92;
+    u.onend = () => {
+      isReading = false;
+      listenBtn.textContent = 'listen to chapter';
+    };
+    u.onerror = () => {
+      isReading = false;
+      listenBtn.textContent = 'listen to chapter';
+    };
+    synth.cancel();
+    synth.speak(u);
+  });
+})();
+</script>
+</body>
+</html>
