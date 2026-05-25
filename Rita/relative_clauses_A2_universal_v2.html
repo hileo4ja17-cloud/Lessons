@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Relative Clauses A2 · Interactive Lesson</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700;9..144,900&amp;family=Quicksand:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --mint:#dceee5;--mint2:#bddbc9;--mint3:#83b190;--deep:#233f35;--brown:#755741;--brown2:#a67b5b;--cream:#f7efe2;--paper:#fffaf1;--ink:#22312a;--soft:#617168;--rose:#e8b8a9;--sand:#ead3b5;--good:#74a676;--bad:#d47b6d;--gold:#e9c76f;
+  --shadow:0 16px 38px rgba(35,63,53,.14);--shadow2:0 7px 18px rgba(35,63,53,.10);--r:25px;--serif:'Fraunces', Georgia, serif;--sans:'Quicksand', system-ui, sans-serif;
+}
+*{box-sizing:border-box} html{scroll-behavior:smooth} body{margin:0;color:var(--ink);font-family:var(--sans);background:radial-gradient(circle at 12% 7%,#cfe7d6 0,transparent 34%),radial-gradient(circle at 90% 14%,#e6d0b5 0,transparent 31%),radial-gradient(circle at 12% 88%,#bddbc9 0,transparent 28%),linear-gradient(135deg,#f7efe2,#e8f4ec 58%,#efe0cd);min-height:100vh;overflow-x:hidden}.grain{position:fixed;inset:0;pointer-events:none;background-image:radial-gradient(rgba(35,63,53,.045) 1px,transparent 1px);background-size:20px 20px;z-index:0}.wrap{position:relative;z-index:1;max-width:1180px;margin:0 auto;padding:24px 20px 112px}.top{position:sticky;top:14px;z-index:20;background:rgba(255,250,241,.82);backdrop-filter:blur(16px);border:1px solid rgba(131,177,144,.45);border-radius:999px;padding:10px 12px;display:flex;gap:8px;align-items:center;box-shadow:var(--shadow2);flex-wrap:wrap}.brand{font-family:var(--serif);font-weight:900;color:var(--deep);padding:0 12px}.top button,.top a{border:0;background:transparent;color:var(--deep);text-decoration:none;font-weight:800;padding:8px 12px;border-radius:999px;cursor:pointer}.top button:hover,.top a:hover{background:var(--mint)}.progress{height:9px;flex:1;min-width:110px;max-width:220px;border-radius:999px;background:#e9dfd0;overflow:hidden;margin-left:auto}.fill{height:100%;width:0;background:linear-gradient(90deg,var(--mint3),var(--brown2));transition:.3s}.slide{display:none;min-height:calc(100vh - 110px);padding:46px 0 30px;animation:fade .45s ease}.slide.active{display:block}@keyframes fade{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}.hero{display:grid;grid-template-columns:1.05fr .95fr;gap:30px;align-items:center}.card{background:rgba(255,250,241,.94);border:1px solid rgba(117,87,65,.13);box-shadow:var(--shadow);border-radius:var(--r);padding:28px}.note{background:#fff;border:1px dashed var(--mint3);border-radius:18px;padding:16px;margin-top:16px}.kicker{display:inline-block;background:var(--sand);color:var(--brown);font-weight:900;border-radius:999px;padding:8px 14px;margin-bottom:18px}.hero h1,.title{font-family:var(--serif);font-size:clamp(2.3rem,6vw,5rem);line-height:.96;margin:0 0 18px;color:var(--deep);letter-spacing:-.04em}.hero h1 span,.title span{color:var(--brown)}p{font-size:1.04rem;line-height:1.62;color:var(--soft)}.big{font-size:1.22rem}.pillrow{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}.pill{background:#fff;border:1px solid var(--mint2);border-radius:999px;padding:9px 14px;font-weight:900;color:var(--deep)}.photoBoard{display:grid;grid-template-columns:1fr 1fr;gap:14px;transform:rotate(1deg)}.pin{background:#fff;border-radius:22px;padding:20px;min-height:148px;box-shadow:var(--shadow2);position:relative;transition:.25s}.pin:hover{transform:translateY(-5px) rotate(-1deg)}.pin:before{content:'';position:absolute;top:-8px;left:50%;width:64px;height:18px;background:rgba(220,238,229,.85);transform:translateX(-50%) rotate(-3deg);border-radius:3px}.pin b{font-family:var(--serif);font-size:1.33rem;color:var(--deep)}.pin small{display:block;margin-top:9px;color:var(--soft);font-weight:800}.sectionTitle{display:flex;align-items:end;gap:16px;margin-bottom:22px}.num{width:58px;height:58px;border-radius:50%;background:var(--deep);color:#fff;display:grid;place-items:center;font-family:var(--serif);font-size:1.7rem;font-weight:900;box-shadow:var(--shadow2);flex:0 0 auto}h2{font-family:var(--serif);font-size:clamp(2rem,4.4vw,3.4rem);line-height:1;margin:0;color:var(--deep)}h3{font-family:var(--serif);font-size:1.45rem;margin:0 0 12px;color:var(--deep)}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:20px}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.tiny{font-size:.92rem;color:var(--soft)}.formula{font-size:1.28rem;font-family:var(--serif);background:#fff;border-left:7px solid var(--mint3);padding:18px;border-radius:16px;margin:14px 0;line-height:1.55}.formula b{background:var(--mint);border-radius:8px;padding:1px 8px}.choice,.chip,.word,.option{border:2px solid transparent;background:#fff;border-radius:999px;padding:10px 15px;font-weight:900;cursor:pointer;transition:.2s;user-select:none;display:inline-flex;align-items:center;margin:5px}.choice:hover,.chip:hover,.word:hover,.option:hover{transform:translateY(-2px);box-shadow:var(--shadow2)}.choice.pick,.chip.active,.option.pick{background:var(--deep);color:#fff}.ok{background:var(--good)!important;color:#fff!important;border-color:#54855a!important}.no{background:var(--bad)!important;color:#fff!important;border-color:#be6d62!important}.task{background:rgba(255,255,255,.74);border-radius:22px;padding:18px;margin:14px 0;border:1px solid rgba(131,177,144,.35)}.taskText{font-family:var(--serif);font-size:1.17rem;color:var(--deep);line-height:1.55}.answer{display:none;margin-top:10px;background:var(--mint);border-radius:15px;padding:12px;color:var(--deep);font-weight:700}.answer.show{display:block;animation:fade .3s ease}.btn{background:var(--deep);color:#fff;border:0;border-radius:999px;padding:12px 20px;font-weight:900;cursor:pointer;margin:8px 6px 0 0;box-shadow:var(--shadow2)}.btn:hover{filter:brightness(1.08);transform:translateY(-2px)}.btn.light{background:var(--brown2)}.btn.ghost{background:#fff;color:var(--deep);border:1px solid var(--mint3)}.feedback{display:none;margin-top:14px;padding:14px;background:#fff4ce;border-radius:16px;color:var(--deep);font-weight:800}.feedback.show{display:block}.wordGrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(168px,1fr));gap:12px}.vocabCard{background:#fff;border-radius:18px;padding:14px;box-shadow:var(--shadow2);cursor:pointer;min-height:96px;position:relative;perspective:800px}.vocabCard .front,.vocabCard .back{transition:.35s;backface-visibility:hidden}.vocabCard .front b{font-family:var(--serif);font-size:1.16rem}.pos{display:inline-block;margin-bottom:7px;padding:3px 8px;border-radius:999px;background:var(--mint);color:var(--deep);font-weight:900;font-size:.78rem}.vocabCard .back b{font-family:var(--serif);font-size:1.24rem}.vocabCard .back{position:absolute;inset:14px;transform:rotateY(180deg);color:var(--deep);font-weight:900}.vocabCard.flip .front{transform:rotateY(180deg)}.vocabCard.flip .back{transform:rotateY(0)}.scene{background:#fff;border-radius:22px;padding:20px;box-shadow:var(--shadow2);border-top:7px solid var(--mint3);cursor:pointer}.scene:nth-child(2n){border-top-color:var(--brown2)}.scene .line{font-family:var(--serif);font-size:1.18rem;color:var(--deep);line-height:1.45}.scene .why{display:none;margin-top:12px;padding-top:12px;border-top:1px dashed var(--mint2);color:var(--soft);font-weight:700}.scene.open .why{display:block}.input{width:100%;border:2px solid var(--mint2);border-radius:15px;padding:12px;font-family:var(--sans);font-size:1rem;margin-top:10px;background:#fff}.select{border:2px solid var(--mint2);border-radius:12px;padding:9px 12px;font-weight:900;background:#fff;color:var(--deep)}.blank{display:inline-block;min-width:80px;border-bottom:2px dashed var(--brown2);padding:1px 8px;text-align:center;color:var(--brown);font-weight:900}.tagCloud{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}.mini{font-size:.85rem}.footerNav{position:fixed;bottom:16px;left:50%;transform:translateX(-50%);z-index:30;background:rgba(255,250,241,.92);backdrop-filter:blur(14px);border:1px solid var(--mint2);box-shadow:var(--shadow);border-radius:999px;padding:10px;display:flex;gap:8px}.footerNav button{border:0;border-radius:999px;background:var(--deep);color:#fff;font-weight:900;padding:11px 18px;cursor:pointer}.footerNav button:nth-child(2){background:var(--brown2)}.count{font-weight:900;color:var(--deep);padding:11px 8px}.confetti{pointer-events:none;position:fixed;inset:0;z-index:99}.piece{position:absolute;width:8px;height:14px;border-radius:2px;animation:fall 1s ease forwards}@keyframes fall{to{transform:translateY(100vh) rotate(540deg);opacity:0}}.softbox{background:#fff;border-radius:18px;padding:16px;border:1px solid var(--mint2)}.comic{display:grid;grid-template-columns:70px 1fr;gap:14px;align-items:center;background:#fff;border-radius:22px;padding:18px;margin:12px 0;box-shadow:var(--shadow2)}.avatar{width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,var(--mint2),var(--sand));display:grid;place-items:center;font-size:1.9rem}.comma{display:inline-block;width:26px;height:26px;border:2px dashed var(--mint3);border-radius:50%;vertical-align:middle;cursor:pointer;margin:0 3px;position:relative;top:6px}.comma.on{background:var(--deep);border-color:var(--deep)}.comma.on:after{content:',';position:absolute;color:#fff;font-weight:900;font-size:1.35rem;left:8px;top:-8px}.comma.right{background:var(--good);border-color:var(--good)}.comma.wrong{background:var(--bad);border-color:var(--bad)}
+@media(max-width:860px){.hero,.grid2,.grid3{grid-template-columns:1fr}.photoBoard{transform:none}.top{border-radius:24px}.progress{order:99;max-width:none}.footerNav{width:calc(100% - 24px);justify-content:center}.slide{padding-bottom:80px}.sectionTitle{align-items:flex-start}}
+</style>
+</head>
+<body>
+<div class="grain"></div>
+<div class="wrap">
+<nav class="top">
+<div class="brand">Relative Clauses · A2</div>
+<a href="#" onclick="go(0);return false">Rules</a>
+<a href="#" onclick="go(1);return false">Commas</a>
+<a href="#" onclick="go(3);return false">Practice 1</a>
+<a href="#" onclick="go(4);return false">Practice 3</a>
+<button onclick="shuffleVocab()">Shuffle words</button>
+<button onclick="resetAll()">Reset</button>
+<div class="progress"><div class="fill" id="fill"></div></div>
+</nav><section class="slide active">
+<div class="sectionTitle"><div class="num">1</div><h2>The A2 formula</h2></div>
+<div class="grid3">
+<div class="card"><h3>People</h3><div class="formula">person + <b>who</b> + verb</div><p>A tour guide <b>who speaks clearly</b> is very helpful.</p></div>
+<div class="card"><h3>Things / jobs</h3><div class="formula">thing/job + <b>which</b> <span class="tiny">(that)</span> + verb</div><p>I want a part-time job <b>which is creative</b>.</p></div>
+<div class="card"><h3>Places</h3><div class="formula">place + <b>where</b> + person + verb</div><p>This is the office <b>where my team works</b>.</p></div>
+<div class="card"><h3>Time</h3><div class="formula">time/day/year + <b>when</b> + person + verb</div><p>Monday was the day <b>when I felt encouraged</b>.</p></div>
+<div class="card"><h3>Possession</h3><div class="formula">person + <b>whose</b> + noun + verb</div><p>That is the writer <b>whose book I love</b>.</p></div>
+<div class="card"><h3>Extra note</h3><div class="formula"><b>which</b> for things <span class="tiny">(that is also common in everyday English)</span></div><p>I like films <b>which make me smile</b>. <span class="tiny">(that make me smile)</span></p></div>
+</div>
+</section><section class="slide">
+<div class="sectionTitle"><div class="num">2</div><h2>Commas, only if you need them</h2></div>
+<div class="grid2">
+<div class="card">
+<h3>A2 simple rule</h3>
+<p>Most of the time today, do <b>not</b> use commas.</p>
+<div class="formula">I met a businessperson <b>who works from home</b>.</div>
+<p>Use commas only when the information is like a small extra comment.</p>
+<div class="formula">My sister, <b>who is an architect</b>, lives in London.</div>
+</div>
+<div class="card">
+<h3>Click where you need commas.</h3>
+<div id="commaTask"></div>
+<button class="btn" onclick="checkCommas()">Check commas</button><div class="feedback" id="commaFb"></div>
+</div>
+</div>
+</section><section class="slide">
+<div class="sectionTitle"><div class="num">3</div><h2>Vocabulary cards</h2></div>
+<div class="card">
+<h3>Read the meaning first. Click the card to check the word.</h3>
+<div class="wordGrid" id="vocabGrid"></div>
+</div>
+</section><section class="slide">
+<div class="sectionTitle"><div class="num">4</div><h2>Practice 1: choose who / which / where / when / whose</h2></div>
+<div class="card"><div id="chooseTask"></div><button class="btn" onclick="checkChoose()">Check answers</button><button class="btn light" onclick="downloadChooseResults()">Download my answers</button><button class="btn ghost" onclick="showChoose()">Show answers</button><div class="feedback" id="chooseFb"></div></div>
+</section><section class="slide">
+<div class="sectionTitle"><div class="num">5</div><h2>Practice 3: final review</h2></div>
+<div class="card">
+<h3>Quick check</h3>
+<div id="finalTask"></div><button class="btn" onclick="checkFinal()">Check score</button><button class="btn light" onclick="downloadFinalAnswers()">Download my answers as picture</button><button class="btn ghost" onclick="downloadFinalKey()">Download picture with correct answers</button>
+<div class="feedback" id="finalFb"></div>
+<div class="note"><b>Remember:</b> people who · things which <span class="tiny">(that)</span> · places where · times when · possession whose. Correct answers are not shown on the page; download the answer-key picture when you need them.</div>
+</div>
+</section>
+
+
+
+
+
+
+
+
+
+
+</div>
+<div class="footerNav"><button onclick="prevSlide()">← Back</button><span class="count" id="count">1 / 5</span><button onclick="nextSlide()">Next →</button></div>
+<div class="confetti" id="confetti"></div>
+<script>
+const slides=[...document.querySelectorAll('.slide')];let current=0;
+function go(i){current=Math.max(0,Math.min(slides.length-1,i));slides.forEach((s,n)=>s.classList.toggle('active',n===current));document.getElementById('count').textContent=(current+1)+' / '+slides.length;document.getElementById('fill').style.width=((current+1)/slides.length*100)+'%';window.scrollTo({top:0,behavior:'smooth'});}function nextSlide(){go(current+1)}function prevSlide(){go(current-1)}go(0);
+function sparkle(){const box=document.getElementById('confetti');for(let i=0;i<34;i++){const p=document.createElement('div');p.className='piece';p.style.left=Math.random()*100+'%';p.style.top='-20px';p.style.background=['#83b190','#a67b5b','#e8b8a9','#e9c76f'][Math.floor(Math.random()*4)];p.style.animationDelay=Math.random()*0.25+'s';box.appendChild(p);setTimeout(()=>p.remove(),1200)}}
+function resetAll(){document.querySelectorAll('.pick,.ok,.no,.active,.flip,.open,.on,.right,.wrong').forEach(e=>e.classList.remove('pick','ok','no','active','flip','open','on','right','wrong'));document.querySelectorAll('.feedback,.answer').forEach(e=>e.classList.remove('show'));document.querySelectorAll('textarea,input').forEach(e=>e.value='');}
+document.querySelectorAll('.choice,.chip').forEach(el=>el.addEventListener('click',()=>el.classList.toggle(el.classList.contains('choice')?'pick':'active')));
+function checkWarm(){let ok=0;document.querySelectorAll('[data-warm]').forEach(t=>{let picked=t.querySelector('.choice.pick');t.querySelectorAll('.choice').forEach(c=>c.classList.remove('ok','no'));if(picked&&picked.dataset.ok){picked.classList.add('ok');ok++}else if(picked){picked.classList.add('no')}t.querySelector('[data-ok="true"]').classList.add('ok')});let fb=document.getElementById('warmFb');fb.textContent=ok===3?'Great! You are ready.':'Good start. Look at the green answers.';fb.classList.add('show');if(ok===3)sparkle();}
+const vocab=[['annoyed','adjective','a little angry'],['charmed','adjective','very pleased by someone or something nice'],['confused','adjective','not sure; not understanding'],['disappointed','adjective','sad because something was not as good as you wanted'],['disturbed','adjective','worried or upset'],['embarrassed','adjective','feeling shy because something is awkward'],['encouraged','adjective','feeling more hopeful and confident'],['touched','adjective','feeling emotional because something is kind'],['join','verb','to become part of a group'],['shall','modal verb','used in offers and questions: Shall we go?'],['invite','verb','to ask someone to come'],['architect','noun','a person who designs buildings'],['businessperson','noun','a person who works in business'],['film extra','noun','a person who appears in the background of a film'],['shop assistant','noun','a person who helps customers in a shop'],['tour guide','noun','a person who shows tourists interesting places'],['writer','noun','a person who writes books or texts'],['creative','adjective','good at making new ideas'],['customers','noun, plural','people who buy things'],['well paid','adjective','getting good money for work'],['from home','phrase','not in an office'],['part time','adjective','not full working hours'],['communication','noun','talking and sharing information'],['long hours','noun phrase','many hours of work'],['team','noun','a group of people who work together'],['forecast','noun','a report about future weather'],['warm','verb / adjective','to make something warmer; not cold'],['bored','adjective','not interested'],['worried','adjective','nervous about a problem']];
+function renderVocab(list=vocab){const grid=document.getElementById('vocabGrid');grid.innerHTML='';list.forEach(([w,pos,d])=>{const c=document.createElement('div');c.className='vocabCard';c.innerHTML=`<div class="front"><span class="pos">${pos}</span><p class="tiny">${d}</p><p class="tiny">click to check</p></div><div class="back"><b>${w}</b></div>`;c.onclick=()=>c.classList.toggle('flip');grid.appendChild(c)})}renderVocab();function shuffleVocab(){renderVocab([...vocab].sort(()=>Math.random()-.5));}
+const scenes=[
+ ['Interview','I am looking for a part-time job <b>which has good communication</b>.','A job = thing/idea, so we use which. In speaking, people often use that too.'],
+ ['Film set','A film extra is a person <b>who appears in the background</b>.','A person = who.'],
+ ['Series line','She is the shop assistant <b>who helped me when I felt confused</b>.','A shop assistant is a person.'],
+ ['Travel vlog','This is the city <b>where I met a tour guide</b>.','A city is a place, so we use where.'],
+ ['Weather report','Monday was the day <b>when the forecast was wrong</b>.','A day is time, so we use when.'],
+ ['Work story','I joined a team <b>which works from home</b>.','A team is a thing/group, so we use which.'],
+ ['Podcast','I admire writers <b>whose stories make people feel touched</b>.','Whose shows possession: writers → their stories.'],
+ ['Office chat','She wants a job <b>which is creative and well paid</b>.','A job = thing/idea, so which works well.']
+];
+const sceneGrid=document.getElementById('sceneGrid');if(sceneGrid){scenes.forEach(s=>{const d=document.createElement('div');d.className='scene';d.innerHTML=`<div class="tiny">${s[0]}</div><div class="line">${s[1]}</div><div class="why">${s[2]}</div>`;d.onclick=()=>d.classList.toggle('open');sceneGrid.appendChild(d)});}
+const choose=[['A writer ___ works from home can still have long hours.','who'],['This is a café ___ customers feel welcome.','where'],['I need a phone ___ has a good camera.','which'],['That is the architect ___ house is famous.','whose'],['Friday was the day ___ I felt really encouraged.','when'],['The tour guide ___ invited us was very funny.','who'],['I want a team ___ has good communication.','which'],['This is the shop ___ I met a kind shop assistant.','where'],['She watched a film ___ made her feel touched.','which'],['He is a businessperson ___ works with creative people.','who']];
+function renderChoose(){const box=document.getElementById('chooseTask');box.innerHTML='';choose.forEach((q,i)=>{const d=document.createElement('div');d.className='task';d.innerHTML=`<div class="taskText">${i+1}. ${q[0]}</div><select class="select" data-answer="${q[1]}"><option value="">Choose...</option><option>who</option><option>which</option><option>where</option><option>when</option><option>whose</option></select>`;box.appendChild(d)})}renderChoose();
+function checkChoose(){let ok=0;document.querySelectorAll('#chooseTask .select').forEach(s=>{s.classList.remove('ok','no');if(s.value===s.dataset.answer){s.classList.add('ok');ok++}else{s.classList.add('no')}});let fb=document.getElementById('chooseFb');fb.textContent=`${ok} / ${choose.length} correct.`;fb.classList.add('show');if(ok===choose.length)sparkle();}
+function showChoose(){document.querySelectorAll('#chooseTask .select').forEach(s=>{s.value=s.dataset.answer;s.classList.add('ok')});}
+const build=[['a person','who','encouraged me','A person who encouraged me is my first English teacher.'],['a job','which','is well paid','A job which is well paid is not always easy.'],['a place','where','I can relax','A place where I can relax is a quiet park.'],['a time','when','I felt embarrassed','A time when I felt embarrassed was my first interview.'],['a businessperson','whose','communication is clear','A businessperson whose communication is clear is easier to trust.']];
+const bBox=document.getElementById('buildTask');if(bBox){build.forEach((b,i)=>{const d=document.createElement('div');d.className='task';d.innerHTML=`<div class="taskText">${i+1}. Use: <b>${b[0]}</b> + <b>${b[1]}</b> + <b>${b[2]}</b></div><input class="input" placeholder="Write your sentence here..."><button class="btn ghost" onclick="this.nextElementSibling.classList.toggle('show')">Show idea</button><div class="answer">${b[3]}</div>`;bBox.appendChild(d)});}
+const comma=[['My manager','who is very calm','helped me yesterday',[1,2]],['I need a job','which is part time','',[ ]],['London','where my sister lives','is expensive',[1,2]],['The customer','who was annoyed','asked for help',[ ]]];
+const cBox=document.getElementById('commaTask');comma.forEach((c,i)=>{const d=document.createElement('div');d.className='task commaQ';d.innerHTML=`<div class="taskText">${i+1}. ${c[0]} <span class="comma" data-i="${i}" data-pos="1"></span> ${c[1]} <span class="comma" data-i="${i}" data-pos="2"></span> ${c[2]}</div>`;cBox.appendChild(d)});document.querySelectorAll('.comma').forEach(x=>x.onclick=()=>x.classList.toggle('on'));
+function checkCommas(){let ok=0,total=0;document.querySelectorAll('.comma').forEach(x=>{x.classList.remove('right','wrong');const arr=comma[+x.dataset.i][3];const need=arr.includes(+x.dataset.pos);const has=x.classList.contains('on');if(need===has){x.classList.add('right');ok++}else{x.classList.add('wrong')}total++});let fb=document.getElementById('commaFb');fb.textContent=`${ok} / ${total} comma positions are correct.`;fb.classList.add('show');}
+const final=[['A tour guide is a person ___ shows tourists interesting places.','who'],['I want a job ___ I can work from home.','where'],['That was the day ___ I felt disappointed.','when'],['An architect is a person ___ designs buildings.','who'],['I like films ___ make me feel encouraged.','which'],['She is the writer ___ book I bought.','whose']];
+const fBox=document.getElementById('finalTask');final.forEach((q,i)=>{const d=document.createElement('div');d.className='task';d.innerHTML=`<div class="taskText">${i+1}. ${q[0]}</div><input class="input finalInput" data-answer="${q[1]}" placeholder="who / which / where / when / whose">`;fBox.appendChild(d)});
+function checkFinal(){let ok=0;document.querySelectorAll('.finalInput').forEach(inp=>{inp.classList.remove('ok','no');if(inp.value.trim().toLowerCase()===inp.dataset.answer){inp.classList.add('ok');ok++}else{inp.classList.add('no')}});let fb=document.getElementById('finalFb');fb.textContent=`Final score: ${ok} / ${final.length}.`;fb.classList.add('show');if(ok===final.length)sparkle();}
+
+function wrapCanvasText(ctx,text,x,y,maxWidth,lineHeight){
+  const words=String(text).split(' ');let line='';
+  for(let n=0;n<words.length;n++){
+    const test=line+words[n]+' ';
+    if(ctx.measureText(test).width>maxWidth && n>0){ctx.fillText(line,x,y);line=words[n]+' ';y+=lineHeight;}
+    else{line=test;}
+  }
+  ctx.fillText(line,x,y);return y+lineHeight;
+}
+function downloadPrettyImage(title,lines,filename){
+  const W=1200, pad=70, lineH=36;
+  const H=Math.max(760, pad*2+120+lines.length*lineH*1.35);
+  const canvas=document.createElement('canvas');canvas.width=W;canvas.height=H;
+  const ctx=canvas.getContext('2d');
+  ctx.fillStyle='#f7efe2';ctx.fillRect(0,0,W,H);
+  ctx.fillStyle='#dceee5';ctx.beginPath();ctx.arc(150,100,210,0,Math.PI*2);ctx.fill();
+  ctx.fillStyle='#ead3b5';ctx.beginPath();ctx.arc(1030,120,230,0,Math.PI*2);ctx.fill();
+  ctx.fillStyle='rgba(255,250,241,.94)';ctx.strokeStyle='#bddbc9';ctx.lineWidth=4;
+  roundRect(ctx,45,45,W-90,H-90,34,true,true);
+  ctx.fillStyle='#233f35';ctx.font='900 54px Georgia, serif';ctx.fillText(title,pad,115);
+  ctx.font='700 26px Quicksand, Arial, sans-serif';ctx.fillStyle='#617168';
+  ctx.fillText(new Date().toLocaleDateString(),pad,155);
+  let y=215;ctx.font='700 28px Quicksand, Arial, sans-serif';ctx.fillStyle='#233f35';
+  lines.forEach((line,i)=>{ctx.fillStyle=i%2?'#755741':'#233f35';y=wrapCanvasText(ctx,line,pad,y,W-pad*2,lineH)+10;});
+  const a=document.createElement('a');a.href=canvas.toDataURL('image/png');a.download=filename;a.click();
+}
+function roundRect(ctx,x,y,w,h,r,fill,stroke){
+  ctx.beginPath();ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r);ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);ctx.closePath();if(fill)ctx.fill();if(stroke)ctx.stroke();
+}
+function downloadChooseResults(){
+  const lines=choose.map((q,i)=>{const s=document.querySelectorAll('#chooseTask .select')[i];return `${i+1}. ${q[0].replace('___','_____')}  My answer: ${s.value||'(empty)'}`;});
+  downloadPrettyImage('Practice 1 · My answers',lines,'practice-1-my-answers.png');
+}
+function downloadFinalAnswers(){
+  const lines=final.map((q,i)=>{const inp=document.querySelectorAll('.finalInput')[i];return `${i+1}. ${q[0].replace('___','_____')}  My answer: ${inp.value||'(empty)'}`;});
+  downloadPrettyImage('Practice 3 · My answers',lines,'practice-3-my-answers.png');
+}
+function downloadFinalKey(){
+  const lines=final.map((q,i)=>`${i+1}. ${q[0].replace('___',q[1])}`);
+  downloadPrettyImage('Practice 3 · Correct answers',lines,'practice-3-answer-key.png');
+}
+
+</script>
+</body>
+</html>
