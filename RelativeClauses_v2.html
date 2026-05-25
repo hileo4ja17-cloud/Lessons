@@ -1,0 +1,1980 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Relative Clauses · In the Wild</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Manrope:wght@300;400;500;600;700;800&family=Kalam:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* =========================================================
+   RELATIVE CLAUSES · IN THE WILD
+   Mint-brown editorial lesson · no "defining vs non-defining" stress
+   ========================================================= */
+
+:root{
+  /* mint */
+  --m-50:  #EEF5EF;
+  --m-100: #DCEADE;
+  --m-200: #B8D4BD;
+  --m-300: #94BE9C;
+  --m-400: #7BA985;
+  --m-500: #5E8B68;
+  --m-600: #486C51;
+  --m-700: #344F3C;
+
+  /* warm brown / caramel */
+  --b-50:  #F7F0E4;
+  --b-100: #ECDDC2;
+  --b-200: #D8BE93;
+  --b-300: #BE9968;
+  --b-400: #A07A4A;
+  --b-500: #7E5C35;
+  --b-600: #5E4326;
+  --b-700: #3E2C19;
+
+  /* base */
+  --cream:    #FBF6EC;
+  --paper:    #F5ECD9;
+  --ivory:    #FFFCF4;
+  --ink:      #2A1F15;
+  --ink-soft: #5C4A3A;
+
+  /* highlight accents */
+  --highlight: #F8E3A2;
+  --rose:      #D4906F;
+
+  /* shadows tuned to brown */
+  --shadow-sm: 0 2px 6px rgba(62,44,25,.08);
+  --shadow-md: 0 8px 20px rgba(62,44,25,.10);
+  --shadow-lg: 0 22px 50px rgba(62,44,25,.16);
+
+  --serif: 'Cormorant Garamond', Georgia, serif;
+  --sans:  'Manrope', system-ui, sans-serif;
+  --hand:  'Kalam', cursive;
+}
+
+*{ box-sizing:border-box; margin:0; padding:0; }
+html{ scroll-behavior:smooth; }
+
+body{
+  font-family: var(--sans);
+  color: var(--ink);
+  background: var(--cream);
+  background-image:
+    radial-gradient(circle at 15% 8%, rgba(148,190,156,.32), transparent 38%),
+    radial-gradient(circle at 88% 18%, rgba(216,190,147,.32), transparent 42%),
+    radial-gradient(circle at 25% 78%, rgba(190,153,104,.20), transparent 46%),
+    radial-gradient(circle at 92% 88%, rgba(184,212,189,.30), transparent 42%);
+  min-height: 100vh;
+  line-height: 1.65;
+  overflow-x: hidden;
+  font-weight: 400;
+}
+
+/* grain overlay */
+body::before{
+  content:"";
+  position:fixed; inset:0;
+  background-image:
+    radial-gradient(rgba(62,44,25,.05) 1px, transparent 1px);
+  background-size: 22px 22px;
+  pointer-events:none;
+  z-index:0;
+  opacity:.6;
+}
+
+.wrap{
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 36px 28px 120px;
+  position: relative;
+  z-index: 1;
+}
+
+/* ============ NAV ============ */
+.nav{
+  position: sticky; top: 14px;
+  display:flex; align-items:center; justify-content:space-between;
+  gap: 16px;
+  background: rgba(255,252,244,.78);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(126,92,53,.18);
+  border-radius: 999px;
+  padding: 10px 18px 10px 22px;
+  margin-bottom: 36px;
+  box-shadow: var(--shadow-sm);
+  z-index: 50;
+  font-size: 14px;
+}
+.nav .brand{
+  font-family: var(--serif);
+  font-weight: 600;
+  font-style: italic;
+  font-size: 19px;
+  color: var(--b-600);
+  letter-spacing: .2px;
+}
+.nav .brand span{ color: var(--m-600); font-style: normal; font-weight: 700;}
+.nav .progress{
+  flex: 1;
+  height: 5px;
+  background: var(--b-100);
+  border-radius: 999px;
+  overflow: hidden;
+  max-width: 380px;
+  margin: 0 14px;
+}
+.nav .progress-bar{
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--m-400), var(--b-300));
+  border-radius: 999px;
+  transition: width .6s ease;
+}
+.nav .scoreboard{
+  font-family: var(--sans);
+  font-size: 13px;
+  color: var(--b-600);
+  font-weight: 600;
+  background: var(--m-100);
+  padding: 5px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--m-200);
+}
+
+/* ============ HERO ============ */
+.hero{
+  position: relative;
+  padding: 70px 20px 50px;
+  text-align: left;
+}
+.hero .eyebrow{
+  display: inline-block;
+  font-family: var(--hand);
+  font-size: 24px;
+  color: var(--b-500);
+  background: var(--highlight);
+  padding: 2px 14px;
+  border-radius: 999px;
+  transform: rotate(-2deg);
+  margin-bottom: 18px;
+  box-shadow: var(--shadow-sm);
+}
+.hero h1{
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: clamp(46px, 7vw, 96px);
+  line-height: 1.02;
+  letter-spacing: -1.2px;
+  color: var(--b-700);
+  margin-bottom: 22px;
+}
+.hero h1 em{
+  font-style: italic;
+  color: var(--m-600);
+  position: relative;
+}
+.hero h1 em::after{
+  content: "";
+  position: absolute;
+  left: -2%; right: -2%; bottom: 4px;
+  height: 14px;
+  background: var(--m-200);
+  z-index: -1;
+  border-radius: 4px;
+  transform: skew(-8deg);
+  opacity: .65;
+}
+.hero .lede{
+  font-family: var(--serif);
+  font-size: clamp(20px, 2vw, 25px);
+  max-width: 740px;
+  line-height: 1.45;
+  color: var(--ink-soft);
+  margin-bottom: 28px;
+  font-style: italic;
+}
+.hero .lede strong{
+  color: var(--b-600);
+  font-weight: 600;
+  font-style: normal;
+  background: linear-gradient(transparent 60%, var(--highlight) 60%);
+  padding: 0 3px;
+}
+
+.hero-meta{
+  display: flex; gap: 18px; flex-wrap: wrap;
+  font-size: 14px;
+  color: var(--b-500);
+  font-weight: 500;
+}
+.hero-meta div{ display:flex; align-items:center; gap:6px;}
+.hero-meta .dot{ width:8px; height:8px; border-radius: 50%; background: var(--m-400);}
+.hero-meta .dot.two{ background: var(--b-300);}
+.hero-meta .dot.three{ background: var(--rose);}
+
+/* floating doodles */
+.doodle{
+  position: absolute;
+  font-family: var(--hand);
+  color: var(--b-300);
+  pointer-events: none;
+  opacity: .55;
+}
+.doodle.coffee{
+  top: 90px; right: 6%;
+  font-size: 64px;
+  animation: floaty 8s ease-in-out infinite;
+}
+.doodle.leaf{
+  bottom: 30px; right: 18%;
+  font-size: 56px;
+  color: var(--m-400);
+  animation: floaty 10s ease-in-out infinite 1.5s;
+}
+.doodle.note{
+  top: 30px; left: -10px;
+  font-family: var(--hand);
+  font-size: 22px;
+  color: var(--b-500);
+  transform: rotate(-12deg);
+  background: var(--paper);
+  padding: 8px 16px;
+  border-radius: 6px;
+  box-shadow: var(--shadow-sm);
+}
+@keyframes floaty{
+  0%,100%{ transform: translateY(0) rotate(0); }
+  50%{ transform: translateY(-14px) rotate(6deg); }
+}
+
+/* ============ SECTION ============ */
+.section{ margin-top: 90px; position: relative;}
+.section-head{
+  display:flex; align-items:flex-end; justify-content: space-between;
+  gap: 24px; margin-bottom: 30px;
+  flex-wrap: wrap;
+}
+.section-head h2{
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: clamp(34px, 4.5vw, 56px);
+  line-height: 1.05;
+  letter-spacing: -.8px;
+  color: var(--b-700);
+}
+.section-head h2 em{
+  font-style: italic;
+  color: var(--m-600);
+}
+.section-head .num{
+  font-family: var(--hand);
+  font-size: 28px;
+  color: var(--b-400);
+  background: var(--ivory);
+  border: 1.5px dashed var(--b-300);
+  width: 60px; height: 60px;
+  border-radius: 50%;
+  display: grid; place-items: center;
+  transform: rotate(-6deg);
+  flex-shrink: 0;
+}
+.section-head .tag{
+  font-family: var(--hand);
+  font-size: 22px;
+  color: var(--m-600);
+  transform: rotate(2deg);
+}
+
+/* ============ SIMPLE IDEA ============ */
+.idea{
+  background: var(--ivory);
+  border-radius: 36px;
+  padding: 50px 48px;
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--b-100);
+  position: relative;
+  overflow: hidden;
+}
+.idea::before{
+  content: "";
+  position: absolute;
+  top: -40px; right: -40px;
+  width: 200px; height: 200px;
+  background: radial-gradient(circle, var(--m-200), transparent 70%);
+  opacity: .6;
+}
+.idea h3{
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: clamp(28px, 3.2vw, 40px);
+  line-height: 1.2;
+  color: var(--b-700);
+  margin-bottom: 26px;
+  max-width: 800px;
+}
+.idea h3 strong{
+  color: var(--m-600);
+  font-weight: 600;
+  font-style: italic;
+}
+.idea-rows{ display: grid; gap: 18px; max-width: 880px;}
+.idea-row{
+  display: flex; align-items: center; gap: 18px;
+  font-size: 17px;
+  padding: 14px 0;
+  border-bottom: 1px dashed var(--b-200);
+}
+.idea-row:last-child{ border-bottom: none;}
+.idea-row .a, .idea-row .b{
+  color: var(--ink-soft);
+  font-style: italic;
+  font-family: var(--serif);
+  font-size: 19px;
+  flex: 1;
+}
+.idea-row .arrow{
+  font-family: var(--hand);
+  color: var(--b-400);
+  font-size: 22px;
+  white-space: nowrap;
+}
+.idea-row .joined{
+  flex: 2;
+  font-family: var(--serif);
+  font-size: 21px;
+  color: var(--b-700);
+}
+.idea-row .joined .rel{
+  background: linear-gradient(transparent 60%, var(--m-200) 60%);
+  color: var(--m-700);
+  font-weight: 600;
+  padding: 0 3px;
+  font-style: normal;
+}
+
+/* ============ REFERENCE CARDS ============ */
+.ref-grid{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 18px;
+}
+.ref-card{
+  background: var(--ivory);
+  border-radius: 24px;
+  padding: 28px 24px 26px;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--b-100);
+  position: relative;
+  transition: transform .35s cubic-bezier(.2,.7,.2,1), box-shadow .35s;
+  cursor: default;
+}
+.ref-card:hover{
+  transform: translateY(-6px) rotate(-.4deg);
+  box-shadow: var(--shadow-md);
+}
+.ref-card .word{
+  font-family: var(--serif);
+  font-weight: 600;
+  font-style: italic;
+  font-size: 44px;
+  color: var(--m-600);
+  line-height: 1;
+  margin-bottom: 8px;
+  letter-spacing: -.5px;
+}
+.ref-card .label{
+  font-family: var(--hand);
+  color: var(--b-500);
+  font-size: 20px;
+  margin-bottom: 14px;
+}
+.ref-card .ex{
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 16px;
+  color: var(--ink-soft);
+  line-height: 1.4;
+}
+.ref-card .ex .rel{
+  background: var(--highlight);
+  color: var(--b-700);
+  font-weight: 600;
+  padding: 0 2px;
+  border-radius: 2px;
+  font-style: normal;
+}
+.ref-card.brown .word{ color: var(--b-500);}
+.ref-card.brown .ex .rel{ background: var(--m-200);}
+
+/* ============ REAL LIFE GALLERY ============ */
+.gallery{
+  columns: 3;
+  column-gap: 22px;
+  margin-top: 10px;
+}
+@media (max-width: 940px){ .gallery{ columns: 2;}}
+@media (max-width: 600px){ .gallery{ columns: 1;}}
+
+.snippet{
+  display: inline-block;
+  width: 100%;
+  margin: 0 0 22px;
+  background: var(--ivory);
+  border-radius: 18px;
+  padding: 24px;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--b-100);
+  break-inside: avoid;
+  position: relative;
+  transition: transform .3s ease;
+}
+.snippet:hover{ transform: translateY(-3px);}
+.snippet .src{
+  font-family: var(--hand);
+  font-size: 17px;
+  color: var(--m-600);
+  margin-bottom: 10px;
+  display: flex; align-items: center; gap: 6px;
+}
+.snippet .src .badge{
+  background: var(--m-100);
+  color: var(--m-700);
+  font-family: var(--sans);
+  font-weight: 600;
+  font-size: 11px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 3px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--m-200);
+}
+.snippet .text{
+  font-family: var(--serif);
+  font-size: 19px;
+  line-height: 1.5;
+  color: var(--b-700);
+}
+.snippet .text .rel{
+  background: linear-gradient(transparent 65%, var(--m-200) 65%);
+  color: var(--m-700);
+  font-weight: 600;
+}
+.snippet.brown{ background: var(--paper); border-color: var(--b-200);}
+.snippet.brown .src{ color: var(--b-500);}
+.snippet.brown .src .badge{ background: var(--b-100); color: var(--b-600); border-color: var(--b-200);}
+.snippet.brown .text .rel{ background: linear-gradient(transparent 65%, var(--b-200) 65%); color: var(--b-600);}
+.snippet .pinned{
+  position: absolute;
+  top: -10px; left: 22px;
+  width: 14px; height: 14px;
+  background: var(--rose);
+  border-radius: 50%;
+  box-shadow: 0 2px 4px rgba(0,0,0,.2), inset 0 -3px 3px rgba(0,0,0,.18), inset 0 3px 3px rgba(255,255,255,.4);
+}
+
+/* ============ THE TINY HACK ============ */
+.hack{
+  margin-top: 36px;
+  background: var(--paper);
+  border-radius: 24px;
+  padding: 30px 36px;
+  border: 1px dashed var(--b-300);
+  display: flex; gap: 22px; align-items: flex-start;
+  flex-wrap: wrap;
+  position: relative;
+}
+.hack .star{
+  font-family: var(--hand);
+  font-size: 28px;
+  color: var(--rose);
+  background: var(--ivory);
+  width: 54px; height: 54px;
+  border-radius: 50%;
+  display: grid; place-items: center;
+  flex-shrink: 0;
+  transform: rotate(-8deg);
+  box-shadow: var(--shadow-sm);
+}
+.hack .copy{
+  flex: 1; min-width: 240px;
+}
+.hack h4{
+  font-family: var(--serif);
+  font-size: 26px;
+  font-weight: 500;
+  font-style: italic;
+  color: var(--b-700);
+  margin-bottom: 8px;
+}
+.hack p{
+  font-size: 16px;
+  color: var(--ink-soft);
+  max-width: 680px;
+}
+.hack p strong{ color: var(--b-600); font-weight: 600;}
+
+/* ============ PRACTICE BLOCKS ============ */
+.task{
+  background: var(--ivory);
+  border-radius: 28px;
+  padding: 38px 38px 34px;
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--b-100);
+  margin-bottom: 26px;
+  position: relative;
+}
+.task .task-head{
+  display: flex; align-items: flex-start; gap: 14px;
+  margin-bottom: 22px;
+  flex-wrap: wrap;
+}
+.task .task-num{
+  background: var(--m-500);
+  color: var(--ivory);
+  font-family: var(--serif);
+  font-weight: 600;
+  font-style: italic;
+  font-size: 18px;
+  width: 38px; height: 38px;
+  border-radius: 50%;
+  display: grid; place-items: center;
+  flex-shrink: 0;
+  box-shadow: var(--shadow-sm);
+}
+.task .task-num.brown{ background: var(--b-500);}
+.task .task-title{
+  flex: 1;
+  font-family: var(--serif);
+  font-size: 26px;
+  font-weight: 500;
+  color: var(--b-700);
+  line-height: 1.25;
+}
+.task .task-hint{
+  font-family: var(--hand);
+  font-size: 17px;
+  color: var(--b-400);
+  width: 100%;
+  margin-left: 52px;
+  margin-top: -10px;
+}
+
+/* multiple choice items */
+.mc-item{
+  padding: 16px 18px;
+  background: var(--cream);
+  border-radius: 14px;
+  margin-bottom: 14px;
+  border: 1px solid transparent;
+  transition: background .3s ease;
+}
+.mc-item .stem{
+  font-family: var(--serif);
+  font-size: 19px;
+  color: var(--b-700);
+  line-height: 1.55;
+  margin-bottom: 10px;
+}
+.mc-item .stem em{
+  color: var(--m-600); font-style: italic;
+}
+.mc-item .options{
+  display: flex; flex-wrap: wrap; gap: 8px;
+}
+.mc-opt{
+  font-family: var(--sans);
+  font-size: 15px;
+  font-weight: 600;
+  padding: 7px 16px;
+  background: var(--ivory);
+  border: 1.5px solid var(--b-200);
+  color: var(--b-600);
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all .2s ease;
+  user-select: none;
+}
+.mc-opt:hover{ background: var(--b-50); transform: translateY(-1px);}
+.mc-opt.correct{
+  background: var(--m-300);
+  border-color: var(--m-500);
+  color: var(--m-700);
+  animation: pop .4s ease;
+}
+.mc-opt.wrong{
+  background: #F0CFC1;
+  border-color: var(--rose);
+  color: #7A3D2A;
+  animation: shake .35s ease;
+}
+.mc-opt.disabled{ pointer-events: none; opacity: .55;}
+@keyframes pop{
+  0%{ transform: scale(1);}
+  50%{ transform: scale(1.15);}
+  100%{ transform: scale(1);}
+}
+@keyframes shake{
+  0%, 100%{ transform: translateX(0);}
+  25%{ transform: translateX(-6px);}
+  75%{ transform: translateX(6px);}
+}
+.mc-feedback{
+  margin-top: 8px;
+  font-family: var(--hand);
+  font-size: 17px;
+  color: var(--m-600);
+  display: none;
+}
+.mc-feedback.show{ display: block; animation: fadeUp .4s ease;}
+.mc-feedback.bad{ color: var(--rose);}
+@keyframes fadeUp{
+  from{ opacity: 0; transform: translateY(6px);}
+  to{ opacity:1; transform: translateY(0);}
+}
+
+/* matching */
+.match-wrap{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 26px;
+}
+@media (max-width: 720px){ .match-wrap{ grid-template-columns: 1fr;}}
+.match-col h5{
+  font-family: var(--hand);
+  font-size: 18px;
+  color: var(--b-500);
+  margin-bottom: 12px;
+}
+.match-item{
+  background: var(--cream);
+  border: 1.5px solid var(--b-200);
+  border-radius: 14px;
+  padding: 14px 18px;
+  margin-bottom: 10px;
+  font-family: var(--serif);
+  font-size: 17px;
+  color: var(--b-700);
+  cursor: pointer;
+  transition: all .25s ease;
+  position: relative;
+  user-select: none;
+}
+.match-item.left{ font-weight: 600;}
+.match-item:hover{ background: var(--b-50); transform: translateX(3px);}
+.match-item.selected{
+  background: var(--m-200);
+  border-color: var(--m-500);
+  color: var(--m-700);
+}
+.match-item.matched{
+  background: var(--m-300);
+  border-color: var(--m-500);
+  color: var(--m-700);
+  pointer-events: none;
+  opacity: .7;
+}
+.match-item.matched::after{
+  content: "✓";
+  position: absolute;
+  right: 14px; top: 50%;
+  transform: translateY(-50%);
+  font-weight: 700;
+  color: var(--m-700);
+}
+.match-item.wrong-flash{
+  background: #F0CFC1;
+  border-color: var(--rose);
+  animation: shake .35s ease;
+}
+
+/* fill blanks */
+.fill-row{
+  background: var(--cream);
+  border-radius: 14px;
+  padding: 16px 20px;
+  margin-bottom: 14px;
+  font-family: var(--serif);
+  font-size: 19px;
+  color: var(--b-700);
+  line-height: 1.6;
+  display: flex; flex-wrap: wrap; align-items: center; gap: 8px;
+}
+.blank{
+  display: inline-block;
+  min-width: 100px;
+  padding: 4px 12px;
+  background: var(--ivory);
+  border: 1.5px dashed var(--b-300);
+  border-radius: 10px;
+  font-family: var(--sans);
+  font-weight: 600;
+  font-size: 15px;
+  text-align: center;
+  color: var(--b-600);
+  cursor: pointer;
+  transition: all .2s;
+  user-select: none;
+}
+.blank:hover{ background: var(--b-50);}
+.blank.filled{
+  background: var(--m-200);
+  border-style: solid;
+  border-color: var(--m-500);
+  color: var(--m-700);
+}
+.blank.correct{
+  background: var(--m-300);
+  border-style: solid;
+  border-color: var(--m-500);
+  color: var(--m-700);
+  animation: pop .4s ease;
+}
+.blank.wrong{
+  background: #F0CFC1;
+  border-color: var(--rose);
+  color: #7A3D2A;
+  animation: shake .35s ease;
+}
+
+.chip-pool{
+  display: flex; flex-wrap: wrap; gap: 8px;
+  margin-top: 16px;
+  padding: 16px;
+  background: var(--paper);
+  border-radius: 14px;
+  border: 1px dashed var(--b-300);
+}
+.chip{
+  font-family: var(--sans);
+  font-weight: 600;
+  font-size: 14px;
+  padding: 7px 16px;
+  background: var(--ivory);
+  border: 1.5px solid var(--b-300);
+  color: var(--b-600);
+  border-radius: 999px;
+  cursor: pointer;
+  user-select: none;
+  transition: all .2s;
+}
+.chip:hover{ background: var(--m-100); border-color: var(--m-400); transform: translateY(-1px);}
+.chip.used{ opacity: .25; pointer-events: none;}
+
+/* sentence builder */
+.builder-row{
+  background: var(--cream);
+  border-radius: 14px;
+  padding: 18px 22px;
+  margin-bottom: 16px;
+}
+.builder-row .prompt{
+  font-family: var(--hand);
+  font-size: 17px;
+  color: var(--b-500);
+  margin-bottom: 8px;
+}
+.builder-row .source{
+  font-family: var(--serif);
+  font-size: 17px;
+  font-style: italic;
+  color: var(--ink-soft);
+  margin-bottom: 14px;
+}
+.builder-row .input-line{
+  display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+}
+.builder-row input[type="text"]{
+  flex: 1;
+  min-width: 220px;
+  font-family: var(--serif);
+  font-size: 18px;
+  padding: 10px 14px;
+  background: var(--ivory);
+  border: 1.5px solid var(--b-200);
+  border-radius: 10px;
+  color: var(--b-700);
+  outline: none;
+  transition: border .2s;
+}
+.builder-row input[type="text"]:focus{ border-color: var(--m-500);}
+.builder-row .check-btn{
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: 14px;
+  padding: 10px 20px;
+  background: var(--m-500);
+  color: var(--ivory);
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background .2s;
+  letter-spacing: .4px;
+}
+.builder-row .check-btn:hover{ background: var(--m-600);}
+.builder-row .reveal{
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 16px;
+  color: var(--m-600);
+  margin-top: 10px;
+  display: none;
+}
+.builder-row .reveal.show{ display: block; animation: fadeUp .4s ease;}
+.builder-row .reveal .ok{ color: var(--m-600); font-weight: 600;}
+
+/* spot the clauses story */
+.story-box{
+  background: var(--paper);
+  border-radius: 18px;
+  padding: 30px 34px;
+  font-family: var(--serif);
+  font-size: 21px;
+  line-height: 1.7;
+  color: var(--b-700);
+  border: 1px solid var(--b-200);
+}
+.story-box .clickable{
+  cursor: pointer;
+  padding: 2px 3px;
+  border-radius: 4px;
+  transition: background .25s;
+}
+.story-box .clickable:hover{
+  background: var(--m-100);
+}
+.story-box .clickable.marked{
+  background: var(--m-200);
+  color: var(--m-700);
+  font-weight: 600;
+}
+.story-box .clickable.wrong-mark{
+  background: #F0CFC1;
+  animation: shake .35s ease;
+}
+
+/* dating profile / linkedin builder */
+.profile-card{
+  background: var(--ivory);
+  border-radius: 22px;
+  padding: 30px;
+  margin-top: 18px;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--b-100);
+}
+.profile-card .avatar{
+  width: 70px; height: 70px;
+  background: linear-gradient(135deg, var(--m-300), var(--b-300));
+  border-radius: 50%;
+  display: grid; place-items: center;
+  font-family: var(--serif);
+  font-size: 32px;
+  color: var(--ivory);
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+.profile-card .field{
+  margin-bottom: 18px;
+  font-family: var(--serif);
+  font-size: 18px;
+  color: var(--b-700);
+  line-height: 1.5;
+}
+.profile-card .field-label{
+  display: block;
+  font-family: var(--hand);
+  font-size: 15px;
+  color: var(--b-500);
+  margin-bottom: 4px;
+}
+.profile-card .opt-row{
+  display: flex; flex-wrap: wrap; gap: 8px;
+  margin-top: 8px;
+}
+.profile-card .opt{
+  font-family: var(--sans);
+  font-weight: 500;
+  font-size: 14px;
+  padding: 6px 14px;
+  background: var(--cream);
+  border: 1.5px solid var(--b-200);
+  color: var(--b-600);
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all .2s;
+}
+.profile-card .opt:hover{ background: var(--m-100); border-color: var(--m-400);}
+.profile-card .opt.picked{
+  background: var(--m-300);
+  border-color: var(--m-500);
+  color: var(--m-700);
+}
+.profile-preview{
+  margin-top: 20px;
+  padding: 22px;
+  background: var(--paper);
+  border-radius: 16px;
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 19px;
+  color: var(--b-700);
+  line-height: 1.55;
+  border-left: 4px solid var(--m-500);
+  min-height: 60px;
+}
+
+/* free writing */
+.write-area{
+  width: 100%;
+  font-family: var(--serif);
+  font-size: 17px;
+  padding: 18px;
+  background: var(--ivory);
+  border: 1.5px solid var(--b-200);
+  border-radius: 14px;
+  color: var(--b-700);
+  outline: none;
+  resize: vertical;
+  min-height: 110px;
+  line-height: 1.55;
+  transition: border .2s;
+}
+.write-area:focus{ border-color: var(--m-500);}
+.write-prompt{
+  font-family: var(--hand);
+  font-size: 18px;
+  color: var(--b-500);
+  margin: 16px 0 6px;
+}
+
+/* ending */
+.outro{
+  margin-top: 80px;
+  text-align: center;
+  padding: 70px 28px;
+  background: linear-gradient(180deg, transparent, var(--paper));
+  border-radius: 36px;
+  position: relative;
+}
+.outro h2{
+  font-family: var(--serif);
+  font-weight: 500;
+  font-style: italic;
+  font-size: clamp(36px, 5vw, 62px);
+  color: var(--b-700);
+  line-height: 1.1;
+  margin-bottom: 18px;
+}
+.outro h2 em{
+  color: var(--m-600);
+  font-style: italic;
+}
+.outro p{
+  font-family: var(--serif);
+  font-size: 20px;
+  color: var(--ink-soft);
+  max-width: 620px;
+  margin: 0 auto;
+  font-style: italic;
+}
+
+/* confetti */
+.confetti{
+  position: fixed;
+  top: -20px;
+  width: 10px; height: 14px;
+  pointer-events: none;
+  z-index: 999;
+  border-radius: 2px;
+  animation: confetti 1.2s ease-out forwards;
+}
+@keyframes confetti{
+  0%{ transform: translateY(0) rotate(0); opacity: 1;}
+  100%{ transform: translateY(110vh) rotate(720deg); opacity: 0;}
+}
+
+/* utility */
+.muted{ color: var(--ink-soft); font-size: 15px;}
+.gold-underline{ background: linear-gradient(transparent 65%, var(--highlight) 65%); padding: 0 2px;}
+
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <!-- ============ NAV ============ -->
+  <nav class="nav">
+    <div class="brand">in the <span>wild</span> · relative clauses</div>
+    <div class="progress"><div class="progress-bar" id="progressBar"></div></div>
+    <div class="scoreboard" id="scoreboard">0 / 0</div>
+  </nav>
+
+  <!-- ============ HERO ============ -->
+  <header class="hero">
+    <div class="doodle note">forget the grammar names · just say it</div>
+    <div class="doodle coffee">☕</div>
+    <div class="doodle leaf">🌿</div>
+
+    <span class="eyebrow">a lesson in real-world English</span>
+    <h1>Two ideas, one&nbsp;sentence.<br>That's the whole <em>trick</em>.</h1>
+    <p class="lede">
+      Forget "defining vs non-defining." In real life, English speakers join two ideas about
+      the same person, place, thing or moment with one small word: <strong>who, which, that, where, when, whose</strong>.
+      That's the whole grammar. Today we'll meet it in films, dating profiles, reviews and your own stories.
+    </p>
+    <div class="hero-meta">
+      <div><span class="dot"></span> 7 mini-tasks</div>
+      <div><span class="dot two"></span> real-life examples</div>
+      <div><span class="dot three"></span> ~35 min</div>
+    </div>
+  </header>
+
+  <!-- ============ SECTION: THE SIMPLE IDEA ============ -->
+  <section class="section" id="idea">
+    <div class="section-head">
+      <span class="num">01</span>
+      <h2>The simple <em>idea</em></h2>
+      <span class="tag">no grammar terms needed →</span>
+    </div>
+
+    <div class="idea">
+      <h3>If you ever want to say <strong>two short sentences about the same thing</strong>, you can glue them with a tiny connector word.</h3>
+      <div class="idea-rows">
+        <div class="idea-row">
+          <div class="a">I have a friend. <br><span class="muted">She works from home.</span></div>
+          <div class="arrow">→</div>
+          <div class="joined">I have a friend <span class="rel">who</span> works from home.</div>
+        </div>
+        <div class="idea-row">
+          <div class="a">This is the café. <br><span class="muted">We met there last summer.</span></div>
+          <div class="arrow">→</div>
+          <div class="joined">This is the café <span class="rel">where</span> we met last summer.</div>
+        </div>
+        <div class="idea-row">
+          <div class="a">I bought a jacket. <br><span class="muted">It was well made.</span></div>
+          <div class="arrow">→</div>
+          <div class="joined">I bought a jacket <span class="rel">that</span> was well made.</div>
+        </div>
+        <div class="idea-row">
+          <div class="a">I love that moment. <br><span class="muted">The hero finally smiles then.</span></div>
+          <div class="arrow">→</div>
+          <div class="joined">I love the moment <span class="rel">when</span> the hero finally smiles.</div>
+        </div>
+        <div class="idea-row">
+          <div class="a">My neighbour is kind. <br><span class="muted">Her dog walks itself, basically.</span></div>
+          <div class="arrow">→</div>
+          <div class="joined">My neighbour, <span class="rel">whose</span> dog walks itself, is very kind.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SECTION: REF CARDS ============ -->
+  <section class="section" id="ref">
+    <div class="section-head">
+      <span class="num">02</span>
+      <h2>Six connectors. <em>That's it.</em></h2>
+      <span class="tag">save this as your cheat sheet</span>
+    </div>
+
+    <div class="ref-grid">
+      <div class="ref-card">
+        <div class="word">who</div>
+        <div class="label">about a person</div>
+        <div class="ex">The architect <span class="rel">who</span> designed our office is only 28.</div>
+      </div>
+      <div class="ref-card brown">
+        <div class="word">which</div>
+        <div class="label">about a thing / animal</div>
+        <div class="ex">The job, <span class="rel">which</span> pays really well, is fully remote.</div>
+      </div>
+      <div class="ref-card">
+        <div class="word">that</div>
+        <div class="label">person <em>or</em> thing — most common in speech</div>
+        <div class="ex">Customers <span class="rel">that</span> feel disappointed will leave a review.</div>
+      </div>
+      <div class="ref-card brown">
+        <div class="word">where</div>
+        <div class="label">about a place</div>
+        <div class="ex">I want a job <span class="rel">where</span> I can work from home.</div>
+      </div>
+      <div class="ref-card">
+        <div class="word">when</div>
+        <div class="label">about a time / moment</div>
+        <div class="ex">It was the moment <span class="rel">when</span> I felt truly charmed.</div>
+      </div>
+      <div class="ref-card brown">
+        <div class="word">whose</div>
+        <div class="label">when something <em>belongs</em> to someone</div>
+        <div class="ex">He's a writer <span class="rel">whose</span> books made me cry.</div>
+      </div>
+    </div>
+
+    <!-- the tiny hack -->
+    <div class="hack">
+      <div class="star">✦</div>
+      <div class="copy">
+        <h4>The comma question? Stop overthinking it.</h4>
+        <p>
+          When you speak, <strong>commas don't matter</strong> — just say what feels natural.
+          When you write, a quick rule: if the part feels like a quick side-note you could remove, add commas around it.
+          If removing it would confuse the listener — skip the commas. <em>That's the entire rule.</em> Now let's move on.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SECTION: IN THE WILD ============ -->
+  <section class="section" id="wild">
+    <div class="section-head">
+      <span class="num">03</span>
+      <h2>How real people <em>actually use them</em></h2>
+      <span class="tag">notice the highlighted parts</span>
+    </div>
+
+    <div class="gallery">
+
+      <div class="snippet">
+        <div class="pinned"></div>
+        <div class="src"><span class="badge">Netflix synopsis</span></div>
+        <div class="text">A small-town florist <span class="rel">whose</span> shop is about to close meets a stranger <span class="rel">who</span> insists on buying every rose she has.</div>
+      </div>
+
+      <div class="snippet brown">
+        <div class="pinned"></div>
+        <div class="src"><span class="badge">LinkedIn bio</span></div>
+        <div class="text">I'm a product designer <span class="rel">who</span> believes good interfaces should feel invisible. Currently leading a team <span class="rel">that</span> builds tools for creative people.</div>
+      </div>
+
+      <div class="snippet">
+        <div class="pinned"></div>
+        <div class="src"><span class="badge">Tinder profile</span></div>
+        <div class="text">Looking for someone <span class="rel">who</span> isn't annoyed by my dad jokes and <span class="rel">whose</span> Spotify playlists are at least 50% embarrassing.</div>
+      </div>
+
+      <div class="snippet brown">
+        <div class="pinned"></div>
+        <div class="src"><span class="badge">Letterboxd review</span></div>
+        <div class="text">It's the kind of film <span class="rel">that</span> leaves you quietly touched. The final scene, <span class="rel">where</span> nobody says a word, is the one <span class="rel">that</span> I'll remember.</div>
+      </div>
+
+      <div class="snippet">
+        <div class="pinned"></div>
+        <div class="src"><span class="badge">Google review · 5★</span></div>
+        <div class="text">A tiny ramen place <span class="rel">that</span> nobody knows about, hidden in a courtyard <span class="rel">where</span> the cats outnumber the customers. The chef, <span class="rel">whose</span> grandmother taught him the recipe, remembers your name on the second visit.</div>
+      </div>
+
+      <div class="snippet brown">
+        <div class="pinned"></div>
+        <div class="src"><span class="badge">job ad</span></div>
+        <div class="text">We're hiring a tour guide <span class="rel">who</span> loves storytelling. You'll work with customers <span class="rel">who</span> come from all over the world. Part-time, well paid, and the kind of job <span class="rel">where</span> no two days look the same.</div>
+      </div>
+
+      <div class="snippet">
+        <div class="pinned"></div>
+        <div class="src"><span class="badge">Instagram caption</span></div>
+        <div class="text">That weird feeling <span class="rel">when</span> a stranger says something <span class="rel">that</span> sounds exactly like a line from a book <span class="rel">that</span> changed your life. 🍂</div>
+      </div>
+
+      <div class="snippet brown">
+        <div class="pinned"></div>
+        <div class="src"><span class="badge">Podcast intro</span></div>
+        <div class="text">Today on the show: a businessperson <span class="rel">whose</span> first company failed three times before she built the one <span class="rel">that</span> changed her life.</div>
+      </div>
+
+      <div class="snippet">
+        <div class="pinned"></div>
+        <div class="src"><span class="badge">Sitcom one-liner</span></div>
+        <div class="text">— Who was that?<br>— A guy <span class="rel">who</span> talks too much, in a coat <span class="rel">that</span> costs more than my rent.</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============ PRACTICE 1 — Match characters ============ -->
+  <section class="section" id="p1">
+    <div class="section-head">
+      <span class="num">04</span>
+      <h2>Practice <em>round 1</em></h2>
+      <span class="tag">no theory — just listening to your gut</span>
+    </div>
+
+    <div class="task">
+      <div class="task-head">
+        <div class="task-num">1</div>
+        <div class="task-title">Match the character description to the famous-ish character.</div>
+      </div>
+      <div class="task-hint">Click a card on the left, then click its match on the right.</div>
+
+      <div class="match-wrap" id="match1">
+        <div class="match-col">
+          <h5>descriptions</h5>
+          <div class="match-item left" data-id="A">A wizard <em style="background:linear-gradient(transparent 65%,var(--m-200) 65%);">who</em> goes to a magical boarding school in Britain.</div>
+          <div class="match-item left" data-id="B">A detective <em style="background:linear-gradient(transparent 65%,var(--m-200) 65%);">whose</em> best friend is a doctor named Watson.</div>
+          <div class="match-item left" data-id="C">A small green creature <em style="background:linear-gradient(transparent 65%,var(--m-200) 65%);">who</em> speaks in inverted sentences and trains Jedi.</div>
+          <div class="match-item left" data-id="D">An anxious assistant <em style="background:linear-gradient(transparent 65%,var(--m-200) 65%);">who</em> works for a terrifying fashion-magazine editor.</div>
+          <div class="match-item left" data-id="E">A vigilante <em style="background:linear-gradient(transparent 65%,var(--m-200) 65%);">whose</em> parents were killed when he was a child, who now protects Gotham.</div>
+        </div>
+        <div class="match-col">
+          <h5>who is it?</h5>
+          <div class="match-item right" data-id="C">🪐 Yoda</div>
+          <div class="match-item right" data-id="A">⚡ Harry Potter</div>
+          <div class="match-item right" data-id="E">🦇 Batman</div>
+          <div class="match-item right" data-id="B">🔍 Sherlock Holmes</div>
+          <div class="match-item right" data-id="D">👗 Andy (<em>The Devil Wears Prada</em>)</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TASK 2 — multiple choice -->
+    <div class="task">
+      <div class="task-head">
+        <div class="task-num">2</div>
+        <div class="task-title">Pick the connector that sounds right.</div>
+      </div>
+      <div class="task-hint">Trust your ear — read the sentence out loud first.</div>
+
+      <div class="mc-list" id="mc1">
+        <div class="mc-item" data-correct="who">
+          <div class="stem">My tour guide, <em>____</em> studied art history at university, made every museum sound like a thriller.</div>
+          <div class="options">
+            <span class="mc-opt">who</span>
+            <span class="mc-opt">which</span>
+            <span class="mc-opt">where</span>
+            <span class="mc-opt">whose</span>
+          </div>
+          <div class="mc-feedback"></div>
+        </div>
+
+        <div class="mc-item" data-correct="that">
+          <div class="stem">It's the kind of job <em>____</em> looks great on paper but burns you out by month three.</div>
+          <div class="options">
+            <span class="mc-opt">who</span>
+            <span class="mc-opt">whose</span>
+            <span class="mc-opt">that</span>
+            <span class="mc-opt">when</span>
+          </div>
+          <div class="mc-feedback"></div>
+        </div>
+
+        <div class="mc-item" data-correct="where">
+          <div class="stem">I miss the little coffee shop on Prinsengracht <em>____</em> we used to write all morning.</div>
+          <div class="options">
+            <span class="mc-opt">which</span>
+            <span class="mc-opt">where</span>
+            <span class="mc-opt">whose</span>
+            <span class="mc-opt">when</span>
+          </div>
+          <div class="mc-feedback"></div>
+        </div>
+
+        <div class="mc-item" data-correct="whose">
+          <div class="stem">She's that writer <em>____</em> novels everyone pretends to have read.</div>
+          <div class="options">
+            <span class="mc-opt">who</span>
+            <span class="mc-opt">whose</span>
+            <span class="mc-opt">which</span>
+            <span class="mc-opt">that</span>
+          </div>
+          <div class="mc-feedback"></div>
+        </div>
+
+        <div class="mc-item" data-correct="when">
+          <div class="stem">I'll never forget the moment <em>____</em> the orchestra finally hit the chorus. The whole hall felt charmed.</div>
+          <div class="options">
+            <span class="mc-opt">that</span>
+            <span class="mc-opt">where</span>
+            <span class="mc-opt">when</span>
+            <span class="mc-opt">whose</span>
+          </div>
+          <div class="mc-feedback"></div>
+        </div>
+
+        <div class="mc-item" data-correct="which">
+          <div class="stem">My new role, <em>____</em> involves a lot of communication with creative clients, is exhausting but oddly encouraging.</div>
+          <div class="options">
+            <span class="mc-opt">who</span>
+            <span class="mc-opt">which</span>
+            <span class="mc-opt">where</span>
+            <span class="mc-opt">whose</span>
+          </div>
+          <div class="mc-feedback"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PRACTICE 2 — Jobs ============ -->
+  <section class="section" id="p2">
+    <div class="section-head">
+      <span class="num">05</span>
+      <h2>Tiny <em>job dictionary</em></h2>
+      <span class="tag">vocabulary + grammar in one move</span>
+    </div>
+
+    <div class="task">
+      <div class="task-head">
+        <div class="task-num brown">3</div>
+        <div class="task-title">Drop the right job-word into each definition.</div>
+      </div>
+      <div class="task-hint">Click a chip below, then click the matching blank.</div>
+
+      <div class="fill-list" id="fill1">
+        <div class="fill-row" data-answer="architect">
+          An <span class="blank" data-target="1"></span> is a person <strong>who</strong> designs buildings and the spaces around them.
+        </div>
+        <div class="fill-row" data-answer="tour guide">
+          A <span class="blank" data-target="2"></span> is someone <strong>who</strong> shows tourists around and tells them stories about the places they visit.
+        </div>
+        <div class="fill-row" data-answer="film extra">
+          A <span class="blank" data-target="3"></span> is an actor <strong>whose</strong> face appears in the background but rarely has lines.
+        </div>
+        <div class="fill-row" data-answer="shop assistant">
+          A <span class="blank" data-target="4"></span> is a person <strong>who</strong> helps customers find what they need in a store.
+        </div>
+        <div class="fill-row" data-answer="businessperson">
+          A <span class="blank" data-target="5"></span> is someone <strong>who</strong> runs companies and makes deals for a living.
+        </div>
+        <div class="fill-row" data-answer="writer">
+          A <span class="blank" data-target="6"></span> is a person <strong>whose</strong> job is to put thoughts and stories into words.
+        </div>
+      </div>
+      <div class="chip-pool" id="chips1">
+        <span class="chip" data-word="architect">architect</span>
+        <span class="chip" data-word="tour guide">tour guide</span>
+        <span class="chip" data-word="film extra">film extra</span>
+        <span class="chip" data-word="shop assistant">shop assistant</span>
+        <span class="chip" data-word="businessperson">businessperson</span>
+        <span class="chip" data-word="writer">writer</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PRACTICE 3 — Dream job ad ============ -->
+  <section class="section" id="p3">
+    <div class="section-head">
+      <span class="num">06</span>
+      <h2>Build a <em>job description</em></h2>
+      <span class="tag">use work vocabulary + relative clauses</span>
+    </div>
+
+    <div class="task">
+      <div class="task-head">
+        <div class="task-num">4</div>
+        <div class="task-title">Choose the connector that fits each line of this job ad.</div>
+      </div>
+      <div class="task-hint">It's an ad for a real-ish creative agency. Read the whole thing first.</div>
+
+      <div class="mc-list" id="mc2">
+        <div class="mc-item" data-correct="who">
+          <div class="stem">We're looking for a creative person <em>____</em> isn't afraid of weird briefs.</div>
+          <div class="options">
+            <span class="mc-opt">who</span>
+            <span class="mc-opt">whose</span>
+            <span class="mc-opt">where</span>
+          </div>
+          <div class="mc-feedback"></div>
+        </div>
+        <div class="mc-item" data-correct="that">
+          <div class="stem">You'll join a team <em>____</em> works mostly from home but meets once a month for coffee.</div>
+          <div class="options">
+            <span class="mc-opt">whose</span>
+            <span class="mc-opt">where</span>
+            <span class="mc-opt">that</span>
+          </div>
+          <div class="mc-feedback"></div>
+        </div>
+        <div class="mc-item" data-correct="where">
+          <div class="stem">This is the kind of place <em>____</em> nobody minds if you bring your dog to a meeting.</div>
+          <div class="options">
+            <span class="mc-opt">that</span>
+            <span class="mc-opt">where</span>
+            <span class="mc-opt">whose</span>
+          </div>
+          <div class="mc-feedback"></div>
+        </div>
+        <div class="mc-item" data-correct="which">
+          <div class="stem">The role, <em>____</em> can be part time or full time, is well paid and involves a lot of communication with clients.</div>
+          <div class="options">
+            <span class="mc-opt">who</span>
+            <span class="mc-opt">which</span>
+            <span class="mc-opt">when</span>
+          </div>
+          <div class="mc-feedback"></div>
+        </div>
+        <div class="mc-item" data-correct="whose">
+          <div class="stem">You'll mostly work with customers <em>____</em> ideas are bigger than their budgets — and that's the fun part.</div>
+          <div class="options">
+            <span class="mc-opt">who</span>
+            <span class="mc-opt">whose</span>
+            <span class="mc-opt">which</span>
+          </div>
+          <div class="mc-feedback"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PRACTICE 4 — Tinder/profile builder ============ -->
+  <section class="section" id="p4">
+    <div class="section-head">
+      <span class="num">07</span>
+      <h2>Build a <em>profile</em></h2>
+      <span class="tag">use emotions vocabulary</span>
+    </div>
+
+    <div class="task">
+      <div class="task-head">
+        <div class="task-num brown">5</div>
+        <div class="task-title">Pick one option for each line — your dating profile will appear at the bottom.</div>
+      </div>
+      <div class="task-hint">Notice how every line uses a relative clause without you thinking about it.</div>
+
+      <div class="profile-card" id="profile1">
+
+        <div class="field">
+          <span class="field-label">I'm someone who…</span>
+          <div class="opt-row" data-field="line1">
+            <span class="opt" data-text="gets quietly charmed by old bookshops and bad puns.">gets quietly charmed by old bookshops and bad puns</span>
+            <span class="opt" data-text="is rarely annoyed but always opinionated.">is rarely annoyed but always opinionated</span>
+            <span class="opt" data-text="gets embarrassed singing in public, but does it anyway.">gets embarrassed singing in public, but does it anyway</span>
+          </div>
+        </div>
+
+        <div class="field">
+          <span class="field-label">I'm looking for someone whose…</span>
+          <div class="opt-row" data-field="line2">
+            <span class="opt" data-text="laugh leaves me feeling encouraged.">laugh leaves me feeling encouraged</span>
+            <span class="opt" data-text="messages don't disappoint at 11pm on a Tuesday.">messages don't disappoint at 11pm on a Tuesday</span>
+            <span class="opt" data-text="weird hobbies don't disturb their ability to be a normal human.">weird hobbies don't disturb their ability to be a normal human</span>
+          </div>
+        </div>
+
+        <div class="field">
+          <span class="field-label">My ideal first date is a place where…</span>
+          <div class="opt-row" data-field="line3">
+            <span class="opt" data-text="we can talk without shouting over a DJ.">we can talk without shouting over a DJ</span>
+            <span class="opt" data-text="the menu is short and the lighting is kind.">the menu is short and the lighting is kind</span>
+            <span class="opt" data-text="nobody minds if we stay for three hours.">nobody minds if we stay for three hours</span>
+          </div>
+        </div>
+
+        <div class="field">
+          <span class="field-label">The kind of film that always touches me is one which…</span>
+          <div class="opt-row" data-field="line4">
+            <span class="opt" data-text="ends on a question, not an answer.">ends on a question, not an answer</span>
+            <span class="opt" data-text="makes you confused for the first 20 minutes.">makes you confused for the first 20 minutes</span>
+            <span class="opt" data-text="leaves the whole cinema quiet during the credits.">leaves the whole cinema quiet during the credits</span>
+          </div>
+        </div>
+
+        <div class="profile-preview" id="preview1">
+          <em style="color:var(--ink-soft); opacity:.5;">Your profile will appear here as you pick options…</em>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PRACTICE 5 — Story spot ============ -->
+  <section class="section" id="p5">
+    <div class="section-head">
+      <span class="num">08</span>
+      <h2>Spot them in <em>the wild</em></h2>
+      <span class="tag">click every relative clause you find</span>
+    </div>
+
+    <div class="task">
+      <div class="task-head">
+        <div class="task-num">6</div>
+        <div class="task-title">Click on every part of this Netflix-style synopsis that is a relative clause.</div>
+      </div>
+      <div class="task-hint">There are exactly <strong>6</strong>. Tap a wrong word and it'll flash. Tap a right one and it'll glow.</div>
+
+      <div class="story-box" id="storyBox">
+        In a small Italian village
+        <span class="clickable" data-correct="true">that nobody visits anymore</span>,
+        a tired chef
+        <span class="clickable" data-correct="true">whose recipes have been passed down for generations</span>
+        runs a tiny restaurant
+        <span class="clickable" data-correct="true">where locals gather every evening</span>.
+        One winter, a food critic from New York
+        <span class="clickable" data-correct="true">who recently lost her job</span>
+        stumbles into the village by accident. She tastes a soup
+        <span class="clickable" data-correct="true">that reminds her of her grandmother</span>,
+        and the chef offers her the recipe — a recipe
+        <span class="clickable" data-correct="true">which has never been written down</span>.
+
+        <!-- distractor non-clauses, to test perception -->
+        <span class="clickable" data-correct="false" style="display:none;">she tastes</span>
+      </div>
+      <div style="margin-top:14px; font-family:var(--hand); font-size:17px; color:var(--m-600);" id="storyScore">found: 0 / 6</div>
+    </div>
+  </section>
+
+  <!-- ============ PRACTICE 6 — Combine ============ -->
+  <section class="section" id="p6">
+    <div class="section-head">
+      <span class="num">09</span>
+      <h2>Glue them <em>together</em></h2>
+      <span class="tag">two sentences become one</span>
+    </div>
+
+    <div class="task">
+      <div class="task-head">
+        <div class="task-num brown">7</div>
+        <div class="task-title">Combine each pair into a single sentence with a relative clause.</div>
+      </div>
+      <div class="task-hint">Type your answer, then hit <strong>check</strong>. Multiple correct answers are usually possible — the model answer is just one option.</div>
+
+      <div class="builder" id="builder1">
+
+        <div class="builder-row" data-answers="She's a writer whose novels have won three awards.|She is a writer whose novels have won three awards.">
+          <div class="prompt">1. about a writer</div>
+          <div class="source">She's a writer. Her novels have won three awards.</div>
+          <div class="input-line">
+            <input type="text" placeholder="She's a writer…">
+            <button class="check-btn">check</button>
+          </div>
+          <div class="reveal">Model: <span class="ok">She's a writer <strong>whose</strong> novels have won three awards.</span></div>
+        </div>
+
+        <div class="builder-row" data-answers="I met a tour guide who could speak five languages.|I met a tour guide that could speak five languages.">
+          <div class="prompt">2. about a tour guide</div>
+          <div class="source">I met a tour guide. He could speak five languages.</div>
+          <div class="input-line">
+            <input type="text" placeholder="I met a tour guide…">
+            <button class="check-btn">check</button>
+          </div>
+          <div class="reveal">Model: <span class="ok">I met a tour guide <strong>who</strong> could speak five languages.</span></div>
+        </div>
+
+        <div class="builder-row" data-answers="We found a café that serves the best matcha in town.|We found a café which serves the best matcha in town.|We found a café where they serve the best matcha in town.">
+          <div class="prompt">3. about a café</div>
+          <div class="source">We found a café. It serves the best matcha in town.</div>
+          <div class="input-line">
+            <input type="text" placeholder="We found a café…">
+            <button class="check-btn">check</button>
+          </div>
+          <div class="reveal">Model: <span class="ok">We found a café <strong>that</strong> serves the best matcha in town.</span></div>
+        </div>
+
+        <div class="builder-row" data-answers="I'll never forget the day when I joined this team.|I'll never forget the day I joined this team.">
+          <div class="prompt">4. about a day</div>
+          <div class="source">I'll never forget that day. I joined this team that day.</div>
+          <div class="input-line">
+            <input type="text" placeholder="I'll never forget the day…">
+            <button class="check-btn">check</button>
+          </div>
+          <div class="reveal">Model: <span class="ok">I'll never forget the day <strong>when</strong> I joined this team.</span></div>
+        </div>
+
+        <div class="builder-row" data-answers="My boss is the kind of person who makes you feel encouraged on a Monday.|My boss is the type of person who makes you feel encouraged on a Monday.">
+          <div class="prompt">5. about a boss</div>
+          <div class="source">My boss is great. She makes you feel encouraged on a Monday.</div>
+          <div class="input-line">
+            <input type="text" placeholder="My boss is the kind of person…">
+            <button class="check-btn">check</button>
+          </div>
+          <div class="reveal">Model: <span class="ok">My boss is the kind of person <strong>who</strong> makes you feel encouraged on a Monday.</span></div>
+        </div>
+
+        <div class="builder-row" data-answers="The film, which everyone recommended, left me a bit disappointed.|The film that everyone recommended left me a bit disappointed.|The film which everyone recommended left me a bit disappointed.">
+          <div class="prompt">6. about a film</div>
+          <div class="source">The film left me a bit disappointed. Everyone recommended it.</div>
+          <div class="input-line">
+            <input type="text" placeholder="The film…">
+            <button class="check-btn">check</button>
+          </div>
+          <div class="reveal">Model: <span class="ok">The film, <strong>which</strong> everyone recommended, left me a bit disappointed.</span></div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PRACTICE 7 — Free writing ============ -->
+  <section class="section" id="p7">
+    <div class="section-head">
+      <span class="num">10</span>
+      <h2>Your <em>turn</em></h2>
+      <span class="tag">write three sentences about your real life</span>
+    </div>
+
+    <div class="task">
+      <div class="task-head">
+        <div class="task-num">8</div>
+        <div class="task-title">Finish each line about yourself. Use a relative clause and at least one word from today's vocabulary.</div>
+      </div>
+      <div class="task-hint">There's no "wrong" answer here — this is your English, not a test. Click "show example" if you want a nudge.</div>
+
+      <div class="write-prompt">① I'm someone who…</div>
+      <textarea class="write-area" placeholder="I'm someone who…"></textarea>
+      <div style="margin-top:6px;"><span class="mc-opt" onclick="this.nextElementSibling.style.display='inline'; this.style.display='none';">show example</span><span style="display:none; font-family:var(--serif); font-style:italic; color:var(--m-600); margin-left:6px;">I'm someone who gets quietly disturbed by loud cafés but never says anything.</span></div>
+
+      <div class="write-prompt">② My favourite place is one where…</div>
+      <textarea class="write-area" placeholder="My favourite place is one where…"></textarea>
+      <div style="margin-top:6px;"><span class="mc-opt" onclick="this.nextElementSibling.style.display='inline'; this.style.display='none';">show example</span><span style="display:none; font-family:var(--serif); font-style:italic; color:var(--m-600); margin-left:6px;">My favourite place is a bookshop in Utrecht where the owner remembers every customer's last purchase.</span></div>
+
+      <div class="write-prompt">③ Last month there was a moment when…</div>
+      <textarea class="write-area" placeholder="Last month there was a moment when…"></textarea>
+      <div style="margin-top:6px;"><span class="mc-opt" onclick="this.nextElementSibling.style.display='inline'; this.style.display='none';">show example</span><span style="display:none; font-family:var(--serif); font-style:italic; color:var(--m-600); margin-left:6px;">Last month there was a moment when a stranger paid me a compliment that completely touched me.</span></div>
+
+      <div class="write-prompt">④ I'd love a job that…</div>
+      <textarea class="write-area" placeholder="I'd love a job that…"></textarea>
+      <div style="margin-top:6px;"><span class="mc-opt" onclick="this.nextElementSibling.style.display='inline'; this.style.display='none';">show example</span><span style="display:none; font-family:var(--serif); font-style:italic; color:var(--m-600); margin-left:6px;">I'd love a job that's part time, well paid, and lets me work from home at least three days a week.</span></div>
+
+      <div class="write-prompt">⑤ The person whose opinion I trust most is…</div>
+      <textarea class="write-area" placeholder="The person whose opinion I trust most is…"></textarea>
+      <div style="margin-top:6px;"><span class="mc-opt" onclick="this.nextElementSibling.style.display='inline'; this.style.display='none';">show example</span><span style="display:none; font-family:var(--serif); font-style:italic; color:var(--m-600); margin-left:6px;">The person whose opinion I trust most is my sister, who has been telling me the truth for 30 years.</span></div>
+    </div>
+  </section>
+
+  <!-- ============ OUTRO ============ -->
+  <div class="outro">
+    <h2>You just used relative clauses<br>like a <em>native speaker</em>.</h2>
+    <p>
+      You don't have to label them. You don't have to remember which kind is which.
+      You just have to notice when you want to say two things about one thing — and reach for <em>who, which, that, where, when, whose</em>.
+      That's the whole skill. The rest is practice and a little reading.
+    </p>
+  </div>
+
+</div>
+
+<script>
+/* =========================================================
+   INTERACTIONS
+   ========================================================= */
+
+// ---- Score + progress tracking ----
+let totalQuestions = 0;
+let correctAnswers = 0;
+const seenItems = new Set();
+
+function updateProgress(){
+  const bar = document.getElementById('progressBar');
+  const sb  = document.getElementById('scoreboard');
+  const pct = totalQuestions ? (seenItems.size / totalQuestions) * 100 : 0;
+  bar.style.width = pct + '%';
+  sb.textContent = correctAnswers + ' / ' + totalQuestions;
+}
+
+function confetti(x = window.innerWidth/2){
+  const colors = ['#94BE9C','#BE9968','#D4906F','#F8E3A2','#7BA985','#A07A4A'];
+  for(let i=0;i<22;i++){
+    const c = document.createElement('div');
+    c.className = 'confetti';
+    c.style.background = colors[Math.floor(Math.random()*colors.length)];
+    c.style.left = (x - 60 + Math.random()*120) + 'px';
+    c.style.top = (60 + Math.random()*100) + 'px';
+    c.style.transform = `rotate(${Math.random()*360}deg)`;
+    c.style.animationDuration = (1 + Math.random()*0.8) + 's';
+    document.body.appendChild(c);
+    setTimeout(()=> c.remove(), 1800);
+  }
+}
+
+// ===== Practice 1A — Matching =====
+(function(){
+  const wrap = document.getElementById('match1');
+  if(!wrap) return;
+  let selectedLeft = null;
+  const lefts = wrap.querySelectorAll('.match-item.left');
+  const rights = wrap.querySelectorAll('.match-item.right');
+  // every match-item is one question
+  totalQuestions += lefts.length;
+
+  function attach(el, side){
+    el.addEventListener('click', ()=>{
+      if(el.classList.contains('matched')) return;
+      if(side === 'left'){
+        if(selectedLeft) selectedLeft.classList.remove('selected');
+        selectedLeft = el;
+        el.classList.add('selected');
+      } else {
+        if(!selectedLeft) return;
+        const want = selectedLeft.dataset.id;
+        const got  = el.dataset.id;
+        if(want === got){
+          selectedLeft.classList.remove('selected');
+          selectedLeft.classList.add('matched');
+          el.classList.add('matched');
+          if(!seenItems.has('m1-'+want)){
+            seenItems.add('m1-'+want);
+            correctAnswers++;
+            const r = el.getBoundingClientRect();
+            confetti(r.left + r.width/2);
+          }
+          selectedLeft = null;
+          updateProgress();
+        } else {
+          el.classList.add('wrong-flash');
+          setTimeout(()=> el.classList.remove('wrong-flash'), 400);
+        }
+      }
+    });
+  }
+  lefts.forEach(el => attach(el, 'left'));
+  rights.forEach(el => attach(el, 'right'));
+})();
+
+// ===== MC tasks (Practice 1B + Practice 3) =====
+function bindMC(containerId){
+  const c = document.getElementById(containerId);
+  if(!c) return;
+  const items = c.querySelectorAll('.mc-item');
+  totalQuestions += items.length;
+  items.forEach((item, idx) => {
+    const itemId = containerId + '-' + idx;
+    const correct = item.dataset.correct;
+    const opts = item.querySelectorAll('.mc-opt');
+    const fb = item.querySelector('.mc-feedback');
+    opts.forEach(opt => {
+      opt.addEventListener('click', ()=>{
+        if(seenItems.has(itemId)) return;
+        const txt = opt.textContent.trim();
+        if(txt === correct){
+          opt.classList.add('correct');
+          opts.forEach(o => o.classList.add('disabled'));
+          fb.textContent = pickPraise();
+          fb.classList.remove('bad');
+          fb.classList.add('show');
+          seenItems.add(itemId);
+          correctAnswers++;
+          const r = opt.getBoundingClientRect();
+          confetti(r.left + r.width/2);
+          updateProgress();
+        } else {
+          opt.classList.add('wrong');
+          opt.classList.add('disabled');
+          fb.textContent = '✗ try another one';
+          fb.classList.add('show','bad');
+        }
+      });
+    });
+  });
+}
+function pickPraise(){
+  const list = ['✓ exactly.', '✓ that\'s it.', '✓ chef\'s kiss.', '✓ native-speaker vibes.', '✓ correct — read it out loud once more.'];
+  return list[Math.floor(Math.random()*list.length)];
+}
+bindMC('mc1');
+bindMC('mc2');
+
+// ===== Practice 2 — Fill the chips =====
+(function(){
+  const fillList = document.getElementById('fill1');
+  const chipPool = document.getElementById('chips1');
+  if(!fillList || !chipPool) return;
+  const rows = fillList.querySelectorAll('.fill-row');
+  totalQuestions += rows.length;
+  let pickedChip = null;
+
+  chipPool.querySelectorAll('.chip').forEach(chip => {
+    chip.addEventListener('click', ()=>{
+      if(chip.classList.contains('used')) return;
+      if(pickedChip) pickedChip.style.outline = '';
+      pickedChip = chip;
+      chip.style.outline = '3px solid var(--m-400)';
+      chip.style.outlineOffset = '2px';
+    });
+  });
+
+  rows.forEach((row, idx) => {
+    const blank = row.querySelector('.blank');
+    const answer = row.dataset.answer;
+    blank.addEventListener('click', ()=>{
+      if(!pickedChip) return;
+      if(blank.classList.contains('correct')) return;
+      const word = pickedChip.dataset.word;
+      blank.textContent = word;
+      blank.classList.add('filled');
+      if(word === answer){
+        blank.classList.remove('filled','wrong');
+        blank.classList.add('correct');
+        pickedChip.classList.add('used');
+        pickedChip.style.outline = '';
+        pickedChip = null;
+        if(!seenItems.has('fill1-'+idx)){
+          seenItems.add('fill1-'+idx);
+          correctAnswers++;
+          const r = blank.getBoundingClientRect();
+          confetti(r.left + r.width/2);
+          updateProgress();
+        }
+      } else {
+        blank.classList.add('wrong');
+        setTimeout(()=>{
+          blank.classList.remove('wrong','filled');
+          blank.textContent = '';
+        }, 600);
+        pickedChip.style.outline = '';
+        pickedChip = null;
+      }
+    });
+  });
+})();
+
+// ===== Practice 4 — Profile builder =====
+(function(){
+  const card = document.getElementById('profile1');
+  if(!card) return;
+  const preview = document.getElementById('preview1');
+  const state = { line1:'', line2:'', line3:'', line4:'' };
+  const labels = {
+    line1: "I'm someone who",
+    line2: "I'm looking for someone whose",
+    line3: "My ideal first date is a place where",
+    line4: "The kind of film that always touches me is one which"
+  };
+  // counted as one task once they fill at least one field
+  totalQuestions += 1;
+  let profileCounted = false;
+
+  card.querySelectorAll('.opt-row').forEach(row => {
+    const field = row.dataset.field;
+    row.querySelectorAll('.opt').forEach(opt => {
+      opt.addEventListener('click', ()=>{
+        row.querySelectorAll('.opt').forEach(o => o.classList.remove('picked'));
+        opt.classList.add('picked');
+        state[field] = opt.dataset.text;
+        renderPreview();
+      });
+    });
+  });
+  function renderPreview(){
+    const parts = [];
+    if(state.line1) parts.push(`${labels.line1} ${state.line1}`);
+    if(state.line2) parts.push(`${labels.line2} ${state.line2}`);
+    if(state.line3) parts.push(`${labels.line3} ${state.line3}`);
+    if(state.line4) parts.push(`${labels.line4} ${state.line4}`);
+    if(parts.length === 0){
+      preview.innerHTML = `<em style="color:var(--ink-soft); opacity:.5;">Your profile will appear here as you pick options…</em>`;
+    } else {
+      preview.innerHTML = parts.join('<br>');
+      if(!profileCounted && parts.length >= 2){
+        profileCounted = true;
+        correctAnswers++;
+        seenItems.add('profile1');
+        const r = preview.getBoundingClientRect();
+        confetti(r.left + r.width/2);
+        updateProgress();
+      }
+    }
+  }
+})();
+
+// ===== Practice 5 — Story spot the clauses =====
+(function(){
+  const box = document.getElementById('storyBox');
+  if(!box) return;
+  const score = document.getElementById('storyScore');
+  const clickables = box.querySelectorAll('.clickable[data-correct="true"]');
+  const wrongables = box.querySelectorAll('.clickable[data-correct="false"]');
+  const target = clickables.length;
+  totalQuestions += target;
+  let found = 0;
+  clickables.forEach((el, idx) => {
+    el.addEventListener('click', ()=>{
+      if(el.classList.contains('marked')) return;
+      el.classList.add('marked');
+      found++;
+      if(!seenItems.has('story-'+idx)){
+        seenItems.add('story-'+idx);
+        correctAnswers++;
+      }
+      score.textContent = 'found: ' + found + ' / ' + target;
+      const r = el.getBoundingClientRect();
+      confetti(r.left + r.width/2);
+      updateProgress();
+      if(found === target){
+        score.textContent += '  ·  all six! ✦';
+      }
+    });
+  });
+  // make the entire story-box also clickable on non-clauses to flash wrong
+  box.addEventListener('click', (e)=>{
+    if(e.target === box){
+      // create a brief shake on the story to teach: only marked spans count
+    }
+  });
+})();
+
+// ===== Practice 6 — Sentence builder =====
+(function(){
+  const builder = document.getElementById('builder1');
+  if(!builder) return;
+  const rows = builder.querySelectorAll('.builder-row');
+  totalQuestions += rows.length;
+  rows.forEach((row, idx) => {
+    const input = row.querySelector('input');
+    const btn   = row.querySelector('.check-btn');
+    const reveal = row.querySelector('.reveal');
+    const answers = (row.dataset.answers || '').split('|').map(a => normalize(a));
+
+    function normalize(s){
+      return s.toLowerCase().replace(/[.,!?;]/g,' ').replace(/\s+/g,' ').trim();
+    }
+
+    btn.addEventListener('click', ()=>{
+      const tries = normalize(input.value || '');
+      reveal.classList.add('show');
+      if(answers.includes(tries) || answers.some(a => closeEnough(a, tries))){
+        input.style.background = 'var(--m-200)';
+        input.style.borderColor = 'var(--m-500)';
+        btn.textContent = '✓';
+        btn.style.background = 'var(--m-600)';
+        if(!seenItems.has('build-'+idx)){
+          seenItems.add('build-'+idx);
+          correctAnswers++;
+          const r = input.getBoundingClientRect();
+          confetti(r.left + r.width/2);
+          updateProgress();
+        }
+      } else {
+        input.style.background = '#FBE6DC';
+        input.style.borderColor = 'var(--rose)';
+        btn.textContent = 'see model';
+      }
+    });
+
+    function closeEnough(a, b){
+      // count how many words from a are in b
+      if(!a || !b) return false;
+      const aw = a.split(' ');
+      const bw = new Set(b.split(' '));
+      let hit = 0;
+      aw.forEach(w => { if(bw.has(w)) hit++; });
+      // allow ~85% word overlap
+      return hit / aw.length >= 0.85 && b.length >= a.length * 0.75;
+    }
+  });
+})();
+
+// ===== Init progress =====
+updateProgress();
+
+// ===== Reveal sections on scroll =====
+const observer = new IntersectionObserver((entries)=>{
+  entries.forEach(e => {
+    if(e.isIntersecting){
+      e.target.style.opacity = 1;
+      e.target.style.transform = 'translateY(0)';
+    }
+  });
+}, { threshold: 0.08 });
+
+document.querySelectorAll('.section').forEach(s => {
+  s.style.opacity = 0;
+  s.style.transform = 'translateY(28px)';
+  s.style.transition = 'opacity .9s ease, transform .9s cubic-bezier(.2,.7,.2,1)';
+  observer.observe(s);
+});
+
+</script>
+</body>
+</html>
