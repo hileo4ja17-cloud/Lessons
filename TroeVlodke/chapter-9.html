@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chapter IX — Three Men in a Boat</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg-deep:       #1F120A;
+  --bg-base:       #2B1A0F;
+  --bg-mid:        #3A2418;
+  --bg-warm:       #4D2F1F;
+
+  --ink:           #F0DFC4;
+  --ink-bright:    #FAF0E0;
+  --ink-soft:      #D4BFA0;
+  --ink-faded:     #B19A7C;
+
+  --gold:          #D4A574;
+  --gold-bright:   #E8C99A;
+  --brass:         #C9A86B;
+  --rust:          #B8723F;
+  --copper:        #B8923F;
+
+  --clickable-bg:        rgba(212, 165, 116, 0.10);
+  --clickable-bg-hover:  rgba(212, 165, 116, 0.22);
+  --clickable-rule:      rgba(212, 165, 116, 0.30);
+  --clickable-rule-hover:rgba(232, 201, 154, 0.55);
+  --active-bg:           #D4A574;
+
+  --rule:          rgba(212, 165, 116, 0.18);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg-base);
+  color: var(--ink);
+  font-family: 'Lora', Georgia, 'Times New Roman', serif;
+  font-size: 18px;
+  line-height: 1.85;
+  background-image:
+    radial-gradient(ellipse 70% 50% at 50% 0%, rgba(212, 165, 116, 0.12), transparent 60%),
+    radial-gradient(ellipse 50% 40% at 15% 30%, rgba(184, 114, 63, 0.08), transparent 60%),
+    radial-gradient(ellipse 50% 40% at 85% 70%, rgba(232, 201, 154, 0.06), transparent 60%),
+    radial-gradient(ellipse 70% 50% at 50% 100%, rgba(184, 114, 63, 0.08), transparent 60%);
+  background-attachment: fixed;
+  min-height: 100vh;
+  padding: 0 0 80px;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Paper-grain noise overlay */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.35;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.3  0 0 0 0 0.2  0 0 0 0 0.1  0 0 0 0.35 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+
+.container {
+  position: relative;
+  z-index: 2;
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 64px 32px 0;
+}
+
+/* Header */
+.ornament {
+  text-align: center;
+  color: var(--gold);
+  font-size: 1.2rem;
+  letter-spacing: 1em;
+  padding-left: 1em;
+  margin-bottom: 32px;
+  opacity: 0;
+  animation: rise 0.9s 0.05s ease forwards, sparkle 5s 1.4s ease-in-out infinite;
+}
+
+.eyebrow {
+  text-align: center;
+  font-family: 'Fraunces', serif;
+  font-weight: 300;
+  font-style: italic;
+  font-size: 0.92rem;
+  letter-spacing: 0.42em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 14px;
+  padding-left: 0.42em;
+  opacity: 0;
+  animation: rise 0.9s 0.2s ease forwards;
+}
+
+.chapter-num {
+  text-align: center;
+  font-family: 'Fraunces', serif;
+  font-weight: 300;
+  font-size: 1rem;
+  letter-spacing: 0.5em;
+  text-transform: uppercase;
+  color: var(--ink-faded);
+  margin-bottom: 30px;
+  padding-left: 0.5em;
+  opacity: 0;
+  animation: rise 0.9s 0.35s ease forwards;
+}
+
+h1.chapter-title {
+  text-align: center;
+  font-family: 'Fraunces', serif;
+  font-weight: 400;
+  font-style: italic;
+  font-size: clamp(2.2rem, 5.2vw, 3.2rem);
+  line-height: 1.18;
+  color: var(--ink-bright);
+  margin-bottom: 26px;
+  letter-spacing: -0.005em;
+  opacity: 0;
+  animation: rise 1s 0.5s ease forwards;
+  text-shadow: 0 1px 30px rgba(212, 165, 116, 0.18);
+}
+
+.author {
+  text-align: center;
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  font-weight: 400;
+  color: var(--gold-bright);
+  font-size: 1.05rem;
+  margin-bottom: 28px;
+  opacity: 0;
+  animation: rise 1s 0.7s ease forwards;
+}
+
+.divider {
+  text-align: center;
+  color: var(--gold);
+  font-size: 1.45rem;
+  margin: 28px 0 32px;
+  animation: float 6s ease-in-out infinite;
+  display: block;
+}
+
+.tip {
+  text-align: center;
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  color: var(--gold);
+  font-size: 0.92rem;
+  padding: 14px 22px;
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+  margin-bottom: 52px;
+  letter-spacing: 0.06em;
+  opacity: 0;
+  animation: rise 1s 0.9s ease forwards;
+}
+
+/* Paragraphs */
+p {
+  margin-bottom: 1.35em;
+  text-align: justify;
+  hyphens: auto;
+  word-spacing: 0.02em;
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+  will-change: opacity, transform;
+}
+.reveal.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.first-para.in-view::first-letter {
+  font-family: 'Fraunces', serif;
+  font-weight: 500;
+  font-size: 4.6rem;
+  float: left;
+  line-height: 0.86;
+  padding: 6px 12px 0 0;
+  color: var(--gold-bright);
+  font-style: italic;
+  text-shadow: 0 2px 20px rgba(232, 201, 154, 0.3);
+}
+
+/* Clickable items — only specific phrases, not every word */
+.w {
+  position: relative;
+  cursor: pointer;
+  display: inline;
+  padding: 0 4px;
+  border-radius: 3px;
+  background: var(--clickable-bg);
+  box-shadow: inset 0 -1px 0 var(--clickable-rule);
+  transition: background-color 0.22s ease, color 0.22s ease, box-shadow 0.22s ease, text-shadow 0.22s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+.w:hover {
+  background: var(--clickable-bg-hover);
+  color: var(--gold-bright);
+  box-shadow: inset 0 -1px 0 var(--clickable-rule-hover);
+  text-shadow: 0 0 12px rgba(232, 201, 154, 0.18);
+}
+
+.w.active {
+  background: var(--active-bg);
+  color: var(--bg-deep) !important;
+  text-shadow: none;
+  box-shadow:
+    0 2px 14px rgba(212, 165, 116, 0.35),
+    0 0 0 1px rgba(232, 201, 154, 0.5);
+  animation: glow 1.8s ease-in-out infinite;
+}
+
+/* Tooltip */
+.tooltip {
+  position: absolute;
+  bottom: calc(100% + 10px);
+  left: 50%;
+  transform: translateX(-50%) translateY(6px);
+  background: var(--ink-bright);
+  color: var(--bg-deep);
+  font-family: 'Lora', serif;
+  font-size: 0.86rem;
+  font-style: normal;
+  font-weight: 500;
+  white-space: nowrap;
+  padding: 9px 16px;
+  border-radius: 6px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  z-index: 100;
+  box-shadow:
+    0 14px 36px rgba(0, 0, 0, 0.55),
+    0 2px 8px rgba(0, 0, 0, 0.35),
+    0 0 0 1px rgba(212, 165, 116, 0.18);
+  line-height: 1.4;
+  letter-spacing: 0.01em;
+  max-width: 320px;
+}
+.tooltip::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -7px;
+  border: 7px solid transparent;
+  border-top-color: var(--ink-bright);
+  filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.35));
+}
+.w.active .tooltip {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* Legend */
+.legend {
+  display: flex;
+  justify-content: center;
+  gap: 22px 30px;
+  margin: 50px 0 14px;
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  color: var(--gold);
+  font-size: 0.92rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.legend-dot {
+  display: inline-block;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--gold);
+  box-shadow: 0 0 0 2px rgba(212, 165, 116, 0.18);
+}
+
+.end {
+  text-align: center;
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  font-size: 1.55rem;
+  color: var(--gold);
+  margin: 54px 0 24px;
+  letter-spacing: 0.25em;
+  padding-left: 0.25em;
+}
+
+.listen-btn {
+  display: block;
+  margin: 16px auto 0;
+  padding: 11px 32px;
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  font-size: 0.95rem;
+  background: transparent;
+  color: var(--gold);
+  border: 1px solid var(--gold);
+  border-radius: 100px;
+  cursor: pointer;
+  letter-spacing: 0.18em;
+  text-transform: lowercase;
+  transition: all 0.3s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+.listen-btn:hover {
+  background: var(--gold);
+  color: var(--bg-deep);
+  letter-spacing: 0.22em;
+  box-shadow: 0 6px 24px rgba(212, 165, 116, 0.28);
+}
+.listen-btn:active { transform: translateY(1px); }
+
+/* Keyframes */
+@keyframes rise {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-6px); }
+}
+@keyframes sparkle {
+  0%, 100% { filter: brightness(1); }
+  50%      { filter: brightness(1.35); }
+}
+@keyframes glow {
+  0%, 100% {
+    box-shadow:
+      0 2px 14px rgba(212, 165, 116, 0.35),
+      0 0 0 1px rgba(232, 201, 154, 0.5);
+  }
+  50% {
+    box-shadow:
+      0 2px 22px rgba(232, 201, 154, 0.55),
+      0 0 0 1px rgba(232, 201, 154, 0.75);
+  }
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .container { padding: 44px 22px 0; }
+  body { font-size: 17px; line-height: 1.78; }
+  .legend { flex-direction: column; gap: 14px; align-items: center; margin-top: 40px; }
+  .tooltip { white-space: normal; max-width: 220px; text-align: center; }
+  h1.chapter-title { font-size: 2.1rem; }
+  .first-para.in-view::first-letter { font-size: 3.8rem; }
+  .ornament { font-size: 1rem; letter-spacing: 0.7em; }
+  .chapter-num { letter-spacing: 0.4em; font-size: 0.9rem; }
+  p { text-align: left; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, .ornament, .eyebrow, .chapter-num, h1.chapter-title, .author, .tip, .divider {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .reveal { opacity: 1 !important; transform: none !important; }
+  .w, .tooltip, .listen-btn { transition: none; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="ornament">✦ ✦ ✦</div>
+  <div class="eyebrow">Three Men in a Boat</div>
+  <div class="chapter-num">Chapter Nine</div>
+  <h1 class="chapter-title">Of Tow-Lines and Vanished Locks</h1>
+  <p class="author">— Jerome K. Jerome —</p>
+  <div class="divider">❦</div>
+  <div class="tip">tap any highlighted phrase to reveal its meaning &amp; hear the sound</div>
+
+  <p class="reveal first-para"><span class="w cat-name" data-tr="Джордж">George</span> did not want to work, <span class="w cat-expr" data-tr="конечно">of course</span>; <span class="w cat-expr" data-tr="это само собой разумеется">that goes without saying</span>. He had had <span class="w cat-expr" data-tr="тяжёлое время">a hard time</span> in <span class="w cat-name" data-tr="Сити (деловой район Лондона)">the City</span>, he explained. <span class="w cat-name" data-tr="Гаррис">Harris</span>, who is always ready <span class="w cat-expr" data-tr="взвалить всю работу на себя (ирон.)">to take the burden of everything himself</span>, said:</p>
+  <p class="reveal">“Ah, and now you <span class="w cat-expr" data-tr="собираешься">are going to</span> have a hard time on the river, <span class="w cat-expr" data-tr="для разнообразия">for a change</span>; change is good for everyone.”</p>
+  <p class="reveal">I would not let Harris touch the <span class="w cat-expr" data-tr="бечева / буксирный канат">tow-line</span>, because he is careless. I had <span class="w cat-phrasal" data-tr="намотал кругом">looped it round</span> slowly and cautiously, and <span class="w cat-phrasal" data-tr="связал его">tied it up</span>, and <span class="w cat-expr" data-tr="убедился">made sure</span> that it was <span class="w cat-expr" data-tr="сложен вдвое">folded in two</span>, and tied it double again at <span class="w cat-expr" data-tr="на дне лодки">the bottom of the boat</span>. Harris had <span class="w cat-phrasal" data-tr="поднял его">lifted it up</span>, and had put it into George's hand. George had <span class="w cat-expr" data-tr="крепко взял его">taken it firmly</span>, and <span class="w cat-expr" data-tr="держал на отлёте от себя">held it away from him</span>, and had <span class="w cat-phrasal" data-tr="принялся распутывать">begun to unravel</span> it; and, before he had <span class="w cat-expr" data-tr="размотал и дюжины ярдов">unwound a dozen yards</span>, the thing was more like <span class="w cat-expr" data-tr="плохо сделанная рыболовная сеть">a badly-made fishing-net</span> than anything else.</p>
+  <p class="reveal">An example of <span class="w cat-expr" data-tr="любопытный случай">a curious case</span> was once met by George and myself one evening on <span class="w cat-expr" data-tr="противоположный берег">the opposite bank</span> to <span class="w cat-name" data-tr="Уолтон (город)">Walton</span>. We were camping on the opposite bank, and when we <span class="w cat-phrasal" data-tr="вернулись">came back</span> in the evening, after a small boat <span class="w cat-phrasal" data-tr="показалась">came in sight</span>, <span class="w cat-expr" data-tr="тащимая по воде">towed through the water</span> by a powerful horse, upon <span class="w cat-expr" data-tr="бечевник (тропа вдоль реки)">the tow-path</span>, and steered by the boy. In the boat there lay <span class="w cat-expr" data-tr="пятеро парней">five fellows</span>; the man who was steering had <span class="w cat-expr" data-tr="особенно безмятежный вид">a particularly restful appearance</span>.</p>
+  <p class="reveal">I did not like to see him <span class="w cat-expr" data-tr="потянуть не за ту верёвку">pull the wrong line</span>, <span class="w cat-expr" data-tr="пробормотал">murmured</span> George, as they passed. And <span class="w cat-expr" data-tr="ровно в этот момент">at that precise moment</span> one of the men in the boat <span class="w cat-phrasal" data-tr="выскочил на берег">rushed up the bank</span>. Two men, <span class="w cat-expr" data-tr="корзина (для провизии)">a hamper</span>, and three oars immediately left the boat on <span class="w cat-expr" data-tr="правый борт">the starboard side</span>, and <span class="w cat-phrasal" data-tr="уселись">sat down</span> among <span class="w cat-expr" data-tr="багры">boat-hooks</span> and sails and <span class="w cat-expr" data-tr="саквояжи">carpet-bags</span> and bottles. The last man <span class="w cat-phrasal" data-tr="проследовал дальше">went on</span>, twenty yards further, and then <span class="w cat-expr" data-tr="вывалился вверх ногами">got out on his head</span>.</p>
+  <p class="reveal">This <span class="w cat-expr" data-tr="облегчило лодку">lightened the boat</span>, and it went on much easier. The small boy shouted, and <span class="w cat-expr" data-tr="пустил своего скакуна в галоп">plunged his steed into a gallop</span>, while the man who was steering and the other men <span class="w cat-expr" data-tr="вцепились друг в друга">clung to one another</span>. <span class="w cat-expr" data-tr="прошло несколько секунд, прежде чем">It was some seconds before</span> they <span class="w cat-expr" data-tr="сообразили, что с ними случилось">realised what had happened to them</span>, and then they began to <span class="w cat-expr" data-tr="кричать мальчишке, чтоб остановился">shout for the boy to stop</span>. He, however, was <span class="w cat-expr" data-tr="слишком занят (чем-л.)">too much occupied with</span> the horse to hear them, and, before they <span class="w cat-phrasal" data-tr="догнали его">caught him up</span>, <span class="w cat-expr" data-tr="расстояние скрыло их из виду">the distance hid them from view</span>.</p>
+  <p class="reveal"><span class="w cat-expr" data-tr="из всех впечатлений">Of all experiences</span> <span class="w cat-expr" data-tr="связанных с">in connection with</span> towing, the most exciting is <span class="w cat-expr" data-tr="когда тебя буксируют девушки">being towed by girls</span>. It is <span class="w cat-expr" data-tr="ощущение, которое никому не стоит пропускать">a sensation that nobody ought to miss</span>. It <span class="w cat-expr" data-tr="требуется три девушки">takes three girls</span> to tow always: two hold the rope, and the other one <span class="w cat-phrasal" data-tr="бегает кругами">runs round and round</span>, and giggles. They generally begin by <span class="w cat-phrasal" data-tr="запутываясь в верёвке">getting themselves tied up</span>.</p>
+  <p class="reveal">They <span class="w cat-expr" data-tr="наматывают верёвку на ноги">get the line round their legs</span>, and have to sit down on the path and <span class="w cat-expr" data-tr="распутывать друг друга">undo each other</span>; and then they <span class="w cat-expr" data-tr="обматывают её вокруг шеи">twist it round their necks</span>, and are <span class="w cat-expr" data-tr="чуть не задушены">nearly strangled</span>. They <span class="w cat-expr" data-tr="приводят всё в порядок">fix it straight</span>, however, at last, and <span class="w cat-phrasal" data-tr="пускаются бегом">start off at a run</span>, <span class="w cat-phrasal" data-tr="таща лодку за собой">pulling the boat along</span> at quite <span class="w cat-expr" data-tr="опасной скоростью">a dangerous pace</span>. <span class="w cat-expr" data-tr="через сотню ярдов">At the end of a hundred yards</span> they are naturally <span class="w cat-expr" data-tr="запыхавшиеся">breathless</span>, and suddenly stop, and all sit down on the grass and laugh, and your boat <span class="w cat-phrasal" data-tr="выносит на середину реки">drifts out to mid-stream</span> and <span class="w cat-phrasal" data-tr="разворачивается">turns round</span>, <span class="w cat-expr" data-tr="прежде чем вы поймёте, что случилось">before you know what has happened</span>. Then they <span class="w cat-phrasal" data-tr="встают">stand up</span>, and are surprised.</p>
+  <p class="reveal">“Oh, look!” they say, “he's <span class="w cat-expr" data-tr="уплыл на самую середину">gone right out into the middle</span>.”</p>
+  <p class="reveal">After this the boat <span class="w cat-phrasal" data-tr="садится на мель">runs aground</span>. You <span class="w cat-phrasal" data-tr="вскакиваете">jump up</span>, and you shout to them not to stop.</p>
+  <p class="reveal">“Yes. <span class="w cat-expr" data-tr="что случилось?">What's the matter?</span>” they <span class="w cat-phrasal" data-tr="кричат в ответ">shout back</span>.</p>
+  <p class="reveal">“Don't stop,” you <span class="w cat-expr" data-tr="ревёте / орёте">roar</span>.</p>
+  <p class="reveal">“Don't what?”</p>
+  <p class="reveal">“Don't stop — <span class="w cat-phrasal" data-tr="продолжайте">go on</span> — go on!”</p>
+  <p class="reveal">“<span class="w cat-phrasal" data-tr="вернись">Go back</span>, <span class="w cat-name" data-tr="Эмили (имя)">Emily</span>, and see what it is they want,” says one; and Emily <span class="w cat-phrasal" data-tr="возвращается">comes back</span>, and asks what it is.</p>
+  <p class="reveal">“What do you want?” she says, “<span class="w cat-expr" data-tr="что-нибудь случилось?">anything happened?</span>”</p>
+  <p class="reveal">“No,” you reply, “<span class="w cat-expr" data-tr="всё в порядке">it's all right</span>; only go on, you know — don't stop.”</p>
+  <p class="reveal">“Why not?”</p>
+  <p class="reveal">“Why, you must <span class="w cat-expr" data-tr="поддерживать движение лодки">keep the boat moving</span>.”</p>
+  <p class="reveal">“Oh, all right, I'll tell them. <span class="w cat-expr" data-tr="мы всё правильно делаем?">Are we doing it all right?</span>”</p>
+  <p class="reveal">“Oh, yes, <span class="w cat-expr" data-tr="очень даже хорошо">very nicely, indeed</span>, only don't stop.”</p>
+  <p class="reveal">“It doesn't seem <span class="w cat-expr" data-tr="ничуть не трудно">difficult at all</span>. I thought it was so hard.”</p>
+  <p class="reveal">“Oh, no, it's <span class="w cat-expr" data-tr="довольно просто">simple enough</span>. You want to <span class="w cat-phrasal" data-tr="продолжать в том же духе">keep on at it</span>, <span class="w cat-expr" data-tr="вот и всё">that's all</span>.”</p>
+  <p class="reveal">“I see. Give me my red <span class="w cat-expr" data-tr="шаль">shawl</span>, it's <span class="w cat-expr" data-tr="под подушкой">under the cushion</span>.”</p>
+  <p class="reveal">You find the shawl, and <span class="w cat-expr" data-tr="к этому времени">by this time</span> another one has come back, and thinks she will have hers too, and they take <span class="w cat-name" data-tr="Мэри (имя)">Mary's</span> <span class="w cat-expr" data-tr="наугад / на всякий случай">on chance</span>, and Mary does not want it; so they <span class="w cat-phrasal" data-tr="приносят его обратно">bring it back</span> and have <span class="w cat-expr" data-tr="карманная расчёска">a pocket-comb</span> instead. It is about twenty minutes before they <span class="w cat-phrasal" data-tr="снова двинутся в путь">get off again</span>, and, <span class="w cat-expr" data-tr="на следующем повороте">at the next corner</span>, they see a cow, and you have to leave the boat to <span class="w cat-phrasal" data-tr="отогнать корову">chive the cow away</span>.</p>
+  <p class="reveal">Then they <span class="w cat-expr" data-tr="начинают нервничать">get nervous</span> about the tow-path. They ask if they are <span class="w cat-expr" data-tr="делают всё правильно">doing it right</span>, and if they are sure the rope is not <span class="w cat-expr" data-tr="повреждает траву">hurting the grass</span>. You say:</p>
+  <p class="reveal">“Go on; it's all right.”</p>
+  <p class="reveal">Then they say:</p>
+  <p class="reveal">“Are you sure?”</p>
+  <p class="reveal">And you reply:</p>
+  <p class="reveal">“Yes, <span class="w cat-expr" data-tr="совершенно уверен">quite sure</span>.”</p>
+  <p class="reveal">And they say:</p>
+  <p class="reveal">“Well, don't shout like that. <span class="w cat-expr" data-tr="мы не глухие">We are not deaf</span>.”</p>
+  <p class="reveal">After that they <span class="w cat-expr" data-tr="обижаются">get offended</span>, and say they are <span class="w cat-expr" data-tr="делают всё возможное">doing their best</span>, and if you don't like it you <span class="w cat-expr" data-tr="лучше бы">had better</span> <span class="w cat-expr" data-tr="найти кого-нибудь другого, чтоб тянул">get someone else to tow you</span>. Then you <span class="w cat-expr" data-tr="сердитесь">get angry</span> and say that you will. Then they cry, and say that you are <span class="w cat-expr" data-tr="недобрый / жестокий">unkind</span>, and then you have to <span class="w cat-phrasal" data-tr="помириться">make it up</span> and tell them you are very sorry.</p>
+  <p class="reveal"><span class="w cat-expr" data-tr="в конце концов">After all</span>, we decided to <span class="w cat-phrasal" data-tr="двигаться дальше к">go on to</span> <span class="w cat-name" data-tr="Раннимид (место)">Runnymead</span>, three and a half miles further, where there was <span class="w cat-expr" data-tr="хорошее укрытие">good shelter</span>.</p>
+  <p class="reveal">We all wished, however, afterward that we had <span class="w cat-phrasal" data-tr="остановились в">stopped at</span> <span class="w cat-name" data-tr="Пентон-Хук (место)">Penton Hook</span>. Three or four miles <span class="w cat-expr" data-tr="вверх по течению">up stream</span> is really not much <span class="w cat-expr" data-tr="ранним утром">early in the morning</span>, but it is <span class="w cat-expr" data-tr="тяжёлый труд">a hard job</span> <span class="w cat-expr" data-tr="в конце долгого дня">at the end of a long day</span>. You do not chat and laugh. <span class="w cat-expr" data-tr="каждая полумиля, которую вы проходите">Every half-mile you cover</span> seems like two. When you have gone — what seems to you — <span class="w cat-expr" data-tr="по меньшей мере миль десять">at least ten miles</span>, and still the lock is <span class="w cat-expr" data-tr="не видно">not in sight</span>, you begin to <span class="w cat-expr" data-tr="нервничать">get nervous</span>. You feel that <span class="w cat-expr" data-tr="кто-то его украл">somebody has stolen it</span>, and you begin to wonder <span class="w cat-expr" data-tr="что делать">what is to be done</span>.</p>
+  <p class="reveal">I remember one day I was <span class="w cat-expr" data-tr="был на прогулке с">out with</span> <span class="w cat-expr" data-tr="кузина по материнской линии">a friend of mine on my mother's side</span>, and we were <span class="w cat-phrasal" data-tr="гребли вниз по реке до">pulling down to</span> <span class="w cat-name" data-tr="Горинг (место)">Goring</span>. It was rather late, and we were <span class="w cat-expr" data-tr="очень хотели попасть домой">anxious to get home</span> — at least she was anxious to get home. We <span class="w cat-phrasal" data-tr="продолжали грести">pulled on</span> for past six when we reached <span class="w cat-name" data-tr="шлюз Бенсона">Benson's lock</span>, and as <span class="w cat-phrasal" data-tr="сгущались сумерки">dusk was drawing on</span>, and she began to <span class="w cat-expr" data-tr="волноваться">get excited</span> then. She said she must <span class="w cat-expr" data-tr="быть дома">be back home</span> to see exactly <span class="w cat-expr" data-tr="далеко ли это">how far it was</span>. I said it was <span class="w cat-expr" data-tr="полторы мили">a mile and a half</span>. It seemed to <span class="w cat-expr" data-tr="становиться всё длиннее и длиннее">grow longer and longer</span>, as <span class="w cat-phrasal" data-tr="наступала ночь">the night came on</span>, and things became <span class="w cat-expr" data-tr="жуткими и странными">weird and strange</span>. Out of the <span class="w cat-expr" data-tr="хобгоблин / домовой">hobgoblin</span> and <span class="w cat-expr" data-tr="банши (дух-плакальщица)">banshee</span> and <span class="w cat-expr" data-tr="блуждающий огонёк">will-o'-the-wisp</span> family, and those <span class="w cat-expr" data-tr="коварные девы">wicked girls</span> who <span class="w cat-expr" data-tr="сидят всю ночь на скалах">sit up all night on rocks</span>, and <span class="w cat-expr" data-tr="заманивают людей в водовороты">lure people into whirlpools</span> and things. <span class="w cat-expr" data-tr="в разгар этих раздумий">In the middle of these reflections</span> I heard <span class="w cat-expr" data-tr="грустные ноты песни">the sad notes of a song</span>, played, badly, on a <span class="w cat-expr" data-tr="концертина (тип гармошки)">concertina</span>, and knew that <span class="w cat-expr" data-tr="мы спасены">we were saved</span>.</p>
+  <p class="reveal">I do not admire the tones of a concertina, <span class="w cat-expr" data-tr="как правило">as a rule</span>, but, oh, how beautiful the music seemed to us both then — <span class="w cat-expr" data-tr="куда красивее, чем">far more beautiful than</span> <span class="w cat-name" data-tr="голос Орфея (миф.)">the voice of Orpheus</span>, or <span class="w cat-name" data-tr="лютня Аполлона (миф.)">the lute of Apollo</span>. The music was <span class="w cat-expr" data-tr="человеческой и обнадёживающей">human and reassuring</span>.</p>
+  <p class="reveal">As <span class="w cat-phrasal" data-tr="сладкие звуки приближались">the sweet sounds drew nearer</span>, and soon the boat from which they were worked <span class="w cat-phrasal" data-tr="поравнялась с нами">lay alongside us</span>. It contained <span class="w cat-expr" data-tr="какие-то отвратительно выглядящие юнцы">some horrible-looking young men</span> <span class="w cat-expr" data-tr="за всю мою жизнь">in all my life</span>. I <span class="w cat-expr" data-tr="окликнул их">hailed them</span>, and asked if they could tell me <span class="w cat-expr" data-tr="дорогу к">the way to</span> <span class="w cat-name" data-tr="шлюз Уоллингфорд">Wallingford lock</span>; and I explained that I had been <span class="w cat-phrasal" data-tr="искал его">looking for it</span> <span class="w cat-expr" data-tr="последние два часа">for the last two hours</span>.</p>
+  <p class="reveal">“Wallingford lock!” they answered. “Sir, that's been <span class="w cat-phrasal" data-tr="упразднён / убран">done away with</span> <span class="w cat-expr" data-tr="уже больше года">for over a year</span>. There is no Wallingford lock, now, sir. You're <span class="w cat-expr" data-tr="близко к">close to</span> <span class="w cat-name" data-tr="Клив (место)">Cleeve</span> now!”</p>
+  <p class="reveal"><span class="w cat-expr" data-tr="мне такое и в голову не приходило">I had never thought of that</span>. We thanked them <span class="w cat-expr" data-tr="снова и снова">over and over again</span>, and we said they had been <span class="w cat-expr" data-tr="чудесная ночь">a lovely night</span>, and wished them <span class="w cat-expr" data-tr="приятного пути">a pleasant trip</span>, and I think I invited them to come and <span class="w cat-expr" data-tr="провести неделю у меня">spend a week with me</span>, and <span class="w cat-expr" data-tr="моя кузина">my cousin</span> said her mother <span class="w cat-expr" data-tr="была бы так рада их увидеть">would be so pleased to see them</span>. And we <span class="w cat-expr" data-tr="успели домой к ужину">got home in time for supper</span>, after all.</p>
+  <p class="reveal">Harris and I began to think that <span class="w cat-name" data-tr="шлюз Белл-Уэйр">Bell Weir lock</span> had disappeared <span class="w cat-expr" data-tr="точно таким же образом">after the same manner</span>. George had <span class="w cat-phrasal" data-tr="довёз нас на вёслах до">rowed us up to</span> <span class="w cat-name" data-tr="Стэйнс (место)">Staines</span>, and we had taken the boat <span class="w cat-expr" data-tr="оттуда">from there</span>, and it seemed that we were rowing <span class="w cat-expr" data-tr="пятьдесят четыре мили">fifty-four miles</span>, were walking forty-seven miles. It was <span class="w cat-expr" data-tr="половина восьмого">half-past seven</span> when we <span class="w cat-expr" data-tr="добрались до места">came to the place</span>, and we did not feel that we <span class="w cat-expr" data-tr="жаждали живописного">yearned for the picturesque</span> so much now as we had <span class="w cat-expr" data-tr="раньше днём">earlier in the day</span>. We did not want <span class="w cat-expr" data-tr="пейзажи">scenery</span>. We wanted to <span class="w cat-expr" data-tr="поужинать">have our supper</span> and <span class="w cat-expr" data-tr="лечь спать">go to bed</span>. However, we <span class="w cat-phrasal" data-tr="причалили к берегу">pulled up under the bank</span>, and <span class="w cat-expr" data-tr="поужинали">had supper</span>.</p>
+  <div class="divider">❦</div>
+
+  <div class="legend">
+    <div class="legend-item"><span class="legend-dot"></span><span>names &amp; places</span></div>
+    <div class="legend-item"><span class="legend-dot"></span><span>maladies &amp; medicine</span></div>
+    <div class="legend-item"><span class="legend-dot"></span><span>phrasal verbs</span></div>
+    <div class="legend-item"><span class="legend-dot"></span><span>idioms &amp; expressions</span></div>
+  </div>
+
+  <div class="end">Finis</div>
+  <button class="listen-btn" id="listenAll">listen to chapter</button>
+</div>
+
+<script>
+(function() {
+  const words = document.querySelectorAll('.w');
+  const synth = window.speechSynthesis;
+  let activeWord = null;
+  let voices = [];
+
+  function loadVoices() {
+    if (!synth) return;
+    voices = synth.getVoices();
+  }
+  loadVoices();
+  if (synth && typeof synth.onvoiceschanged !== 'undefined') {
+    synth.onvoiceschanged = loadVoices;
+  }
+
+  function pickEnglishVoice() {
+    if (!voices.length && synth) voices = synth.getVoices();
+    if (!voices.length) return null;
+    return voices.find(v => /en-GB/i.test(v.lang) && /female|samantha|kate|google uk english female|serena|daniel/i.test(v.name))
+        || voices.find(v => /en-GB/i.test(v.lang))
+        || voices.find(v => /en-US/i.test(v.lang))
+        || voices.find(v => /^en/i.test(v.lang))
+        || null;
+  }
+
+  function speak(text) {
+    if (!('speechSynthesis' in window)) return;
+    synth.cancel();
+    const u = new SpeechSynthesisUtterance(text);
+    const voice = pickEnglishVoice();
+    if (voice) u.voice = voice;
+    u.lang = (voice && voice.lang) || 'en-GB';
+    u.rate = 0.92;
+    u.pitch = 1.0;
+    synth.speak(u);
+  }
+
+  // Save original text before injecting tooltips
+  words.forEach(w => {
+    w.dataset.text = w.textContent.trim();
+    const tip = document.createElement('span');
+    tip.className = 'tooltip';
+    tip.textContent = w.dataset.tr;
+    w.appendChild(tip);
+  });
+
+  words.forEach(w => {
+    w.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const wasActive = w.classList.contains('active');
+      if (activeWord && activeWord !== w) {
+        activeWord.classList.remove('active');
+      }
+      if (!wasActive) {
+        w.classList.add('active');
+        activeWord = w;
+        speak(w.dataset.text);
+      } else {
+        w.classList.remove('active');
+        activeWord = null;
+        if (synth) synth.cancel();
+      }
+    });
+  });
+
+  document.addEventListener('click', () => {
+    if (activeWord) {
+      activeWord.classList.remove('active');
+      activeWord = null;
+    }
+  });
+
+  // Scroll-triggered paragraph reveal
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('in-view');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.05, rootMargin: '0px 0px -8% 0px' });
+
+  document.querySelectorAll('.reveal').forEach(p => io.observe(p));
+
+  // Listen to full chapter
+  const listenBtn = document.getElementById('listenAll');
+  let isReading = false;
+  listenBtn.addEventListener('click', () => {
+    if (!('speechSynthesis' in window)) {
+      listenBtn.textContent = 'speech not supported';
+      listenBtn.disabled = true;
+      return;
+    }
+    if (isReading) {
+      synth.cancel();
+      isReading = false;
+      listenBtn.textContent = 'listen to chapter';
+      return;
+    }
+    const paragraphs = document.querySelectorAll('.container p');
+    let text = '';
+    paragraphs.forEach(p => {
+      const clone = p.cloneNode(true);
+      clone.querySelectorAll('.tooltip').forEach(t => t.remove());
+      text += clone.textContent.replace(/\\s+/g, ' ') + ' ';
+    });
+    isReading = true;
+    listenBtn.textContent = 'stop reading';
+    const u = new SpeechSynthesisUtterance(text);
+    const voice = pickEnglishVoice();
+    if (voice) u.voice = voice;
+    u.lang = (voice && voice.lang) || 'en-GB';
+    u.rate = 0.92;
+    u.onend = () => {
+      isReading = false;
+      listenBtn.textContent = 'listen to chapter';
+    };
+    u.onerror = () => {
+      isReading = false;
+      listenBtn.textContent = 'listen to chapter';
+    };
+    synth.cancel();
+    synth.speak(u);
+  });
+})();
+</script>
+</body>
+</html>
