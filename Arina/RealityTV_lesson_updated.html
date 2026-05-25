@@ -1,0 +1,2328 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Reality TV · A K-aesthetic lesson</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600;700&amp;family=Nunito:wght@300;400;500;600;700;800&amp;family=Patrick+Hand&amp;display=swap" rel="stylesheet"/>
+<style>
+/* =========================================================
+   REALITY TV · K-AESTHETIC LESSON
+   ========================================================= */
+
+:root{
+  --cream:     #FDF6EE;
+  --cream-2:   #FAEDDD;
+  --peach:     #FBDDC8;
+  --peach-2:   #F7C7A7;
+  --sakura:    #F5C5C9;
+  --sakura-2:  #EFA9B0;
+  --rose:      #D77084;
+  --rose-deep: #B85969;
+  --rose-ink:  #8E3A4A;
+
+  --sumi:      #2A2C3F;   /* dark indigo */
+  --sumi-soft: #4A4C5E;
+  --sage:      #A8B89E;
+  --sage-deep: #768677;
+  --honey:     #E8C887;
+  --gold-deep: #B88E3D;
+
+  --ivory:     #FFFBF5;
+  --paper:     #F5E8D9;
+  --ink:       #2D1F1F;
+  --ink-soft:  #5E4A48;
+
+  --shadow-sm: 0 2px 6px rgba(184,89,105,.10);
+  --shadow-md: 0 8px 22px rgba(184,89,105,.12);
+  --shadow-lg: 0 22px 52px rgba(184,89,105,.18);
+
+  --serif: 'Shippori Mincho', 'Cormorant Garamond', Georgia, serif;
+  --sans:  'Nunito', system-ui, sans-serif;
+  --hand:  'Patrick Hand', cursive;
+}
+
+*{ box-sizing:border-box; margin:0; padding:0; }
+html{ scroll-behavior:smooth; }
+
+body{
+  font-family: var(--sans);
+  color: var(--ink);
+  background: var(--cream);
+  background-image:
+    radial-gradient(circle at 12% 8%, rgba(245,197,201,.45), transparent 38%),
+    radial-gradient(circle at 88% 18%, rgba(232,200,135,.30), transparent 42%),
+    radial-gradient(circle at 18% 78%, rgba(168,184,158,.25), transparent 44%),
+    radial-gradient(circle at 92% 88%, rgba(251,221,200,.40), transparent 42%);
+  min-height: 100vh;
+  line-height: 1.65;
+  overflow-x: hidden;
+  font-weight: 400;
+}
+
+body::before{
+  content:"";
+  position:fixed; inset:0;
+  background-image:
+    radial-gradient(rgba(142,58,74,.04) 1px, transparent 1px);
+  background-size: 22px 22px;
+  pointer-events:none;
+  z-index:0;
+  opacity:.6;
+}
+
+/* sakura petals */
+.petals{
+  position: fixed; inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+}
+.petal{
+  position: absolute;
+  font-size: 18px;
+  opacity: .55;
+  animation: fall linear infinite;
+}
+@keyframes fall{
+  0%{ transform: translate(0, -20px) rotate(0deg); opacity: 0;}
+  10%{ opacity: .7;}
+  100%{ transform: translate(80px, 105vh) rotate(540deg); opacity: 0;}
+}
+
+.wrap{
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 36px 28px 120px;
+  position: relative;
+  z-index: 2;
+}
+
+/* ============ NAV ============ */
+.nav{
+  position: sticky; top: 14px;
+  display:flex; align-items:center; justify-content:space-between;
+  gap: 16px;
+  background: rgba(255,251,245,.82);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(215,112,132,.20);
+  border-radius: 999px;
+  padding: 10px 18px 10px 22px;
+  margin-bottom: 36px;
+  box-shadow: var(--shadow-sm);
+  z-index: 50;
+  font-size: 14px;
+}
+.nav .brand{
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: 19px;
+  color: var(--rose-deep);
+  letter-spacing: .4px;
+  display: flex; align-items: center; gap: 8px;
+}
+.nav .brand .ja{
+  font-family: var(--serif);
+  font-size: 22px;
+  color: var(--rose);
+  opacity: .85;
+}
+.nav .progress{
+  flex: 1;
+  height: 5px;
+  background: var(--peach);
+  border-radius: 999px;
+  overflow: hidden;
+  max-width: 380px;
+  margin: 0 14px;
+}
+.nav .progress-bar{
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--sakura-2), var(--rose));
+  border-radius: 999px;
+  transition: width .6s ease;
+}
+.nav .scoreboard{
+  font-family: var(--sans);
+  font-size: 13px;
+  color: var(--rose-deep);
+  font-weight: 700;
+  background: var(--sakura);
+  padding: 5px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--sakura-2);
+}
+
+/* ============ HERO ============ */
+.hero{
+  position: relative;
+  padding: 60px 20px 50px;
+  text-align: left;
+}
+.hero .eyebrow{
+  display: inline-flex;
+  align-items: center; gap: 8px;
+  font-family: var(--hand);
+  font-size: 22px;
+  color: var(--rose-deep);
+  background: var(--ivory);
+  padding: 4px 16px;
+  border-radius: 999px;
+  margin-bottom: 20px;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--sakura-2);
+}
+.hero .eyebrow .ja{
+  font-family: var(--serif);
+  font-size: 17px;
+  color: var(--rose);
+}
+.hero h1{
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: clamp(46px, 7vw, 96px);
+  line-height: 1.02;
+  letter-spacing: -1.4px;
+  color: var(--sumi);
+  margin-bottom: 22px;
+}
+.hero h1 em{
+  font-style: italic;
+  color: var(--rose-deep);
+  position: relative;
+}
+.hero h1 em::after{
+  content: "";
+  position: absolute;
+  left: -2%; right: -2%; bottom: 4px;
+  height: 14px;
+  background: var(--sakura);
+  z-index: -1;
+  border-radius: 4px;
+  transform: skew(-8deg);
+  opacity: .7;
+}
+.hero h1 .stamp{
+  font-family: var(--serif);
+  font-size: .4em;
+  color: var(--rose);
+  vertical-align: super;
+  letter-spacing: 1px;
+}
+.hero .lede{
+  font-family: var(--serif);
+  font-size: clamp(20px, 2vw, 25px);
+  max-width: 740px;
+  line-height: 1.45;
+  color: var(--ink-soft);
+  margin-bottom: 28px;
+  font-style: italic;
+}
+.hero .lede strong{
+  color: var(--rose-deep);
+  font-weight: 600;
+  font-style: normal;
+  background: linear-gradient(transparent 60%, var(--sakura) 60%);
+  padding: 0 3px;
+}
+
+.hero-meta{
+  display: flex; gap: 18px; flex-wrap: wrap;
+  font-size: 14px;
+  color: var(--rose-deep);
+  font-weight: 600;
+}
+.hero-meta div{ display:flex; align-items:center; gap:6px;}
+.hero-meta .dot{ width:8px; height:8px; border-radius: 50%; background: var(--rose);}
+.hero-meta .dot.two{ background: var(--honey);}
+.hero-meta .dot.three{ background: var(--sage-deep);}
+
+.doodle{
+  position: absolute;
+  font-family: var(--hand);
+  pointer-events: none;
+}
+.doodle.note{
+  top: 28px; left: -8px;
+  font-size: 22px;
+  color: var(--sumi);
+  transform: rotate(-10deg);
+  background: var(--paper);
+  padding: 6px 16px;
+  border-radius: 6px;
+  box-shadow: var(--shadow-sm);
+}
+.doodle.sakura{
+  top: 90px; right: 8%;
+  font-size: 56px;
+  opacity: .65;
+  animation: floaty 9s ease-in-out infinite;
+}
+@keyframes floaty{
+  0%,100%{ transform: translateY(0) rotate(0); }
+  50%{ transform: translateY(-14px) rotate(8deg); }
+}
+
+/* ============ SECTION ============ */
+.section{ margin-top: 90px; position: relative;}
+.section-head{
+  display:flex; align-items:flex-end; justify-content: space-between;
+  gap: 24px; margin-bottom: 30px;
+  flex-wrap: wrap;
+}
+.section-head h2{
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: clamp(34px, 4.5vw, 56px);
+  line-height: 1.05;
+  letter-spacing: -.8px;
+  color: var(--sumi);
+}
+.section-head h2 em{
+  font-style: italic;
+  color: var(--rose-deep);
+}
+.section-head h2 .ja{
+  font-size: .55em;
+  color: var(--rose);
+  margin-left: 6px;
+  font-weight: 500;
+}
+.section-head .num{
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: 22px;
+  color: var(--rose-deep);
+  background: var(--ivory);
+  border: 1.5px solid var(--sakura-2);
+  width: 60px; height: 60px;
+  border-radius: 50%;
+  display: grid; place-items: center;
+  flex-shrink: 0;
+  box-shadow: var(--shadow-sm);
+}
+.section-head .tag{
+  font-family: var(--hand);
+  font-size: 22px;
+  color: var(--rose);
+  transform: rotate(2deg);
+}
+
+/* ============ TASK BOX ============ */
+.task{
+  background: var(--ivory);
+  border-radius: 28px;
+  padding: 36px 38px;
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--sakura-2);
+  margin-bottom: 26px;
+  position: relative;
+}
+.task .task-head{
+  display: flex; align-items: flex-start; gap: 14px;
+  margin-bottom: 22px;
+  flex-wrap: wrap;
+}
+.task .task-num{
+  background: var(--rose);
+  color: var(--ivory);
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: 18px;
+  width: 38px; height: 38px;
+  border-radius: 50%;
+  display: grid; place-items: center;
+  flex-shrink: 0;
+  box-shadow: var(--shadow-sm);
+}
+.task .task-num.sage{ background: var(--sage-deep);}
+.task .task-num.gold{ background: var(--gold-deep);}
+.task .task-title{
+  flex: 1;
+  font-family: var(--serif);
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--sumi);
+  line-height: 1.3;
+}
+.task .task-hint{
+  font-family: var(--hand);
+  font-size: 17px;
+  color: var(--rose);
+  width: 100%;
+  margin-left: 52px;
+  margin-top: -8px;
+}
+
+/* ============ WARM-UP CARDS ============ */
+.show-grid{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 18px;
+  margin-bottom: 22px;
+}
+.show-card{
+  background: var(--cream-2);
+  border-radius: 18px;
+  padding: 20px 22px;
+  border: 1.5px solid var(--peach);
+  transition: transform .25s ease, box-shadow .25s ease;
+  position: relative;
+}
+.show-card:hover{ transform: translateY(-3px); box-shadow: var(--shadow-sm);}
+.show-card .label{
+  font-family: var(--hand);
+  font-size: 14px;
+  color: var(--rose);
+  letter-spacing: .5px;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+.show-card .title{
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: 22px;
+  color: var(--sumi);
+  margin-bottom: 8px;
+  letter-spacing: -.3px;
+}
+.show-card .desc{
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 15px;
+  color: var(--ink-soft);
+  line-height: 1.4;
+  margin-bottom: 14px;
+}
+.show-card .options{
+  display: flex; flex-wrap: wrap; gap: 6px;
+}
+.show-opt{
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: 12px;
+  padding: 5px 12px;
+  background: var(--ivory);
+  border: 1.5px solid var(--peach-2);
+  color: var(--rose-deep);
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all .2s ease;
+  user-select: none;
+  letter-spacing: .2px;
+}
+.show-opt:hover{ background: var(--sakura); border-color: var(--rose); transform: translateY(-1px);}
+.show-opt.correct{
+  background: var(--sage);
+  border-color: var(--sage-deep);
+  color: var(--ivory);
+  animation: pop .4s ease;
+}
+.show-opt.wrong{
+  background: #F0CFC1;
+  border-color: var(--rose);
+  color: var(--rose-ink);
+  animation: shake .35s ease;
+}
+.show-opt.disabled{ pointer-events: none; opacity: .55;}
+@keyframes pop{
+  0%{ transform: scale(1);}
+  50%{ transform: scale(1.18);}
+  100%{ transform: scale(1);}
+}
+@keyframes shake{
+  0%, 100%{ transform: translateX(0);}
+  25%{ transform: translateX(-5px);}
+  75%{ transform: translateX(5px);}
+}
+
+/* ============ DIARY (fill-in) ============ */
+.diary{
+  background: linear-gradient(135deg, var(--ivory), var(--cream-2));
+  border-radius: 22px;
+  padding: 30px 36px;
+  border: 1px solid var(--peach);
+  font-family: var(--serif);
+  font-size: 19px;
+  line-height: 1.85;
+  color: var(--sumi);
+  position: relative;
+}
+.diary::before{
+  content: "✿";
+  position: absolute;
+  top: 16px; right: 22px;
+  color: var(--rose);
+  font-size: 26px;
+  opacity: .6;
+}
+.diary .blank{
+  display: inline-block;
+  min-width: 100px;
+  padding: 2px 12px;
+  background: var(--ivory);
+  border: 1.5px dashed var(--rose);
+  border-radius: 10px;
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: 15px;
+  text-align: center;
+  color: var(--rose-deep);
+  cursor: pointer;
+  transition: all .2s;
+  user-select: none;
+  margin: 0 2px;
+  vertical-align: baseline;
+}
+.diary .blank:hover{ background: var(--sakura);}
+.diary .blank.filled{
+  background: var(--sakura);
+  border-style: solid;
+  color: var(--rose-deep);
+}
+.diary .blank.correct{
+  background: var(--sage);
+  border-style: solid;
+  border-color: var(--sage-deep);
+  color: var(--ivory);
+  animation: pop .4s ease;
+}
+.diary .blank.wrong{
+  background: #F0CFC1;
+  color: var(--rose-ink);
+  animation: shake .35s ease;
+}
+
+.chip-pool{
+  display: flex; flex-wrap: wrap; gap: 8px;
+  margin-top: 18px;
+  padding: 18px;
+  background: var(--paper);
+  border-radius: 16px;
+  border: 1px dashed var(--rose);
+}
+.chip{
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: 14px;
+  padding: 8px 16px;
+  background: var(--ivory);
+  border: 1.5px solid var(--sakura-2);
+  color: var(--rose-deep);
+  border-radius: 999px;
+  cursor: pointer;
+  user-select: none;
+  transition: all .2s;
+}
+.chip:hover{ background: var(--sakura); border-color: var(--rose); transform: translateY(-1px);}
+.chip.used{ opacity: .25; pointer-events: none;}
+.chip.selected{
+  background: var(--rose);
+  color: var(--ivory);
+  border-color: var(--rose-deep);
+}
+
+/* ============ FLIP CARDS ============ */
+.flip-grid{
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 22px;
+}
+.flip{
+  perspective: 1000px;
+  height: 280px;
+  cursor: pointer;
+}
+.flip-inner{
+  position: relative;
+  width: 100%; height: 100%;
+  transition: transform .7s cubic-bezier(.2,.8,.2,1);
+  transform-style: preserve-3d;
+}
+.flip.flipped .flip-inner{
+  transform: rotateY(180deg);
+}
+.flip-face{
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  border-radius: 22px;
+  padding: 24px 22px;
+  display: flex; flex-direction: column;
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--sakura-2);
+  overflow: hidden;
+}
+.flip-face.front{
+  background: linear-gradient(135deg, var(--ivory), var(--cream-2));
+  justify-content: space-between;
+}
+.flip-face.back{
+  background: linear-gradient(160deg, var(--sakura), var(--peach));
+  transform: rotateY(180deg);
+  color: var(--sumi);
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+}
+.flip .meaning-label{
+  font-family: var(--hand);
+  font-size: 14px;
+  color: var(--rose);
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  margin-bottom: 10px;
+}
+.flip .meaning{
+  font-family: var(--serif);
+  font-size: 18px;
+  font-style: italic;
+  color: var(--sumi);
+  line-height: 1.45;
+  flex: 1;
+  display: flex; align-items: center;
+}
+.flip .turn-cue{
+  font-family: var(--hand);
+  font-size: 14px;
+  color: var(--rose);
+  text-align: right;
+  opacity: .75;
+}
+.flip .turn-cue::after{ content: " ↻";}
+
+.flip .word{
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: 36px;
+  color: var(--rose-deep);
+  letter-spacing: -.5px;
+  margin-top: 6px;
+}
+.flip .ipa{
+  font-family: var(--serif);
+  font-size: 18px;
+  color: var(--sumi-soft);
+  margin-top: 2px;
+  font-style: italic;
+}
+.flip .ru{
+  font-family: var(--sans);
+  font-size: 15px;
+  color: var(--sumi);
+  font-weight: 600;
+  margin-top: 14px;
+  padding: 4px 14px;
+  background: rgba(255,251,245,.7);
+  border-radius: 999px;
+  display: inline-block;
+}
+.audio-btn{
+  margin-top: 14px;
+  background: var(--rose);
+  color: var(--ivory);
+  border: none;
+  width: 50px; height: 50px;
+  border-radius: 50%;
+  font-size: 20px;
+  cursor: pointer;
+  display: grid; place-items: center;
+  box-shadow: var(--shadow-sm);
+  transition: transform .2s, background .2s;
+}
+.audio-btn:hover{ background: var(--rose-deep); transform: scale(1.06);}
+.audio-btn:active{ transform: scale(.95);}
+.audio-btn.playing{
+  animation: pulse 1s ease;
+}
+@keyframes pulse{
+  0%, 100%{ box-shadow: 0 0 0 0 rgba(215,112,132,.5);}
+  50%{ box-shadow: 0 0 0 12px rgba(215,112,132,0);}
+}
+
+/* ============ SPEAKING SECTION ============ */
+.speak-grid{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 18px;
+}
+.speak-card{
+  background: var(--ivory);
+  border-radius: 20px;
+  padding: 22px 22px 18px;
+  border-left: 4px solid var(--rose);
+  box-shadow: var(--shadow-sm);
+  position: relative;
+  transition: transform .25s ease, box-shadow .25s ease;
+}
+.speak-card:hover{ transform: translateY(-3px); box-shadow: var(--shadow-md);}
+.speak-card.alt{ border-left-color: var(--sage-deep);}
+.speak-card.gold{ border-left-color: var(--gold-deep);}
+.speak-card .adj{
+  display: inline-block;
+  font-family: var(--serif);
+  font-weight: 700;
+  font-size: 20px;
+  color: var(--rose-deep);
+  background: var(--sakura);
+  padding: 2px 14px;
+  border-radius: 999px;
+  margin-bottom: 12px;
+}
+.speak-card.alt .adj{ color: var(--sage-deep); background: rgba(168,184,158,.30);}
+.speak-card.gold .adj{ color: var(--gold-deep); background: rgba(232,200,135,.45);}
+.speak-card .prompt{
+  font-family: var(--serif);
+  font-size: 17px;
+  color: var(--sumi);
+  line-height: 1.5;
+}
+
+.show-tags{
+  display: flex; flex-wrap: wrap; gap: 8px;
+  margin-top: 16px;
+}
+.show-tag{
+  font-family: var(--sans);
+  font-weight: 600;
+  font-size: 12px;
+  padding: 4px 10px;
+  background: var(--paper);
+  color: var(--rose-deep);
+  border-radius: 999px;
+  border: 1px solid var(--sakura);
+  letter-spacing: .3px;
+}
+
+/* ============ PRE-READING (images + predictions) ============ */
+.photos-row{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  margin-bottom: 28px;
+}
+@media (max-width: 760px){ .photos-row{ grid-template-columns: 1fr;}}
+
+.photo-card{
+  background: var(--ivory);
+  border-radius: 18px;
+  padding: 18px;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--sakura-2);
+  position: relative;
+  transform: rotate(-1deg);
+  transition: transform .35s ease;
+}
+.photo-card:nth-child(2){ transform: rotate(1.5deg);}
+.photo-card:nth-child(3){ transform: rotate(-.7deg);}
+.photo-card:hover{ transform: rotate(0) translateY(-4px);}
+.photo-card .photo{
+  width: 100%;
+  aspect-ratio: 4/3;
+  border-radius: 12px;
+  display: grid; place-items: center;
+  margin-bottom: 12px;
+  position: relative;
+  overflow: hidden;
+}
+.photo-card .photo .emoji{
+  font-size: 72px;
+  filter: drop-shadow(0 4px 8px rgba(0,0,0,.15));
+  z-index: 2;
+}
+.photo-card .caption{
+  font-family: var(--hand);
+  font-size: 16px;
+  color: var(--rose-deep);
+  text-align: center;
+  line-height: 1.3;
+}
+.photo-card .pin{
+  position: absolute;
+  top: -8px; left: 50%;
+  transform: translateX(-50%);
+  width: 12px; height: 12px;
+  background: var(--rose);
+  border-radius: 50%;
+  box-shadow: 0 2px 4px rgba(0,0,0,.2), inset 0 -3px 3px rgba(0,0,0,.18), inset 0 3px 3px rgba(255,255,255,.4);
+}
+
+/* photo backgrounds */
+.photo.tv-wall{
+  background: var(--sumi);
+  position: relative;
+}
+.photo.tv-wall::before{
+  content: "";
+  position: absolute;
+  inset: 8%;
+  background-image:
+    linear-gradient(45deg, transparent 30%, rgba(245,197,201,.4) 30% 70%, transparent 70%),
+    linear-gradient(135deg, transparent 25%, rgba(232,200,135,.4) 25% 75%, transparent 75%),
+    linear-gradient(90deg, var(--rose) 25%, var(--sakura) 25% 50%, var(--peach) 50% 75%, var(--sage) 75%);
+  background-size: 24px 30px, 24px 30px, 30px 30px;
+  opacity: .85;
+  border-radius: 6px;
+}
+.photo.eating{
+  background: linear-gradient(160deg, var(--sumi), var(--rose-ink));
+}
+.photo.beards{
+  background: linear-gradient(160deg, var(--paper), var(--peach));
+}
+
+.discuss-list{
+  background: var(--ivory);
+  border-radius: 20px;
+  padding: 28px 32px;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--sakura-2);
+}
+.discuss-list h4{
+  font-family: var(--hand);
+  font-size: 20px;
+  color: var(--rose);
+  margin-bottom: 16px;
+}
+.discuss-item{
+  display: flex; gap: 14px;
+  padding: 12px 0;
+  border-bottom: 1px dashed var(--sakura-2);
+  align-items: flex-start;
+}
+.discuss-item:last-child{ border-bottom: none;}
+.discuss-item .q-num{
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 600;
+  color: var(--rose-deep);
+  flex-shrink: 0;
+  font-size: 18px;
+  min-width: 22px;
+}
+.discuss-item .q-text{
+  font-family: var(--serif);
+  font-size: 17px;
+  color: var(--sumi);
+  line-height: 1.5;
+}
+
+.note-area{
+  width: 100%;
+  font-family: var(--serif);
+  font-size: 16px;
+  padding: 14px 16px;
+  background: var(--cream);
+  border: 1.5px solid var(--sakura-2);
+  border-radius: 12px;
+  color: var(--sumi);
+  outline: none;
+  resize: vertical;
+  min-height: 72px;
+  margin-top: 14px;
+  line-height: 1.5;
+  transition: border .2s;
+}
+.note-area:focus{ border-color: var(--rose);}
+
+/* ============ ARTICLE ============ */
+.article{
+  background: var(--ivory);
+  border-radius: 26px;
+  padding: 38px 44px;
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--sakura-2);
+  position: relative;
+}
+.article .blog-head{
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 20px;
+  padding-bottom: 18px;
+  margin-bottom: 26px;
+  border-bottom: 2px solid var(--rose);
+  flex-wrap: wrap;
+}
+.article .blog-head .logo{
+  font-family: var(--serif);
+  font-weight: 700;
+  font-size: 22px;
+  color: var(--sumi);
+  letter-spacing: -.3px;
+}
+.article .blog-head .logo span{ color: var(--rose-deep); font-style: italic;}
+.article .blog-head .menu{
+  display: flex; gap: 18px;
+  font-family: var(--sans);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--sumi-soft);
+  letter-spacing: .4px;
+  text-transform: uppercase;
+  flex-wrap: wrap;
+}
+.article .blog-head .menu .active{
+  color: var(--rose-deep);
+  border-bottom: 2px solid var(--rose);
+  padding-bottom: 2px;
+}
+
+.article-body{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  font-family: var(--serif);
+  font-size: 17px;
+  line-height: 1.7;
+  color: var(--sumi);
+}
+@media (max-width: 760px){ .article-body{ grid-template-columns: 1fr;}}
+
+.article-body .para{
+  margin-bottom: 16px;
+}
+.article-body .para .num{
+  font-family: var(--serif);
+  font-weight: 700;
+  color: var(--rose-deep);
+  margin-right: 6px;
+}
+.article-body em{ font-style: italic;}
+
+.under{
+  text-decoration: underline wavy var(--rose) 1.5px;
+  text-underline-offset: 3px;
+  cursor: pointer;
+  transition: background .2s;
+  border-radius: 3px;
+  padding: 0 2px;
+}
+.under:hover{ background: var(--sakura);}
+.under.opened{ background: var(--peach); text-decoration-color: var(--rose-deep);}
+
+.popover{
+  position: absolute;
+  background: var(--sumi);
+  color: var(--ivory);
+  font-family: var(--sans);
+  font-size: 13px;
+  padding: 8px 14px;
+  border-radius: 8px;
+  box-shadow: var(--shadow-md);
+  z-index: 100;
+  max-width: 240px;
+  line-height: 1.4;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity .2s, transform .2s;
+}
+.popover.visible{
+  opacity: 1; transform: translateY(0);
+}
+.popover .ru{
+  display: block;
+  font-family: var(--sans);
+  color: var(--sakura);
+  margin-top: 4px;
+  font-size: 12px;
+}
+
+/* ============ MCQ ============ */
+.mc-item{
+  padding: 18px 20px;
+  background: var(--cream-2);
+  border-radius: 14px;
+  margin-bottom: 14px;
+  border: 1px solid transparent;
+}
+.mc-item .stem{
+  font-family: var(--serif);
+  font-size: 18px;
+  color: var(--sumi);
+  line-height: 1.5;
+  margin-bottom: 12px;
+}
+.mc-item .stem em{ color: var(--rose-deep); font-style: italic;}
+.mc-item .options{
+  display: flex; flex-direction: column; gap: 8px;
+}
+.mc-opt{
+  display: flex; gap: 10px; align-items: flex-start;
+  font-family: var(--serif);
+  font-size: 16px;
+  padding: 10px 14px;
+  background: var(--ivory);
+  border: 1.5px solid var(--peach);
+  color: var(--sumi);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all .2s;
+  user-select: none;
+}
+.mc-opt:hover{ background: var(--sakura); border-color: var(--rose);}
+.mc-opt .letter{
+  font-family: var(--sans);
+  font-weight: 700;
+  color: var(--rose-deep);
+  flex-shrink: 0;
+  width: 22px;
+}
+.mc-opt.correct{
+  background: var(--sage);
+  border-color: var(--sage-deep);
+  color: var(--ivory);
+  animation: pop .4s ease;
+}
+.mc-opt.correct .letter{ color: var(--ivory);}
+.mc-opt.wrong{
+  background: #F0CFC1;
+  border-color: var(--rose);
+  color: var(--rose-ink);
+  animation: shake .35s ease;
+}
+.mc-opt.disabled{ pointer-events: none; opacity: .6;}
+.mc-feedback{
+  margin-top: 8px;
+  font-family: var(--hand);
+  font-size: 16px;
+  color: var(--sage-deep);
+  display: none;
+}
+.mc-feedback.show{ display: block; animation: fadeUp .4s ease;}
+.mc-feedback.bad{ color: var(--rose);}
+@keyframes fadeUp{
+  from{ opacity: 0; transform: translateY(6px);}
+  to{ opacity:1; transform: translateY(0);}
+}
+
+/* ============ VOCAB MATCH ============ */
+.vocab-grid{
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 14px;
+}
+.vocab-card{
+  background: var(--cream-2);
+  border-radius: 16px;
+  padding: 18px 20px;
+  border: 1.5px solid var(--peach);
+  cursor: pointer;
+  transition: all .25s ease;
+  position: relative;
+}
+.vocab-card:hover{ background: var(--sakura); border-color: var(--rose); transform: translateY(-2px);}
+.vocab-card .vw{
+  font-family: var(--serif);
+  font-weight: 700;
+  font-size: 22px;
+  color: var(--rose-deep);
+  letter-spacing: -.3px;
+}
+.vocab-card .vd{
+  font-family: var(--serif);
+  font-size: 15px;
+  font-style: italic;
+  color: var(--ink-soft);
+  line-height: 1.4;
+  margin-top: 8px;
+  display: none;
+}
+.vocab-card.open .vd{ display: block; animation: fadeUp .35s ease;}
+.vocab-card.open{
+  background: var(--ivory);
+  border-color: var(--rose);
+  border-style: solid;
+}
+.vocab-card .vd .ru-tag{
+  display: inline-block;
+  background: var(--sage);
+  color: var(--ivory);
+  font-family: var(--sans);
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 10px;
+  border-radius: 999px;
+  margin-top: 8px;
+  letter-spacing: .3px;
+}
+
+/* ============ CRITICAL THINKERS ============ */
+.debate{
+  background: linear-gradient(135deg, var(--sumi), var(--rose-ink));
+  color: var(--ivory);
+  border-radius: 28px;
+  padding: 40px 44px;
+  position: relative;
+  overflow: hidden;
+}
+.debate::before{
+  content: "✸";
+  position: absolute;
+  top: 20px; right: 28px;
+  font-size: 60px;
+  opacity: .12;
+  color: var(--honey);
+}
+.debate .deb-label{
+  font-family: var(--hand);
+  font-size: 18px;
+  color: var(--honey);
+  margin-bottom: 10px;
+}
+.debate h3{
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 500;
+  font-size: clamp(26px, 3vw, 36px);
+  line-height: 1.25;
+  margin-bottom: 18px;
+  color: var(--ivory);
+}
+.debate p{
+  font-family: var(--serif);
+  font-size: 17px;
+  color: var(--sakura);
+  margin-bottom: 18px;
+  max-width: 700px;
+  line-height: 1.5;
+}
+.deb-side{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-top: 22px;
+}
+@media (max-width: 700px){ .deb-side{ grid-template-columns: 1fr;}}
+.deb-side .side{
+  background: rgba(255,251,245,.10);
+  border: 1px solid rgba(245,197,201,.30);
+  border-radius: 16px;
+  padding: 18px 22px;
+}
+.deb-side .side h5{
+  font-family: var(--hand);
+  font-size: 17px;
+  color: var(--honey);
+  margin-bottom: 10px;
+}
+.deb-side .side ul{
+  list-style: none;
+}
+.deb-side .side li{
+  font-family: var(--serif);
+  font-size: 15px;
+  color: var(--ivory);
+  margin-bottom: 8px;
+  padding-left: 18px;
+  position: relative;
+  line-height: 1.4;
+}
+.deb-side .side li::before{
+  content: "✿";
+  position: absolute; left: 0;
+  color: var(--sakura);
+  font-size: 13px;
+}
+
+/* ============ OUTRO ============ */
+.outro{
+  margin-top: 80px;
+  text-align: center;
+  padding: 70px 28px;
+  background: linear-gradient(180deg, transparent, var(--peach));
+  border-radius: 36px;
+}
+.outro h2{
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: clamp(36px, 5vw, 60px);
+  color: var(--sumi);
+  line-height: 1.1;
+  margin-bottom: 18px;
+}
+.outro h2 em{
+  color: var(--rose-deep);
+  font-style: italic;
+}
+.outro p{
+  font-family: var(--serif);
+  font-size: 20px;
+  color: var(--ink-soft);
+  max-width: 620px;
+  margin: 0 auto;
+  font-style: italic;
+}
+.outro .stamp{
+  display: inline-block;
+  margin-top: 28px;
+  font-family: var(--serif);
+  font-size: 18px;
+  color: var(--rose-deep);
+  border: 2px solid var(--rose);
+  padding: 6px 22px;
+  border-radius: 6px;
+  transform: rotate(-3deg);
+  background: var(--ivory);
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+/* confetti */
+.confetti{
+  position: fixed;
+  top: -20px;
+  width: 10px; height: 14px;
+  pointer-events: none;
+  z-index: 999;
+  border-radius: 2px;
+  animation: confetti 1.2s ease-out forwards;
+}
+@keyframes confetti{
+  0%{ transform: translateY(0) rotate(0); opacity: 1;}
+  100%{ transform: translateY(110vh) rotate(720deg); opacity: 0;}
+}
+
+
+/* ===== Teacher edits: flip all, word translations, side-by-side reading ===== */
+.lesson-btn-row{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  margin: 0 0 22px 52px;
+}
+.lesson-btn{
+  border:none;
+  border-radius:999px;
+  padding:10px 18px;
+  font-family:var(--sans);
+  font-weight:800;
+  color:var(--ivory);
+  background:var(--rose-deep);
+  cursor:pointer;
+  box-shadow:var(--shadow-sm);
+  transition:transform .2s ease, background .2s ease;
+}
+.lesson-btn:hover{ transform:translateY(-2px); background:var(--rose); }
+.lesson-btn.secondary{ background:var(--sage-deep); }
+
+.word-chip{
+  cursor:pointer;
+  border-radius:4px;
+  padding:0 2px;
+  transition:background .15s ease, color .15s ease;
+}
+.word-chip:hover{
+  background:var(--sakura);
+  color:var(--rose-ink);
+}
+.word-chip.opened{
+  background:var(--peach);
+  color:var(--rose-ink);
+}
+
+.reading-mcq-layout{
+  display:grid;
+  grid-template-columns:minmax(360px, .92fr) minmax(420px, 1fr);
+  gap:20px;
+  align-items:start;
+}
+@media (max-width: 980px){
+  .reading-mcq-layout{ grid-template-columns:1fr; }
+}
+.article.compact-reader{
+  max-height:78vh;
+  overflow:auto;
+  position:sticky;
+  top:92px;
+  padding:24px 26px;
+}
+.article.compact-reader .blog-head{
+  margin-bottom:16px;
+  padding-bottom:10px;
+}
+.article.compact-reader .blog-head .menu{display:none;}
+.article.compact-reader .article-body{
+  grid-template-columns:1fr;
+  gap:0;
+  font-size:15px;
+  line-height:1.62;
+}
+.article.compact-reader .para{ margin-bottom:12px; }
+.mc-side{
+  min-width:0;
+}
+.mc-side .task-head{
+  margin-bottom:14px;
+}
+</style>
+</head>
+<body>
+<!-- floating sakura -->
+<div class="petals" id="petals"></div>
+<div class="wrap">
+<!-- ============ NAV ============ -->
+<nav class="nav">
+<div class="brand">reality tv · <span class="ja">桜</span> a soft lesson</div>
+<div class="progress"><div class="progress-bar" id="progressBar"></div></div>
+<div class="scoreboard" id="scoreboard">0 / 0</div>
+</nav>
+<!-- ============ HERO ============ -->
+<header class="hero">
+<div class="doodle note">grab your matcha · 35-50 min</div>
+<div class="doodle sakura">🌸</div>
+<span class="eyebrow"><span class="ja">第五課</span> · unit 5 · television</span>
+<h1>Reality TV, K-dramas<br/>and the <em>art of binge-watching</em>.<span class="stamp">⭑</span></h1>
+<p class="lede">
+      Today we'll warm up with shows you actually watch, learn twelve adjectives to
+      <strong>describe TV like a critic</strong>, and read about why reality TV isn't always as real as it looks.
+      Tap any flip card to hear the pronunciation.
+    </p>
+<div class="hero-meta">
+<div><span class="dot"></span> warm-up · vocab</div>
+<div><span class="dot two"></span> flip cards + audio</div>
+<div><span class="dot three"></span> reading + discussion</div>
+</div>
+</header>
+<!-- ============ SECTION 01: WARM-UP A — show types ============ -->
+<section class="section" id="s1">
+<div class="section-head">
+<span class="num">01</span>
+<h2>Warm-up · <em>name the genre</em><span class="ja">ジャンル</span></h2>
+<span class="tag">trust your inner K-drama fan ↓</span>
+</div>
+<div class="task">
+<div class="task-head">
+<div class="task-num">1</div>
+<div class="task-title">Pick the right TV programme type for each show.</div>
+</div>
+<div class="task-hint">Read the short description, then tap one option chip.</div>
+<div class="show-grid" id="showGrid">
+<div class="show-card" data-correct="cartoon">
+<div class="label">🇯🇵 anime</div>
+<div class="title">Demon Slayer</div>
+<div class="desc">A boy hunts demons across feudal Japan to save his sister and avenge his family.</div>
+<div class="options">
+<span class="show-opt">drama</span>
+<span class="show-opt">cartoon</span>
+<span class="show-opt">game show</span>
+<span class="show-opt">documentary</span>
+</div>
+</div>
+<div class="show-card" data-correct="drama">
+<div class="label">🇰🇷 k-drama</div>
+<div class="title">Squid Game</div>
+<div class="desc">Hundreds of desperate players compete in deadly versions of children's games for a huge prize.</div>
+<div class="options">
+<span class="show-opt">comedy</span>
+<span class="show-opt">drama</span>
+<span class="show-opt">food programme</span>
+<span class="show-opt">talent show</span>
+</div>
+</div>
+<div class="show-card" data-correct="game show">
+<div class="label">🇰🇷 variety</div>
+<div class="title">Running Man</div>
+<div class="desc">Korean celebrities (and the occasional BTS member) play silly, often hilarious team games every week.</div>
+<div class="options">
+<span class="show-opt">reality show</span>
+<span class="show-opt">chat show</span>
+<span class="show-opt">game show</span>
+<span class="show-opt">drama</span>
+</div>
+</div>
+<div class="show-card" data-correct="chat show">
+<div class="label">🇰🇷 variety</div>
+<div class="title">Knowing Bros</div>
+<div class="desc">Comedians and special guests (often idols and actors) sit in a fake classroom and answer questions.</div>
+<div class="options">
+<span class="show-opt">cartoon</span>
+<span class="show-opt">chat show</span>
+<span class="show-opt">crime series</span>
+<span class="show-opt">sports programme</span>
+</div>
+</div>
+<div class="show-card" data-correct="reality show">
+<div class="label">🇰🇷 dating</div>
+<div class="title">Single's Inferno</div>
+<div class="desc">Attractive singles try to couple up on a hot deserted island — and escape to a luxury hotel together.</div>
+<div class="options">
+<span class="show-opt">drama</span>
+<span class="show-opt">reality show</span>
+<span class="show-opt">fantasy series</span>
+<span class="show-opt">the news</span>
+</div>
+</div>
+<div class="show-card" data-correct="fantasy series">
+<div class="label">🇰🇷 k-drama</div>
+<div class="title">Alchemy of Souls</div>
+<div class="desc">In an imaginary kingdom, a powerful sorceress's soul ends up in the body of a blind young woman.</div>
+<div class="options">
+<span class="show-opt">documentary</span>
+<span class="show-opt">fantasy series</span>
+<span class="show-opt">comedy</span>
+<span class="show-opt">game show</span>
+</div>
+</div>
+<div class="show-card" data-correct="crime series">
+<div class="label">🇰🇷 k-drama</div>
+<div class="title">Vincenzo</div>
+<div class="desc">An Italian-Korean mafia lawyer returns to Seoul and takes down an evil corporation with a mix of charm and chaos.</div>
+<div class="options">
+<span class="show-opt">crime series</span>
+<span class="show-opt">talent show</span>
+<span class="show-opt">food programme</span>
+<span class="show-opt">cartoon</span>
+</div>
+</div>
+<div class="show-card" data-correct="food programme">
+<div class="label">🇰🇷 cooking</div>
+<div class="title">Culinary Class Wars</div>
+<div class="desc">100 chefs compete in a Netflix cooking battle to impress two of Korea's harshest critics.</div>
+<div class="options">
+<span class="show-opt">science-fiction series</span>
+<span class="show-opt">food programme</span>
+<span class="show-opt">drama</span>
+<span class="show-opt">chat show</span>
+</div>
+</div>
+<div class="show-card" data-correct="talent show">
+<div class="label">🇰🇷 k-pop</div>
+<div class="title">Produce 101</div>
+<div class="desc">Hundreds of young trainees sing, dance and rap their way through eliminations to form a new K-pop group.</div>
+<div class="options">
+<span class="show-opt">talent show</span>
+<span class="show-opt">documentary</span>
+<span class="show-opt">comedy</span>
+<span class="show-opt">crime series</span>
+</div>
+</div>
+<div class="show-card" data-correct="documentary">
+<div class="label">🇰🇷 netflix</div>
+<div class="title">BLACKPINK: Light Up the Sky</div>
+<div class="desc">A behind-the-scenes look at how the four members of BLACKPINK became global pop stars.</div>
+<div class="options">
+<span class="show-opt">talent show</span>
+<span class="show-opt">cartoon</span>
+<span class="show-opt">documentary</span>
+<span class="show-opt">reality show</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- ============ SECTION 02: WARM-UP B — fill diary ============ -->
+<section class="section" id="s2">
+<div class="section-head">
+<span class="num">02</span>
+<h2>Fill in <em>the diary</em><span class="ja">日記</span></h2>
+<span class="tag">10 words about watching TV ↓</span>
+</div>
+<div class="task">
+<div class="task-head">
+<div class="task-num sage">2</div>
+<div class="task-title">Drop the right word into each blank in this K-drama diary.</div>
+</div>
+<div class="task-hint">Tap a chip below, then tap the blank where it fits.</div>
+<div class="diary" id="diary">
+        It's officially Saturday, which means one thing: <span class="blank" data-answer="binge-watching" data-target="b1">binge-watching</span> K-dramas all weekend! As a long-time
+        <span class="blank" data-answer="viewer" data-target="b2">viewer</span> of Asian shows, I'm currently three series deep. I'm halfway through
+        <span class="blank" data-answer="season" data-target="b3">season</span> 2 of <em>Alchemy of Souls</em>, and last night I finally watched <span class="blank" data-answer="episode" data-target="b4">episode</span> 7 of <em>Vincenzo</em> in bed on my <span class="blank" data-answer="mobile device" data-target="b5">mobile device</span> — although honestly nothing beats curling up in front of a big
+        <span class="blank" data-answer="screen" data-target="b6">screen</span> with snacks. My family has subscriptions to two <span class="blank" data-answer="streaming service" data-target="b7">streaming service</span>s — Netflix and Viki. The Korean
+        <span class="blank" data-answer="channel" data-target="b8">channel</span> tvN also uploads short clips on YouTube. Right now my favourite variety show is <em>Physical: 100</em>, where every
+        <span class="blank" data-answer="contestant" data-target="b9">contestant</span> has to do impossible challenges. Worst feeling in the world? When a friend texts you a huge
+        <span class="blank" data-answer="spoiler" data-target="b10">spoiler</span> before you've finished the season. 😤
+      </div>
+<div class="chip-pool" id="chips1">
+<span class="chip" data-word="binge-watching">binge-watching</span>
+<span class="chip" data-word="channel">channel</span>
+<span class="chip" data-word="contestant">contestant</span>
+<span class="chip" data-word="episode">episode</span>
+<span class="chip" data-word="mobile device">mobile device</span>
+<span class="chip" data-word="screen">screen</span>
+<span class="chip" data-word="season">season</span>
+<span class="chip" data-word="spoiler">spoiler</span>
+<span class="chip" data-word="streaming service">streaming service</span>
+<span class="chip" data-word="viewer">viewer</span>
+</div>
+</div>
+</section>
+<!-- ============ SECTION 03: FLIP CARDS ============ -->
+<section class="section" id="s3">
+<div class="section-head">
+<span class="num">03</span>
+<h2>Flip cards · <em>twelve adjectives</em><span class="ja">形容詞</span></h2>
+<span class="tag">tap a card to flip · tap 🔊 to hear it</span>
+</div>
+<div class="task" style="padding-bottom:30px;">
+<div class="task-head">
+<div class="task-num gold">3</div>
+<div class="task-title">Read the meaning. Guess the adjective. Flip the card to check.</div>
+</div>
+<div class="task-hint">Use the buttons below to flip all cards at once.</div>
+<div class="lesson-btn-row"><button class="lesson-btn" id="flipAllCardsBtn" type="button">Flip all cards</button><button class="lesson-btn secondary" id="resetFlipCardsBtn" type="button">Reset cards</button></div><div class="flip-grid" id="flipGrid">
+<div class="flip" data-ipa="/əˈnɔɪɪŋ/" data-ru="раздражающий, надоедливый" data-word="annoying">
+<div class="flip-inner">
+<div class="flip-face front">
+<div class="meaning-label">meaning</div>
+<div class="meaning">Causing slight anger — making you feel a bit impatient or fed up.</div>
+<div class="turn-cue">flip</div>
+</div>
+<div class="flip-face back">
+<div class="word">annoying</div>
+<div class="ipa">/əˈnɔɪɪŋ/</div>
+<div class="ru">раздражающий, надоедливый</div>
+<button class="audio-btn" onclick="event.stopPropagation(); speakWord('annoying', this);">🔊</button>
+</div>
+</div>
+</div>
+<div class="flip" data-ipa="/ˈɔːfəl/" data-ru="ужасный" data-word="awful">
+<div class="flip-inner">
+<div class="flip-face front">
+<div class="meaning-label">meaning</div>
+<div class="meaning">Very bad. Extremely unpleasant — the kind of show you switch off after five minutes.</div>
+<div class="turn-cue">flip</div>
+</div>
+<div class="flip-face back">
+<div class="word">awful</div>
+<div class="ipa">/ˈɔːfəl/</div>
+<div class="ru">ужасный</div>
+<button class="audio-btn" onclick="event.stopPropagation(); speakWord('awful', this);">🔊</button>
+</div>
+</div>
+</div>
+<div class="flip" data-ipa="/ˈbrɪliənt/" data-ru="блестящий, превосходный" data-word="brilliant">
+<div class="flip-inner">
+<div class="flip-face front">
+<div class="meaning-label">meaning</div>
+<div class="meaning">Excellent, extremely good. The kind of show you'd text three friends about at 2 a.m.</div>
+<div class="turn-cue">flip</div>
+</div>
+<div class="flip-face back">
+<div class="word">brilliant</div>
+<div class="ipa">/ˈbrɪliənt/</div>
+<div class="ru">блестящий, превосходный</div>
+<button class="audio-btn" onclick="event.stopPropagation(); speakWord('brilliant', this);">🔊</button>
+</div>
+</div>
+</div>
+<div class="flip" data-ipa="/dʌl/" data-ru="скучный, унылый" data-word="dull">
+<div class="flip-inner">
+<div class="flip-face front">
+<div class="meaning-label">meaning</div>
+<div class="meaning">Boring, not interesting. Nothing happens, and you keep checking your phone.</div>
+<div class="turn-cue">flip</div>
+</div>
+<div class="flip-face back">
+<div class="word">dull</div>
+<div class="ipa">/dʌl/</div>
+<div class="ru">скучный, унылый</div>
+<button class="audio-btn" onclick="event.stopPropagation(); speakWord('dull', this);">🔊</button>
+</div>
+</div>
+</div>
+<div class="flip" data-ipa="/ˌentəˈteɪnɪŋ/" data-ru="развлекательный, занятный" data-word="entertaining">
+<div class="flip-inner">
+<div class="flip-face front">
+<div class="meaning-label">meaning</div>
+<div class="meaning">Enjoyable and fun to watch — keeps you smiling and engaged.</div>
+<div class="turn-cue">flip</div>
+</div>
+<div class="flip-face back">
+<div class="word">entertaining</div>
+<div class="ipa">/ˌentəˈteɪnɪŋ/</div>
+<div class="ru">развлекательный, занятный</div>
+<button class="audio-btn" onclick="event.stopPropagation(); speakWord('entertaining', this);">🔊</button>
+</div>
+</div>
+</div>
+<div class="flip" data-ipa="/ˈfʌni/" data-ru="смешной" data-word="funny">
+<div class="flip-inner">
+<div class="flip-face front">
+<div class="meaning-label">meaning</div>
+<div class="meaning">Makes you laugh. Sometimes makes you laugh-cry at 1 a.m. in your dorm.</div>
+<div class="turn-cue">flip</div>
+</div>
+<div class="flip-face back">
+<div class="word">funny</div>
+<div class="ipa">/ˈfʌni/</div>
+<div class="ru">смешной</div>
+<button class="audio-btn" onclick="event.stopPropagation(); speakWord('funny', this);">🔊</button>
+</div>
+</div>
+</div>
+<div class="flip" data-ipa="/ɪnˈfɔːmətɪv/" data-ru="познавательный, информативный" data-word="informative">
+<div class="flip-inner">
+<div class="flip-face front">
+<div class="meaning-label">meaning</div>
+<div class="meaning">Gives you useful new information — you finish an episode actually smarter.</div>
+<div class="turn-cue">flip</div>
+</div>
+<div class="flip-face back">
+<div class="word">informative</div>
+<div class="ipa">/ɪnˈfɔːmətɪv/</div>
+<div class="ru">познавательный, информативный</div>
+<button class="audio-btn" onclick="event.stopPropagation(); speakWord('informative', this);">🔊</button>
+</div>
+</div>
+</div>
+<div class="flip" data-ipa="/ɪnˈspaɪərɪŋ/" data-ru="вдохновляющий" data-word="inspiring">
+<div class="flip-inner">
+<div class="flip-face front">
+<div class="meaning-label">meaning</div>
+<div class="meaning">Makes you feel excited and motivated to do something — to study, to create, to try.</div>
+<div class="turn-cue">flip</div>
+</div>
+<div class="flip-face back">
+<div class="word">inspiring</div>
+<div class="ipa">/ɪnˈspaɪərɪŋ/</div>
+<div class="ru">вдохновляющий</div>
+<button class="audio-btn" onclick="event.stopPropagation(); speakWord('inspiring', this);">🔊</button>
+</div>
+</div>
+</div>
+<div class="flip" data-ipa="/ˈmuːvɪŋ/" data-ru="трогательный" data-word="moving">
+<div class="flip-inner">
+<div class="flip-face front">
+<div class="meaning-label">meaning</div>
+<div class="meaning">Causes strong feelings, especially sadness or sympathy. You might actually cry.</div>
+<div class="turn-cue">flip</div>
+</div>
+<div class="flip-face back">
+<div class="word">moving</div>
+<div class="ipa">/ˈmuːvɪŋ/</div>
+<div class="ru">трогательный</div>
+<button class="audio-btn" onclick="event.stopPropagation(); speakWord('moving', this);">🔊</button>
+</div>
+</div>
+</div>
+<div class="flip" data-ipa="/əˈrɪdʒənəl/" data-ru="оригинальный, нестандартный" data-word="original">
+<div class="flip-inner">
+<div class="flip-face front">
+<div class="meaning-label">meaning</div>
+<div class="meaning">New, unusual, not copied from anything else. Something you haven't seen before.</div>
+<div class="turn-cue">flip</div>
+</div>
+<div class="flip-face back">
+<div class="word">original</div>
+<div class="ipa">/əˈrɪdʒənəl/</div>
+<div class="ru">оригинальный, нестандартный</div>
+<button class="audio-btn" onclick="event.stopPropagation(); speakWord('original', this);">🔊</button>
+</div>
+</div>
+</div>
+<div class="flip" data-ipa="/ˈskeəri/" data-ru="страшный, пугающий" data-word="scary">
+<div class="flip-inner">
+<div class="flip-face front">
+<div class="meaning-label">meaning</div>
+<div class="meaning">Makes you feel afraid. The kind of show you watch with the lights on.</div>
+<div class="turn-cue">flip</div>
+</div>
+<div class="flip-face back">
+<div class="word">scary</div>
+<div class="ipa">/ˈskeəri/</div>
+<div class="ru">страшный, пугающий</div>
+<button class="audio-btn" onclick="event.stopPropagation(); speakWord('scary', this);">🔊</button>
+</div>
+</div>
+</div>
+<div class="flip" data-ipa="/ˈvaɪələnt/" data-ru="жестокий, со сценами насилия" data-word="violent">
+<div class="flip-inner">
+<div class="flip-face front">
+<div class="meaning-label">meaning</div>
+<div class="meaning">Involving physical force meant to hurt people. A lot of fighting, blood, weapons.</div>
+<div class="turn-cue">flip</div>
+</div>
+<div class="flip-face back">
+<div class="word">violent</div>
+<div class="ipa">/ˈvaɪələnt/</div>
+<div class="ru">жестокий, со сценами насилия</div>
+<button class="audio-btn" onclick="event.stopPropagation(); speakWord('violent', this);">🔊</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- ============ SECTION 04: SPEAKING + ADJECTIVES ============ -->
+<section class="section" id="s4">
+<div class="section-head">
+<span class="num">04</span>
+<h2>Speaking · <em>use the adjectives</em><span class="ja">話そう</span></h2>
+<span class="tag">answer in 2-3 full sentences</span>
+</div>
+<div class="task">
+<div class="task-head">
+<div class="task-num">4</div>
+<div class="task-title">Choose any prompt below and answer it out loud using the adjective in <em>bold</em>.</div>
+</div>
+<div class="task-hint">Try to give an example from a real show. The shows at the bottom are conversation starters.</div>
+<div class="speak-grid">
+<div class="speak-card">
+<span class="adj">brilliant</span>
+<div class="prompt">What's the most brilliant K-drama you've ever seen? What made it so good — the writing, the acting, the visuals?</div>
+</div>
+<div class="speak-card alt">
+<span class="adj">dull</span>
+<div class="prompt">Have you ever started a show that everyone said was amazing — but you found it really dull? Which one and why?</div>
+</div>
+<div class="speak-card gold">
+<span class="adj">moving</span>
+<div class="prompt">Tell me about a scene that genuinely moved you. Maybe you cried, maybe you just sat there for ten minutes after the episode ended.</div>
+</div>
+<div class="speak-card alt">
+<span class="adj">funny</span>
+<div class="prompt">What's the funniest variety show or anime moment you've ever seen? Try to retell it so it makes sense.</div>
+</div>
+<div class="speak-card">
+<span class="adj">scary</span>
+<div class="prompt">Do you actually enjoy scary shows? Why or why not? Name one you couldn't finish (or one you couldn't stop watching).</div>
+</div>
+<div class="speak-card gold">
+<span class="adj">original</span>
+<div class="prompt">Which Asian show feels really original to you — something you can't compare to anything else? What makes it unique?</div>
+</div>
+<div class="speak-card alt">
+<span class="adj">inspiring</span>
+<div class="prompt">Has any show ever inspired you to try something new — drawing, dance, language, food? What did it make you want to do?</div>
+</div>
+<div class="speak-card">
+<span class="adj">violent</span>
+<div class="prompt">Some hit shows are pretty violent (<em>Squid Game</em>, <em>All of Us Are Dead</em>). Does that bother you, or is it part of the story for you?</div>
+</div>
+<div class="speak-card gold">
+<span class="adj">annoying</span>
+<div class="prompt">Which TV character do you find most annoying — and yet you keep watching? What is it about them?</div>
+</div>
+<div class="speak-card alt">
+<span class="adj">informative</span>
+<div class="prompt">Have you ever watched a documentary or vlog that was genuinely informative — about K-pop, Japan, food, history? Tell me about it.</div>
+</div>
+</div>
+<div style="margin-top:24px; padding:20px 24px; background: var(--cream-2); border-radius: 16px; border: 1px dashed var(--rose);">
+<div style="font-family: var(--hand); font-size: 18px; color: var(--rose); margin-bottom: 8px;">final speaking challenge ✦</div>
+<div style="font-family: var(--serif); font-size: 18px; color: var(--sumi); line-height: 1.5;">
+          Pick <strong>three shows you've watched recently</strong> and describe each one using at least <strong>two different adjectives</strong> from today. Try not to repeat any adjective across the three shows.
+        </div>
+<div class="show-tags">
+<span class="show-tag">Squid Game</span>
+<span class="show-tag">Welcome to Samdal-ri</span>
+<span class="show-tag">Demon Slayer</span>
+<span class="show-tag">Single's Inferno</span>
+<span class="show-tag">Knowing Bros</span>
+<span class="show-tag">Vincenzo</span>
+<span class="show-tag">Spy x Family</span>
+<span class="show-tag">The Glory</span>
+<span class="show-tag">Physical: 100</span>
+<span class="show-tag">your pick →</span>
+</div>
+</div>
+</div>
+</section>
+<!-- ============ SECTION 05: PRE-READING (predict) ============ -->
+<section class="section" id="s5">
+<div class="section-head">
+<span class="num">05</span>
+<h2>Before we read · <em>look &amp; predict</em><span class="ja">予想</span></h2>
+<span class="tag">these three photos belong to the article →</span>
+</div>
+<div class="photos-row">
+<div class="photo-card">
+<div class="pin"></div>
+<div class="photo tv-wall">
+<span class="emoji" style="position:absolute; bottom:8px; right:8px; font-size:38px;">📺</span>
+</div>
+<div class="caption">a giant wall of TV screens · so many shows, so little time</div>
+</div>
+<div class="photo-card">
+<div class="pin"></div>
+<div class="photo eating">
+<span class="emoji">🪱</span>
+</div>
+<div class="caption">someone eating a live insect on TV · would you do it for money?</div>
+</div>
+<div class="photo-card">
+<div class="pin"></div>
+<div class="photo beards">
+<span class="emoji">🧔‍♂️</span>
+</div>
+<div class="caption">men in a strange beard competition · yes, this is a real TV show</div>
+</div>
+</div>
+<div class="discuss-list">
+<h4>discuss with your teacher — try to use full sentences ✿</h4>
+<div class="discuss-item">
+<span class="q-num">1.</span>
+<div class="q-text">What do you think the article is going to be about? What connects these three photos?</div>
+</div>
+<textarea class="note-area" placeholder="My guess is that the article is about…"></textarea>
+<div class="discuss-item">
+<span class="q-num">2.</span>
+<div class="q-text">Would you watch shows like these? Why / why not? Use one or two adjectives from the flip cards.</div>
+</div>
+<textarea class="note-area" placeholder="I would / wouldn't watch them because…"></textarea>
+<div class="discuss-item">
+<span class="q-num">3.</span>
+<div class="q-text">Why do you think reality shows are so popular around the world — including in Korea, Japan, China?</div>
+</div>
+<textarea class="note-area" placeholder="I think they're popular because…"></textarea>
+<div class="discuss-item">
+<span class="q-num">4.</span>
+<div class="q-text">How "real" do you think reality TV actually is? Is everything we see really happening live?</div>
+</div>
+<textarea class="note-area" placeholder="I think reality TV is…"></textarea>
+</div>
+</section>
+<!-- ============ SECTION 06: THE ARTICLE ============ -->
+<section class="section" id="s6">
+<div class="section-head">
+<span class="num">06</span>
+<h2>Read · <em>Reality TV Blog</em><span class="ja">読もう</span></h2>
+<span class="tag">click any word to see a Russian meaning</span>
+</div>
+<article class="article">
+<div class="blog-head">
+<div class="logo">REALITY <span>TV Blog</span></div>
+<div class="menu">
+<span>News</span>
+<span>Sport</span>
+<span class="active">Television</span>
+<span>Weather</span>
+<span>More ▾</span>
+</div>
+</div>
+<div class="article-body">
+<div class="col">
+<div class="para"><span class="num">1.</span> "<span class="word-chip" data-ru="реальность" data-word="Reality">Reality</span> <span class="word-chip" data-ru="телевидение" data-word="TV">TV</span>? <span class="word-chip" data-ru="не" data-word="Not">Not</span> <span class="word-chip" data-ru="для" data-word="for">for</span> <span class="word-chip" data-ru="меня / мне" data-word="me">me</span> — <span class="word-chip" data-ru="я бы" data-word="I'd">I'd</span> <span class="word-chip" data-ru="лучше, скорее" data-word="rather">rather</span> <span class="word-chip" data-ru="смотреть" data-word="watch">watch</span> <span class="word-chip" data-ru="что-то" data-word="something">something</span> <span class="word-chip" data-ru="больше / более" data-word="more">more</span> <span class="word-chip" data-ru="серьёзный" data-word="serious">serious</span>." <span class="word-chip" data-ru="это" data-word="That's">That's</span> <span class="word-chip" data-ru="что / какой" data-word="what">what</span> <span class="word-chip" data-ru="много" data-word="plenty">plenty</span> <span class="word-chip" data-ru="из / принадлежность" data-word="of">of</span> <span class="word-chip" data-ru="люди" data-word="people">people</span> <span class="word-chip" data-ru="говорить" data-word="say">say</span>. <span class="word-chip" data-ru="но" data-word="But">But</span> <span class="word-chip" data-ru="один / артикль" data-word="a">a</span> <span class="word-chip" data-ru="недавний" data-word="recent">recent</span> <span class="under" data-meaning="A study where many people answer questions about something." data-ru="опрос, исследование"><span class="word-chip" data-ru="опрос" data-word="survey">survey</span></span> <span class="word-chip" data-ru="кем-то / при помощи" data-word="by">by</span> <span class="word-chip" data-ru="OnePoll (название организации)" data-word="OnePoll">OnePoll</span> <span class="word-chip" data-ru="обнаружил" data-word="discovered">discovered</span> <span class="word-chip" data-ru="что / который" data-word="that">that</span> <span class="word-chip" data-ru="один" data-word="one">one</span> <span class="word-chip" data-ru="в" data-word="in">in</span> <span class="word-chip" data-ru="четыре" data-word="four">four</span> <span class="word-chip" data-ru="люди" data-word="people">people</span> <span class="word-chip" data-ru="в" data-word="in">in</span> <span class="word-chip" data-ru="определённый артикль" data-word="the">the</span> <span class="word-chip" data-ru="Великобритания" data-word="UK">UK</span> <span class="word-chip" data-ru="регулярно" data-word="regularly">regularly</span> <span class="word-chip" data-ru="смотрит" data-word="watches">watches</span> <span class="word-chip" data-ru="один / артикль" data-word="a">a</span> <span class="word-chip" data-ru="реальность" data-word="reality">reality</span> <span class="word-chip" data-ru="шоу / показывать" data-word="show">show</span>. <span class="word-chip" data-ru="возможно" data-word="Maybe">Maybe</span> <span class="word-chip" data-ru="что / который" data-word="that">that</span> <span class="word-chip" data-ru="не является / не" data-word="isn't">isn't</span> <span class="word-chip" data-ru="действительно" data-word="really">really</span> <span class="word-chip" data-ru="удивительный" data-word="surprising">surprising</span> <span class="word-chip" data-ru="когда" data-word="when">when</span> <span class="word-chip" data-ru="ты / вы" data-word="you">you</span> <span class="word-chip" data-ru="думать" data-word="think">think</span> <span class="word-chip" data-ru="о / примерно" data-word="about">about</span> <span class="word-chip" data-ru="как / насколько" data-word="how">how</span> <span class="word-chip" data-ru="много" data-word="many">many</span> <span class="word-chip" data-ru="шоу / показывает" data-word="shows">shows</span> <span class="word-chip" data-ru="там" data-word="there">there</span> <span class="word-chip" data-ru="являются / есть" data-word="are">are</span> <span class="word-chip" data-ru="к / чтобы" data-word="to">to</span> <span class="word-chip" data-ru="выбирать" data-word="choose">choose</span> <span class="word-chip" data-ru="из / от" data-word="from">from</span> — <span class="word-chip" data-ru="сотни" data-word="hundreds">hundreds</span> <span class="word-chip" data-ru="из / принадлежность" data-word="of">of</span> <span class="word-chip" data-ru="их / им" data-word="them">them</span>. <span class="word-chip" data-ru="много" data-word="Many">Many</span> <span class="word-chip" data-ru="популярный" data-word="popular">popular</span> <span class="word-chip" data-ru="примеры" data-word="examples">examples</span> <span class="word-chip" data-ru="включать, предполагать" data-word="involve">involve</span> <span class="word-chip" data-ru="люди" data-word="people">people</span> <span class="word-chip" data-ru="пение" data-word="singing">singing</span>, <span class="word-chip" data-ru="танцы" data-word="dancing">dancing</span> <span class="word-chip" data-ru="или" data-word="or">or</span> <span class="word-chip" data-ru="готовка" data-word="cooking">cooking</span>. <span class="word-chip" data-ru="в последнее время" data-word="Lately">Lately</span>, <span class="word-chip" data-ru="однако / хотя" data-word="though">though</span>, <span class="word-chip" data-ru="много / значительно" data-word="much">much</span> <span class="word-chip" data-ru="более странный" data-word="stranger">stranger</span> <span class="word-chip" data-ru="форматы" data-word="formats">formats</span> <span class="word-chip" data-ru="иметь" data-word="have">have</span> <span class="word-chip" data-ru="появились" data-word="appeared">appeared</span>: <span class="word-chip" data-ru="один / артикль" data-word="a">a</span> <span class="word-chip" data-ru="соревнование" data-word="competition">competition</span> <span class="word-chip" data-ru="где" data-word="where">where</span> <span class="word-chip" data-ru="мужчины" data-word="men">men</span> <span class="word-chip" data-ru="пытаться" data-word="try">try</span> <span class="word-chip" data-ru="к / чтобы" data-word="to">to</span> <span class="word-chip" data-ru="растить, выращивать" data-word="grow">grow</span> <span class="word-chip" data-ru="определённый артикль" data-word="the">the</span> <span class="word-chip" data-ru="самый длинный" data-word="longest">longest</span> <span class="under" data-meaning="The hair that grows on a man's face, below the mouth." data-ru="борода"><span class="word-chip" data-ru="борода" data-word="beard">beard</span></span> (<em><span class="word-chip" data-ru="ус / волосок" data-word="Whisker">Whisker</span> <span class="word-chip" data-ru="войны" data-word="Wars">Wars</span></em>), <span class="word-chip" data-ru="знаменитости" data-word="celebrities">celebrities</span> <span class="word-chip" data-ru="выполняя" data-word="completing">completing</span> <span class="word-chip" data-ru="дикий" data-word="wild">wild</span> <span class="word-chip" data-ru="испытания" data-word="challenges">challenges</span> <span class="word-chip" data-ru="в" data-word="in">in</span> <span class="word-chip" data-ru="определённый артикль" data-word="the">the</span> <span class="word-chip" data-ru="австралийский" data-word="Australian">Australian</span> <span class="word-chip" data-ru="джунгли" data-word="jungle">jungle</span> (<em><span class="word-chip" data-ru="я" data-word="I'm">I'm</span> <span class="word-chip" data-ru="один / артикль" data-word="a">a</span> <span class="word-chip" data-ru="знаменитость" data-word="Celebrity">Celebrity</span>… <span class="word-chip" data-ru="получать" data-word="Get">Get</span> <span class="word-chip" data-ru="меня / мне" data-word="Me">Me</span> <span class="word-chip" data-ru="наружу / вон" data-word="Out">Out</span> <span class="word-chip" data-ru="из / принадлежность" data-word="of">of</span> <span class="word-chip" data-ru="здесь" data-word="Here">Here</span>!</em>), <span class="word-chip" data-ru="или" data-word="or">or</span> <span class="word-chip" data-ru="один / артикль" data-word="a">a</span> <span class="word-chip" data-ru="группа" data-word="group">group</span> <span class="word-chip" data-ru="из / принадлежность" data-word="of">of</span> 40 <span class="word-chip" data-ru="дети" data-word="children">children</span> <span class="word-chip" data-ru="кто / который" data-word="who">who</span> <span class="word-chip" data-ru="жили" data-word="lived">lived</span> <span class="word-chip" data-ru="вместе" data-word="together">together</span> <span class="word-chip" data-ru="для" data-word="for">for</span> 40 <span class="word-chip" data-ru="дни" data-word="days">days</span> <span class="word-chip" data-ru="с" data-word="with">with</span> <span class="word-chip" data-ru="нет / никакой" data-word="no">no</span> <span class="word-chip" data-ru="взрослые" data-word="adults">adults</span> <span class="word-chip" data-ru="в / на" data-word="at">at</span> <span class="word-chip" data-ru="всё / все" data-word="all">all</span> (<em><span class="word-chip" data-ru="ребёнок" data-word="Kid">Kid</span> <span class="word-chip" data-ru="нация" data-word="Nation">Nation</span></em>).</div>
+<div class="para"><span class="num">2.</span> <span class="word-chip" data-ru="но" data-word="But">But</span> <span class="word-chip" data-ru="как / насколько" data-word="how">how</span> <span class="word-chip" data-ru="настоящий" data-word="real">real</span> <span class="word-chip" data-ru="являются / есть" data-word="are">are</span> <span class="word-chip" data-ru="определённый артикль" data-word="the">the</span> <span class="word-chip" data-ru="люди" data-word="people">people</span> <span class="word-chip" data-ru="в" data-word="in">in</span> <span class="word-chip" data-ru="реальность" data-word="reality">reality</span> <span class="word-chip" data-ru="телевидение" data-word="TV">TV</span> <span class="word-chip" data-ru="шоу / показывает" data-word="shows">shows</span>? <span class="word-chip" data-ru="это" data-word="It">It</span> <span class="word-chip" data-ru="зависит" data-word="depends">depends</span>. <span class="word-chip" data-ru="некоторые" data-word="Some">Some</span> <span class="word-chip" data-ru="шоу / показывает" data-word="shows">shows</span> <span class="under" data-meaning="In fact, in reality (not 'currently'!)." data-ru="на самом деле, в действительности"><span class="word-chip" data-ru="на самом деле" data-word="actually">actually</span></span> <span class="word-chip" data-ru="использовать" data-word="use">use</span> <span class="word-chip" data-ru="профессиональный" data-word="professional">professional</span> <span class="word-chip" data-ru="актёры" data-word="actors">actors</span>. <span class="word-chip" data-ru="другие" data-word="Others">Others</span> <span class="word-chip" data-ru="использовать" data-word="use">use</span> <span class="under" data-meaning="Normal, average — not famous or special in any way." data-ru="обычный, рядовой"><span class="word-chip" data-ru="обычный" data-word="ordinary">ordinary</span></span> <span class="word-chip" data-ru="члены, участники" data-word="members">members</span> <span class="word-chip" data-ru="из / принадлежность" data-word="of">of</span> <span class="word-chip" data-ru="определённый артикль" data-word="the">the</span> <span class="word-chip" data-ru="публика, общественность" data-word="public">public</span>, <span class="word-chip" data-ru="потому что" data-word="because">because</span> <span class="word-chip" data-ru="они" data-word="they">they</span> <span class="word-chip" data-ru="стоить" data-word="cost">cost</span> <span class="word-chip" data-ru="много / значительно" data-word="much">much</span> <span class="word-chip" data-ru="меньше" data-word="less">less</span> <span class="word-chip" data-ru="чем" data-word="than">than</span> <span class="word-chip" data-ru="актёры" data-word="actors">actors</span>. <span class="word-chip" data-ru="но" data-word="But">But</span> <span class="word-chip" data-ru="даже" data-word="even">even</span> <span class="word-chip" data-ru="когда" data-word="when">when</span> <span class="word-chip" data-ru="определённый артикль" data-word="the">the</span> <span class="word-chip" data-ru="люди" data-word="people">people</span> <span class="word-chip" data-ru="являются / есть" data-word="are">are</span> <span class="word-chip" data-ru="настоящий" data-word="real">real</span>, <span class="word-chip" data-ru="определённый артикль" data-word="the">the</span> <span class="word-chip" data-ru="ситуации" data-word="situations">situations</span> <span class="word-chip" data-ru="являются / есть" data-word="are">are</span> <span class="word-chip" data-ru="обычно" data-word="usually">usually</span> <span class="word-chip" data-ru="внимательно, тщательно" data-word="carefully">carefully</span> <span class="word-chip" data-ru="написанный" data-word="written">written</span> <span class="word-chip" data-ru="и" data-word="and">and</span> <span class="word-chip" data-ru="запланированный" data-word="planned">planned</span> <span class="word-chip" data-ru="в" data-word="in">in</span> <span class="word-chip" data-ru="заранее" data-word="advance">advance</span>. <span class="word-chip" data-ru="и" data-word="And">And</span> <span class="word-chip" data-ru="даже" data-word="even">even</span> <span class="word-chip" data-ru="когда" data-word="when">when</span> <span class="word-chip" data-ru="настоящий" data-word="real">real</span> <span class="word-chip" data-ru="люди" data-word="people">people</span> <span class="word-chip" data-ru="являются / есть" data-word="are">are</span> <span class="word-chip" data-ru="разговор" data-word="talking">talking</span> <span class="word-chip" data-ru="о / примерно" data-word="about">about</span> <span class="word-chip" data-ru="настоящий" data-word="real">real</span> <span class="word-chip" data-ru="ситуации" data-word="situations">situations</span>, <span class="word-chip" data-ru="это есть / это" data-word="it's">it's</span> <span class="word-chip" data-ru="легко" data-word="easy">easy</span> <span class="word-chip" data-ru="к / чтобы" data-word="to">to</span> <span class="under" data-meaning="To change a recording or text by cutting and rearranging parts." data-ru="монтировать, редактировать"><span class="word-chip" data-ru="редактировать" data-word="edit">edit</span></span> <span class="word-chip" data-ru="их" data-word="their">their</span> <span class="word-chip" data-ru="слова" data-word="words">words</span> <span class="word-chip" data-ru="и" data-word="and">and</span> <span class="word-chip" data-ru="делать" data-word="make">make</span> <span class="word-chip" data-ru="их / им" data-word="them">them</span> <span class="word-chip" data-ru="говорить" data-word="say">say</span> <span class="word-chip" data-ru="что-то" data-word="something">something</span> <span class="word-chip" data-ru="другой, разный" data-word="different">different</span>. <span class="under" data-meaning="Despite (something), even though…" data-ru="несмотря на"><span class="word-chip" data-ru="в" data-word="In">In</span> <span class="word-chip" data-ru="злоба; in spite of = несмотря на" data-word="spite">spite</span> <span class="word-chip" data-ru="из / принадлежность" data-word="of">of</span></span> <span class="word-chip" data-ru="всё / все" data-word="all">all</span> <span class="word-chip" data-ru="из / принадлежность" data-word="of">of</span> <span class="word-chip" data-ru="это" data-word="this">this</span>, <span class="word-chip" data-ru="один / артикль" data-word="a">a</span> <span class="word-chip" data-ru="опрос" data-word="survey">survey</span> <span class="word-chip" data-ru="обнаружил" data-word="discovered">discovered</span> <span class="word-chip" data-ru="что / который" data-word="that">that</span> 42% <span class="word-chip" data-ru="из / принадлежность" data-word="of">of</span> <span class="word-chip" data-ru="Великобритания" data-word="UK">UK</span> <span class="word-chip" data-ru="люди" data-word="people">people</span> <span class="word-chip" data-ru="в возрасте" data-word="aged">aged</span> 25–34 <span class="word-chip" data-ru="верить / считать" data-word="believe">believe</span> <span class="word-chip" data-ru="что / который" data-word="that">that</span> <span class="word-chip" data-ru="реальность" data-word="reality">reality</span> <span class="word-chip" data-ru="шоу / показывает" data-word="shows">shows</span> <span class="word-chip" data-ru="являются / есть" data-word="are">are</span> 100% <span class="word-chip" data-ru="настоящий" data-word="real">real</span>.</div>
+</div>
+<div class="col">
+<div class="para"><span class="num">3.</span> <span class="word-chip" data-ru="что / какой" data-word="What">What</span> <span class="word-chip" data-ru="о / примерно" data-word="about">about</span> <span class="word-chip" data-ru="талант" data-word="talent">talent</span> <span class="word-chip" data-ru="шоу / показывает" data-word="shows">shows</span>, <span class="word-chip" data-ru="один" data-word="one">one</span> <span class="word-chip" data-ru="из / принадлежность" data-word="of">of</span> <span class="word-chip" data-ru="определённый артикль" data-word="the">the</span> <span class="word-chip" data-ru="самый / большинство" data-word="most">most</span> <span class="word-chip" data-ru="популярный" data-word="popular">popular</span> <span class="word-chip" data-ru="виды" data-word="kinds">kinds</span> <span class="word-chip" data-ru="из / принадлежность" data-word="of">of</span> <span class="word-chip" data-ru="реальность" data-word="reality">reality</span> <span class="word-chip" data-ru="программа" data-word="programme">programme</span>? <span class="word-chip" data-ru="вспом. глагол прош. вр." data-word="Did">Did</span> <span class="word-chip" data-ru="ты / вы" data-word="you">you</span> <span class="word-chip" data-ru="знать" data-word="know">know</span> <span class="word-chip" data-ru="что / который" data-word="that">that</span> <span class="word-chip" data-ru="это есть / это" data-word="it's">it's</span> <span class="word-chip" data-ru="обычно" data-word="usually">usually</span> <span class="word-chip" data-ru="определённый артикль" data-word="the">the</span> <span class="under" data-meaning="The people who organise and pay for a film or TV show — they're in charge behind the scenes." data-ru="продюсеры"><span class="word-chip" data-ru="продюсеры" data-word="producers">producers</span></span> <span class="word-chip" data-ru="из / принадлежность" data-word="of">of</span> <span class="word-chip" data-ru="определённый артикль" data-word="the">the</span> <span class="word-chip" data-ru="шоу / показывать" data-word="show">show</span> — <span class="word-chip" data-ru="не" data-word="not">not</span> <span class="word-chip" data-ru="определённый артикль" data-word="the">the</span> <span class="under" data-meaning="The people whose job is to judge a competition and decide the winner." data-ru="судьи (в конкурсе)"><span class="word-chip" data-ru="судьи" data-word="judges">judges</span></span> — <span class="word-chip" data-ru="кто / который" data-word="who">who</span> <span class="word-chip" data-ru="на самом деле" data-word="actually">actually</span> <span class="word-chip" data-ru="решать" data-word="decide">decide</span> <span class="word-chip" data-ru="кто / который" data-word="who">who</span> <span class="word-chip" data-ru="получает" data-word="gets">gets</span> <span class="word-chip" data-ru="исключённый, выбывший" data-word="eliminated">eliminated</span>? <span class="word-chip" data-ru="талант" data-word="Talent">Talent</span> <span class="word-chip" data-ru="является / есть" data-word="is">is</span> <span class="word-chip" data-ru="часто" data-word="often">often</span> <span class="word-chip" data-ru="гораздо / далеко" data-word="far">far</span> <span class="word-chip" data-ru="меньше" data-word="less">less</span> <span class="word-chip" data-ru="важный" data-word="important">important</span> <span class="word-chip" data-ru="чем" data-word="than">than</span> <span class="word-chip" data-ru="другой" data-word="other">other</span> <span class="word-chip" data-ru="вещи" data-word="things">things</span>. <span class="word-chip" data-ru="определённый артикль" data-word="The">The</span> <span class="word-chip" data-ru="продюсеры" data-word="producers">producers</span> <span class="word-chip" data-ru="хотеть" data-word="want">want</span> <span class="word-chip" data-ru="участники конкурса" data-word="contestants">contestants</span> <span class="word-chip" data-ru="кто / который" data-word="who">who</span> <span class="word-chip" data-ru="привлекать" data-word="attract">attract</span> <span class="word-chip" data-ru="больше / более" data-word="more">more</span> <span class="word-chip" data-ru="зрители" data-word="viewers">viewers</span>, <span class="word-chip" data-ru="для" data-word="for">for</span> <span class="word-chip" data-ru="пример" data-word="example">example</span> <span class="word-chip" data-ru="кем-то / при помощи" data-word="by">by</span> <span class="word-chip" data-ru="начиная" data-word="starting">starting</span> <span class="word-chip" data-ru="большой" data-word="big">big</span> <span class="word-chip" data-ru="споры, ссоры" data-word="arguments">arguments</span>. <span class="word-chip" data-ru="в" data-word="In">In</span> <span class="word-chip" data-ru="факт" data-word="fact">fact</span>, <span class="word-chip" data-ru="некоторые" data-word="some">some</span> <span class="word-chip" data-ru="продюсеры" data-word="producers">producers</span> <span class="word-chip" data-ru="намеренно" data-word="deliberately">deliberately</span> <span class="word-chip" data-ru="создавать" data-word="create">create</span> <span class="word-chip" data-ru="драма" data-word="drama">drama</span> <span class="word-chip" data-ru="и" data-word="and">and</span> <span class="word-chip" data-ru="напряжение" data-word="tension">tension</span> <span class="word-chip" data-ru="между" data-word="between">between</span> <span class="word-chip" data-ru="определённый артикль" data-word="the">the</span> <span class="word-chip" data-ru="участники конкурса" data-word="contestants">contestants</span>.</div>
+<div class="para"><span class="num">4.</span> <span class="word-chip" data-ru="вспом. глагол" data-word="Does">Does</span> <span class="word-chip" data-ru="это" data-word="it">it</span> <span class="word-chip" data-ru="действительно" data-word="really">really</span> <span class="word-chip" data-ru="иметь значение" data-word="matter">matter</span> <span class="word-chip" data-ru="что / который" data-word="that">that</span> <span class="word-chip" data-ru="реальность" data-word="reality">reality</span> <span class="word-chip" data-ru="шоу / показывает" data-word="shows">shows</span> <span class="word-chip" data-ru="не являются / не" data-word="aren't">aren't</span> <span class="word-chip" data-ru="настоящий" data-word="real">real</span>? <span class="word-chip" data-ru="в" data-word="In">In</span> <span class="word-chip" data-ru="некоторые" data-word="some">some</span> <span class="word-chip" data-ru="документальные фильмы" data-word="documentaries">documentaries</span>, <span class="word-chip" data-ru="они" data-word="they">they</span> <span class="word-chip" data-ru="говорить" data-word="say">say</span> <span class="word-chip" data-ru="они являются" data-word="they're">they're</span> <span class="word-chip" data-ru="в" data-word="in">in</span> <span class="word-chip" data-ru="один" data-word="one">one</span> <span class="word-chip" data-ru="место" data-word="place">place</span> <span class="word-chip" data-ru="когда" data-word="when">when</span> <span class="word-chip" data-ru="они являются" data-word="they're">they're</span> <span class="word-chip" data-ru="на самом деле" data-word="actually">actually</span> <span class="word-chip" data-ru="съёмка" data-word="filming">filming</span> <span class="word-chip" data-ru="где-то" data-word="somewhere">somewhere</span> <span class="word-chip" data-ru="полностью" data-word="completely">completely</span> <span class="word-chip" data-ru="другой, разный" data-word="different">different</span>. <span class="word-chip" data-ru="в" data-word="In">In</span> <span class="word-chip" data-ru="другой" data-word="other">other</span> <span class="word-chip" data-ru="шоу / показывает" data-word="shows">shows</span>, <span class="word-chip" data-ru="они" data-word="they">they</span> "<span class="word-chip" data-ru="удивлять / сюрприз" data-word="surprise">surprise</span>" <span class="word-chip" data-ru="определённый артикль" data-word="the">the</span> <span class="word-chip" data-ru="участники конкурса" data-word="contestants">contestants</span> <span class="word-chip" data-ru="с" data-word="with">with</span> <span class="word-chip" data-ru="вещи" data-word="things">things</span> <span class="word-chip" data-ru="определённый артикль" data-word="the">the</span> <span class="word-chip" data-ru="участники конкурса" data-word="contestants">contestants</span> <span class="word-chip" data-ru="уже" data-word="already">already</span> <span class="word-chip" data-ru="знали" data-word="knew">knew</span> <span class="word-chip" data-ru="о / примерно" data-word="about">about</span>. <span class="word-chip" data-ru="и" data-word="And">And</span> <span class="word-chip" data-ru="в" data-word="in">in</span> <span class="word-chip" data-ru="самый / большинство" data-word="most">most</span> <span class="word-chip" data-ru="шоу / показывает" data-word="shows">shows</span>, <span class="word-chip" data-ru="время" data-word="time">time</span> <span class="word-chip" data-ru="само по себе" data-word="itself">itself</span> <span class="word-chip" data-ru="является / есть" data-word="is">is</span> <span class="word-chip" data-ru="фальшивый" data-word="fake">fake</span>: <span class="word-chip" data-ru="артикль" data-word="an">an</span> <span class="word-chip" data-ru="занятие, активность" data-word="activity">activity</span> <span class="word-chip" data-ru="что / который" data-word="that">that</span> <span class="word-chip" data-ru="действительно" data-word="really">really</span> <span class="word-chip" data-ru="занимает / берёт" data-word="takes">takes</span> <span class="word-chip" data-ru="часы" data-word="hours">hours</span>, <span class="word-chip" data-ru="дни" data-word="days">days</span>, <span class="word-chip" data-ru="или" data-word="or">or</span> <span class="word-chip" data-ru="недели" data-word="weeks">weeks</span> <span class="word-chip" data-ru="как-то, каким-то образом" data-word="somehow">somehow</span> <span class="word-chip" data-ru="происходит" data-word="happens">happens</span> <span class="word-chip" data-ru="в" data-word="in">in</span> <span class="word-chip" data-ru="один / артикль" data-word="a">a</span> 50-<span class="word-chip" data-ru="минута" data-word="minute">minute</span> <span class="word-chip" data-ru="эпизод, серия" data-word="episode">episode</span>.</div>
+<div class="para"><span class="num">5.</span> <span class="word-chip" data-ru="один" data-word="One">One</span> <span class="word-chip" data-ru="из / принадлежность" data-word="of">of</span> <span class="word-chip" data-ru="определённый артикль" data-word="the">the</span> <span class="word-chip" data-ru="самый грустный" data-word="saddest">saddest</span> <span class="word-chip" data-ru="вещи" data-word="things">things</span> <span class="word-chip" data-ru="является / есть" data-word="is">is</span> <span class="word-chip" data-ru="что / который" data-word="that">that</span> <span class="word-chip" data-ru="реальность" data-word="reality">reality</span> <span class="word-chip" data-ru="шоу / показывает" data-word="shows">shows</span> <span class="word-chip" data-ru="мочь" data-word="can">can</span> <span class="word-chip" data-ru="давать" data-word="give">give</span> <span class="word-chip" data-ru="нас / нам" data-word="us">us</span> <span class="word-chip" data-ru="нереалистичный" data-word="unrealistic">unrealistic</span> <span class="word-chip" data-ru="идеи" data-word="ideas">ideas</span> <span class="word-chip" data-ru="о / примерно" data-word="about">about</span> <span class="word-chip" data-ru="что / какой" data-word="what">what</span> <span class="word-chip" data-ru="мы" data-word="we">we</span> <span class="word-chip" data-ru="мы сами" data-word="ourselves">ourselves</span> <span class="word-chip" data-ru="мочь" data-word="can">can</span> <span class="word-chip" data-ru="делать" data-word="do">do</span>. <span class="word-chip" data-ru="вещи" data-word="Things">Things</span> <span class="word-chip" data-ru="не являются / не" data-word="aren't">aren't</span> <span class="word-chip" data-ru="как / настолько" data-word="as">as</span> <span class="word-chip" data-ru="быстрый" data-word="fast">fast</span> <span class="word-chip" data-ru="как / настолько" data-word="as">as</span> <span class="word-chip" data-ru="они" data-word="they">they</span> <span class="word-chip" data-ru="выглядеть" data-word="look">look</span> <span class="word-chip" data-ru="на" data-word="on">on</span> <span class="word-chip" data-ru="определённый артикль" data-word="the">the</span> <span class="word-chip" data-ru="экран" data-word="screen">screen</span>, <span class="word-chip" data-ru="и" data-word="and">and</span> <span class="word-chip" data-ru="они являются" data-word="they're">they're</span> <span class="word-chip" data-ru="обычно" data-word="usually">usually</span> <span class="word-chip" data-ru="один / артикль" data-word="a">a</span> <span class="word-chip" data-ru="немного" data-word="bit">bit</span> <span class="word-chip" data-ru="больше / более" data-word="more">more</span> <span class="word-chip" data-ru="сложный" data-word="complicated">complicated</span>. <span class="word-chip" data-ru="реальность" data-word="Reality">Reality</span> <span class="word-chip" data-ru="шоу / показывает" data-word="shows">shows</span> <span class="word-chip" data-ru="мочь" data-word="can">can</span> <span class="word-chip" data-ru="делать" data-word="make">make</span> <span class="word-chip" data-ru="нас / нам" data-word="us">us</span> <span class="word-chip" data-ru="сбитый с толку" data-word="confused">confused</span>, <span class="word-chip" data-ru="потому что" data-word="because">because</span> <span class="word-chip" data-ru="мы" data-word="we">we</span> <span class="word-chip" data-ru="не может" data-word="can't">can't</span> <span class="word-chip" data-ru="сказать / отличать" data-word="tell">tell</span> <span class="word-chip" data-ru="определённый артикль" data-word="the">the</span> <span class="word-chip" data-ru="разница" data-word="difference">difference</span> <span class="word-chip" data-ru="между" data-word="between">between</span> <span class="word-chip" data-ru="что является" data-word="what's">what's</span> <span class="word-chip" data-ru="настоящий" data-word="real">real</span> <span class="word-chip" data-ru="и" data-word="and">and</span> <span class="word-chip" data-ru="что / какой" data-word="what">what</span> <span class="word-chip" data-ru="не является / не" data-word="isn't">isn't</span>. <span class="word-chip" data-ru="определённый артикль" data-word="The">The</span> <span class="word-chip" data-ru="самый страшный" data-word="scariest">scariest</span> <span class="word-chip" data-ru="вещь" data-word="thing">thing</span> <span class="word-chip" data-ru="является / есть" data-word="is">is</span> <span class="word-chip" data-ru="что / который" data-word="that">that</span> <span class="word-chip" data-ru="они" data-word="they">they</span> <span class="word-chip" data-ru="мочь" data-word="can">can</span> <span class="word-chip" data-ru="делать" data-word="make">make</span> <span class="word-chip" data-ru="нас / нам" data-word="us">us</span> <span class="word-chip" data-ru="остановить / перестать" data-word="stop">stop</span> <span class="word-chip" data-ru="доверяя" data-word="trusting">trusting</span> <span class="word-chip" data-ru="всё" data-word="everything">everything</span> <span class="word-chip" data-ru="мы" data-word="we">we</span> <span class="word-chip" data-ru="видеть" data-word="see">see</span> <span class="word-chip" data-ru="на" data-word="on">on</span> <span class="word-chip" data-ru="телевидение" data-word="TV">TV</span> — <span class="word-chip" data-ru="включая" data-word="including">including</span> <span class="word-chip" data-ru="определённый артикль" data-word="the">the</span> <span class="word-chip" data-ru="новости" data-word="news">news</span>. <span class="word-chip" data-ru="люди" data-word="People">People</span> <span class="word-chip" data-ru="начинать" data-word="start">start</span> <span class="word-chip" data-ru="думая" data-word="thinking">thinking</span> <span class="word-chip" data-ru="это есть / это" data-word="it's">it's</span> <span class="word-chip" data-ru="всё / все" data-word="all">all</span> <span class="under" data-meaning="Controlling someone or something in a clever, unfair way." data-ru="манипуляция"><span class="word-chip" data-ru="манипуляция" data-word="manipulation">manipulation</span></span>. <span class="word-chip" data-ru="возможно" data-word="Maybe">Maybe</span> <span class="word-chip" data-ru="определённый артикль" data-word="the">the</span> <span class="word-chip" data-ru="лучший" data-word="best">best</span> <span class="word-chip" data-ru="идея" data-word="idea">idea</span> <span class="word-chip" data-ru="является / есть" data-word="is">is</span> <span class="word-chip" data-ru="к / чтобы" data-word="to">to</span> <span class="word-chip" data-ru="остановить / перестать" data-word="stop">stop</span> <span class="word-chip" data-ru="просмотр" data-word="watching">watching</span> <span class="word-chip" data-ru="реальность" data-word="reality">reality</span> <span class="word-chip" data-ru="телевидение" data-word="TV">TV</span> <span class="word-chip" data-ru="для" data-word="for">for</span> <span class="word-chip" data-ru="один / артикль" data-word="a">a</span> <span class="word-chip" data-ru="пока / некоторое время" data-word="while">while</span> <span class="word-chip" data-ru="и" data-word="and">and</span> <span class="word-chip" data-ru="заново открыть" data-word="rediscover">rediscover</span> <span class="word-chip" data-ru="определённый артикль" data-word="the">the</span> <span class="word-chip" data-ru="настоящий" data-word="real">real</span> <span class="word-chip" data-ru="мир" data-word="world">world</span>. <span class="word-chip" data-ru="это есть / это" data-word="It's">It's</span> <span class="word-chip" data-ru="просто" data-word="just">just</span> <span class="word-chip" data-ru="как / настолько" data-word="as">as</span> <span class="word-chip" data-ru="удивительный" data-word="amazing">amazing</span> <span class="word-chip" data-ru="и" data-word="and">and</span> <span class="word-chip" data-ru="вдохновляющий" data-word="inspiring">inspiring</span> <span class="word-chip" data-ru="как / настолько" data-word="as">as</span> <span class="word-chip" data-ru="что угодно" data-word="anything">anything</span> <span class="word-chip" data-ru="ты / вы" data-word="you">you</span> <span class="word-chip" data-ru="мочь" data-word="can">can</span> <span class="word-chip" data-ru="видеть" data-word="see">see</span> <span class="word-chip" data-ru="на" data-word="on">on</span> <span class="word-chip" data-ru="один / артикль" data-word="a">a</span> <span class="word-chip" data-ru="экран" data-word="screen">screen</span>.</div>
+</div>
+</div>
+</article>
+</section>
+<!-- floating popover for underlined words -->
+<div class="popover" id="popover"></div>
+<!-- ============ SECTION 07: General opinion + title ============ -->
+<section class="section" id="s7">
+<div class="section-head">
+<span class="num">07</span>
+<h2>After reading · <em>the big picture</em><span class="ja">全体像</span></h2>
+<span class="tag">free writing, no wrong answer</span>
+</div>
+<div class="task">
+<div class="task-head">
+<div class="task-num">5</div>
+<div class="task-title">In your own words: what is the writer's general opinion of reality TV?</div>
+</div>
+<textarea class="note-area" placeholder="The writer thinks…" style="min-height:90px;"></textarea>
+<div class="task-head" style="margin-top:22px;">
+<div class="task-num gold">6</div>
+<div class="task-title">Suggest a good title for this article. (Bonus points for K-drama vibes.)</div>
+</div>
+<textarea class="note-area" placeholder="A good title would be…" style="min-height:60px;"></textarea>
+</div>
+</section>
+<!-- ============ SECTION 08: MCQ ============ -->
+<section class="section" id="s8">
+<div class="section-head">
+<span class="num">08</span>
+<h2>Comprehension · <em>choose the best answer</em><span class="ja">問題</span></h2>
+<span class="tag">the text is here — no scrolling</span>
+</div>
+<div class="task"><div class="reading-mcq-layout"><article class="article compact-reader">
+<div class="blog-head">
+<div class="logo">REALITY <span>TV Blog</span></div>
+<div class="menu">
+<span>News</span>
+<span>Sport</span>
+<span class="active">Television</span>
+<span>Weather</span>
+<span>More ▾</span>
+</div>
+</div>
+<div class="article-body">
+<div class="col">
+<div class="para"><span class="num">1.</span> "<span class="word-chip" data-ru="реальность" data-word="Reality">Reality</span> <span class="word-chip" data-ru="телевидение" data-word="TV">TV</span>? <span class="word-chip" data-ru="не" data-word="Not">Not</span> <span class="word-chip" data-ru="для" data-word="for">for</span> <span class="word-chip" data-ru="меня / мне" data-word="me">me</span> — <span class="word-chip" data-ru="я бы" data-word="I'd">I'd</span> <span class="word-chip" data-ru="лучше, скорее" data-word="rather">rather</span> <span class="word-chip" data-ru="смотреть" data-word="watch">watch</span> <span class="word-chip" data-ru="что-то" data-word="something">something</span> <span class="word-chip" data-ru="больше / более" data-word="more">more</span> <span class="word-chip" data-ru="серьёзный" data-word="serious">serious</span>." <span class="word-chip" data-ru="это" data-word="That's">That's</span> <span class="word-chip" data-ru="что / какой" data-word="what">what</span> <span class="word-chip" data-ru="много" data-word="plenty">plenty</span> <span class="word-chip" data-ru="из / принадлежность" data-word="of">of</span> <span class="word-chip" data-ru="люди" data-word="people">people</span> <span class="word-chip" data-ru="говорить" data-word="say">say</span>. <span class="word-chip" data-ru="но" data-word="But">But</span> <span class="word-chip" data-ru="один / артикль" data-word="a">a</span> <span class="word-chip" data-ru="недавний" data-word="recent">recent</span> <span class="under" data-meaning="A study where many people answer questions about something." data-ru="опрос, исследование"><span class="word-chip" data-ru="опрос" data-word="survey">survey</span></span> <span class="word-chip" data-ru="кем-то / при помощи" data-word="by">by</span> <span class="word-chip" data-ru="OnePoll (название организации)" data-word="OnePoll">OnePoll</span> <span class="word-chip" data-ru="обнаружил" data-word="discovered">discovered</span> <span class="word-chip" data-ru="что / который" data-word="that">that</span> <span class="word-chip" data-ru="один" data-word="one">one</span> <span class="word-chip" data-ru="в" data-word="in">in</span> <span class="word-chip" data-ru="четыре" data-word="four">four</span> <span class="word-chip" data-ru="люди" data-word="people">people</span> <span class="word-chip" data-ru="в" data-word="in">in</span> <span class="word-chip" data-ru="определённый артикль" data-word="the">the</span> <span class="word-chip" data-ru="Великобритания" data-word="UK">UK</span> <span class="word-chip" data-ru="регулярно" data-word="regularly">regularly</span> <span class="word-chip" data-ru="смотрит" data-word="watches">watches</span> <span class="word-chip" data-ru="один / артикль" data-word="a">a</span> <span class="word-chip" data-ru="реальность" data-word="reality">reality</span> <span class="word-chip" data-ru="шоу / показывать" data-word="show">show</span>. <span class="word-chip" data-ru="возможно" data-word="Maybe">Maybe</span> <span class="word-chip" data-ru="что / который" data-word="that">that</span> <span class="word-chip" data-ru="не является / не" data-word="isn't">isn't</span> <span class="word-chip" data-ru="действительно" data-word="really">really</span> <span class="word-chip" data-ru="удивительный" data-word="surprising">surprising</span> <span class="word-chip" data-ru="когда" data-word="when">when</span> <span class="word-chip" data-ru="ты / вы" data-word="you">you</span> <span class="word-chip" data-ru="думать" data-word="think">think</span> <span class="word-chip" data-ru="о / примерно" data-word="about">about</span> <span class="word-chip" data-ru="как / насколько" data-word="how">how</span> <span class="word-chip" data-ru="много" data-word="many">many</span> <span class="word-chip" data-ru="шоу / показывает" data-word="shows">shows</span> <span class="word-chip" data-ru="там" data-word="there">there</span> <span class="word-chip" data-ru="являются / есть" data-word="are">are</span> <span class="word-chip" data-ru="к / чтобы" data-word="to">to</span> <span class="word-chip" data-ru="выбирать" data-word="choose">choose</span> <span class="word-chip" data-ru="из / от" data-word="from">from</span> — <span class="word-chip" data-ru="сотни" data-word="hundreds">hundreds</span> <span class="word-chip" data-ru="из / принадлежность" data-word="of">of</span> <span class="word-chip" data-ru="их / им" data-word="them">them</span>. <span class="word-chip" data-ru="много" data-word="Many">Many</span> <span class="word-chip" data-ru="популярный" data-word="popular">popular</span> <span class="word-chip" data-ru="примеры" data-word="examples">examples</span> <span class="word-chip" data-ru="включать, предполагать" data-word="involve">involve</span> <span class="word-chip" data-ru="люди" data-word="people">people</span> <span class="word-chip" data-ru="пение" data-word="singing">singing</span>, <span class="word-chip" data-ru="танцы" data-word="dancing">dancing</span> <span class="word-chip" data-ru="или" data-word="or">or</span> <span class="word-chip" data-ru="готовка" data-word="cooking">cooking</span>. <span class="word-chip" data-ru="в последнее время" data-word="Lately">Lately</span>, <span class="word-chip" data-ru="однако / хотя" data-word="though">though</span>, <span class="word-chip" data-ru="много / значительно" data-word="much">much</span> <span class="word-chip" data-ru="более странный" data-word="stranger">stranger</span> <span class="word-chip" data-ru="форматы" data-word="formats">formats</span> <span class="word-chip" data-ru="иметь" data-word="have">have</span> <span class="word-chip" data-ru="появились" data-word="appeared">appeared</span>: <span class="word-chip" data-ru="один / артикль" data-word="a">a</span> <span class="word-chip" data-ru="соревнование" data-word="competition">competition</span> <span class="word-chip" data-ru="где" data-word="where">where</span> <span class="word-chip" data-ru="мужчины" data-word="men">men</span> <span class="word-chip" data-ru="пытаться" data-word="try">try</span> <span class="word-chip" data-ru="к / чтобы" data-word="to">to</span> <span class="word-chip" data-ru="растить, выращивать" data-word="grow">grow</span> <span class="word-chip" data-ru="определённый артикль" data-word="the">the</span> <span class="word-chip" data-ru="самый длинный" data-word="longest">longest</span> <span class="under" data-meaning="The hair that grows on a man's face, below the mouth." data-ru="борода"><span class="word-chip" data-ru="борода" data-word="beard">beard</span></span> (<em><span class="word-chip" data-ru="ус / волосок" data-word="Whisker">Whisker</span> <span class="word-chip" data-ru="войны" data-word="Wars">Wars</span></em>), <span class="word-chip" data-ru="знаменитости" data-word="celebrities">celebrities</span> <span class="word-chip" data-ru="выполняя" data-word="completing">completing</span> <span class="word-chip" data-ru="дикий" data-word="wild">wild</span> <span class="word-chip" data-ru="испытания" data-word="challenges">challenges</span> <span class="word-chip" data-ru="в" data-word="in">in</span> <span class="word-chip" data-ru="определённый артикль" data-word="the">the</span> <span class="word-chip" data-ru="австралийский" data-word="Australian">Australian</span> <span class="word-chip" data-ru="джунгли" data-word="jungle">jungle</span> (<em><span class="word-chip" data-ru="я" data-word="I'm">I'm</span> <span class="word-chip" data-ru="один / артикль" data-word="a">a</span> <span class="word-chip" data-ru="знаменитость" data-word="Celebrity">Celebrity</span>… <span class="word-chip" data-ru="получать" data-word="Get">Get</span> <span class="word-chip" data-ru="меня / мне" data-word="Me">Me</span> <span class="word-chip" data-ru="наружу / вон" data-word="Out">Out</span> <span class="word-chip" data-ru="из / принадлежность" data-word="of">of</span> <span class="word-chip" data-ru="здесь" data-word="Here">Here</span>!</em>), <span class="word-chip" data-ru="или" data-word="or">or</span> <span class="word-chip" data-ru="один / артикль" data-word="a">a</span> <span class="word-chip" data-ru="группа" data-word="group">group</span> <span class="word-chip" data-ru="из / принадлежность" data-word="of">of</span> 40 <span class="word-chip" data-ru="дети" data-word="children">children</span> <span class="word-chip" data-ru="кто / который" data-word="who">who</span> <span class="word-chip" data-ru="жили" data-word="lived">lived</span> <span class="word-chip" data-ru="вместе" data-word="together">together</span> <span class="word-chip" data-ru="для" data-word="for">for</span> 40 <span class="word-chip" data-ru="дни" data-word="days">days</span> <span class="word-chip" data-ru="с" data-word="with">with</span> <span class="word-chip" data-ru="нет / никакой" data-word="no">no</span> <span class="word-chip" data-ru="взрослые" data-word="adults">adults</span> <span class="word-chip" data-ru="в / на" data-word="at">at</span> <span class="word-chip" data-ru="всё / все" data-word="all">all</span> (<em><span class="word-chip" data-ru="ребёнок" data-word="Kid">Kid</span> <span class="word-chip" data-ru="нация" data-word="Nation">Nation</span></em>).</div>
+<div class="para"><span class="num">2.</span> <span class="word-chip" data-ru="но" data-word="But">But</span> <span class="word-chip" data-ru="как / насколько" data-word="how">how</span> <span class="word-chip" data-ru="настоящий" data-word="real">real</span> <span class="word-chip" data-ru="являются / есть" data-word="are">are</span> <span class="word-chip" data-ru="определённый артикль" data-word="the">the</span> <span class="word-chip" data-ru="люди" data-word="people">people</span> <span class="word-chip" data-ru="в" data-word="in">in</span> <span class="word-chip" data-ru="реальность" data-word="reality">reality</span> <span class="word-chip" data-ru="телевидение" data-word="TV">TV</span> <span class="word-chip" data-ru="шоу / показывает" data-word="shows">shows</span>? <span class="word-chip" data-ru="это" data-word="It">It</span> <span class="word-chip" data-ru="зависит" data-word="depends">depends</span>. <span class="word-chip" data-ru="некоторые" data-word="Some">Some</span> <span class="word-chip" data-ru="шоу / показывает" data-word="shows">shows</span> <span class="under" data-meaning="In fact, in reality (not 'currently'!)." data-ru="на самом деле, в действительности"><span class="word-chip" data-ru="на самом деле" data-word="actually">actually</span></span> <span class="word-chip" data-ru="использовать" data-word="use">use</span> <span class="word-chip" data-ru="профессиональный" data-word="professional">professional</span> <span class="word-chip" data-ru="актёры" data-word="actors">actors</span>. <span class="word-chip" data-ru="другие" data-word="Others">Others</span> <span class="word-chip" data-ru="использовать" data-word="use">use</span> <span class="under" data-meaning="Normal, average — not famous or special in any way." data-ru="обычный, рядовой"><span class="word-chip" data-ru="обычный" data-word="ordinary">ordinary</span></span> <span class="word-chip" data-ru="члены, участники" data-word="members">members</span> <span class="word-chip" data-ru="из / принадлежность" data-word="of">of</span> <span class="word-chip" data-ru="определённый артикль" data-word="the">the</span> <span class="word-chip" data-ru="публика, общественность" data-word="public">public</span>, <span class="word-chip" data-ru="потому что" data-word="because">because</span> <span class="word-chip" data-ru="они" data-word="they">they</span> <span class="word-chip" data-ru="стоить" data-word="cost">cost</span> <span class="word-chip" data-ru="много / значительно" data-word="much">much</span> <span class="word-chip" data-ru="меньше" data-word="less">less</span> <span class="word-chip" data-ru="чем" data-word="than">than</span> <span class="word-chip" data-ru="актёры" data-word="actors">actors</span>. <span class="word-chip" data-ru="но" data-word="But">But</span> <span class="word-chip" data-ru="даже" data-word="even">even</span> <span class="word-chip" data-ru="когда" data-word="when">when</span> <span class="word-chip" data-ru="определённый артикль" data-word="the">the</span> <span class="word-chip" data-ru="люди" data-word="people">people</span> <span class="word-chip" data-ru="являются / есть" data-word="are">are</span> <span class="word-chip" data-ru="настоящий" data-word="real">real</span>, <span class="word-chip" data-ru="определённый артикль" data-word="the">the</span> <span class="word-chip" data-ru="ситуации" data-word="situations">situations</span> <span class="word-chip" data-ru="являются / есть" data-word="are">are</span> <span class="word-chip" data-ru="обычно" data-word="usually">usually</span> <span class="word-chip" data-ru="внимательно, тщательно" data-word="carefully">carefully</span> <span class="word-chip" data-ru="написанный" data-word="written">written</span> <span class="word-chip" data-ru="и" data-word="and">and</span> <span class="word-chip" data-ru="запланированный" data-word="planned">planned</span> <span class="word-chip" data-ru="в" data-word="in">in</span> <span class="word-chip" data-ru="заранее" data-word="advance">advance</span>. <span class="word-chip" data-ru="и" data-word="And">And</span> <span class="word-chip" data-ru="даже" data-word="even">even</span> <span class="word-chip" data-ru="когда" data-word="when">when</span> <span class="word-chip" data-ru="настоящий" data-word="real">real</span> <span class="word-chip" data-ru="люди" data-word="people">people</span> <span class="word-chip" data-ru="являются / есть" data-word="are">are</span> <span class="word-chip" data-ru="разговор" data-word="talking">talking</span> <span class="word-chip" data-ru="о / примерно" data-word="about">about</span> <span class="word-chip" data-ru="настоящий" data-word="real">real</span> <span class="word-chip" data-ru="ситуации" data-word="situations">situations</span>, <span class="word-chip" data-ru="это есть / это" data-word="it's">it's</span> <span class="word-chip" data-ru="легко" data-word="easy">easy</span> <span class="word-chip" data-ru="к / чтобы" data-word="to">to</span> <span class="under" data-meaning="To change a recording or text by cutting and rearranging parts." data-ru="монтировать, редактировать"><span class="word-chip" data-ru="редактировать" data-word="edit">edit</span></span> <span class="word-chip" data-ru="их" data-word="their">their</span> <span class="word-chip" data-ru="слова" data-word="words">words</span> <span class="word-chip" data-ru="и" data-word="and">and</span> <span class="word-chip" data-ru="делать" data-word="make">make</span> <span class="word-chip" data-ru="их / им" data-word="them">them</span> <span class="word-chip" data-ru="говорить" data-word="say">say</span> <span class="word-chip" data-ru="что-то" data-word="something">something</span> <span class="word-chip" data-ru="другой, разный" data-word="different">different</span>. <span class="under" data-meaning="Despite (something), even though…" data-ru="несмотря на"><span class="word-chip" data-ru="в" data-word="In">In</span> <span class="word-chip" data-ru="злоба; in spite of = несмотря на" data-word="spite">spite</span> <span class="word-chip" data-ru="из / принадлежность" data-word="of">of</span></span> <span class="word-chip" data-ru="всё / все" data-word="all">all</span> <span class="word-chip" data-ru="из / принадлежность" data-word="of">of</span> <span class="word-chip" data-ru="это" data-word="this">this</span>, <span class="word-chip" data-ru="один / артикль" data-word="a">a</span> <span class="word-chip" data-ru="опрос" data-word="survey">survey</span> <span class="word-chip" data-ru="обнаружил" data-word="discovered">discovered</span> <span class="word-chip" data-ru="что / который" data-word="that">that</span> 42% <span class="word-chip" data-ru="из / принадлежность" data-word="of">of</span> <span class="word-chip" data-ru="Великобритания" data-word="UK">UK</span> <span class="word-chip" data-ru="люди" data-word="people">people</span> <span class="word-chip" data-ru="в возрасте" data-word="aged">aged</span> 25–34 <span class="word-chip" data-ru="верить / считать" data-word="believe">believe</span> <span class="word-chip" data-ru="что / который" data-word="that">that</span> <span class="word-chip" data-ru="реальность" data-word="reality">reality</span> <span class="word-chip" data-ru="шоу / показывает" data-word="shows">shows</span> <span class="word-chip" data-ru="являются / есть" data-word="are">are</span> 100% <span class="word-chip" data-ru="настоящий" data-word="real">real</span>.</div>
+</div>
+<div class="col">
+<div class="para"><span class="num">3.</span> <span class="word-chip" data-ru="что / какой" data-word="What">What</span> <span class="word-chip" data-ru="о / примерно" data-word="about">about</span> <span class="word-chip" data-ru="талант" data-word="talent">talent</span> <span class="word-chip" data-ru="шоу / показывает" data-word="shows">shows</span>, <span class="word-chip" data-ru="один" data-word="one">one</span> <span class="word-chip" data-ru="из / принадлежность" data-word="of">of</span> <span class="word-chip" data-ru="определённый артикль" data-word="the">the</span> <span class="word-chip" data-ru="самый / большинство" data-word="most">most</span> <span class="word-chip" data-ru="популярный" data-word="popular">popular</span> <span class="word-chip" data-ru="виды" data-word="kinds">kinds</span> <span class="word-chip" data-ru="из / принадлежность" data-word="of">of</span> <span class="word-chip" data-ru="реальность" data-word="reality">reality</span> <span class="word-chip" data-ru="программа" data-word="programme">programme</span>? <span class="word-chip" data-ru="вспом. глагол прош. вр." data-word="Did">Did</span> <span class="word-chip" data-ru="ты / вы" data-word="you">you</span> <span class="word-chip" data-ru="знать" data-word="know">know</span> <span class="word-chip" data-ru="что / который" data-word="that">that</span> <span class="word-chip" data-ru="это есть / это" data-word="it's">it's</span> <span class="word-chip" data-ru="обычно" data-word="usually">usually</span> <span class="word-chip" data-ru="определённый артикль" data-word="the">the</span> <span class="under" data-meaning="The people who organise and pay for a film or TV show — they're in charge behind the scenes." data-ru="продюсеры"><span class="word-chip" data-ru="продюсеры" data-word="producers">producers</span></span> <span class="word-chip" data-ru="из / принадлежность" data-word="of">of</span> <span class="word-chip" data-ru="определённый артикль" data-word="the">the</span> <span class="word-chip" data-ru="шоу / показывать" data-word="show">show</span> — <span class="word-chip" data-ru="не" data-word="not">not</span> <span class="word-chip" data-ru="определённый артикль" data-word="the">the</span> <span class="under" data-meaning="The people whose job is to judge a competition and decide the winner." data-ru="судьи (в конкурсе)"><span class="word-chip" data-ru="судьи" data-word="judges">judges</span></span> — <span class="word-chip" data-ru="кто / который" data-word="who">who</span> <span class="word-chip" data-ru="на самом деле" data-word="actually">actually</span> <span class="word-chip" data-ru="решать" data-word="decide">decide</span> <span class="word-chip" data-ru="кто / который" data-word="who">who</span> <span class="word-chip" data-ru="получает" data-word="gets">gets</span> <span class="word-chip" data-ru="исключённый, выбывший" data-word="eliminated">eliminated</span>? <span class="word-chip" data-ru="талант" data-word="Talent">Talent</span> <span class="word-chip" data-ru="является / есть" data-word="is">is</span> <span class="word-chip" data-ru="часто" data-word="often">often</span> <span class="word-chip" data-ru="гораздо / далеко" data-word="far">far</span> <span class="word-chip" data-ru="меньше" data-word="less">less</span> <span class="word-chip" data-ru="важный" data-word="important">important</span> <span class="word-chip" data-ru="чем" data-word="than">than</span> <span class="word-chip" data-ru="другой" data-word="other">other</span> <span class="word-chip" data-ru="вещи" data-word="things">things</span>. <span class="word-chip" data-ru="определённый артикль" data-word="The">The</span> <span class="word-chip" data-ru="продюсеры" data-word="producers">producers</span> <span class="word-chip" data-ru="хотеть" data-word="want">want</span> <span class="word-chip" data-ru="участники конкурса" data-word="contestants">contestants</span> <span class="word-chip" data-ru="кто / который" data-word="who">who</span> <span class="word-chip" data-ru="привлекать" data-word="attract">attract</span> <span class="word-chip" data-ru="больше / более" data-word="more">more</span> <span class="word-chip" data-ru="зрители" data-word="viewers">viewers</span>, <span class="word-chip" data-ru="для" data-word="for">for</span> <span class="word-chip" data-ru="пример" data-word="example">example</span> <span class="word-chip" data-ru="кем-то / при помощи" data-word="by">by</span> <span class="word-chip" data-ru="начиная" data-word="starting">starting</span> <span class="word-chip" data-ru="большой" data-word="big">big</span> <span class="word-chip" data-ru="споры, ссоры" data-word="arguments">arguments</span>. <span class="word-chip" data-ru="в" data-word="In">In</span> <span class="word-chip" data-ru="факт" data-word="fact">fact</span>, <span class="word-chip" data-ru="некоторые" data-word="some">some</span> <span class="word-chip" data-ru="продюсеры" data-word="producers">producers</span> <span class="word-chip" data-ru="намеренно" data-word="deliberately">deliberately</span> <span class="word-chip" data-ru="создавать" data-word="create">create</span> <span class="word-chip" data-ru="драма" data-word="drama">drama</span> <span class="word-chip" data-ru="и" data-word="and">and</span> <span class="word-chip" data-ru="напряжение" data-word="tension">tension</span> <span class="word-chip" data-ru="между" data-word="between">between</span> <span class="word-chip" data-ru="определённый артикль" data-word="the">the</span> <span class="word-chip" data-ru="участники конкурса" data-word="contestants">contestants</span>.</div>
+<div class="para"><span class="num">4.</span> <span class="word-chip" data-ru="вспом. глагол" data-word="Does">Does</span> <span class="word-chip" data-ru="это" data-word="it">it</span> <span class="word-chip" data-ru="действительно" data-word="really">really</span> <span class="word-chip" data-ru="иметь значение" data-word="matter">matter</span> <span class="word-chip" data-ru="что / который" data-word="that">that</span> <span class="word-chip" data-ru="реальность" data-word="reality">reality</span> <span class="word-chip" data-ru="шоу / показывает" data-word="shows">shows</span> <span class="word-chip" data-ru="не являются / не" data-word="aren't">aren't</span> <span class="word-chip" data-ru="настоящий" data-word="real">real</span>? <span class="word-chip" data-ru="в" data-word="In">In</span> <span class="word-chip" data-ru="некоторые" data-word="some">some</span> <span class="word-chip" data-ru="документальные фильмы" data-word="documentaries">documentaries</span>, <span class="word-chip" data-ru="они" data-word="they">they</span> <span class="word-chip" data-ru="говорить" data-word="say">say</span> <span class="word-chip" data-ru="они являются" data-word="they're">they're</span> <span class="word-chip" data-ru="в" data-word="in">in</span> <span class="word-chip" data-ru="один" data-word="one">one</span> <span class="word-chip" data-ru="место" data-word="place">place</span> <span class="word-chip" data-ru="когда" data-word="when">when</span> <span class="word-chip" data-ru="они являются" data-word="they're">they're</span> <span class="word-chip" data-ru="на самом деле" data-word="actually">actually</span> <span class="word-chip" data-ru="съёмка" data-word="filming">filming</span> <span class="word-chip" data-ru="где-то" data-word="somewhere">somewhere</span> <span class="word-chip" data-ru="полностью" data-word="completely">completely</span> <span class="word-chip" data-ru="другой, разный" data-word="different">different</span>. <span class="word-chip" data-ru="в" data-word="In">In</span> <span class="word-chip" data-ru="другой" data-word="other">other</span> <span class="word-chip" data-ru="шоу / показывает" data-word="shows">shows</span>, <span class="word-chip" data-ru="они" data-word="they">they</span> "<span class="word-chip" data-ru="удивлять / сюрприз" data-word="surprise">surprise</span>" <span class="word-chip" data-ru="определённый артикль" data-word="the">the</span> <span class="word-chip" data-ru="участники конкурса" data-word="contestants">contestants</span> <span class="word-chip" data-ru="с" data-word="with">with</span> <span class="word-chip" data-ru="вещи" data-word="things">things</span> <span class="word-chip" data-ru="определённый артикль" data-word="the">the</span> <span class="word-chip" data-ru="участники конкурса" data-word="contestants">contestants</span> <span class="word-chip" data-ru="уже" data-word="already">already</span> <span class="word-chip" data-ru="знали" data-word="knew">knew</span> <span class="word-chip" data-ru="о / примерно" data-word="about">about</span>. <span class="word-chip" data-ru="и" data-word="And">And</span> <span class="word-chip" data-ru="в" data-word="in">in</span> <span class="word-chip" data-ru="самый / большинство" data-word="most">most</span> <span class="word-chip" data-ru="шоу / показывает" data-word="shows">shows</span>, <span class="word-chip" data-ru="время" data-word="time">time</span> <span class="word-chip" data-ru="само по себе" data-word="itself">itself</span> <span class="word-chip" data-ru="является / есть" data-word="is">is</span> <span class="word-chip" data-ru="фальшивый" data-word="fake">fake</span>: <span class="word-chip" data-ru="артикль" data-word="an">an</span> <span class="word-chip" data-ru="занятие, активность" data-word="activity">activity</span> <span class="word-chip" data-ru="что / который" data-word="that">that</span> <span class="word-chip" data-ru="действительно" data-word="really">really</span> <span class="word-chip" data-ru="занимает / берёт" data-word="takes">takes</span> <span class="word-chip" data-ru="часы" data-word="hours">hours</span>, <span class="word-chip" data-ru="дни" data-word="days">days</span>, <span class="word-chip" data-ru="или" data-word="or">or</span> <span class="word-chip" data-ru="недели" data-word="weeks">weeks</span> <span class="word-chip" data-ru="как-то, каким-то образом" data-word="somehow">somehow</span> <span class="word-chip" data-ru="происходит" data-word="happens">happens</span> <span class="word-chip" data-ru="в" data-word="in">in</span> <span class="word-chip" data-ru="один / артикль" data-word="a">a</span> 50-<span class="word-chip" data-ru="минута" data-word="minute">minute</span> <span class="word-chip" data-ru="эпизод, серия" data-word="episode">episode</span>.</div>
+<div class="para"><span class="num">5.</span> <span class="word-chip" data-ru="один" data-word="One">One</span> <span class="word-chip" data-ru="из / принадлежность" data-word="of">of</span> <span class="word-chip" data-ru="определённый артикль" data-word="the">the</span> <span class="word-chip" data-ru="самый грустный" data-word="saddest">saddest</span> <span class="word-chip" data-ru="вещи" data-word="things">things</span> <span class="word-chip" data-ru="является / есть" data-word="is">is</span> <span class="word-chip" data-ru="что / который" data-word="that">that</span> <span class="word-chip" data-ru="реальность" data-word="reality">reality</span> <span class="word-chip" data-ru="шоу / показывает" data-word="shows">shows</span> <span class="word-chip" data-ru="мочь" data-word="can">can</span> <span class="word-chip" data-ru="давать" data-word="give">give</span> <span class="word-chip" data-ru="нас / нам" data-word="us">us</span> <span class="word-chip" data-ru="нереалистичный" data-word="unrealistic">unrealistic</span> <span class="word-chip" data-ru="идеи" data-word="ideas">ideas</span> <span class="word-chip" data-ru="о / примерно" data-word="about">about</span> <span class="word-chip" data-ru="что / какой" data-word="what">what</span> <span class="word-chip" data-ru="мы" data-word="we">we</span> <span class="word-chip" data-ru="мы сами" data-word="ourselves">ourselves</span> <span class="word-chip" data-ru="мочь" data-word="can">can</span> <span class="word-chip" data-ru="делать" data-word="do">do</span>. <span class="word-chip" data-ru="вещи" data-word="Things">Things</span> <span class="word-chip" data-ru="не являются / не" data-word="aren't">aren't</span> <span class="word-chip" data-ru="как / настолько" data-word="as">as</span> <span class="word-chip" data-ru="быстрый" data-word="fast">fast</span> <span class="word-chip" data-ru="как / настолько" data-word="as">as</span> <span class="word-chip" data-ru="они" data-word="they">they</span> <span class="word-chip" data-ru="выглядеть" data-word="look">look</span> <span class="word-chip" data-ru="на" data-word="on">on</span> <span class="word-chip" data-ru="определённый артикль" data-word="the">the</span> <span class="word-chip" data-ru="экран" data-word="screen">screen</span>, <span class="word-chip" data-ru="и" data-word="and">and</span> <span class="word-chip" data-ru="они являются" data-word="they're">they're</span> <span class="word-chip" data-ru="обычно" data-word="usually">usually</span> <span class="word-chip" data-ru="один / артикль" data-word="a">a</span> <span class="word-chip" data-ru="немного" data-word="bit">bit</span> <span class="word-chip" data-ru="больше / более" data-word="more">more</span> <span class="word-chip" data-ru="сложный" data-word="complicated">complicated</span>. <span class="word-chip" data-ru="реальность" data-word="Reality">Reality</span> <span class="word-chip" data-ru="шоу / показывает" data-word="shows">shows</span> <span class="word-chip" data-ru="мочь" data-word="can">can</span> <span class="word-chip" data-ru="делать" data-word="make">make</span> <span class="word-chip" data-ru="нас / нам" data-word="us">us</span> <span class="word-chip" data-ru="сбитый с толку" data-word="confused">confused</span>, <span class="word-chip" data-ru="потому что" data-word="because">because</span> <span class="word-chip" data-ru="мы" data-word="we">we</span> <span class="word-chip" data-ru="не может" data-word="can't">can't</span> <span class="word-chip" data-ru="сказать / отличать" data-word="tell">tell</span> <span class="word-chip" data-ru="определённый артикль" data-word="the">the</span> <span class="word-chip" data-ru="разница" data-word="difference">difference</span> <span class="word-chip" data-ru="между" data-word="between">between</span> <span class="word-chip" data-ru="что является" data-word="what's">what's</span> <span class="word-chip" data-ru="настоящий" data-word="real">real</span> <span class="word-chip" data-ru="и" data-word="and">and</span> <span class="word-chip" data-ru="что / какой" data-word="what">what</span> <span class="word-chip" data-ru="не является / не" data-word="isn't">isn't</span>. <span class="word-chip" data-ru="определённый артикль" data-word="The">The</span> <span class="word-chip" data-ru="самый страшный" data-word="scariest">scariest</span> <span class="word-chip" data-ru="вещь" data-word="thing">thing</span> <span class="word-chip" data-ru="является / есть" data-word="is">is</span> <span class="word-chip" data-ru="что / который" data-word="that">that</span> <span class="word-chip" data-ru="они" data-word="they">they</span> <span class="word-chip" data-ru="мочь" data-word="can">can</span> <span class="word-chip" data-ru="делать" data-word="make">make</span> <span class="word-chip" data-ru="нас / нам" data-word="us">us</span> <span class="word-chip" data-ru="остановить / перестать" data-word="stop">stop</span> <span class="word-chip" data-ru="доверяя" data-word="trusting">trusting</span> <span class="word-chip" data-ru="всё" data-word="everything">everything</span> <span class="word-chip" data-ru="мы" data-word="we">we</span> <span class="word-chip" data-ru="видеть" data-word="see">see</span> <span class="word-chip" data-ru="на" data-word="on">on</span> <span class="word-chip" data-ru="телевидение" data-word="TV">TV</span> — <span class="word-chip" data-ru="включая" data-word="including">including</span> <span class="word-chip" data-ru="определённый артикль" data-word="the">the</span> <span class="word-chip" data-ru="новости" data-word="news">news</span>. <span class="word-chip" data-ru="люди" data-word="People">People</span> <span class="word-chip" data-ru="начинать" data-word="start">start</span> <span class="word-chip" data-ru="думая" data-word="thinking">thinking</span> <span class="word-chip" data-ru="это есть / это" data-word="it's">it's</span> <span class="word-chip" data-ru="всё / все" data-word="all">all</span> <span class="under" data-meaning="Controlling someone or something in a clever, unfair way." data-ru="манипуляция"><span class="word-chip" data-ru="манипуляция" data-word="manipulation">manipulation</span></span>. <span class="word-chip" data-ru="возможно" data-word="Maybe">Maybe</span> <span class="word-chip" data-ru="определённый артикль" data-word="the">the</span> <span class="word-chip" data-ru="лучший" data-word="best">best</span> <span class="word-chip" data-ru="идея" data-word="idea">idea</span> <span class="word-chip" data-ru="является / есть" data-word="is">is</span> <span class="word-chip" data-ru="к / чтобы" data-word="to">to</span> <span class="word-chip" data-ru="остановить / перестать" data-word="stop">stop</span> <span class="word-chip" data-ru="просмотр" data-word="watching">watching</span> <span class="word-chip" data-ru="реальность" data-word="reality">reality</span> <span class="word-chip" data-ru="телевидение" data-word="TV">TV</span> <span class="word-chip" data-ru="для" data-word="for">for</span> <span class="word-chip" data-ru="один / артикль" data-word="a">a</span> <span class="word-chip" data-ru="пока / некоторое время" data-word="while">while</span> <span class="word-chip" data-ru="и" data-word="and">and</span> <span class="word-chip" data-ru="заново открыть" data-word="rediscover">rediscover</span> <span class="word-chip" data-ru="определённый артикль" data-word="the">the</span> <span class="word-chip" data-ru="настоящий" data-word="real">real</span> <span class="word-chip" data-ru="мир" data-word="world">world</span>. <span class="word-chip" data-ru="это есть / это" data-word="It's">It's</span> <span class="word-chip" data-ru="просто" data-word="just">just</span> <span class="word-chip" data-ru="как / настолько" data-word="as">as</span> <span class="word-chip" data-ru="удивительный" data-word="amazing">amazing</span> <span class="word-chip" data-ru="и" data-word="and">and</span> <span class="word-chip" data-ru="вдохновляющий" data-word="inspiring">inspiring</span> <span class="word-chip" data-ru="как / настолько" data-word="as">as</span> <span class="word-chip" data-ru="что угодно" data-word="anything">anything</span> <span class="word-chip" data-ru="ты / вы" data-word="you">you</span> <span class="word-chip" data-ru="мочь" data-word="can">can</span> <span class="word-chip" data-ru="видеть" data-word="see">see</span> <span class="word-chip" data-ru="на" data-word="on">on</span> <span class="word-chip" data-ru="один / артикль" data-word="a">a</span> <span class="word-chip" data-ru="экран" data-word="screen">screen</span>.</div>
+</div>
+</div>
+</article><div class="mc-side">
+<div class="task-head">
+<div class="task-num sage">7</div>
+<div class="task-title">Pick the option that best matches what the text actually says.</div>
+</div>
+<div class="mc-list" id="mc1">
+<div class="mc-item" data-correct="c">
+<div class="stem"><em>1.</em> The fact that 25% of people in the UK watch reality TV …</div>
+<div class="options">
+<div class="mc-opt" data-letter="a"><span class="letter">a</span><span>is unexpected because not many people admit they watch it.</span></div>
+<div class="mc-opt" data-letter="b"><span class="letter">b</span><span>isn't strange because the quality of the programmes is very high.</span></div>
+<div class="mc-opt" data-letter="c"><span class="letter">c</span><span>isn't strange because there are hundreds of different shows to choose from.</span></div>
+</div>
+<div class="mc-feedback"></div>
+</div>
+<div class="mc-item" data-correct="b">
+<div class="stem"><em>2.</em> The people in reality shows …</div>
+<div class="options">
+<div class="mc-opt" data-letter="a"><span class="letter">a</span><span>always receive a lot of money.</span></div>
+<div class="mc-opt" data-letter="b"><span class="letter">b</span><span>are not always real members of the public — sometimes they're professional actors.</span></div>
+<div class="mc-opt" data-letter="c"><span class="letter">c</span><span>are always acting, even when the situations look spontaneous.</span></div>
+</div>
+<div class="mc-feedback"></div>
+</div>
+<div class="mc-item" data-correct="a">
+<div class="stem"><em>3.</em> The producers of some talent shows …</div>
+<div class="options">
+<div class="mc-opt" data-letter="a"><span class="letter">a</span><span>like contestants who create uncomfortable situations and start arguments.</span></div>
+<div class="mc-opt" data-letter="b"><span class="letter">b</span><span>often have big personal arguments with the contestants.</span></div>
+<div class="mc-opt" data-letter="c"><span class="letter">c</span><span>look for the most talented people in order to get more viewers.</span></div>
+</div>
+<div class="mc-feedback"></div>
+</div>
+<div class="mc-item" data-correct="b">
+<div class="stem"><em>4.</em> All the examples in paragraph 4 are of things that …</div>
+<div class="options">
+<div class="mc-opt" data-letter="a"><span class="letter">a</span><span>never really happened on any reality show.</span></div>
+<div class="mc-opt" data-letter="b"><span class="letter">b</span><span>didn't happen in the same way as they appeared on TV.</span></div>
+<div class="mc-opt" data-letter="c"><span class="letter">c</span><span>didn't happen in the place where the programme said.</span></div>
+</div>
+<div class="mc-feedback"></div>
+</div>
+<div class="mc-item" data-correct="c">
+<div class="stem"><em>5.</em> The writer believes that …</div>
+<div class="options">
+<div class="mc-opt" data-letter="a"><span class="letter">a</span><span>everything we see on TV is manipulated by producers.</span></div>
+<div class="mc-opt" data-letter="b"><span class="letter">b</span><span>it's time to stop reality TV because it always confuses us.</span></div>
+<div class="mc-opt" data-letter="c"><span class="letter">c</span><span>reality TV makes it very difficult to tell the difference between fact and fiction.</span></div>
+</div>
+<div class="mc-feedback"></div>
+</div>
+</div>
+</div></div></div>
+</section>
+<!-- ============ SECTION 09: VOCAB ============ -->
+<section class="section" id="s9">
+<div class="section-head">
+<span class="num">09</span>
+<h2>Underlined words · <em>guess &amp; check</em><span class="ja">単語</span></h2>
+<span class="tag">tap a card to reveal the meaning</span>
+</div>
+<div class="task">
+<div class="task-head">
+<div class="task-num">8</div>
+<div class="task-title">Each card shows an underlined word from the article. Guess the meaning first, then tap to check.</div>
+</div>
+<div class="vocab-grid" id="vocabGrid">
+<div class="vocab-card">
+<div class="vw">survey</div>
+<div class="vd">A study where many people answer questions about something.<br/><span class="ru-tag">опрос, исследование</span></div>
+</div>
+<div class="vocab-card">
+<div class="vw">beard</div>
+<div class="vd">The hair that grows on a man's face, below the mouth.<br/><span class="ru-tag">борода</span></div>
+</div>
+<div class="vocab-card">
+<div class="vw">actually</div>
+<div class="vd">In fact, in reality. Be careful — it does NOT mean "currently / right now"!<br/><span class="ru-tag">на самом деле</span></div>
+</div>
+<div class="vocab-card">
+<div class="vw">ordinary</div>
+<div class="vd">Normal, average — not famous or special in any way.<br/><span class="ru-tag">обычный, рядовой</span></div>
+</div>
+<div class="vocab-card">
+<div class="vw">edit</div>
+<div class="vd">To change a recording or text by cutting and rearranging parts.<br/><span class="ru-tag">монтировать, редактировать</span></div>
+</div>
+<div class="vocab-card">
+<div class="vw">in spite of</div>
+<div class="vd">Despite something, even though something is true.<br/><span class="ru-tag">несмотря на</span></div>
+</div>
+<div class="vocab-card">
+<div class="vw">producers</div>
+<div class="vd">The people who organise and pay for a film or TV show — they're in charge behind the scenes.<br/><span class="ru-tag">продюсеры</span></div>
+</div>
+<div class="vocab-card">
+<div class="vw">judges</div>
+<div class="vd">The people whose job is to judge a competition and decide the winner.<br/><span class="ru-tag">судьи</span></div>
+</div>
+<div class="vocab-card">
+<div class="vw">manipulation</div>
+<div class="vd">Controlling someone or something in a clever, unfair way.<br/><span class="ru-tag">манипуляция</span></div>
+</div>
+</div>
+</div>
+</section>
+<!-- ============ SECTION 10: CRITICAL THINKERS ============ -->
+<section class="section" id="s10">
+<div class="section-head">
+<span class="num">10</span>
+<h2>Critical thinkers · <em>your turn</em><span class="ja">議論</span></h2>
+<span class="tag">defend your opinion ↓</span>
+</div>
+<div class="debate">
+<div class="deb-label">debate question ✸</div>
+<h3>In your opinion — does reality TV have a negative influence on us?</h3>
+<p>Use ideas from the text <em>and</em> from your own experience. Try to use at least three adjectives from the flip cards. Speak for about a minute.</p>
+<div class="deb-side">
+<div class="side">
+<h5>arguments YES — it's harmful</h5>
+<ul>
+<li>It can give unrealistic ideas about what we can do.</li>
+<li>Some shows are violent or manipulative.</li>
+<li>Producers create fake drama on purpose.</li>
+<li>It can make us stop trusting the news too.</li>
+</ul>
+</div>
+<div class="side">
+<h5>arguments NO — it's fine</h5>
+<ul>
+<li>It's entertaining and helps people relax.</li>
+<li>Some shows are genuinely inspiring (cooking, dance, talent).</li>
+<li>Viewers know it's edited — they aren't stupid.</li>
+<li>The best shows can be moving and informative.</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+<!-- ============ OUTRO ============ -->
+<div class="outro">
+<h2>You binge-watched <em>a whole lesson</em>.</h2>
+<p>
+      Twelve new adjectives, ten TV words, one whole opinion article and a real debate.
+      Next time you describe a show in English — you have the words now.
+    </p>
+<div class="stamp">よくできました ⭑</div>
+</div>
+</div>
+<script>
+/* =========================================================
+   INTERACTIONS
+   ========================================================= */
+
+// ---- Sakura petals ----
+(function(){
+  const wrap = document.getElementById('petals');
+  if(!wrap) return;
+  const symbols = ['🌸','✿','❀','🌸','✿'];
+  for(let i=0;i<14;i++){
+    const p = document.createElement('div');
+    p.className = 'petal';
+    p.textContent = symbols[Math.floor(Math.random()*symbols.length)];
+    p.style.left = Math.random()*100 + '%';
+    p.style.animationDuration = (10 + Math.random()*14) + 's';
+    p.style.animationDelay = (-Math.random()*15) + 's';
+    p.style.fontSize = (12 + Math.random()*16) + 'px';
+    p.style.opacity = (0.25 + Math.random()*0.35);
+    wrap.appendChild(p);
+  }
+})();
+
+// ---- Score + progress tracking ----
+let totalQuestions = 0;
+let correctAnswers = 0;
+const seenItems = new Set();
+
+function updateProgress(){
+  const bar = document.getElementById('progressBar');
+  const sb  = document.getElementById('scoreboard');
+  const pct = totalQuestions ? (seenItems.size / totalQuestions) * 100 : 0;
+  bar.style.width = pct + '%';
+  sb.textContent = correctAnswers + ' / ' + totalQuestions;
+}
+
+function confetti(x = window.innerWidth/2){
+  const colors = ['#F5C5C9','#D77084','#E8C887','#A8B89E','#FBDDC8','#B85969'];
+  for(let i=0;i<22;i++){
+    const c = document.createElement('div');
+    c.className = 'confetti';
+    c.style.background = colors[Math.floor(Math.random()*colors.length)];
+    c.style.left = (x - 60 + Math.random()*120) + 'px';
+    c.style.top = (60 + Math.random()*100) + 'px';
+    c.style.transform = `rotate(${Math.random()*360}deg)`;
+    c.style.animationDuration = (1 + Math.random()*0.8) + 's';
+    document.body.appendChild(c);
+    setTimeout(()=> c.remove(), 1800);
+  }
+}
+
+// ===== WARM-UP A: show genre matching =====
+(function(){
+  const grid = document.getElementById('showGrid');
+  if(!grid) return;
+  const cards = grid.querySelectorAll('.show-card');
+  totalQuestions += cards.length;
+
+  cards.forEach((card, idx) => {
+    const correct = card.dataset.correct;
+    const opts = card.querySelectorAll('.show-opt');
+    const cardId = 'show-' + idx;
+    opts.forEach(opt => {
+      opt.addEventListener('click', ()=>{
+        if(seenItems.has(cardId)) return;
+        const txt = opt.textContent.trim();
+        if(txt === correct){
+          opt.classList.add('correct');
+          opts.forEach(o => o.classList.add('disabled'));
+          seenItems.add(cardId);
+          correctAnswers++;
+          const r = opt.getBoundingClientRect();
+          confetti(r.left + r.width/2);
+          updateProgress();
+        } else {
+          opt.classList.add('wrong','disabled');
+        }
+      });
+    });
+  });
+})();
+
+// ===== WARM-UP B: diary fill =====
+(function(){
+  const diary = document.getElementById('diary');
+  const chips = document.getElementById('chips1');
+  if(!diary || !chips) return;
+  const blanks = diary.querySelectorAll('.blank');
+  totalQuestions += blanks.length;
+  let pickedChip = null;
+
+  // Pre-fill the placeholder text so the student can see what blanks look like, then clear
+  blanks.forEach(b => b.textContent = '');
+
+  chips.querySelectorAll('.chip').forEach(chip => {
+    chip.addEventListener('click', ()=>{
+      if(chip.classList.contains('used')) return;
+      if(pickedChip) pickedChip.classList.remove('selected');
+      pickedChip = chip;
+      chip.classList.add('selected');
+    });
+  });
+
+  blanks.forEach((blank, idx) => {
+    const target = blank.dataset.target;
+    const ans = blank.dataset.answer;
+    blank.addEventListener('click', ()=>{
+      if(blank.classList.contains('correct')) return;
+      if(!pickedChip) return;
+      const word = pickedChip.dataset.word;
+      blank.textContent = word;
+      blank.classList.add('filled');
+      if(word === ans){
+        blank.classList.remove('filled','wrong');
+        blank.classList.add('correct');
+        pickedChip.classList.add('used');
+        pickedChip.classList.remove('selected');
+        pickedChip = null;
+        if(!seenItems.has('blank-'+target)){
+          seenItems.add('blank-'+target);
+          correctAnswers++;
+          const r = blank.getBoundingClientRect();
+          confetti(r.left + r.width/2);
+          updateProgress();
+        }
+      } else {
+        blank.classList.add('wrong');
+        setTimeout(()=>{
+          blank.classList.remove('wrong','filled');
+          blank.textContent = '';
+        }, 600);
+        pickedChip.classList.remove('selected');
+        pickedChip = null;
+      }
+    });
+  });
+})();
+
+// ===== FLIP CARDS + AUDIO =====
+(function(){
+  const grid = document.getElementById('flipGrid');
+  if(!grid) return;
+  const cards = grid.querySelectorAll('.flip');
+  // Count flipping as engagement (not graded "correct"), so don't add to totalQuestions
+  cards.forEach(card => {
+    card.addEventListener('click', ()=>{
+      card.classList.toggle('flipped');
+    });
+  });
+})();
+
+
+// ===== Flip all vocabulary cards =====
+(function(){
+  const flipAll = document.getElementById('flipAllCardsBtn');
+  const resetAll = document.getElementById('resetFlipCardsBtn');
+  const cards = document.querySelectorAll('#flipGrid .flip');
+  if(flipAll){
+    flipAll.addEventListener('click', ()=>{
+      cards.forEach(card => card.classList.add('flipped'));
+    });
+  }
+  if(resetAll){
+    resetAll.addEventListener('click', ()=>{
+      cards.forEach(card => card.classList.remove('flipped'));
+    });
+  }
+})();
+
+// global speakWord
+function speakWord(word, btn){
+  try{
+    if(!('speechSynthesis' in window)){
+      alert('Sorry, your browser does not support text-to-speech.');
+      return;
+    }
+    speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(word);
+    u.lang = 'en-US';
+    u.rate = 0.9;
+    u.pitch = 1.0;
+    // Try to pick a clear English voice if available
+    const voices = speechSynthesis.getVoices();
+    const enVoice = voices.find(v => v.lang.startsWith('en') && /female|samantha|google|natural|aria/i.test(v.name))
+                 || voices.find(v => v.lang.startsWith('en'));
+    if(enVoice) u.voice = enVoice;
+    if(btn){
+      btn.classList.add('playing');
+      setTimeout(()=> btn.classList.remove('playing'), 1100);
+    }
+    speechSynthesis.speak(u);
+  } catch(e){
+    console.error(e);
+  }
+}
+// On some browsers voices load async — make sure they're available
+if('speechSynthesis' in window){
+  speechSynthesis.onvoiceschanged = () => {};
+}
+
+// ===== Word translation popover =====
+(function(){
+  const popover = document.getElementById('popover');
+  if(!popover) return;
+
+  document.querySelectorAll('.under, .word-chip').forEach(el => {
+    el.setAttribute('tabindex','0');
+    el.addEventListener('mouseenter', ()=> showPop(el));
+    el.addEventListener('focus', ()=> showPop(el));
+    el.addEventListener('mouseleave', hidePop);
+    el.addEventListener('blur', hidePop);
+    el.addEventListener('click', (e)=> {
+      e.stopPropagation();
+      el.classList.add('opened');
+      showPop(el);
+    });
+  });
+
+  function showPop(el){
+    let html = '';
+    if(el.classList.contains('word-chip')){
+      const word = el.dataset.word || el.textContent.trim();
+      const ru = el.dataset.ru || 'переводите по контексту';
+      html = `<strong>${word}</strong><span class="ru">${ru}</span>`;
+    } else {
+      const meaning = el.dataset.meaning || el.textContent.trim();
+      const ru = el.dataset.ru;
+      html = meaning + (ru ? `<span class="ru">${ru}</span>` : '');
+    }
+    popover.innerHTML = html;
+    const r = el.getBoundingClientRect();
+    popover.style.left = (r.left + window.scrollX) + 'px';
+    popover.style.top = (r.bottom + window.scrollY + 8) + 'px';
+    setTimeout(()=>{
+      const pr = popover.getBoundingClientRect();
+      if(pr.right > window.innerWidth - 10){
+        popover.style.left = (window.innerWidth - pr.width - 14 + window.scrollX) + 'px';
+      }
+    },10);
+    popover.classList.add('visible');
+  }
+  function hidePop(){
+    popover.classList.remove('visible');
+  }
+})();
+
+// ===== MCQ Comprehension =====
+(function(){
+  const c = document.getElementById('mc1');
+  if(!c) return;
+  const items = c.querySelectorAll('.mc-item');
+  totalQuestions += items.length;
+  const praise = ['✓ exactly.', '✓ that\'s it.', '✓ chef\'s kiss.', '✓ nailed it.', '✓ great reading.'];
+
+  items.forEach((item, idx) => {
+    const correct = item.dataset.correct;
+    const opts = item.querySelectorAll('.mc-opt');
+    const fb = item.querySelector('.mc-feedback');
+    const itemId = 'mc-' + idx;
+
+    opts.forEach(opt => {
+      opt.addEventListener('click', ()=>{
+        if(seenItems.has(itemId)) return;
+        const letter = opt.dataset.letter;
+        if(letter === correct){
+          opt.classList.add('correct');
+          opts.forEach(o => o.classList.add('disabled'));
+          fb.textContent = praise[Math.floor(Math.random()*praise.length)];
+          fb.classList.remove('bad');
+          fb.classList.add('show');
+          seenItems.add(itemId);
+          correctAnswers++;
+          const r = opt.getBoundingClientRect();
+          confetti(r.left + r.width/2);
+          updateProgress();
+        } else {
+          opt.classList.add('wrong','disabled');
+          fb.textContent = '✗ go back and re-read that paragraph';
+          fb.classList.add('show','bad');
+        }
+      });
+    });
+  });
+})();
+
+// ===== Vocab card reveals =====
+(function(){
+  document.querySelectorAll('.vocab-card').forEach(card => {
+    card.addEventListener('click', ()=>{
+      card.classList.toggle('open');
+    });
+  });
+})();
+
+// ===== Init progress =====
+updateProgress();
+
+// ===== Reveal sections on scroll =====
+const observer = new IntersectionObserver((entries)=>{
+  entries.forEach(e => {
+    if(e.isIntersecting){
+      e.target.style.opacity = 1;
+      e.target.style.transform = 'translateY(0)';
+    }
+  });
+}, { threshold: 0.06 });
+
+document.querySelectorAll('.section').forEach(s => {
+  s.style.opacity = 0;
+  s.style.transform = 'translateY(28px)';
+  s.style.transition = 'opacity .9s ease, transform .9s cubic-bezier(.2,.7,.2,1)';
+  observer.observe(s);
+});
+
+</script>
+</body>
+</html>
