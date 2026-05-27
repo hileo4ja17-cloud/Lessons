@@ -1,0 +1,1679 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unit 4.1 · Vocabulary · Homework</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400&family=Outfit:wght@300;400;500;600;700;800&family=Caveat:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<style>
+
+:root{
+  --cream:    #FAF3EA;
+  --cream-2:  #F4E8D8;
+  --paper:    #FFFCF6;
+  --blush:    #FBD9C7;
+  --blush-2:  #F7C5AC;
+  --peach:    #F4B89F;
+  --peach-2:  #ED9A7A;
+  --pink:     #E89A8A;
+  --pink-2:   #DA7E6E;
+  --rose:     #C26B6B;
+  --rose-2:   #A85555;
+  --plum:     #8B4D5E;
+  --plum-2:   #6E3A4A;
+  --ink:      #3A2E2A;
+  --slate:    #6B5A55;
+  --soft:     #B8A39D;
+
+  --sage:     #A5B89E;
+  --sage-deep: #708A6A;
+  --honey:    #E8C887;
+  --gold-deep:#B88E3D;
+
+  --shadow-sm: 0 2px 6px rgba(139,77,94,.08);
+  --shadow-md: 0 8px 22px rgba(139,77,94,.12);
+  --shadow-lg: 0 22px 52px rgba(139,77,94,.18);
+
+  --display: 'Fraunces', Georgia, serif;
+  --body:    'Outfit', system-ui, sans-serif;
+  --hand:    'Caveat', cursive;
+}
+
+*{ box-sizing: border-box; margin: 0; padding: 0;}
+html{ scroll-behavior: smooth;}
+
+body{
+  font-family: var(--body);
+  background: var(--cream);
+  background-image:
+    radial-gradient(circle at 8% 5%, rgba(244,184,159,.30), transparent 38%),
+    radial-gradient(circle at 92% 12%, rgba(251,217,199,.40), transparent 40%),
+    radial-gradient(circle at 12% 88%, rgba(232,200,135,.20), transparent 42%),
+    radial-gradient(circle at 88% 90%, rgba(194,107,107,.18), transparent 40%);
+  color: var(--ink);
+  line-height: 1.55;
+  font-weight: 400;
+  min-height: 100vh;
+  padding-bottom: 80px;
+}
+
+body::before{
+  content: "";
+  position: fixed; inset: 0;
+  background-image: radial-gradient(rgba(139,77,94,.04) 1px, transparent 1px);
+  background-size: 22px 22px;
+  pointer-events: none;
+  z-index: 0;
+  opacity: .55;
+}
+
+.wrap{
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 24px 24px 40px;
+  position: relative;
+  z-index: 1;
+}
+
+/* ============ STICKY HEADER ============ */
+.page-header{
+  position: sticky;
+  top: 14px;
+  z-index: 60;
+  background: rgba(255,252,246,.94);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(194,107,107,.18);
+  border-radius: 26px;
+  padding: 18px 24px 16px;
+  box-shadow: var(--shadow-md);
+  margin-bottom: 32px;
+}
+.header-inner{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+.title-block{
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.mascot{
+  width: 64px; height: 64px;
+  flex-shrink: 0;
+}
+.mascot svg{ width: 100%; height: 100%;}
+.title-block h1{
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: clamp(22px, 3vw, 28px);
+  color: var(--plum);
+  letter-spacing: -.5px;
+  line-height: 1.1;
+}
+.title-block h1 em{
+  font-style: italic;
+  font-weight: 500;
+  color: var(--rose);
+}
+.title-block .subline{
+  font-family: var(--hand);
+  font-size: 18px;
+  color: var(--rose);
+  margin-top: 2px;
+}
+
+.action-bar{
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.btn-action{
+  font-family: var(--body);
+  font-weight: 600;
+  font-size: 13px;
+  padding: 9px 16px;
+  background: var(--paper);
+  border: 1.5px solid var(--blush-2);
+  color: var(--plum);
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all .2s ease;
+  letter-spacing: .3px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.btn-action:hover:not(:disabled){
+  background: var(--blush);
+  border-color: var(--rose);
+  transform: translateY(-1px);
+}
+.btn-action:disabled{
+  opacity: .45;
+  cursor: not-allowed;
+}
+.btn-action.btn-primary{
+  background: var(--rose);
+  color: var(--paper);
+  border-color: var(--rose-2);
+}
+.btn-action.btn-primary:hover:not(:disabled){
+  background: var(--rose-2);
+}
+.btn-action.btn-primary.ready{
+  background: var(--sage-deep);
+  border-color: var(--sage-deep);
+  animation: pulse 1.6s ease-in-out infinite;
+}
+@keyframes pulse{
+  0%, 100%{ box-shadow: 0 0 0 0 rgba(112,138,106,.5);}
+  50%{ box-shadow: 0 0 0 10px rgba(112,138,106,0);}
+}
+.btn-action.btn-soft{
+  background: transparent;
+  border-color: var(--soft);
+  color: var(--slate);
+}
+.btn-action.btn-soft:hover{
+  background: var(--cream-2);
+  border-color: var(--rose);
+  color: var(--plum);
+}
+
+.progress-row{
+  margin-top: 14px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.progress-bar{
+  flex: 1;
+  height: 7px;
+  background: var(--cream-2);
+  border-radius: 999px;
+  overflow: hidden;
+}
+.progress-fill{
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--blush-2), var(--rose), var(--plum));
+  border-radius: 999px;
+  transition: width .5s cubic-bezier(.2,.7,.2,1);
+}
+.progress-text{
+  font-family: var(--body);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--plum);
+  white-space: nowrap;
+}
+.progress-text .frac{ color: var(--rose);}
+
+/* ============ EXERCISE BLOCK ============ */
+.exercise{
+  background: var(--paper);
+  border-radius: 24px;
+  padding: 34px 36px 32px;
+  margin-bottom: 26px;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid rgba(244,184,159,.40);
+  position: relative;
+  break-inside: avoid;
+}
+.exercise.done{
+  border-color: var(--sage);
+  box-shadow: 0 4px 18px rgba(112,138,106,.14);
+}
+.exercise::before{
+  content: "";
+  position: absolute;
+  top: 20px; right: 20px;
+  width: 26px; height: 26px;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M12 2C9 4 8 6 8 8s2 4 4 4 4-2 4-4-1-4-4-6z' fill='%23E89A8A' opacity='.25'/></svg>");
+  background-size: contain;
+  background-repeat: no-repeat;
+  opacity: .6;
+}
+.exercise-num{
+  position: absolute;
+  top: -16px; left: 28px;
+  background: var(--rose);
+  color: var(--paper);
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 19px;
+  width: 38px; height: 38px;
+  border-radius: 50%;
+  display: grid; place-items: center;
+  box-shadow: var(--shadow-sm);
+  z-index: 2;
+}
+.exercise.done .exercise-num{ background: var(--sage-deep);}
+.exercise-title{
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: clamp(18px, 2vw, 22px);
+  color: var(--ink);
+  margin-bottom: 8px;
+  padding-left: 14px;
+  letter-spacing: -.3px;
+}
+.exercise-hint{
+  font-family: var(--hand);
+  font-size: 17px;
+  color: var(--rose);
+  padding-left: 14px;
+  margin-bottom: 20px;
+}
+
+/* ============ EX 1: PHOTOS + WORD BANK ============ */
+.word-bank{
+  background: var(--cream-2);
+  border-radius: 16px;
+  padding: 14px 18px;
+  display: flex; flex-wrap: wrap; gap: 8px;
+  margin-bottom: 22px;
+  border: 1.5px dashed var(--peach);
+  position: relative;
+}
+.word-bank::before{
+  content: "word box ✿";
+  position: absolute;
+  top: -10px; left: 18px;
+  background: var(--paper);
+  padding: 0 8px;
+  font-family: var(--hand);
+  font-size: 15px;
+  color: var(--rose);
+}
+.word-chip{
+  font-family: var(--body);
+  font-weight: 600;
+  font-size: 14px;
+  padding: 7px 16px;
+  background: var(--paper);
+  border: 1.5px solid var(--peach);
+  color: var(--plum);
+  border-radius: 999px;
+  cursor: pointer;
+  user-select: none;
+  transition: all .2s;
+}
+.word-chip:hover{
+  background: var(--blush);
+  border-color: var(--rose);
+  transform: translateY(-1px);
+}
+.word-chip.selected{
+  background: var(--rose);
+  color: var(--paper);
+  border-color: var(--rose-2);
+}
+.word-chip.used{
+  opacity: .35;
+  text-decoration: line-through;
+  cursor: default;
+  pointer-events: none;
+}
+.word-chip.used em{
+  font-style: italic;
+  color: var(--slate);
+  text-decoration: none;
+  font-weight: 500;
+  margin-left: 4px;
+}
+
+.photo-grid{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+@media (max-width: 720px){ .photo-grid{ grid-template-columns: repeat(2, 1fr);}}
+@media (max-width: 480px){ .photo-grid{ grid-template-columns: 1fr;}}
+
+.photo-card{
+  background: var(--cream-2);
+  border-radius: 16px;
+  padding: 16px;
+  border: 1.5px solid var(--blush);
+  position: relative;
+  transition: transform .2s ease;
+}
+.photo-card:hover{ transform: translateY(-2px);}
+.photo-card.example{
+  background: var(--blush);
+  border-color: var(--peach);
+}
+.photo-card .photo-num{
+  position: absolute;
+  top: 8px; left: 12px;
+  font-family: var(--display);
+  font-weight: 700;
+  color: var(--rose);
+  font-size: 15px;
+  font-style: italic;
+}
+.photo-card .ex-tag{
+  position: absolute;
+  top: 8px; right: 10px;
+  font-family: var(--hand);
+  font-size: 13px;
+  color: var(--rose);
+  background: var(--paper);
+  padding: 1px 8px;
+  border-radius: 999px;
+  border: 1px solid var(--peach);
+}
+.photo-icon{
+  width: 100%;
+  aspect-ratio: 1.2;
+  display: grid;
+  place-items: center;
+  background: var(--paper);
+  border-radius: 10px;
+  margin-bottom: 10px;
+  color: var(--plum);
+  border: 1px solid rgba(244,184,159,.4);
+}
+.photo-icon svg{ width: 65%; height: 65%;}
+.photo-label{
+  background: var(--paper);
+  border: 1.5px dashed var(--peach);
+  border-radius: 10px;
+  padding: 9px 12px;
+  text-align: center;
+  font-family: var(--body);
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--slate);
+  cursor: pointer;
+  min-height: 38px;
+  transition: all .2s;
+  user-select: none;
+}
+.photo-label.empty{ font-style: italic; color: var(--soft); font-weight: 400; font-size: 13px;}
+.photo-label:hover:not(.locked){ background: var(--blush);}
+.photo-label.filled{
+  background: var(--blush);
+  border-style: solid;
+  border-color: var(--peach-2);
+  color: var(--plum);
+  font-style: normal;
+}
+.photo-label.locked{
+  background: var(--peach);
+  border-style: solid;
+  border-color: var(--peach-2);
+  color: var(--paper);
+  cursor: default;
+}
+.photo-label.correct{
+  background: var(--sage);
+  border-color: var(--sage-deep);
+  color: var(--paper);
+}
+.photo-label.wrong{
+  background: #F0CFC1;
+  border-color: var(--rose-2);
+  color: var(--rose-2);
+}
+.photo-label.wrong::after{
+  content: " (try again)";
+  font-size: 12px;
+  font-style: italic;
+  opacity: .8;
+}
+
+/* ============ EX 2: SENTENCE COMPLETION ============ */
+.sentence-row{
+  background: var(--cream-2);
+  border-radius: 12px;
+  padding: 14px 18px;
+  margin-bottom: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  font-family: var(--display);
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--ink);
+}
+.sentence-row .num{
+  font-family: var(--display);
+  font-weight: 700;
+  color: var(--rose);
+  font-style: italic;
+  flex-shrink: 0;
+  min-width: 18px;
+}
+.sentence-row .text{ flex: 1; min-width: 200px;}
+.sentence-row .partial{
+  font-family: 'Courier New', monospace;
+  font-size: 15px;
+  background: var(--paper);
+  color: var(--plum);
+  padding: 3px 10px;
+  border-radius: 6px;
+  letter-spacing: 1px;
+  border: 1px dashed var(--peach);
+}
+.word-input{
+  font-family: var(--body);
+  font-weight: 500;
+  font-size: 15px;
+  padding: 8px 14px;
+  background: var(--paper);
+  border: 1.5px solid var(--peach);
+  border-radius: 10px;
+  color: var(--plum);
+  outline: none;
+  min-width: 150px;
+  transition: all .2s;
+}
+.word-input:focus{
+  border-color: var(--rose);
+  background: var(--blush);
+}
+.word-input.filled{
+  background: var(--blush);
+  border-color: var(--peach-2);
+}
+.word-input.correct{
+  background: var(--sage);
+  border-color: var(--sage-deep);
+  color: var(--paper);
+  font-weight: 600;
+}
+.word-input.wrong{
+  background: #F0CFC1;
+  border-color: var(--rose-2);
+  color: var(--rose-2);
+}
+
+/* ============ EX 3: DIALOGUE ============ */
+.dialogue{
+  background: var(--cream-2);
+  border-radius: 18px;
+  padding: 24px 28px;
+  border: 1px solid var(--blush);
+  font-family: var(--display);
+  font-size: 16.5px;
+  line-height: 1.75;
+  color: var(--ink);
+}
+.dialogue .line{
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  margin-bottom: 10px;
+}
+.dialogue .line .speaker{
+  font-family: var(--body);
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: .5px;
+  padding: 2px 10px;
+  border-radius: 999px;
+  flex-shrink: 0;
+  margin-top: 2px;
+  min-width: 56px;
+  text-align: center;
+}
+.dialogue .line.pam .speaker{ background: var(--rose); color: var(--paper);}
+.dialogue .line.dad .speaker{ background: var(--plum); color: var(--paper);}
+.dialogue .line .text{ flex: 1;}
+.dialogue .narration{
+  font-family: var(--hand);
+  color: var(--slate);
+  font-size: 16px;
+  text-align: center;
+  margin: 14px 0;
+  font-style: italic;
+}
+
+.choice-pair{
+  display: inline-flex;
+  gap: 4px;
+  align-items: center;
+  font-size: 15px;
+  background: var(--paper);
+  padding: 2px 6px;
+  border-radius: 999px;
+  border: 1.5px solid var(--peach);
+  margin: 0 2px;
+}
+.choice-pair .choice{
+  font-family: var(--body);
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 999px;
+  cursor: pointer;
+  user-select: none;
+  color: var(--slate);
+  transition: all .2s;
+}
+.choice-pair .choice:hover{ background: var(--blush);}
+.choice-pair .choice.selected{
+  background: var(--rose);
+  color: var(--paper);
+}
+.choice-pair .slash{ color: var(--soft); font-size: 13px;}
+.choice-pair.correct .choice.selected{
+  background: var(--sage-deep);
+}
+.choice-pair.wrong .choice.selected{
+  background: var(--rose-2);
+}
+.choice-pair.wrong .choice.was-correct{
+  background: var(--sage);
+  color: var(--paper);
+}
+
+/* ============ EX 4: WORD GROUPS BY ROOM ============ */
+.rooms{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 18px;
+}
+.room{
+  background: var(--cream-2);
+  border-radius: 18px;
+  padding: 20px 22px 22px;
+  border: 1.5px solid var(--blush);
+}
+.room h3{
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: 19px;
+  color: var(--plum);
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.room h3 .emo{ font-size: 22px;}
+.room-item{
+  background: var(--paper);
+  border-radius: 10px;
+  padding: 10px 14px;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.room-item .hint{
+  font-family: 'Courier New', monospace;
+  font-size: 14px;
+  color: var(--rose);
+  letter-spacing: 1.5px;
+  flex-shrink: 0;
+  background: var(--cream-2);
+  padding: 3px 10px;
+  border-radius: 6px;
+}
+.room-item input{
+  flex: 1;
+  min-width: 130px;
+  font-family: var(--body);
+  font-weight: 500;
+  font-size: 14px;
+  padding: 7px 11px;
+  background: var(--cream);
+  border: 1.5px solid var(--blush-2);
+  border-radius: 8px;
+  color: var(--plum);
+  outline: none;
+}
+.room-item input:focus{ border-color: var(--rose);}
+.room-item input.filled{ background: var(--blush);}
+.room-item input.correct{
+  background: var(--sage);
+  border-color: var(--sage-deep);
+  color: var(--paper);
+  font-weight: 600;
+}
+.room-item input.wrong{
+  background: #F0CFC1;
+  border-color: var(--rose-2);
+  color: var(--rose-2);
+}
+.room-item input:disabled{
+  background: var(--peach);
+  border-color: var(--peach-2);
+  color: var(--paper);
+  font-weight: 600;
+  cursor: default;
+}
+.room-item .ex-tag{
+  font-family: var(--hand);
+  font-size: 13px;
+  color: var(--rose);
+  background: var(--blush);
+  padding: 1px 8px;
+  border-radius: 999px;
+  border: 1px solid var(--peach);
+}
+
+/* ============ RESULTS OVERLAY ============ */
+.results-overlay{
+  position: fixed;
+  inset: 0;
+  background: rgba(58, 46, 42, .55);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  animation: fadeIn .25s ease;
+}
+.results-overlay[hidden]{ display: none;}
+@keyframes fadeIn{ from{ opacity: 0;} to{ opacity: 1;}}
+.results-card{
+  background: var(--paper);
+  border-radius: 28px;
+  padding: 42px 44px 32px;
+  max-width: 520px;
+  width: 100%;
+  text-align: center;
+  box-shadow: var(--shadow-lg);
+  position: relative;
+  animation: popIn .35s cubic-bezier(.2,.8,.2,1);
+}
+@keyframes popIn{
+  from{ transform: scale(.85); opacity: 0;}
+  to{ transform: scale(1); opacity: 1;}
+}
+.results-card .res-mascot{
+  width: 110px; height: 110px;
+  margin: 0 auto 8px;
+}
+.results-card .res-mascot svg{ width: 100%; height: 100%;}
+.results-card h2{
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 28px;
+  color: var(--plum);
+  margin-bottom: 8px;
+}
+.results-card .score-big{
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 60px;
+  color: var(--rose);
+  line-height: 1;
+  margin: 14px 0;
+  letter-spacing: -2px;
+}
+.results-card .score-big .total{
+  font-size: 32px;
+  color: var(--slate);
+  font-weight: 500;
+}
+.results-card .res-message{
+  font-family: var(--display);
+  font-style: italic;
+  font-size: 18px;
+  color: var(--ink);
+  margin-bottom: 22px;
+  line-height: 1.4;
+}
+.res-breakdown{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+.res-breakdown .item{
+  background: var(--cream-2);
+  border-radius: 12px;
+  padding: 10px 14px;
+  font-family: var(--body);
+  font-size: 13px;
+  color: var(--plum);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+.res-breakdown .item .ex-label{ font-weight: 600;}
+.res-breakdown .item .ex-score{
+  font-family: var(--display);
+  font-weight: 700;
+  color: var(--rose);
+}
+.res-breakdown .item.perfect .ex-score{ color: var(--sage-deep);}
+.res-buttons{
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.res-buttons button{
+  font-family: var(--body);
+  font-weight: 600;
+  font-size: 14px;
+  padding: 10px 22px;
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all .2s;
+}
+.res-buttons .btn-close{
+  background: var(--cream-2);
+  color: var(--plum);
+}
+.res-buttons .btn-close:hover{ background: var(--blush);}
+.res-buttons .btn-save{
+  background: var(--rose);
+  color: var(--paper);
+}
+.res-buttons .btn-save:hover{ background: var(--rose-2);}
+
+/* ============ FOOTER ============ */
+.page-footer{
+  text-align: center;
+  padding: 30px 20px;
+  font-family: var(--hand);
+  color: var(--slate);
+  font-size: 18px;
+}
+.page-footer .paws{
+  margin: 12px 0;
+  font-size: 22px;
+  letter-spacing: 14px;
+  color: var(--peach);
+}
+
+/* confetti */
+.confetti{
+  position: fixed;
+  top: -20px;
+  width: 10px; height: 14px;
+  pointer-events: none;
+  z-index: 999;
+  border-radius: 2px;
+  animation: confetti 1.4s ease-out forwards;
+}
+@keyframes confetti{
+  0%{ transform: translateY(0) rotate(0); opacity: 1;}
+  100%{ transform: translateY(110vh) rotate(720deg); opacity: 0;}
+}
+
+/* ============ PRINT STYLES ============ */
+@media print{
+  body{
+    background: white;
+    padding: 0;
+  }
+  body::before{ display: none;}
+  .wrap{ max-width: 100%; padding: 0;}
+  .page-header{
+    position: static;
+    background: white;
+    box-shadow: none;
+    border: 2px solid var(--rose);
+    page-break-after: avoid;
+  }
+  .action-bar, .progress-row, .btn-action{ display: none !important;}
+  .exercise{
+    box-shadow: none;
+    border: 1.5px solid #ddd;
+    page-break-inside: avoid;
+    margin-bottom: 18px;
+  }
+  .word-chip{ break-inside: avoid;}
+  .photo-grid{ grid-template-columns: repeat(3, 1fr);}
+  .page-footer{ break-inside: avoid;}
+  .word-input, .room-item input{
+    background: white !important;
+    color: var(--plum) !important;
+  }
+  .word-input.correct, .room-item input.correct{
+    background: #d8e6cf !important;
+    color: var(--ink) !important;
+  }
+  .results-overlay{ display: none !important;}
+  .confetti{ display: none !important;}
+}
+
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <!-- ============ STICKY HEADER ============ -->
+  <header class="page-header" id="pageHeader">
+    <div class="header-inner">
+      <div class="title-block">
+        <div class="mascot" id="mascot">
+          <!-- Sphynx SVG -->
+          <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <!-- Ears -->
+            <path d="M22,40 L16,8 L42,30 Z" fill="#F4B89F" stroke="#8B4D5E" stroke-width="1.6" stroke-linejoin="round"/>
+            <path d="M78,40 L84,8 L58,30 Z" fill="#F4B89F" stroke="#8B4D5E" stroke-width="1.6" stroke-linejoin="round"/>
+            <path d="M26,36 L21,16 L38,30 Z" fill="#E89A8A"/>
+            <path d="M74,36 L79,16 L62,30 Z" fill="#E89A8A"/>
+            <!-- Head -->
+            <ellipse cx="50" cy="60" rx="33" ry="29" fill="#F4B89F" stroke="#8B4D5E" stroke-width="1.6"/>
+            <!-- Wrinkles -->
+            <path d="M30,50 Q50,44 70,50" fill="none" stroke="#8B4D5E" stroke-width=".9" opacity=".35"/>
+            <path d="M32,55 Q50,49 68,55" fill="none" stroke="#8B4D5E" stroke-width=".9" opacity=".35"/>
+            <!-- Eyes (default open) -->
+            <g id="mascot-eyes">
+              <ellipse cx="38" cy="61" rx="3.6" ry="6" fill="#3A2E2A"/>
+              <ellipse cx="62" cy="61" rx="3.6" ry="6" fill="#3A2E2A"/>
+              <circle cx="39.4" cy="59" r="1.4" fill="white"/>
+              <circle cx="63.4" cy="59" r="1.4" fill="white"/>
+            </g>
+            <!-- Nose -->
+            <path d="M46,71 L54,71 L50,76 Z" fill="#E89A8A" stroke="#8B4D5E" stroke-width="1" stroke-linejoin="round"/>
+            <!-- Mouth (default slight smile) -->
+            <g id="mascot-mouth">
+              <path d="M50,76 Q44,80 42,78" fill="none" stroke="#8B4D5E" stroke-width="1.4" stroke-linecap="round"/>
+              <path d="M50,76 Q56,80 58,78" fill="none" stroke="#8B4D5E" stroke-width="1.4" stroke-linecap="round"/>
+            </g>
+            <!-- Whiskers -->
+            <line x1="20" y1="70" x2="34" y2="72" stroke="#8B4D5E" stroke-width=".9" stroke-linecap="round" opacity=".55"/>
+            <line x1="20" y1="76" x2="34" y2="74" stroke="#8B4D5E" stroke-width=".9" stroke-linecap="round" opacity=".55"/>
+            <line x1="80" y1="70" x2="66" y2="72" stroke="#8B4D5E" stroke-width=".9" stroke-linecap="round" opacity=".55"/>
+            <line x1="80" y1="76" x2="66" y2="74" stroke="#8B4D5E" stroke-width=".9" stroke-linecap="round" opacity=".55"/>
+          </svg>
+        </div>
+        <div>
+          <h1>Unit 4.1 · <em>Vocabulary</em></h1>
+          <div class="subline">household devices &amp; gadgets ✦</div>
+        </div>
+      </div>
+      <div class="action-bar">
+        <button class="btn-action" onclick="printPage()">🖨️ Print</button>
+        <button class="btn-action" onclick="downloadImage()">📸 Save as image</button>
+        <button class="btn-action btn-soft" onclick="resetAll()">↻ Reset</button>
+        <button class="btn-action btn-primary" id="checkBtn" disabled onclick="checkAnswers()">✓ Check answers</button>
+      </div>
+    </div>
+    <div class="progress-row">
+      <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+      <div class="progress-text"><span class="frac" id="progressFrac">0 / 25</span> done</div>
+    </div>
+  </header>
+
+  <main id="captureArea">
+
+    <!-- ============ EX 1 ============ -->
+    <section class="exercise" id="ex1">
+      <div class="exercise-num">1</div>
+      <h2 class="exercise-title">Label the photos with the words from the box.</h2>
+      <div class="exercise-hint">tap a word ✿ then tap a photo's label area</div>
+
+      <div class="word-bank" id="wordBank">
+        <span class="word-chip used" data-word="electric toothbrush">electric toothbrush <em>(example)</em></span>
+        <span class="word-chip" data-word="DVD player">DVD player</span>
+        <span class="word-chip" data-word="games console">games console</span>
+        <span class="word-chip" data-word="microwave oven">microwave oven</span>
+        <span class="word-chip" data-word="remote control">remote control</span>
+        <span class="word-chip" data-word="smart TV">smart TV</span>
+      </div>
+
+      <div class="photo-grid" id="photoGrid">
+
+        <!-- 1: example - electric toothbrush -->
+        <div class="photo-card example" data-correct="electric toothbrush">
+          <span class="photo-num">1</span>
+          <span class="ex-tag">example</span>
+          <div class="photo-icon">
+            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+              <line x1="38" y1="6" x2="38" y2="14" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+              <line x1="44" y1="4" x2="44" y2="14" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+              <line x1="50" y1="3" x2="50" y2="14" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+              <line x1="56" y1="4" x2="56" y2="14" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+              <line x1="62" y1="6" x2="62" y2="14" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+              <rect x="32" y="14" width="36" height="14" rx="3" fill="currentColor"/>
+              <rect x="42" y="28" width="16" height="58" rx="4" fill="currentColor"/>
+              <circle cx="50" cy="50" r="5" fill="none" stroke="white" stroke-width="2"/>
+              <line x1="42" y1="62" x2="58" y2="62" stroke="white" stroke-width="1.2" opacity=".7"/>
+              <line x1="42" y1="68" x2="58" y2="68" stroke="white" stroke-width="1.2" opacity=".7"/>
+            </svg>
+          </div>
+          <div class="photo-label locked filled">electric toothbrush</div>
+        </div>
+
+        <!-- 2: remote control -->
+        <div class="photo-card" data-correct="remote control">
+          <span class="photo-num">2</span>
+          <div class="photo-icon">
+            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+              <rect x="32" y="8" width="36" height="82" rx="6" fill="none" stroke="currentColor" stroke-width="3"/>
+              <circle cx="50" cy="22" r="4" fill="currentColor"/>
+              <text x="50" y="34" text-anchor="middle" font-family="serif" font-size="6" fill="currentColor" opacity=".7">PWR</text>
+              <circle cx="42" cy="44" r="3" fill="currentColor"/>
+              <circle cx="58" cy="44" r="3" fill="currentColor"/>
+              <circle cx="50" cy="44" r="3" fill="currentColor"/>
+              <rect x="40" y="55" width="20" height="3" rx="1" fill="currentColor"/>
+              <rect x="40" y="62" width="20" height="3" rx="1" fill="currentColor"/>
+              <rect x="40" y="69" width="20" height="3" rx="1" fill="currentColor"/>
+              <rect x="40" y="76" width="20" height="3" rx="1" fill="currentColor"/>
+              <rect x="40" y="83" width="20" height="3" rx="1" fill="currentColor"/>
+            </svg>
+          </div>
+          <div class="photo-label empty" data-slot="2">tap to add a label</div>
+        </div>
+
+        <!-- 3: games console -->
+        <div class="photo-card" data-correct="games console">
+          <span class="photo-num">3</span>
+          <div class="photo-icon">
+            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+              <path d="M18,42 Q18,30 30,30 L70,30 Q82,30 82,42 L82,62 Q82,76 68,76 L62,68 L38,68 L32,76 Q18,76 18,62 Z" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/>
+              <rect x="28" y="46" width="14" height="3" rx="1" fill="currentColor"/>
+              <rect x="33" y="41" width="3" height="14" rx="1" fill="currentColor"/>
+              <circle cx="62" cy="44" r="2.5" fill="currentColor"/>
+              <circle cx="70" cy="52" r="2.5" fill="currentColor"/>
+              <circle cx="62" cy="60" r="2.5" fill="currentColor"/>
+              <circle cx="54" cy="52" r="2.5" fill="currentColor"/>
+            </svg>
+          </div>
+          <div class="photo-label empty" data-slot="3">tap to add a label</div>
+        </div>
+
+        <!-- 4: microwave oven -->
+        <div class="photo-card" data-correct="microwave oven">
+          <span class="photo-num">4</span>
+          <div class="photo-icon">
+            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+              <rect x="8" y="22" width="84" height="58" rx="4" fill="none" stroke="currentColor" stroke-width="3"/>
+              <rect x="13" y="27" width="54" height="48" rx="2" fill="none" stroke="currentColor" stroke-width="1.5"/>
+              <circle cx="40" cy="55" r="9" fill="currentColor" opacity=".25"/>
+              <ellipse cx="40" cy="52" rx="6" ry="2" fill="currentColor" opacity=".55"/>
+              <rect x="72" y="30" width="16" height="9" rx="2" fill="currentColor" opacity=".35"/>
+              <text x="80" y="37" text-anchor="middle" font-family="monospace" font-size="6" fill="currentColor">0:30</text>
+              <circle cx="76" cy="48" r="1.8" fill="currentColor"/>
+              <circle cx="84" cy="48" r="1.8" fill="currentColor"/>
+              <circle cx="76" cy="55" r="1.8" fill="currentColor"/>
+              <circle cx="84" cy="55" r="1.8" fill="currentColor"/>
+              <rect x="73" y="63" width="14" height="6" rx="1.5" fill="currentColor"/>
+            </svg>
+          </div>
+          <div class="photo-label empty" data-slot="4">tap to add a label</div>
+        </div>
+
+        <!-- 5: DVD player -->
+        <div class="photo-card" data-correct="DVD player">
+          <span class="photo-num">5</span>
+          <div class="photo-icon">
+            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="50" cy="50" r="36" fill="none" stroke="currentColor" stroke-width="3"/>
+              <circle cx="50" cy="50" r="26" fill="none" stroke="currentColor" stroke-width=".8" opacity=".5"/>
+              <circle cx="50" cy="50" r="18" fill="none" stroke="currentColor" stroke-width=".8" opacity=".5"/>
+              <circle cx="50" cy="50" r="10" fill="none" stroke="currentColor" stroke-width=".8" opacity=".5"/>
+              <circle cx="50" cy="50" r="6" fill="currentColor"/>
+              <circle cx="50" cy="50" r="2.5" fill="white"/>
+              <path d="M30,38 Q50,30 70,38" fill="none" stroke="currentColor" stroke-width="1.5" opacity=".35"/>
+              <path d="M28,46 Q50,40 72,46" fill="none" stroke="currentColor" stroke-width="1" opacity=".25"/>
+              <text x="50" y="93" text-anchor="middle" font-family="sans-serif" font-weight="bold" font-size="9" fill="currentColor" opacity=".7">DVD</text>
+            </svg>
+          </div>
+          <div class="photo-label empty" data-slot="5">tap to add a label</div>
+        </div>
+
+        <!-- 6: smart TV -->
+        <div class="photo-card" data-correct="smart TV">
+          <span class="photo-num">6</span>
+          <div class="photo-icon">
+            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+              <rect x="10" y="18" width="80" height="55" rx="4" fill="none" stroke="currentColor" stroke-width="3"/>
+              <rect x="17" y="24" width="14" height="11" rx="2" fill="currentColor" opacity=".7"/>
+              <rect x="35" y="24" width="14" height="11" rx="2" fill="currentColor" opacity=".4"/>
+              <rect x="53" y="24" width="14" height="11" rx="2" fill="currentColor" opacity=".7"/>
+              <rect x="71" y="24" width="12" height="11" rx="2" fill="currentColor" opacity=".4"/>
+              <rect x="17" y="39" width="14" height="11" rx="2" fill="currentColor" opacity=".4"/>
+              <rect x="35" y="39" width="14" height="11" rx="2" fill="currentColor" opacity=".7"/>
+              <rect x="53" y="39" width="14" height="11" rx="2" fill="currentColor" opacity=".4"/>
+              <rect x="71" y="39" width="12" height="11" rx="2" fill="currentColor" opacity=".7"/>
+              <rect x="17" y="54" width="14" height="11" rx="2" fill="currentColor" opacity=".7"/>
+              <rect x="35" y="54" width="14" height="11" rx="2" fill="currentColor" opacity=".4"/>
+              <rect x="53" y="54" width="14" height="11" rx="2" fill="currentColor" opacity=".7"/>
+              <rect x="71" y="54" width="12" height="11" rx="2" fill="currentColor" opacity=".4"/>
+              <rect x="42" y="73" width="16" height="3" fill="currentColor"/>
+              <rect x="30" y="76" width="40" height="3" rx="1" fill="currentColor"/>
+            </svg>
+          </div>
+          <div class="photo-label empty" data-slot="6">tap to add a label</div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ============ EX 2 ============ -->
+    <section class="exercise" id="ex2">
+      <div class="exercise-num">2</div>
+      <h2 class="exercise-title">Complete the words.</h2>
+      <div class="exercise-hint">type just the missing word (no need to retype the whole sentence)</div>
+
+      <div class="ex2-list">
+
+        <div class="sentence-row">
+          <span class="num">1</span>
+          <span class="text">You can watch films and surf the Internet on our new</span>
+          <span class="partial">sm _ a _ rt TV</span>
+          <span class="text">→</span>
+          <input class="word-input" data-q="ex2-1" data-answer="smart" placeholder="type the word">
+          <span class="text">TV</span>
+        </div>
+
+        <div class="sentence-row">
+          <span class="num">2</span>
+          <span class="text">The photos from the party are on this</span>
+          <span class="partial">U _ B _ s _ i _ k _</span>
+          <span class="text">. Do you want to copy them to your computer?</span>
+          <input class="word-input" data-q="ex2-2" data-answer="USB sticks" placeholder="type the word(s)">
+        </div>
+
+        <div class="sentence-row">
+          <span class="num">3</span>
+          <span class="text">There isn't anything interesting on TV. Let's put a film in the</span>
+          <span class="partial">D _ D p _ a _ y _ r</span>
+          <span class="text">to watch.</span>
+          <input class="word-input" data-q="ex2-3" data-answer="DVD player" placeholder="type the word(s)">
+        </div>
+
+        <div class="sentence-row">
+          <span class="num">4</span>
+          <span class="text">The toast is in the</span>
+          <span class="partial">t _ a _ s _ _ r</span>
+          <span class="text">. Be careful, it's hot!</span>
+          <input class="word-input" data-q="ex2-4" data-answer="toaster" placeholder="type the word">
+        </div>
+
+        <div class="sentence-row">
+          <span class="num">5</span>
+          <span class="text">Let's make strawberry milkshakes in the</span>
+          <span class="partial">b _ e _ d _ r</span>
+          <span class="text">.</span>
+          <input class="word-input" data-q="ex2-5" data-answer="blender" placeholder="type the word">
+        </div>
+
+        <div class="sentence-row">
+          <span class="num">6</span>
+          <span class="text">Oh no! My</span>
+          <span class="partial">h _ _ r d _ y _ r</span>
+          <span class="text">isn't working and my hair is wet!</span>
+          <input class="word-input" data-q="ex2-6" data-answer="hair dryer" placeholder="type the word(s)">
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ============ EX 3 ============ -->
+    <section class="exercise" id="ex3">
+      <div class="exercise-num">3</div>
+      <h2 class="exercise-title">Read the dialogue. Click the correct word for each pair.</h2>
+      <div class="exercise-hint">a kitchen story · breakfast goes wrong ✦</div>
+
+      <div class="dialogue" id="dialogue">
+
+        <div class="line pam"><span class="speaker">PAM</span><span class="text">What's for breakfast, Dad?</span></div>
+        <div class="line dad"><span class="speaker">DAD</span><span class="text">Jam on toast. Can you put the bread in the
+          <span class="choice-pair" data-q="ex3-1" data-correct="toaster">
+            <span class="choice" data-val="toaster">toaster</span><span class="slash">/</span><span class="choice" data-val="blender">blender</span>
+          </span>, please?</span></div>
+
+        <div class="line pam"><span class="speaker">PAM</span><span class="text">Sure. Do you want me to turn it
+          <span class="choice-pair" data-q="ex3-2" data-correct="on">
+            <span class="choice" data-val="off">off</span><span class="slash">/</span><span class="choice" data-val="on">on</span>
+          </span> now?</span></div>
+
+        <div class="line dad"><span class="speaker">DAD</span><span class="text">No, I can do it in a minute. But you can
+          <span class="choice-pair" data-q="ex3-3" data-correct="plug it in">
+            <span class="choice" data-val="unplug it">unplug it</span><span class="slash">/</span><span class="choice" data-val="plug it in">plug it in</span>
+          </span>.</span></div>
+
+        <div class="line pam"><span class="speaker">PAM</span><span class="text">Done. Can we have some hot chocolate too?</span></div>
+
+        <div class="line dad"><span class="speaker">DAD</span><span class="text">It isn't a good idea. It's got a lot of sugar in it. But you can have hot milk. Put some milk in the
+          <span class="choice-pair" data-q="ex3-4" data-correct="microwave oven">
+            <span class="choice" data-val="remote control">remote control</span><span class="slash">/</span><span class="choice" data-val="microwave oven">microwave oven</span>
+          </span>.</span></div>
+
+        <div class="line pam"><span class="speaker">PAM</span><span class="text">Oh, OK. Dad, can I check something quickly on your computer? It's for my History lesson.</span></div>
+
+        <div class="line dad"><span class="speaker">DAD</span><span class="text">Yes, but be quick. Breakfast is in five minutes.</span></div>
+
+        <div class="narration">— five minutes later —</div>
+
+        <div class="line pam"><span class="speaker">PAM</span><span class="text">Dad! What's that smell?</span></div>
+
+        <div class="line dad"><span class="speaker">DAD</span><span class="text">There's a problem with the toaster! It didn't turn
+          <span class="choice-pair" data-q="ex3-5" data-correct="off">
+            <span class="choice" data-val="on">on</span><span class="slash">/</span><span class="choice" data-val="off">off</span>
+          </span> and the bread is black now.</span></div>
+
+        <div class="line pam"><span class="speaker">PAM</span><span class="text">Oh no! … Can I have hot chocolate now?</span></div>
+
+      </div>
+    </section>
+
+    <!-- ============ EX 4 ============ -->
+    <section class="exercise" id="ex4">
+      <div class="exercise-num">4</div>
+      <h2 class="exercise-title">Complete the words in each room. How many can you remember?</h2>
+      <div class="exercise-hint">no peeking at exercises 1-3 if you can help it ✿</div>
+
+      <div class="rooms">
+
+        <div class="room">
+          <h3><span class="emo">🍳</span> Kitchen</h3>
+
+          <div class="room-item">
+            <span class="hint">b l e n d e r</span>
+            <input type="text" value="blender" disabled>
+            <span class="ex-tag">example</span>
+          </div>
+
+          <div class="room-item">
+            <span class="hint">t _ _ st _ r</span>
+            <input type="text" class="word-input" data-q="ex4-1" data-answer="toaster" placeholder="type the word">
+          </div>
+
+          <div class="room-item">
+            <span class="hint">m _ cr _ w _ v _ &nbsp; _ v _ n</span>
+            <input type="text" class="word-input" data-q="ex4-2" data-answer="microwave oven" placeholder="type the words">
+          </div>
+        </div>
+
+        <div class="room">
+          <h3><span class="emo">🛁</span> Bathroom</h3>
+
+          <div class="room-item">
+            <span class="hint">h _ _ r &nbsp; d _ y _ r</span>
+            <input type="text" class="word-input" data-q="ex4-3" data-answer="hair dryer" placeholder="type the words">
+          </div>
+
+          <div class="room-item">
+            <span class="hint">e _ e c t _ _ c &nbsp; t _ _ thbr _ sh</span>
+            <input type="text" class="word-input" data-q="ex4-4" data-answer="electric toothbrush" placeholder="type the words">
+          </div>
+        </div>
+
+        <div class="room">
+          <h3><span class="emo">🛋️</span> Living room</h3>
+
+          <div class="room-item">
+            <span class="hint">DVD &nbsp; p _ a _ e _</span>
+            <input type="text" class="word-input" data-q="ex4-5" data-answer="DVD player" placeholder="type the words">
+          </div>
+
+          <div class="room-item">
+            <span class="hint">USB &nbsp; s _ _ ck _</span>
+            <input type="text" class="word-input" data-q="ex4-6" data-answer="USB sticks" placeholder="type the words">
+          </div>
+
+          <div class="room-item">
+            <span class="hint">g _ m _ s &nbsp; c _ n _ _ le</span>
+            <input type="text" class="word-input" data-q="ex4-7" data-answer="games console" placeholder="type the words">
+          </div>
+
+          <div class="room-item">
+            <span class="hint">s _ a _ t &nbsp; TV</span>
+            <input type="text" class="word-input" data-q="ex4-8" data-answer="smart TV" placeholder="type the words">
+          </div>
+
+          <div class="room-item">
+            <span class="hint">r _ m _ t _ &nbsp; c _ n _ r _ l</span>
+            <input type="text" class="word-input" data-q="ex4-9" data-answer="remote control" placeholder="type the words">
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="page-footer">
+    <div class="paws">🐾 🐾 🐾 🐾 🐾</div>
+    <div>you got this, sphynx-lover ✿</div>
+  </footer>
+
+</div>
+
+<!-- ============ RESULTS OVERLAY ============ -->
+<div class="results-overlay" id="resultsOverlay" hidden>
+  <div class="results-card">
+    <div class="res-mascot" id="resMascot"></div>
+    <h2 id="resTitle">Results</h2>
+    <div class="score-big"><span id="scoreVal">0</span><span class="total"> / 25</span></div>
+    <div class="res-message" id="resMessage">Great job!</div>
+    <div class="res-breakdown" id="resBreakdown"></div>
+    <div class="res-buttons">
+      <button class="btn-close" onclick="closeResults()">close</button>
+      <button class="btn-save" onclick="closeResults(); downloadImage();">📸 save as image</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* =========================================================
+   GLOBAL STATE
+   ========================================================= */
+const TOTAL_ITEMS = 25;
+let selectedChip = null;
+let isChecked = false;
+
+const labels = {
+  ex1: 'Ex 1 · Labels',
+  ex2: 'Ex 2 · Sentences',
+  ex3: 'Ex 3 · Dialogue',
+  ex4: 'Ex 4 · Word groups'
+};
+
+function normalize(s){
+  return (s||'').toString().toLowerCase().trim().replace(/\s+/g,' ').replace(/[.,!?;:]/g,'');
+}
+
+function confetti(x = window.innerWidth/2){
+  const colors = ['#F4B89F','#E89A8A','#C26B6B','#E8C887','#FBD9C7','#8B4D5E'];
+  for(let i=0;i<26;i++){
+    const c = document.createElement('div');
+    c.className = 'confetti';
+    c.style.background = colors[Math.floor(Math.random()*colors.length)];
+    c.style.left = (x - 80 + Math.random()*160) + 'px';
+    c.style.top = (60 + Math.random()*100) + 'px';
+    c.style.transform = `rotate(${Math.random()*360}deg)`;
+    c.style.animationDuration = (1 + Math.random()*0.8) + 's';
+    document.body.appendChild(c);
+    setTimeout(()=> c.remove(), 1900);
+  }
+}
+
+/* =========================================================
+   EX 1 — LABEL THE PHOTOS
+   ========================================================= */
+(function(){
+  const bank = document.getElementById('wordBank');
+  const grid = document.getElementById('photoGrid');
+  if(!bank || !grid) return;
+
+  bank.querySelectorAll('.word-chip').forEach(chip => {
+    chip.addEventListener('click', ()=>{
+      if(chip.classList.contains('used')) return;
+      if(selectedChip === chip){
+        chip.classList.remove('selected');
+        selectedChip = null;
+        return;
+      }
+      bank.querySelectorAll('.word-chip').forEach(c => c.classList.remove('selected'));
+      chip.classList.add('selected');
+      selectedChip = chip;
+    });
+  });
+
+  grid.querySelectorAll('.photo-card').forEach(card => {
+    const label = card.querySelector('.photo-label');
+    if(!label || label.classList.contains('locked')) return;
+
+    label.addEventListener('click', ()=>{
+      // If already filled and no chip selected, allow clearing
+      if(label.classList.contains('filled') && !selectedChip){
+        const oldWord = label.dataset.assigned;
+        if(oldWord){
+          // return chip to the bank
+          const chip = document.querySelector(`.word-chip[data-word="${oldWord}"]`);
+          if(chip) chip.classList.remove('used');
+        }
+        label.classList.remove('filled','correct','wrong');
+        label.classList.add('empty');
+        label.textContent = 'tap to add a label';
+        delete label.dataset.assigned;
+        updateProgress();
+        return;
+      }
+      if(!selectedChip) return;
+
+      // If label was filled, return previous chip
+      if(label.classList.contains('filled') && label.dataset.assigned){
+        const oldChip = document.querySelector(`.word-chip[data-word="${label.dataset.assigned}"]`);
+        if(oldChip) oldChip.classList.remove('used');
+      }
+
+      const word = selectedChip.dataset.word;
+      label.textContent = word;
+      label.classList.remove('empty','correct','wrong');
+      label.classList.add('filled');
+      label.dataset.assigned = word;
+      selectedChip.classList.add('used');
+      selectedChip.classList.remove('selected');
+      selectedChip = null;
+      updateProgress();
+    });
+  });
+})();
+
+/* =========================================================
+   EX 2 + EX 4 — TEXT INPUTS
+   ========================================================= */
+document.querySelectorAll('.word-input').forEach(inp => {
+  inp.addEventListener('input', ()=>{
+    if(inp.value.trim()){
+      inp.classList.add('filled');
+    } else {
+      inp.classList.remove('filled');
+    }
+    // remove check colors on edit
+    inp.classList.remove('correct','wrong');
+    updateProgress();
+  });
+});
+
+/* =========================================================
+   EX 3 — DIALOGUE CHOICES
+   ========================================================= */
+document.querySelectorAll('.choice-pair').forEach(pair => {
+  pair.querySelectorAll('.choice').forEach(ch => {
+    ch.addEventListener('click', ()=>{
+      pair.querySelectorAll('.choice').forEach(c => c.classList.remove('selected'));
+      ch.classList.add('selected');
+      pair.classList.remove('correct','wrong');
+      pair.querySelectorAll('.choice').forEach(c => c.classList.remove('was-correct'));
+      updateProgress();
+    });
+  });
+});
+
+/* =========================================================
+   PROGRESS TRACKING
+   ========================================================= */
+function countDone(){
+  // Ex 1: labels filled (5 to do, not counting example)
+  const ex1 = document.querySelectorAll('#ex1 .photo-label.filled:not(.locked)').length;
+  // Ex 2: word inputs filled
+  const ex2 = Array.from(document.querySelectorAll('#ex2 .word-input')).filter(i => i.value.trim()).length;
+  // Ex 3: choice pairs with selection
+  const ex3 = document.querySelectorAll('#ex3 .choice-pair .choice.selected').length;
+  // Ex 4: word inputs filled
+  const ex4 = Array.from(document.querySelectorAll('#ex4 .word-input')).filter(i => i.value.trim()).length;
+  return {ex1, ex2, ex3, ex4, total: ex1+ex2+ex3+ex4};
+}
+
+function updateProgress(){
+  const {total} = countDone();
+  const pct = (total / TOTAL_ITEMS) * 100;
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressFrac').textContent = total + ' / ' + TOTAL_ITEMS;
+
+  const allDone = total >= TOTAL_ITEMS;
+  const btn = document.getElementById('checkBtn');
+  if(allDone){
+    btn.disabled = false;
+    btn.classList.add('ready');
+  } else {
+    btn.disabled = true;
+    btn.classList.remove('ready');
+  }
+}
+
+/* =========================================================
+   CHECK ANSWERS
+   ========================================================= */
+function checkAnswers(){
+  const scores = { ex1:{ok:0,total:5}, ex2:{ok:0,total:6}, ex3:{ok:0,total:5}, ex4:{ok:0,total:9} };
+
+  // Ex 1
+  document.querySelectorAll('#ex1 .photo-card').forEach(card => {
+    if(card.classList.contains('example')) return;
+    const label = card.querySelector('.photo-label');
+    const correct = card.dataset.correct;
+    const assigned = label.dataset.assigned;
+    if(assigned === correct){
+      label.classList.remove('wrong');
+      label.classList.add('correct');
+      scores.ex1.ok++;
+    } else if(assigned){
+      label.classList.remove('correct');
+      label.classList.add('wrong');
+    }
+  });
+
+  // Ex 2
+  document.querySelectorAll('#ex2 .word-input').forEach(inp => {
+    const want = normalize(inp.dataset.answer);
+    const got = normalize(inp.value);
+    if(got === want){
+      inp.classList.remove('wrong');
+      inp.classList.add('correct');
+      scores.ex2.ok++;
+    } else if(got){
+      inp.classList.remove('correct');
+      inp.classList.add('wrong');
+    }
+  });
+
+  // Ex 3
+  document.querySelectorAll('#ex3 .choice-pair').forEach(pair => {
+    const correct = pair.dataset.correct;
+    const picked = pair.querySelector('.choice.selected');
+    if(!picked) return;
+    if(picked.dataset.val === correct){
+      pair.classList.remove('wrong');
+      pair.classList.add('correct');
+      scores.ex3.ok++;
+    } else {
+      pair.classList.remove('correct');
+      pair.classList.add('wrong');
+      // mark the actually-correct option
+      pair.querySelectorAll('.choice').forEach(c => {
+        if(c.dataset.val === correct) c.classList.add('was-correct');
+      });
+    }
+  });
+
+  // Ex 4
+  document.querySelectorAll('#ex4 .word-input').forEach(inp => {
+    const want = normalize(inp.dataset.answer);
+    const got = normalize(inp.value);
+    if(got === want){
+      inp.classList.remove('wrong');
+      inp.classList.add('correct');
+      scores.ex4.ok++;
+    } else if(got){
+      inp.classList.remove('correct');
+      inp.classList.add('wrong');
+    }
+  });
+
+  isChecked = true;
+  showResults(scores);
+
+  // mark each section as done
+  ['ex1','ex2','ex3','ex4'].forEach(id => {
+    const section = document.getElementById(id);
+    if(section && scores[id].ok === scores[id].total){
+      section.classList.add('done');
+    }
+  });
+}
+
+/* =========================================================
+   RESULTS OVERLAY
+   ========================================================= */
+function showResults(scores){
+  const total = scores.ex1.ok + scores.ex2.ok + scores.ex3.ok + scores.ex4.ok;
+  document.getElementById('scoreVal').textContent = total;
+
+  const pct = total / TOTAL_ITEMS;
+  let title, message, mascotSvg;
+
+  if(pct >= 1){
+    title = "Purr-fect! 🐾";
+    message = "All 25 right. You've memorised every gadget in the house — your Sphynx is proud.";
+    mascotSvg = sphynxFace('happy');
+    confetti();
+    setTimeout(()=> confetti(window.innerWidth * 0.3), 200);
+    setTimeout(()=> confetti(window.innerWidth * 0.7), 400);
+  } else if(pct >= 0.85){
+    title = "Almost purr-fect!";
+    message = "Just a tiny slip or two. Re-check the ones marked in red and you're there.";
+    mascotSvg = sphynxFace('happy');
+    confetti();
+  } else if(pct >= 0.6){
+    title = "Not bad, kitten.";
+    message = "Solid work. Look at the red items and try them again before you call it homework.";
+    mascotSvg = sphynxFace('neutral');
+  } else {
+    title = "Let's try again.";
+    message = "Don't worry — even the smartest Sphynx needs a second look. Click 'Reset' and go through it once more.";
+    mascotSvg = sphynxFace('sad');
+  }
+
+  document.getElementById('resTitle').textContent = title;
+  document.getElementById('resMessage').textContent = message;
+  document.getElementById('resMascot').innerHTML = mascotSvg;
+
+  const breakdown = document.getElementById('resBreakdown');
+  breakdown.innerHTML = '';
+  ['ex1','ex2','ex3','ex4'].forEach(id => {
+    const div = document.createElement('div');
+    const isPerfect = scores[id].ok === scores[id].total;
+    div.className = 'item' + (isPerfect ? ' perfect' : '');
+    div.innerHTML = `<span class="ex-label">${labels[id]}</span><span class="ex-score">${scores[id].ok} / ${scores[id].total}${isPerfect ? ' ✓' : ''}</span>`;
+    breakdown.appendChild(div);
+  });
+
+  document.getElementById('resultsOverlay').hidden = false;
+}
+
+function closeResults(){
+  document.getElementById('resultsOverlay').hidden = true;
+}
+
+function sphynxFace(mood){
+  // Same base SVG with different eye/mouth based on mood
+  let eyes, mouth;
+  if(mood === 'happy'){
+    eyes = `<path d="M32,60 Q38,54 44,60" fill="none" stroke="#3A2E2A" stroke-width="2.5" stroke-linecap="round"/>
+            <path d="M56,60 Q62,54 68,60" fill="none" stroke="#3A2E2A" stroke-width="2.5" stroke-linecap="round"/>`;
+    mouth = `<path d="M44,76 Q50,82 56,76" fill="none" stroke="#8B4D5E" stroke-width="1.8" stroke-linecap="round"/>`;
+  } else if(mood === 'sad'){
+    eyes = `<ellipse cx="38" cy="61" rx="3.6" ry="6" fill="#3A2E2A"/>
+            <ellipse cx="62" cy="61" rx="3.6" ry="6" fill="#3A2E2A"/>
+            <circle cx="39.4" cy="63" r="1.4" fill="white"/>
+            <circle cx="63.4" cy="63" r="1.4" fill="white"/>`;
+    mouth = `<path d="M44,80 Q50,75 56,80" fill="none" stroke="#8B4D5E" stroke-width="1.8" stroke-linecap="round"/>`;
+  } else {
+    eyes = `<ellipse cx="38" cy="61" rx="3.6" ry="6" fill="#3A2E2A"/>
+            <ellipse cx="62" cy="61" rx="3.6" ry="6" fill="#3A2E2A"/>
+            <circle cx="39.4" cy="59" r="1.4" fill="white"/>
+            <circle cx="63.4" cy="59" r="1.4" fill="white"/>`;
+    mouth = `<path d="M45,78 L55,78" fill="none" stroke="#8B4D5E" stroke-width="1.8" stroke-linecap="round"/>`;
+  }
+  return `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <path d="M22,40 L16,8 L42,30 Z" fill="#F4B89F" stroke="#8B4D5E" stroke-width="1.6" stroke-linejoin="round"/>
+    <path d="M78,40 L84,8 L58,30 Z" fill="#F4B89F" stroke="#8B4D5E" stroke-width="1.6" stroke-linejoin="round"/>
+    <path d="M26,36 L21,16 L38,30 Z" fill="#E89A8A"/>
+    <path d="M74,36 L79,16 L62,30 Z" fill="#E89A8A"/>
+    <ellipse cx="50" cy="60" rx="33" ry="29" fill="#F4B89F" stroke="#8B4D5E" stroke-width="1.6"/>
+    <path d="M30,50 Q50,44 70,50" fill="none" stroke="#8B4D5E" stroke-width=".9" opacity=".35"/>
+    <path d="M32,55 Q50,49 68,55" fill="none" stroke="#8B4D5E" stroke-width=".9" opacity=".35"/>
+    ${eyes}
+    <path d="M46,71 L54,71 L50,76 Z" fill="#E89A8A" stroke="#8B4D5E" stroke-width="1" stroke-linejoin="round"/>
+    ${mouth}
+    <line x1="20" y1="70" x2="34" y2="72" stroke="#8B4D5E" stroke-width=".9" stroke-linecap="round" opacity=".55"/>
+    <line x1="20" y1="76" x2="34" y2="74" stroke="#8B4D5E" stroke-width=".9" stroke-linecap="round" opacity=".55"/>
+    <line x1="80" y1="70" x2="66" y2="72" stroke="#8B4D5E" stroke-width=".9" stroke-linecap="round" opacity=".55"/>
+    <line x1="80" y1="76" x2="66" y2="74" stroke="#8B4D5E" stroke-width=".9" stroke-linecap="round" opacity=".55"/>
+  </svg>`;
+}
+
+/* =========================================================
+   ACTIONS — Print, Download, Reset
+   ========================================================= */
+function printPage(){
+  window.print();
+}
+
+async function downloadImage(){
+  if(typeof html2canvas === 'undefined'){
+    alert('The image library hasn\u2019t loaded. Check your internet connection, or use Print and "Save as PDF" instead.');
+    return;
+  }
+  const target = document.getElementById('captureArea');
+  const btn = event && event.target;
+  const originalText = btn ? btn.textContent : '';
+  if(btn) btn.textContent = '⏳ rendering...';
+
+  try{
+    // Briefly hide selected chip highlight for cleaner shot
+    document.querySelectorAll('.word-chip.selected').forEach(c => c.classList.remove('selected'));
+
+    const canvas = await html2canvas(target, {
+      backgroundColor: '#FAF3EA',
+      scale: 1.8,
+      logging: false,
+      useCORS: true,
+      windowWidth: target.scrollWidth
+    });
+    const link = document.createElement('a');
+    link.download = 'unit_4-1_vocabulary_homework.png';
+    link.href = canvas.toDataURL('image/png');
+    link.click();
+    confetti();
+  } catch(e){
+    console.error(e);
+    alert('Sorry, couldn\u2019t save as image. Try Print instead.');
+  } finally {
+    if(btn) btn.textContent = originalText;
+  }
+}
+
+function resetAll(){
+  if(!confirm('Reset all answers? This can\u2019t be undone.')) return;
+
+  // EX 1 — clear non-locked labels and chip usage
+  document.querySelectorAll('#ex1 .photo-label').forEach(l => {
+    if(l.classList.contains('locked')) return;
+    l.classList.remove('filled','correct','wrong');
+    l.classList.add('empty');
+    l.textContent = 'tap to add a label';
+    delete l.dataset.assigned;
+  });
+  document.querySelectorAll('#ex1 .word-chip').forEach(c => {
+    if(c.dataset.word === 'electric toothbrush') return;
+    c.classList.remove('used','selected');
+  });
+  selectedChip = null;
+
+  // EX 2 + EX 4 inputs
+  document.querySelectorAll('.word-input').forEach(inp => {
+    inp.value = '';
+    inp.classList.remove('filled','correct','wrong');
+  });
+
+  // EX 3 choices
+  document.querySelectorAll('#ex3 .choice-pair').forEach(p => {
+    p.classList.remove('correct','wrong');
+    p.querySelectorAll('.choice').forEach(c => c.classList.remove('selected','was-correct'));
+  });
+
+  // Section done flags
+  document.querySelectorAll('.exercise').forEach(s => s.classList.remove('done'));
+
+  isChecked = false;
+  updateProgress();
+}
+
+// init
+updateProgress();
+</script>
+
+</body>
+</html>
