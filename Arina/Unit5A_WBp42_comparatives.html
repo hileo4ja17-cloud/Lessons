@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Unit 5A WB p.42 — Comparatives and Superlatives</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Caveat:wght@500;600;700&family=Noto+Serif+JP:wght@400;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#f5ead4;--paper-2:#ecdcb8;--paper-3:#e5d2a5;--ink:#1c1c1c;
+  --red:#a8201a;--red-deep:#7c1610;--gold:#b08938;--jade:#3d6c5e;
+  --ok:#2d6a3d;--bad:#8b1f18;--shadow:0 8px 24px -8px rgba(28,16,8,.32);
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{min-height:100vh;font-family:Inter,sans-serif;color:var(--ink);background:var(--paper);overflow-x:hidden}
+body{
+  background-image:
+  radial-gradient(circle at 15% 18%,rgba(168,32,26,.045) 0,transparent 34%),
+  radial-gradient(circle at 85% 80%,rgba(176,137,56,.075) 0,transparent 28%),
+  repeating-linear-gradient(45deg,transparent 0,transparent 78px,rgba(124,22,16,.014) 78px,rgba(124,22,16,.014) 79px),
+  radial-gradient(ellipse at center,var(--paper) 0%,var(--paper-2) 100%);
+}
+body::before{content:'';position:fixed;inset:0;pointer-events:none;opacity:.4;mix-blend-mode:multiply;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3CfeColorMatrix values='0 0 0 0 .4 0 0 0 0 .2 0 0 0 0 .1 0 0 0 .08 0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");z-index:0}
+.wrap{max-width:960px;margin:0 auto;padding:0 22px;position:relative;z-index:2}
+.kanji{position:fixed;font-family:"Noto Serif JP",serif;font-weight:700;color:rgba(168,32,26,.055);pointer-events:none;z-index:1;user-select:none}
+.k1{top:5%;right:-3%;font-size:260px;writing-mode:vertical-rl}.k2{bottom:3%;left:-4%;font-size:230px;writing-mode:vertical-rl}
+header{text-align:center;padding:72px 0 48px}
+.head-line{display:inline-flex;align-items:center;gap:14px;font-family:Caveat,cursive;color:var(--red);font-size:21px;margin-bottom:10px}
+.head-line::before,.head-line::after{content:'';width:42px;height:1px;background:var(--red)}
+h1{font-family:"Cormorant Garamond",serif;font-size:clamp(46px,8vw,86px);line-height:.95;font-weight:600;letter-spacing:-.02em;position:relative;display:inline-block}
+h1 em{color:var(--red);font-weight:500}
+h1::before{content:'';position:absolute;left:-26px;top:-10px;width:78px;height:78px;border-radius:50%;background:var(--red);z-index:-1;opacity:.86;box-shadow:0 0 60px rgba(168,32,26,.34)}
+.subtitle{font-family:Caveat,cursive;color:var(--gold);font-size:29px;margin-top:18px}
+.tip{margin:10px 0 56px;padding:24px 28px;background:linear-gradient(135deg,rgba(168,32,26,.08),rgba(176,137,56,.09));border:1px solid var(--red);border-left:6px solid var(--red);box-shadow:var(--shadow);position:relative}
+.tip::before{content:'✦';position:absolute;top:-15px;left:20px;background:var(--paper);padding:0 9px;color:var(--red);font-size:23px}
+.tip h3{font-family:"Cormorant Garamond",serif;font-size:23px;color:var(--red-deep);font-style:italic;margin-bottom:8px}
+.tip p{line-height:1.65;font-size:15px}
+.exercise{margin:68px 0;animation:rise .75s ease both}
+@keyframes rise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+.ex-head{display:flex;gap:24px;align-items:flex-start;margin-bottom:30px}
+.num{font-family:"Cormorant Garamond",serif;color:var(--red);font-size:78px;line-height:.9;font-weight:700;font-style:italic;position:relative;flex:0 0 auto}
+.num::after{content:'';position:absolute;left:-5px;right:-5px;bottom:8px;height:14px;background:var(--gold);z-index:-1;opacity:.4}
+.ex-title{padding-top:14px}
+.ex-title h2{font-family:"Cormorant Garamond",serif;font-size:34px;line-height:1.1;font-weight:600}
+.instr{color:var(--red-deep);font-size:15px;line-height:1.45;font-weight:500;margin-top:6px}
+.divider{margin:70px auto;width:220px;display:flex;align-items:center;gap:12px;justify-content:center;color:var(--red);font-family:"Noto Serif JP",serif}
+.divider::before,.divider::after{content:'';height:1px;flex:1;background:linear-gradient(90deg,transparent,var(--red),transparent)}
+.card,.q-item{background:rgba(255,253,247,.72);border:1px solid var(--paper-3);box-shadow:var(--shadow)}
+.q-item{padding:19px 22px;margin-bottom:14px;transition:.25s}
+.q-item:hover{transform:translateX(4px);border-color:var(--red);background:rgba(255,253,247,.94)}
+.q-num{font-family:"Cormorant Garamond",serif;color:var(--red);font-size:23px;font-style:italic;font-weight:700;margin-right:8px}
+.q-text{font-size:16px;line-height:1.6}
+.opts{display:flex;gap:10px;flex-wrap:wrap;margin-top:13px}
+.opt,.mini-btn,.tile,.check-btn,.reveal-btn,.download-btn{font-family:Inter,sans-serif;border:1.5px solid var(--ink);background:transparent;color:var(--ink);cursor:pointer;transition:.2s}
+.opt{padding:8px 17px;font-size:14px;font-weight:600}
+.opt:hover,.tile:hover,.mini-btn:hover{background:var(--ink);color:var(--paper);transform:translateY(-2px)}
+.opt.chosen{background:var(--red);border-color:var(--red);color:var(--paper);box-shadow:0 4px 0 var(--gold)}
+.text-card{padding:30px 34px;font-family:"Cormorant Garamond",serif;position:relative}
+.text-card::before{content:'';position:absolute;top:-1px;right:-1px;width:60px;height:60px;background:linear-gradient(135deg,transparent 50%,var(--red) 50%)}
+.text-card h3{font-size:32px;color:var(--red-deep);font-style:italic;font-weight:600;margin-bottom:16px}
+.text-card p{font-size:19px;line-height:1.85;margin-bottom:15px}
+.gap-input,.line-input{
+  min-width:130px;border:none;border-bottom:2px solid var(--red);background:rgba(245,234,212,.8);
+  padding:4px 8px;font-family:Caveat,cursive;font-size:24px;color:var(--red-deep);outline:none;text-align:center;
+}
+.gap-input:focus,.line-input:focus{background:rgba(176,137,56,.18);box-shadow:0 0 0 2px rgba(176,137,56,.45)}
+.gap-label{position:relative;display:inline-block}
+.gap-label::before{content:attr(data-letter);position:absolute;left:4px;top:-13px;font:700 11px Inter;color:var(--red)}
+.bank{display:flex;gap:10px;flex-wrap:wrap;padding:17px;margin-bottom:26px;border:1px dashed var(--red);background:rgba(168,32,26,.06);position:relative}
+.bank::before{content:'quick bank';position:absolute;top:-12px;left:16px;background:var(--paper);padding:0 8px;font-family:Caveat,cursive;color:var(--red);font-size:18px}
+.tile{padding:7px 13px;font-weight:600;font-size:14px;background:var(--paper)}
+.rows{display:flex;flex-direction:column;gap:15px}
+.row{padding:18px 22px;background:rgba(255,253,247,.72);border:1px solid var(--paper-3);border-left:4px solid var(--red);line-height:1.65}
+.row .line-input{display:block;width:100%;margin-top:10px;text-align:left;font-size:22px}
+.prompt{font-size:16px}.hint{font-family:Caveat,cursive;color:var(--gold);font-size:22px;margin-left:7px}
+.challenge{border:2px double var(--red);padding:28px;background:rgba(255,253,247,.58);box-shadow:var(--shadow)}
+.challenge .row{border-left-color:var(--gold)}
+.actions{text-align:center;margin:72px 0 42px}
+.progress{display:inline-flex;gap:12px;align-items:center;border:1px solid var(--red);padding:9px 20px;background:rgba(255,253,247,.55);font-size:14px;margin-bottom:24px}
+.dot{width:10px;height:10px;background:var(--red);border-radius:50%;animation:pulse 1.8s infinite}@keyframes pulse{50%{transform:scale(1.4);opacity:.5}}
+.download-btn{background:var(--ink);color:var(--paper);font-family:"Cormorant Garamond",serif;font-size:23px;font-weight:600;font-style:italic;padding:17px 42px;box-shadow:6px 6px 0 var(--red)}
+.download-btn:hover{transform:translate(-3px,-3px);box-shadow:9px 9px 0 var(--red)}
+.answer-key{margin-top:55px;padding:38px;border:2px double var(--red);background:rgba(255,253,247,.6);position:relative}
+.locked{text-align:center;font-family:Caveat,cursive;font-size:23px;color:rgba(28,28,28,.72)}
+.locked span{display:block;font-family:"Noto Serif JP",serif;font-size:58px;color:rgba(168,32,26,.45);margin-bottom:10px}
+.reveal{display:none;text-align:center}
+.reveal-btn{background:var(--red);color:var(--paper);border:none;padding:15px 36px;font-family:"Cormorant Garamond",serif;font-size:21px;font-weight:600;font-style:italic;box-shadow:6px 6px 0 var(--ink)}
+.answers{display:none;text-align:left;margin-top:28px}
+.ans-block{border-bottom:1px dashed var(--red);padding-bottom:22px;margin-bottom:28px}
+.ans-block:last-child{border-bottom:none}
+.ans-block h4{font-family:"Cormorant Garamond",serif;font-size:25px;font-style:italic;color:var(--red);margin-bottom:12px}
+.ans-block ol{padding-left:24px}
+.ans-block li{font-family:"Cormorant Garamond",serif;font-size:18px;line-height:1.7;margin-bottom:5px}
+.correct{color:var(--ok);font-weight:700}.wrong{color:var(--bad);text-decoration:line-through}
+.toast{position:fixed;top:28px;left:50%;transform:translateX(-50%) translateY(-100px);z-index:50;background:var(--ink);color:var(--paper);padding:13px 24px;border-left:4px solid var(--red);box-shadow:var(--shadow);transition:.35s;font-weight:600}
+.toast.show{transform:translateX(-50%) translateY(0)}
+footer{text-align:center;padding:50px 0 36px;font-family:Caveat,cursive;font-size:21px;color:var(--red)}
+@media(max-width:650px){
+  .wrap{padding:0 16px}header{padding:50px 0 36px}.ex-head{flex-direction:column;gap:4px}.num{font-size:60px}.ex-title h2{font-size:27px}
+  .text-card{padding:24px 20px}.text-card p{font-size:17px}.gap-input{min-width:110px}.answer-key{padding:24px 18px}
+}
+</style>
+</head>
+<body>
+<div class="kanji k1">比</div><div class="kanji k2">文法</div>
+<div class="wrap">
+<header>
+  <div class="head-line">Unit 5A · workbook page 42</div>
+  <h1>Comparatives <em>&amp;</em> Superlatives</h1>
+  <p class="subtitle">films, records &amp; tiny grammar traps</p>
+</header>
+
+<aside class="tip">
+  <h3>Grammar focus</h3>
+  <p>Use <strong>comparatives</strong> to compare two things: <em>bigger than</em>, <em>less violent than</em>, <em>not as popular as</em>. Use <strong>superlatives</strong> for the top record in a group: <em>the biggest</em>, <em>the most exciting</em>, <em>the least expensive</em>.</p>
+</aside>
+
+<section class="exercise">
+  <div class="ex-head"><div class="num">01</div><div class="ex-title"><h2>Read & choose</h2><p class="instr">Read the sentences and choose the correct alternative.</p></div></div>
+  <div id="ex1"></div>
+</section>
+<div class="divider">❀</div>
+
+<section class="exercise">
+  <div class="ex-head"><div class="num">02</div><div class="ex-title"><h2>Cinema records</h2><p class="instr">Complete the text with the comparative or superlative form. Add <strong>than</strong> where necessary.</p></div></div>
+  <div class="bank" id="quickBank"></div>
+  <div class="card text-card">
+    <h3>Cinema records</h3>
+    <p>For a lot of us, there aren't many things <span class="gap-label" data-letter="a"><input class="gap-input" data-id="a"></span> (enjoyable) seeing a good film. But do you know what <span class="gap-label" data-letter="b"><input class="gap-input" data-id="b"></span> (long) film ever is? It's an experimental film called <em>Logistics</em>. It lasts for nearly 36 days and it's about how they make pedometers. Has anyone ever had a <span class="gap-label" data-letter="c"><input class="gap-input" data-id="c"></span> (strange) idea for a film? Possibly not!</p>
+    <p>The film <em>Cinematon</em> is <span class="gap-label" data-letter="d"><input class="gap-input" data-id="d"></span> (short) <em>Logistics</em> but it's <span class="gap-label" data-letter="e"><input class="gap-input" data-id="e"></span> (long) most films. It lasts 151 hours and contains short scenes of celebrities and some of <span class="gap-label" data-letter="f"><input class="gap-input" data-id="f"></span> (close) friends of the director.</p>
+    <p>When we see a good film, usually <span class="gap-label" data-letter="g"><input class="gap-input" data-id="g"></span> (memorable) part is the acting. But who is <span class="gap-label" data-letter="h"><input class="gap-input" data-id="h"></span> (successful) actor ever? Possibly it's Meryl Streep. She's received more than 20 Oscar nominations! Do you know what her <span class="gap-label" data-letter="i"><input class="gap-input" data-id="i"></span> (late) film is?</p>
+    <p><span class="gap-label" data-letter="j"><input class="gap-input" data-id="j"></span> (young) actor to receive an Oscar is Tatum O'Neal. She was only 10 when she won it in 1974. So she was probably <span class="gap-label" data-letter="k"><input class="gap-input" data-id="k"></span> (young) you are now!</p>
+  </div>
+</section>
+<div class="divider">❀</div>
+
+<section class="exercise">
+  <div class="ex-head"><div class="num">03</div><div class="ex-title"><h2>Modify the comparison</h2><p class="instr">Complete the sentences using one modifying expression and the comparative form of the adjective.</p></div></div>
+  <div class="rows" id="ex3"></div>
+</section>
+<div class="divider">❀</div>
+
+<section class="exercise">
+  <div class="ex-head"><div class="num">04</div><div class="ex-title"><h2>Rewrite the sentence</h2><p class="instr">Use the word given. Do not change the meaning.</p></div></div>
+  <div class="rows" id="ex4"></div>
+</section>
+<div class="divider">❀</div>
+
+<section class="exercise">
+  <div class="ex-head"><div class="num">05</div><div class="ex-title"><h2>Grammar challenge</h2><p class="instr">There is one word missing in each sentence. Write it in the correct place.</p></div></div>
+  <div class="challenge"><div class="rows" id="ex5"></div></div>
+</section>
+
+<section class="actions">
+  <div class="progress"><span class="dot"></span><span><strong id="count">0</strong> / <strong id="total">34</strong> answers filled in</span></div><br>
+  <button class="download-btn" onclick="downloadResults()">✦ Download my answers ✦</button>
+
+  <div class="answer-key" id="answerKey">
+    <div class="locked" id="locked"><span>鍵</span>Save your answers as an image first to unlock the correct answers</div>
+    <div class="reveal" id="reveal"><button class="reveal-btn" onclick="revealAnswers()">Reveal the correct answers</button></div>
+    <div class="answers" id="answers"></div>
+  </div>
+</section>
+</div>
+<footer>✦ made for Rita ✦<br><span style="font-family:'Noto Serif JP';font-size:12px;color:rgba(28,28,28,.45);letter-spacing:.35em">文 法 練 習</span></footer>
+<div class="toast" id="toast"></div>
+
+<script>
+const EX1=[
+ {n:1,text:"That's ____ programme I've seen in a long time!",options:["more boring","the most boring"],answer:"the most boring"},
+ {n:2,text:"I saw two horror films this weekend, but the second one was much ____ than the first one.",options:["scarier","scariest"],answer:"scarier"},
+ {n:3,text:"José is ____ speaker in our English class.",options:["more fluent","the most fluent"],answer:"the most fluent"},
+ {n:4,text:"You'll have a ____ connection with this mobile device.",options:["faster","fastest"],answer:"faster"},
+ {n:5,text:"I didn't like that film. It was ____ than I expected.",options:["more violent","most violent"],answer:"more violent"},
+ {n:6,text:"Chris Hemsworth is one of ____ film stars in the world today.",options:["the bigger","the biggest"],answer:"the biggest"}
+];
+const EX2=[
+ ['a','more enjoyable than'],['b','the longest'],['c','stranger'],['d','shorter than'],['e','longer than'],['f','the closest'],['g','the most memorable'],['h','the most successful'],['i','latest'],['j','The youngest'],['k','younger than']
+];
+const BANK=['more enjoyable than','the longest','stranger','shorter than','longer than','the closest','the most memorable','the most successful','latest','The youngest','younger than'];
+const EX3=[
+ {n:1,base:"Pong, one of the first video games, was very simple but Fortnite Battle Royale is very complex.",hint:"(a lot / a bit difficult)",answer:"a lot more difficult"},
+ {n:2,base:"The Walt Disney Studios in the US occupy an area of 21 hectares but the Ramoji Film City in India occupies 674 hectares. The Ramoji Film City is ____.",hint:"(slightly / much big)",answer:"much bigger"},
+ {n:3,base:"The actor Dwayne Johnson has a fortune of $300 million but Will Smith has $350 million. Will Smith is ____.",hint:"(a bit / far rich)",answer:"a bit richer"},
+ {n:4,base:"3.57 billion viewers saw the 2018 FIFA World Cup in Russia, but 3.6 billion viewers saw the 2016 Olympics in Rio. The Olympics were ____.",hint:"(far / slightly popular)",answer:"slightly more popular"},
+ {n:5,base:"The first TV channel appeared in 1928 but the first streaming service started in 1995. The first TV channel is ____.",hint:"(a lot / slightly old)",answer:"a lot older"},
+ {n:6,base:"There are 50 actors in Captain Marvel, but 99 in Avengers: Endgame. The number of actors in Avengers: Endgame is ____.",hint:"(much / a bit high)",answer:"much higher"}
+];
+const EX4=[
+ {n:1,base:"Video games are more interesting than films.",word:"less",start:"Watching films",answer:"Watching films is less interesting than playing video games."},
+ {n:2,base:"Science-fiction series are more gripping than comedies.",word:"as",start:"Comedies",answer:"Comedies aren't as gripping as science-fiction series."},
+ {n:3,base:"Dramas aren't as informative as documentaries.",word:"less",start:"Dramas",answer:"Dramas are less informative than documentaries."},
+ {n:4,base:"Comedies are less violent than crime series.",word:"as",start:"Comedies",answer:"Comedies aren't as violent as crime series."},
+ {n:5,base:"Sometimes the news is as moving as a drama.",word:"less",start:"Sometimes the news",answer:"Sometimes the news is no less moving than a drama."}
+];
+const EX5=[
+ {n:1,text:"Watching sports live is more exciting watching it on TV.",answer:"Watching sports live is more exciting than watching it on TV.",missing:"than"},
+ {n:2,text:"The X Factor is popular than any other talent show.",answer:"The X Factor is more popular than any other talent show.",missing:"more"},
+ {n:3,text:"What's scariest film you've seen?",answer:"What's the scariest film you've seen?",missing:"the"},
+ {n:4,text:"I thought the film was 90 minutes long but it lasted 3 hours! It was longer than I expected.",answer:"I thought the film was 90 minutes long but it lasted 3 hours! It was much longer than I expected.",missing:"much"},
+ {n:5,text:"Your smart phone cost £120 but mine cost £130. Mine is more expensive.",answer:"Your smart phone cost £120 but mine cost £130. Mine is the more expensive.",missing:"the"},
+ {n:6,text:"This is the most exciting film I've ever seen.",answer:"This is the most exciting film I've ever seen.",missing:"no missing word in the photo? likely already correct"}
+];
+const state={ex1:{},downloaded:false};
+const TOTAL=EX1.length+EX2.length+EX3.length+EX4.length+EX5.length;
+document.getElementById('total').textContent=TOTAL;
+
+function norm(s){return (s||'').toLowerCase().replace(/[’']/g,"'").replace(/[.?!]/g,'').replace(/\s+/g,' ').trim();}
+function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');clearTimeout(toast._t);toast._t=setTimeout(()=>t.classList.remove('show'),2200)}
+function updateProgress(){
+ let c=Object.keys(state.ex1).length;
+ document.querySelectorAll('.gap-input,.line-input').forEach(i=>{if(i.value.trim())c++});
+ document.getElementById('count').textContent=c;
+}
+function buildEx1(){
+ const host=document.getElementById('ex1');
+ EX1.forEach(q=>{
+  const div=document.createElement('div');div.className='q-item';
+  div.innerHTML=`<span class="q-num">${q.n}.</span><span class="q-text">${q.text}</span><div class="opts">${q.options.map(o=>`<button class="opt" data-q="${q.n}" data-o="${o}">${o}</button>`).join('')}</div>`;
+  host.appendChild(div);
+ });
+ host.addEventListener('click',e=>{
+  const b=e.target.closest('.opt'); if(!b)return;
+  document.querySelectorAll(`.opt[data-q="${b.dataset.q}"]`).forEach(x=>x.classList.remove('chosen'));
+  b.classList.add('chosen'); state.ex1[b.dataset.q]=b.dataset.o; updateProgress();
+ });
+}
+function buildBank(){
+ const host=document.getElementById('quickBank');
+ BANK.forEach(w=>{const t=document.createElement('button');t.className='tile';t.textContent=w;t.onclick=()=>navigator.clipboard?.writeText(w).then(()=>toast('Copied: '+w));host.appendChild(t)});
+}
+function buildRows(){
+ const e3=document.getElementById('ex3');
+ EX3.forEach(x=>{const r=document.createElement('div');r.className='row';r.innerHTML=`<span class="q-num">${x.n}.</span><span class="prompt">${x.base}</span><span class="hint">${x.hint}</span><input class="line-input" data-section="ex3" data-id="${x.n}" placeholder="Type your answer...">`;e3.appendChild(r)});
+ const e4=document.getElementById('ex4');
+ EX4.forEach(x=>{const r=document.createElement('div');r.className='row';r.innerHTML=`<span class="q-num">${x.n}.</span><span class="prompt">${x.base} <b>(${x.word})</b><br><em>${x.start}...</em></span><input class="line-input" data-section="ex4" data-id="${x.n}" placeholder="Rewrite the sentence...">`;e4.appendChild(r)});
+ const e5=document.getElementById('ex5');
+ EX5.forEach(x=>{const r=document.createElement('div');r.className='row';r.innerHTML=`<span class="q-num">${x.n}.</span><span class="prompt">${x.text}</span><input class="line-input" data-section="ex5" data-id="${x.n}" placeholder="Write the corrected sentence...">`;e5.appendChild(r)});
+ document.addEventListener('input',e=>{if(e.target.matches('.gap-input,.line-input'))updateProgress()});
+}
+function collect(){
+ const data=[];
+ EX1.forEach(q=>data.push({sec:'01',n:q.n,prompt:q.text,your:state.ex1[q.n]||'',correct:q.answer}));
+ EX2.forEach(([id,ans])=>{const inp=document.querySelector(`.gap-input[data-id="${id}"]`);data.push({sec:'02',n:id,prompt:id,your:inp.value.trim(),correct:ans})});
+ EX3.forEach(x=>{const inp=document.querySelector(`.line-input[data-section="ex3"][data-id="${x.n}"]`);data.push({sec:'03',n:x.n,prompt:x.base,your:inp.value.trim(),correct:x.answer})});
+ EX4.forEach(x=>{const inp=document.querySelector(`.line-input[data-section="ex4"][data-id="${x.n}"]`);data.push({sec:'04',n:x.n,prompt:x.base,your:inp.value.trim(),correct:x.answer})});
+ EX5.forEach(x=>{const inp=document.querySelector(`.line-input[data-section="ex5"][data-id="${x.n}"]`);data.push({sec:'05',n:x.n,prompt:x.text,your:inp.value.trim(),correct:x.answer})});
+ return data;
+}
+async function downloadResults(){
+ const data=collect(); const filled=data.filter(x=>x.your).length;
+ if(!filled){toast('Fill in at least one answer first');return}
+ if(document.fonts?.ready) await document.fonts.ready;
+ const W=900, PAD=55, LH=24, SCALE=2; let H=155+filled*70+600;
+ const canvas=document.createElement('canvas');canvas.width=W*SCALE;canvas.height=H*SCALE;const ctx=canvas.getContext('2d');ctx.scale(SCALE,SCALE);
+ const bg=ctx.createLinearGradient(0,0,0,H);bg.addColorStop(0,'#f5ead4');bg.addColorStop(1,'#ecdcb8');ctx.fillStyle=bg;ctx.fillRect(0,0,W,H);
+ for(let i=0;i<1600;i++){ctx.fillStyle=`rgba(124,22,16,${0.01+Math.random()*0.02})`;ctx.fillRect(Math.random()*W,Math.random()*H,1,1)}
+ ctx.fillStyle='#a8201a';ctx.beginPath();ctx.arc(W-95,95,55,0,Math.PI*2);ctx.fill();
+ let y=95;ctx.fillStyle='#1c1c1c';ctx.font='600 58px "Cormorant Garamond"';ctx.fillText('Comparatives & Superlatives',PAD,y);
+ y+=34;ctx.fillStyle='#b08938';ctx.font='600 28px Caveat';ctx.fillText('Unit 5A · workbook page 42 · my answers',PAD,y);
+ y+=38;ctx.strokeStyle='#a8201a';ctx.beginPath();ctx.moveTo(PAD,y);ctx.lineTo(W-PAD,y);ctx.stroke();y+=38;
+ let cur='';
+ data.filter(x=>x.your).forEach(x=>{
+  if(x.sec!==cur){cur=x.sec;ctx.fillStyle='#a8201a';ctx.font='italic 600 32px "Cormorant Garamond"';ctx.fillText('Exercise '+cur,PAD,y);y+=36}
+  ctx.fillStyle='#a8201a';ctx.font='italic 700 20px "Cormorant Garamond"';ctx.fillText(x.n+'.',PAD,y);
+  ctx.fillStyle='#1c1c1c';ctx.font='500 15px Inter';y=wrap(ctx,x.prompt,PAD+34,y,W-PAD*2-34,20);
+  ctx.fillStyle='#7c1610';ctx.font='600 23px Caveat';y=wrap(ctx,'My answer: '+x.your,PAD+34,y+4,W-PAD*2-34,25);
+  y+=12;
+ });
+ y+=18;ctx.strokeStyle='#a8201a';ctx.beginPath();ctx.moveTo(W/2-130,y);ctx.lineTo(W/2+130,y);ctx.stroke();y+=32;
+ ctx.textAlign='center';ctx.fillStyle='#a8201a';ctx.font='italic 600 22px "Cormorant Garamond"';ctx.fillText(`answers filled · ${filled} / ${TOTAL}`,W/2,y);
+ const out=document.createElement('canvas');out.width=W*SCALE;out.height=(y+60)*SCALE;out.getContext('2d').drawImage(canvas,0,0,W*SCALE,(y+60)*SCALE,0,0,W*SCALE,(y+60)*SCALE);
+ out.toBlob(blob=>{const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='Unit5A_WBp42_answers.png';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),300)},'image/png');
+ state.downloaded=true;document.getElementById('locked').style.display='none';document.getElementById('reveal').style.display='block';setTimeout(()=>document.getElementById('answerKey').scrollIntoView({behavior:'smooth'}),250);
+ toast('Image saved. Key unlocked!');
+}
+function wrap(ctx,text,x,y,maxW,lineH){const words=String(text).split(' ');let line='';for(const w of words){const t=line?line+' '+w:w;if(ctx.measureText(t).width>maxW&&line){ctx.fillText(line,x,y);line=w;y+=lineH}else line=t}if(line){ctx.fillText(line,x,y);y+=lineH}return y}
+function revealAnswers(){
+ document.getElementById('reveal').style.display='none';const a=document.getElementById('answers');a.style.display='block';
+ let html='';
+ html+=block('01 · Read & choose',EX1.map(x=>({n:x.n,correct:x.answer,your:state.ex1[x.n]||''})));
+ html+=block('02 · Cinema records',EX2.map(([id,ans])=>({n:id,correct:ans,your:document.querySelector(`.gap-input[data-id="${id}"]`).value.trim()})));
+ html+=block('03 · Modify the comparison',EX3.map(x=>({n:x.n,correct:x.answer,your:document.querySelector(`.line-input[data-section="ex3"][data-id="${x.n}"]`).value.trim()})));
+ html+=block('04 · Rewrite the sentence',EX4.map(x=>({n:x.n,correct:x.answer,your:document.querySelector(`.line-input[data-section="ex4"][data-id="${x.n}"]`).value.trim()})));
+ html+=block('05 · Grammar challenge',EX5.map(x=>({n:x.n,correct:x.answer,your:document.querySelector(`.line-input[data-section="ex5"][data-id="${x.n}"]`).value.trim()})));
+ a.innerHTML=html;
+}
+function block(title,items){
+ return `<div class="ans-block"><h4>${title}</h4><ol>${items.map(x=>{const ok=norm(x.your)===norm(x.correct);return `<li><strong>${x.n}.</strong> ${x.correct}${x.your?`<br><span class="${ok?'correct':'wrong'}">your answer: ${x.your}</span>`:''}</li>`}).join('')}</ol></div>`;
+}
+buildEx1();buildBank();buildRows();updateProgress();
+</script>
+</body>
+</html>
