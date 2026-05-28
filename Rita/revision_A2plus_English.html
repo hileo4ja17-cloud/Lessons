@@ -1,0 +1,1026 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Revision · A2+ · Roadmap Units 1–5</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --choc-darkest:#2b1a12;
+  --choc-dark:#43291b;
+  --choc:#6b4329;
+  --choc-soft:#8a5a36;
+  --choc-light:#b07d4e;
+  --mint:#34a67f;
+  --mint-deep:#1f7d5e;
+  --mint-bright:#5fd6a8;
+  --mint-pale:#c9f0df;
+  --mint-mist:#e7f7ef;
+  --cream:#fbf4e9;
+  --cream-2:#f4e7d4;
+  --card:#fffdf9;
+  --caramel:#d99a55;
+  --berry:#c75a52;
+  --shadow:rgba(67,41,27,.16);
+  --shadow-strong:rgba(67,41,27,.28);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Nunito',sans-serif;
+  color:var(--choc-darkest);
+  background:
+    radial-gradient(1200px 600px at 12% -8%, var(--mint-mist) 0%, transparent 55%),
+    radial-gradient(900px 500px at 100% 0%, #f3ddc4 0%, transparent 50%),
+    radial-gradient(800px 800px at 50% 120%, var(--mint-mist) 0%, transparent 60%),
+    var(--cream);
+  min-height:100vh;
+  overflow-x:hidden;
+  line-height:1.55;
+}
+/* floating decorative shapes */
+.bg-deco{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+.float{position:absolute;opacity:.5;animation:drift linear infinite}
+@keyframes drift{
+  0%{transform:translateY(0) rotate(0deg)}
+  50%{transform:translateY(-26px) rotate(12deg)}
+  100%{transform:translateY(0) rotate(0deg)}
+}
+.leaf{width:46px;height:46px}
+.choc-sq{width:34px;height:34px;border-radius:8px;background:linear-gradient(135deg,var(--choc) 0%,var(--choc-dark) 100%);box-shadow:inset 0 0 0 3px rgba(255,255,255,.07), 0 6px 14px var(--shadow)}
+.choc-sq::after{content:"";position:absolute;inset:6px;border-radius:4px;background:
+  linear-gradient(rgba(255,255,255,.06),rgba(255,255,255,.06)) ,
+  repeating-linear-gradient(90deg,transparent 0 6px,rgba(0,0,0,.12) 6px 7px),
+  repeating-linear-gradient(0deg,transparent 0 6px,rgba(0,0,0,.12) 6px 7px)}
+
+.wrap{position:relative;z-index:1;max-width:980px;margin:0 auto;padding:0 18px 90px}
+
+/* ===== HEADER ===== */
+header{
+  text-align:center;
+  padding:54px 18px 30px;
+  position:relative;
+}
+.kicker{
+  display:inline-block;
+  font-weight:800;letter-spacing:.22em;text-transform:uppercase;
+  font-size:.72rem;color:var(--mint-deep);
+  background:var(--mint-pale);
+  padding:7px 16px;border-radius:30px;
+  margin-bottom:18px;
+  box-shadow:0 4px 12px rgba(52,166,127,.2);
+}
+h1{
+  font-family:'Fraunces',serif;
+  font-weight:600;
+  font-size:clamp(2.4rem,6vw,4rem);
+  line-height:1.02;
+  color:var(--choc-dark);
+  letter-spacing:-.01em;
+}
+h1 .mint{
+  color:var(--mint-deep);
+  font-style:italic;
+  position:relative;
+}
+h1 .mint::after{
+  content:"";position:absolute;left:0;right:0;bottom:.06em;height:.16em;
+  background:var(--mint-bright);opacity:.45;border-radius:4px;z-index:-1;
+}
+.subtitle{margin-top:14px;font-size:1.08rem;color:var(--choc-soft);font-weight:600}
+.scoop{font-size:1.6rem;vertical-align:middle}
+
+/* ===== PROGRESS ===== */
+.progress-shell{
+  margin:28px auto 8px;max-width:620px;
+  background:var(--card);
+  border-radius:20px;padding:16px 20px;
+  box-shadow:0 10px 30px var(--shadow);
+  border:1px solid #f0e3cf;
+}
+.progress-top{display:flex;justify-content:space-between;align-items:center;font-weight:700;margin-bottom:10px}
+.progress-top .label{color:var(--choc-soft);font-size:.92rem}
+.progress-top .count{color:var(--mint-deep);font-size:1.05rem}
+.bar{height:14px;background:var(--cream-2);border-radius:20px;overflow:hidden;box-shadow:inset 0 2px 5px rgba(67,41,27,.14)}
+.bar-fill{
+  height:100%;width:0%;
+  background:linear-gradient(90deg,var(--mint-deep),var(--mint-bright));
+  border-radius:20px;transition:width .7s cubic-bezier(.34,1.4,.5,1);
+  position:relative;overflow:hidden;
+}
+.bar-fill::after{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(100deg,transparent 30%,rgba(255,255,255,.55) 50%,transparent 70%);
+  transform:translateX(-100%);animation:shimmer 2.4s infinite;
+}
+@keyframes shimmer{100%{transform:translateX(120%)}}
+
+/* ===== TABS ===== */
+.tabs{
+  display:flex;flex-wrap:wrap;gap:10px;justify-content:center;
+  margin:30px 0 26px;position:sticky;top:0;z-index:20;
+  padding:12px;border-radius:24px;
+  background:rgba(251,244,233,.82);backdrop-filter:blur(10px);
+  box-shadow:0 6px 24px rgba(67,41,27,.08);
+}
+.tab{
+  font-family:'Nunito',sans-serif;font-weight:800;font-size:.92rem;
+  border:none;cursor:pointer;
+  padding:11px 18px;border-radius:16px;
+  background:var(--mint-mist);color:var(--mint-deep);
+  display:flex;flex-direction:column;align-items:center;gap:2px;line-height:1.1;
+  transition:transform .18s ease, box-shadow .2s ease, background .2s ease, color .2s ease;
+}
+.tab small{font-weight:600;font-size:.66rem;opacity:.85;text-transform:uppercase;letter-spacing:.06em}
+.tab:hover{transform:translateY(-3px)}
+.tab.active{
+  background:linear-gradient(135deg,var(--choc) ,var(--choc-dark));
+  color:var(--mint-pale);box-shadow:0 10px 22px var(--shadow-strong);
+  transform:translateY(-3px);
+}
+.tab .tick{display:none}
+.tab.done .tick{display:inline;color:var(--mint-bright)}
+
+/* ===== UNIT SECTIONS ===== */
+.unit{display:none;animation:fadeUp .5s ease both}
+.unit.active{display:block}
+@keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+
+.unit-head{
+  display:flex;align-items:center;gap:16px;margin:6px 0 22px;
+}
+.unit-num{
+  flex:none;width:60px;height:60px;border-radius:18px;
+  background:linear-gradient(135deg,var(--mint-deep),var(--mint));
+  color:#fff;display:grid;place-items:center;
+  font-family:'Fraunces',serif;font-size:1.7rem;font-weight:700;
+  box-shadow:0 10px 22px rgba(31,125,94,.35);
+}
+.unit-head h2{font-family:'Fraunces',serif;font-weight:600;font-size:1.85rem;color:var(--choc-dark);line-height:1.05}
+.unit-head .tag{color:var(--choc-soft);font-weight:600;font-size:.9rem}
+
+/* ===== CARD ===== */
+.card{
+  background:var(--card);
+  border-radius:22px;
+  padding:24px 24px 22px;
+  margin-bottom:22px;
+  box-shadow:0 12px 32px var(--shadow);
+  border:1px solid #f1e4d0;
+  position:relative;
+  border-left:6px solid var(--mint-bright);
+}
+.card.vocab{border-left-color:var(--caramel)}
+.card-title{
+  display:flex;align-items:center;gap:10px;flex-wrap:wrap;
+  font-family:'Fraunces',serif;font-weight:600;font-size:1.3rem;color:var(--choc-dark);
+  margin-bottom:4px;
+}
+.chip-type{
+  font-family:'Nunito';font-size:.66rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;
+  padding:4px 10px;border-radius:20px;background:var(--mint-mist);color:var(--mint-deep);
+}
+.chip-type.voc{background:#faecd6;color:#a96a23}
+.card-sub{color:var(--choc-soft);font-weight:600;font-size:.92rem;margin-bottom:14px}
+
+/* rule */
+.btn-rule{
+  border:2px solid var(--choc-light);background:transparent;color:var(--choc);
+  font-family:'Nunito';font-weight:800;font-size:.85rem;cursor:pointer;
+  padding:8px 15px;border-radius:14px;display:inline-flex;align-items:center;gap:7px;
+  transition:all .18s ease;margin-bottom:6px;
+}
+.btn-rule:hover{background:var(--choc);color:var(--mint-pale);transform:translateY(-2px)}
+.rule{
+  max-height:0;overflow:hidden;opacity:0;
+  transition:max-height .5s ease, opacity .4s ease, margin .4s ease, padding .4s ease;
+  background:var(--mint-mist);border:2px dashed var(--mint-bright);border-radius:16px;
+  padding:0 20px;margin-top:0;
+}
+.rule.open{max-height:900px;opacity:1;padding:18px 20px;margin-top:14px}
+.rule h4{font-family:'Fraunces';color:var(--mint-deep);font-size:1.05rem;margin-bottom:8px}
+.rule p{margin:7px 0;font-size:.96rem}
+.rule ul{margin:6px 0 6px 4px;list-style:none}
+.rule li{margin:6px 0;padding-left:24px;position:relative;font-size:.95rem}
+.rule li::before{content:"🌿";position:absolute;left:0;font-size:.8rem;top:2px}
+.rule .ex{background:#fff;border-radius:10px;padding:8px 12px;margin:7px 0;font-weight:600;color:var(--choc-dark);border-left:3px solid var(--mint)}
+.rule .ru{color:var(--choc-soft);font-style:italic;font-size:.88rem}
+.rule code{background:#fff;padding:2px 7px;border-radius:6px;font-family:'Fraunces';color:var(--mint-deep);font-weight:700;font-style:italic}
+
+/* exercises */
+.ex-block{margin-top:18px}
+.ex-instr{font-weight:700;color:var(--choc);margin-bottom:12px;display:flex;gap:8px;align-items:baseline}
+.ex-instr .n{flex:none;width:24px;height:24px;border-radius:50%;background:var(--mint-deep);color:#fff;font-size:.78rem;display:grid;place-items:center;font-weight:800}
+
+.q{margin:13px 0;padding:13px 15px;border-radius:14px;background:#fbf7ef;border:1px solid #f0e6d4;transition:background .3s,border-color .3s}
+.q.correct{background:#e7f7ef;border-color:var(--mint-bright)}
+.q.wrong{background:#fcecea;border-color:#eab4af;animation:shake .4s}
+@keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-7px)}40%{transform:translateX(7px)}60%{transform:translateX(-5px)}80%{transform:translateX(5px)}}
+.q .qtext{font-weight:600;margin-bottom:9px;font-size:1rem}
+.q .fb{font-weight:800;font-size:.86rem;margin-top:9px;display:none;align-items:center;gap:6px}
+.q.correct .fb.ok{display:flex;color:var(--mint-deep)}
+.q.wrong .fb.no{display:flex;color:var(--berry)}
+.reveal{font-size:.85rem;color:var(--choc-soft);margin-top:7px;display:none}
+.reveal.show{display:block}
+.reveal b{color:var(--mint-deep)}
+
+/* mcq */
+.opts{display:flex;flex-direction:column;gap:8px}
+.opt{
+  border:2px solid #ecdfca;background:#fff;border-radius:12px;
+  padding:10px 14px;cursor:pointer;font-weight:600;font-size:.98rem;
+  transition:all .15s ease;text-align:left;font-family:'Nunito';color:var(--choc-darkest);
+}
+.opt:hover{border-color:var(--mint);transform:translateX(3px)}
+.opt.sel{border-color:var(--mint-deep);background:var(--mint-mist)}
+.q.correct .opt.sel{border-color:var(--mint-deep);background:#d6f3e5}
+.q.wrong .opt.sel{border-color:var(--berry);background:#fbdedb}
+.q.correct .opt.right,.q.wrong .opt.right{border-color:var(--mint-deep);background:#d6f3e5}
+.opt.right::after{content:" ✓";color:var(--mint-deep);font-weight:800}
+
+/* gap input */
+.gapline{font-size:1.02rem;line-height:2.2}
+input.gap{
+  font-family:'Nunito';font-weight:700;font-size:1rem;color:var(--choc-darkest);
+  border:none;border-bottom:2.5px solid var(--mint);background:var(--mint-mist);
+  border-radius:8px 8px 0 0;padding:5px 10px;min-width:90px;width:120px;text-align:center;
+  outline:none;transition:border-color .2s,background .2s;
+}
+input.gap:focus{border-color:var(--mint-deep);background:#fff}
+.q.correct input.gap{border-color:var(--mint-deep);background:#d6f3e5}
+.q.wrong input.gap{border-color:var(--berry);background:#fbdedb}
+.hint{font-size:.8rem;color:var(--choc-light);font-style:italic}
+
+/* word order */
+.bank,.answer{display:flex;flex-wrap:wrap;gap:8px;min-height:46px;align-items:center}
+.answer{background:#fff;border:2px dashed var(--mint);border-radius:12px;padding:8px 10px;margin:6px 0 10px}
+.answer:empty::before{content:"click the words →";color:var(--choc-light);font-style:italic;font-size:.85rem}
+.word{
+  background:linear-gradient(135deg,var(--mint-pale),#bdeed8);color:var(--mint-deep);
+  border:none;font-family:'Nunito';font-weight:800;font-size:.95rem;
+  padding:7px 13px;border-radius:11px;cursor:pointer;
+  box-shadow:0 3px 8px rgba(52,166,127,.22);transition:transform .12s ease;
+}
+.word:hover{transform:translateY(-2px) scale(1.04)}
+.word:active{transform:scale(.94)}
+.answer .word{background:linear-gradient(135deg,var(--choc-light),var(--choc));color:var(--mint-pale)}
+
+/* match */
+.match-row{display:flex;align-items:center;gap:12px;margin:9px 0;flex-wrap:wrap}
+.match-key{
+  flex:none;min-width:150px;font-weight:800;color:var(--choc-dark);
+  background:var(--mint-mist);border-radius:10px;padding:9px 13px;
+}
+select.match-sel{
+  flex:1;min-width:170px;font-family:'Nunito';font-weight:600;font-size:.95rem;color:var(--choc-darkest);
+  border:2px solid #ecdfca;border-radius:11px;padding:9px 12px;background:#fff;cursor:pointer;outline:none;
+  transition:border-color .2s;
+}
+select.match-sel:focus{border-color:var(--mint)}
+.match-row.ok select.match-sel{border-color:var(--mint-deep);background:#d6f3e5}
+.match-row.bad select.match-sel{border-color:var(--berry);background:#fbdedb}
+
+/* action row */
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px;align-items:center}
+.btn-check{
+  font-family:'Nunito';font-weight:800;font-size:.95rem;border:none;cursor:pointer;
+  background:linear-gradient(135deg,var(--mint-deep),var(--mint));color:#fff;
+  padding:11px 22px;border-radius:14px;
+  box-shadow:0 8px 18px rgba(31,125,94,.32);transition:transform .15s ease,box-shadow .2s;
+  display:inline-flex;align-items:center;gap:8px;
+}
+.btn-check:hover{transform:translateY(-2px);box-shadow:0 12px 24px rgba(31,125,94,.42)}
+.btn-ghost{
+  font-family:'Nunito';font-weight:700;font-size:.88rem;cursor:pointer;
+  background:transparent;border:2px solid #e2d2bb;color:var(--choc-soft);
+  padding:9px 16px;border-radius:14px;transition:all .15s;
+}
+.btn-ghost:hover{border-color:var(--choc-light);color:var(--choc)}
+.score-pill{
+  margin-left:auto;font-weight:800;font-size:.85rem;color:var(--mint-deep);
+  background:var(--mint-mist);padding:7px 14px;border-radius:20px;display:none;
+}
+.score-pill.show{display:inline-block}
+
+/* unit complete banner */
+.complete{
+  display:none;text-align:center;margin:8px 0 4px;
+  background:linear-gradient(135deg,var(--mint-pale),#bdeed8);
+  border-radius:18px;padding:18px;font-weight:800;color:var(--mint-deep);
+  box-shadow:0 8px 20px rgba(52,166,127,.25);animation:pop .5s cubic-bezier(.34,1.56,.5,1);
+}
+.complete.show{display:block}
+@keyframes pop{from{transform:scale(.85);opacity:0}to{transform:scale(1);opacity:1}}
+
+/* footer */
+footer{text-align:center;color:var(--choc-light);font-size:.85rem;margin-top:40px;font-weight:600}
+
+/* confetti */
+.confetti{position:fixed;top:-12px;width:10px;height:14px;z-index:999;pointer-events:none;border-radius:2px}
+@keyframes fall{to{transform:translateY(110vh) rotate(640deg);opacity:.2}}
+
+.vocab-note{font-size:.85rem;color:var(--choc-soft);background:#faf2e3;border-radius:12px;padding:10px 14px;margin-bottom:6px;border-left:3px solid var(--caramel)}
+
+@media(max-width:560px){
+  .card{padding:18px 16px}
+  .match-key{min-width:120px}
+  .tab{padding:9px 12px}
+}
+</style>
+</head>
+<body>
+<div class="bg-deco" id="deco"></div>
+
+<header>
+  <span class="kicker">Roadmap · English revision</span>
+  <h1>Chocolate&nbsp;<span class="mint">Mint</span><br>Revision Lesson</h1>
+  <p class="subtitle"><span class="scoop">🍫</span> Units 1–5 · Level A2+ · Grammar and Vocabulary <span class="scoop">🌿</span></p>
+
+  <div class="progress-shell">
+    <div class="progress-top">
+      <span class="label">Your progress</span>
+      <span class="count"><span id="done">0</span> / <span id="total">0</span> ✓</span>
+    </div>
+    <div class="bar"><div class="bar-fill" id="barFill"></div></div>
+  </div>
+</header>
+
+<div class="wrap">
+  <nav class="tabs" id="tabs"></nav>
+  <main id="units"></main>
+
+  <footer>
+    Made with cocoa and mint · click <b>💡 Show rule</b> if you need a reminder, and <b>Check</b> to see your result.
+  </footer>
+</div>
+
+<script>
+/* =========================================================
+   LESSON DATA  (Roadmap A2+ · Units 1–5)
+   ========================================================= */
+const LESSON = [
+{
+  num:1, title:"Getting to know you", tag:"Introductions · habits",
+  sections:[
+    {
+      kind:"grammar", title:"Word order in questions", sub:"Question word order",
+      rule:`<h4>How to make questions</h4>
+        <p>With most verbs in the Present Simple:</p>
+        <p><code>(Question word) + do/does + subject + verb</code></p>
+        <div class="ex">Where <b>do</b> you live? · What <b>does</b> she do?</div>
+        <p>With the verb <b>be</b>:</p>
+        <p><code>(Question word) + am/is/are + subject</code></p>
+        <div class="ex">Where <b>are</b> you from? · What <b>is</b> your name?</div>
+        <p class="ru">⚠ If the question is about the subject (who/what does the action), you do not need do: <b>Who lives</b> here?</p>`,
+      exercises:[
+        { type:"order", instr:"Put the words in the correct order to make a question.",
+          items:[
+            {words:["where","do","you","live","?"], answer:"where do you live ?"},
+            {words:["does","what","she","do","?"], answer:"what does she do ?"},
+            {words:["are","where","you","from","?"], answer:"where are you from ?"},
+            {words:["how","often","do","you","travel","?"], answer:"how often do you travel ?"}
+          ]},
+        { type:"mcq", instr:"Choose the correct question.",
+          items:[
+            {q:"___ your favourite kind of music?",opts:["What is","What does","What do"],correct:0},
+            {q:"Where ___ your parents live?",opts:["is","do","does"],correct:1},
+            {q:"___ work in this area?",opts:["Does you","Do you","Are you do"],correct:1}
+          ]}
+      ]
+    },
+    {
+      kind:"grammar", title:"Adverbs of frequency", sub:"Adverbs of frequency",
+      rule:`<h4>How often?</h4>
+        <ul>
+          <li><b>always</b> (100%) → usually → often → sometimes → hardly ever → <b>never</b> (0%)</li>
+        </ul>
+        <p>Position in a sentence:</p>
+        <div class="ex"><b>before</b> the main verb: I <b>always</b> drink coffee.</div>
+        <div class="ex"><b>after</b> the verb be: She is <b>never</b> late.</div>`,
+      exercises:[
+        { type:"mcq", instr:"Where does the adverb of frequency go? Choose the correct option.",
+          items:[
+            {q:"I usually get up at 7. →",opts:["I usually get up at 7.","I get usually up at 7.","I get up usually at 7."],correct:0},
+            {q:"She is never late. →",opts:["She never is late.","She is never late.","She is late never."],correct:1},
+            {q:"We sometimes play tennis. →",opts:["We play sometimes tennis.","Sometimes we play we tennis.","We sometimes play tennis."],correct:2}
+          ]}
+      ]
+    },
+    {
+      kind:"grammar", title:"Present Simple vs Present Continuous", sub:"Present Simple and Present Continuous",
+      rule:`<h4>Two present tenses</h4>
+        <p><b>Present Simple</b> — habits, facts, timetables. Markers: <i>every day, usually, often, on Mondays</i>.</p>
+        <p><code>I/you/we/they + verb · he/she/it + verb-s</code></p>
+        <div class="ex">She <b>works</b> in a bank. I <b>play</b> tennis on Sundays.</div>
+        <p><b>Present Continuous</b> — actions happening now / temporary actions. Markers: <i>now, at the moment, today, look!</i></p>
+        <p><code>am/is/are + verb-ing</code></p>
+        <div class="ex">Look! It <b>is raining</b>. They <b>are watching</b> TV now.</div>`,
+      exercises:[
+        { type:"gap", instr:"Put the verb in the Present Simple or Present Continuous.",
+          items:[
+            {q:"I ___ TV every evening. (watch)",answers:["watch"],hint:"watch"},
+            {q:"Look! It ___ . (rain)",answers:["is raining","'s raining"],hint:"rain — now"},
+            {q:"My brother ___ in a hospital. (work)",answers:["works"],hint:"work"},
+            {q:"Be quiet, the baby ___ . (sleep)",answers:["is sleeping","'s sleeping"],hint:"sleep — now"},
+            {q:"We usually ___ dinner at 8. (have)",answers:["have"],hint:"have"}
+          ]}
+      ]
+    },
+    {
+      kind:"vocab", title:"Vocabulary · Question words & Success", sub:"Vocabulary: question words and success",
+      rule:`<h4>Useful words</h4>
+        <p><b>Question words:</b> what, where, when, who, why, whose, which, how, how much, how many, how often, how long.</p>
+        <p><b>Success:</b> succeed, achieve a goal, win, do well, make progress, fail, give up.</p>`,
+      exercises:[
+        { type:"match", instr:"Match the question word with what we ask about.",
+          pairs:[
+            {l:"How often…?",r:"frequency (once a week)"},
+            {l:"Whose…?",r:"possession / whose thing"},
+            {l:"How long…?",r:"length of time"},
+            {l:"Why…?",r:"reason"},
+            {l:"How much…?",r:"quantity (uncountable)"}
+          ]},
+        { type:"gap", instr:"Complete the sentence with a success word (succeed / achieve / give up / win / fail).",
+          items:[
+            {q:"Don't ___ ! Keep trying. (do not stop trying)",answers:["give up"],hint:"give …"},
+            {q:"She worked hard to ___ her goal.",answers:["achieve"],hint:"…а goal"},
+            {q:"I hope our team will ___ the match.",answers:["win"],hint:"to be first / defeat others"}
+          ]}
+      ]
+    }
+  ]
+},
+{
+  num:2, title:"Memorable days", tag:"Past · food",
+  sections:[
+    {
+      kind:"grammar", title:"Past Simple", sub:"Past Simple",
+      rule:`<h4>Past Simple</h4>
+        <p>Completed actions in the past.</p>
+        <p><b>Regular verbs:</b> <code>+ -ed</code> → worked, played, lived.</p>
+        <ul>
+          <li>ending in -e → +d: live → liv<b>ed</b></li>
+          <li>consonant + y → -ied: study → stud<b>ied</b></li>
+          <li>double the consonant: stop → sto<b>pped</b></li>
+        </ul>
+        <p><b>Irregular verbs:</b> go→went, have→had, see→saw, make→made, get→got, buy→bought.</p>`,
+      exercises:[
+        { type:"gap", instr:"Put the verb in the Past Simple.",
+          items:[
+            {q:"Yesterday we ___ to the beach. (go)",answers:["went"],hint:"go ✗"},
+            {q:"She ___ a delicious cake. (make)",answers:["made"],hint:"make ✗"},
+            {q:"They ___ football in the park. (play)",answers:["played"],hint:"play"},
+            {q:"I ___ a new phone last week. (buy)",answers:["bought"],hint:"buy ✗"},
+            {q:"We ___ in London for two years. (live)",answers:["lived"],hint:"live"}
+          ]}
+      ]
+    },
+    {
+      kind:"grammar", title:"Past Simple: negatives & questions", sub:"Negatives and questions in the past",
+      rule:`<h4>didn't / Did…? / was-were</h4>
+        <p><b>Отрицание:</b> <code>didn't + infinitive</code> → I <b>didn't go</b>.</p>
+        <p><b>Вопрос:</b> <code>Did + subject + infinitive?</code> → <b>Did</b> you <b>go</b>?</p>
+        <p class="ru">⚠ After didn't / Did, use the verb WITHOUT -ed!</p>
+        <p><b>be:</b> was / wasn't (I/he/she/it), were / weren't (you/we/they). <i>Were you happy?</i></p>`,
+      exercises:[
+        { type:"mcq", instr:"Choose the correct form.",
+          items:[
+            {q:"I ___ to the party. (did not go)",opts:["didn't went","didn't go","not went"],correct:1},
+            {q:"___ you enjoy the film?",opts:["Did","Was","Do"],correct:0},
+            {q:"They ___ at home yesterday.",opts:["wasn't","weren't","didn't"],correct:1},
+            {q:"___ she happy with the news?",opts:["Did","Was","Were"],correct:1}
+          ]}
+      ]
+    },
+    {
+      kind:"grammar", title:"Quantifiers", sub:"Quantifiers",
+      rule:`<h4>much / many / some / any…</h4>
+        <ul>
+          <li><b>countable</b> (countable): many, a few → many apples, a few friends</li>
+          <li><b>uncountable</b> (неcountable): much, a little → much time, a little milk</li>
+          <li><b>some</b> — in positive sentences · <b>any</b> — in questions and negatives</li>
+          <li><b>a lot of</b> — with both countable and uncountable nouns</li>
+        </ul>`,
+      exercises:[
+        { type:"mcq", instr:"Choose the correct quantifier.",
+          items:[
+            {q:"How ___ sugar do you take?",opts:["many","much"],correct:1},
+            {q:"There aren't ___ eggs in the fridge.",opts:["some","any"],correct:1},
+            {q:"I have ___ friends in Italy. (a small number of)",opts:["a little","a few"],correct:1},
+            {q:"Would you like ___ coffee?",opts:["some","any"],correct:0}
+          ]}
+      ]
+    },
+    {
+      kind:"vocab", title:"Vocabulary · Feelings & Food", sub:"Vocabulary: feelings and food",
+      rule:`<h4>Words</h4>
+        <p><b>Feelings:</b> excited, nervous, scared, bored, proud, surprised, disappointed, relaxed.</p>
+        <p><b>Food adjectives:</b> delicious, fresh, spicy, sweet, salty, sour, tasty, healthy.</p>
+        <p><b>Past time:</b> yesterday, last week, two days ago, in 2015, when I was a child.</p>`,
+      exercises:[
+        { type:"match", instr:"Match the adjective with its meaning.",
+          pairs:[
+            {l:"spicy",r:"hot / with chilli or pepper"},
+            {l:"sour",r:"sour / like a lemon"},
+            {l:"nervous",r:"worried or anxious before something"},
+            {l:"proud",r:"happy because of success"},
+            {l:"bored",r:"not interested / having nothing to do"}
+          ]},
+        { type:"gap", instr:"Complete the sentence with the correct time expression (ago / last / yesterday).",
+          items:[
+            {q:"I saw her two days ___ .",answers:["ago"],hint:"...before now"},
+            {q:"We went to Spain ___ summer.",answers:["last"],hint:"the previous..."},
+            {q:"It rained all day ___ .",answers:["yesterday"],hint:"the day before today"}
+          ]}
+      ]
+    }
+  ]
+},
+{
+  num:3, title:"Amazing places", tag:"Comparisons · experience",
+  sections:[
+    {
+      kind:"grammar", title:"Comparatives", sub:"Comparative adjectives",
+      rule:`<h4>…-er than / more … than</h4>
+        <ul>
+          <li>short adjectives: <code>+ -er + than</code> → cheap<b>er</b> than, big<b>ger</b> than</li>
+          <li>long adjectives (2+ syllables): <code>more … than</code> → <b>more</b> expensive <b>than</b></li>
+          <li>irregular forms: good→<b>better</b>, bad→<b>worse</b>, far→<b>further</b></li>
+        </ul>`,
+      exercises:[
+        { type:"gap", instr:"Make the comparative form (+ than).",
+          items:[
+            {q:"This hotel is ___ the other one. (cheap)",answers:["cheaper than"],hint:"cheap + …"},
+            {q:"Tokyo is ___ my town. (big)",answers:["bigger than"],hint:"big → ?"},
+            {q:"A plane is ___ a train. (expensive)",answers:["more expensive than"],hint:"long adjective"},
+            {q:"Her English is ___ mine. (good)",answers:["better than"],hint:"good ✗"}
+          ]}
+      ]
+    },
+    {
+      kind:"grammar", title:"Superlatives", sub:"Superlative adjectives",
+      rule:`<h4>the …-est / the most …</h4>
+        <ul>
+          <li>short adjectives: <code>the + adj-est</code> → the cheap<b>est</b>, the big<b>gest</b></li>
+          <li>длинные: <code>the most + adj</code> → the <b>most</b> beautiful</li>
+          <li>irregular forms: the <b>best</b>, the <b>worst</b></li>
+        </ul>`,
+      exercises:[
+        { type:"gap", instr:"Make the superlative form (the ...).",
+          items:[
+            {q:"It's ___ city in the country. (big)",answers:["the biggest"],hint:"the … -est"},
+            {q:"This is ___ restaurant in town. (good)",answers:["the best"],hint:"good ✗"},
+            {q:"That was ___ day of my life. (beautiful)",answers:["the most beautiful"],hint:"long adjective"}
+          ]}
+      ]
+    },
+    {
+      kind:"grammar", title:"Present Perfect with ever / never", sub:"Life experience: ever / never",
+      rule:`<h4>have/has + V3 (past participle)</h4>
+        <p>Life experience, with no exact time.</p>
+        <div class="ex">Have you <b>ever</b> been to Japan?</div>
+        <div class="ex">I have <b>never</b> eaten sushi.</div>
+        <p><b>ever</b> — in questions · <b>never</b> — in negative meanings (it already means “not ever”).</p>
+        <p class="ru">be→been, see→seen, eat→eaten, do→done, try→tried.</p>`,
+      exercises:[
+        { type:"mcq", instr:"Choose the correct Present Perfect option.",
+          items:[
+            {q:"___ you ever ___ to Paris?",opts:["Did / be","Have / been","Have / be"],correct:1},
+            {q:"I have ___ eaten octopus.",opts:["never","ever","not never"],correct:0},
+            {q:"She ___ tried surfing.",opts:["have never","has never","never has"],correct:1}
+          ]}
+      ]
+    },
+    {
+      kind:"vocab", title:"Vocabulary · Places & Staying", sub:"Vocabulary: places and accommodation",
+      rule:`<h4>Words</h4>
+        <p><b>Describe places:</b> crowded, quiet, lively, modern, historic, peaceful, busy, polluted.</p>
+        <p><b>Places to stay:</b> hotel, hostel, campsite, guesthouse, apartment, resort, B&amp;B, book a room.</p>`,
+      exercises:[
+        { type:"match", instr:"Match the word with the meaning.",
+          pairs:[
+            {l:"crowded",r:"full of people"},
+            {l:"peaceful",r:"calm and quiet"},
+            {l:"campsite",r:"a place where people sleep in tents"},
+            {l:"guesthouse",r:"a small place where guests can stay"},
+            {l:"lively",r:"full of energy and activity"}
+          ]}
+      ]
+    }
+  ]
+},
+{
+  num:4, title:"Plans & celebrations", tag:"Future · events",
+  sections:[
+    {
+      kind:"grammar", title:"be going to · want · would like", sub:"Plans and wishes",
+      rule:`<h4>Future plans</h4>
+        <p><b>be going to</b> + infinitive — plans / intentions.</p>
+        <div class="ex">I'm <b>going to visit</b> my grandma.</div>
+        <p><b>want to</b> + infinitive — I want.</p>
+        <div class="ex">I <b>want to learn</b> Spanish.</div>
+        <p><b>would like to</b> ('d like to) + infinitive — polite “would want”.</p>
+        <div class="ex">I'<b>d like to see</b> the show.</div>`,
+      exercises:[
+        { type:"mcq", instr:"Choose the correct option.",
+          items:[
+            {q:"Tonight I'm ___ watch a film. (plan)",opts:["going to","want","would"],correct:0},
+            {q:"I'd ___ a cup of tea, please. (polite)",opts:["like to have","want have","going have"],correct:0},
+            {q:"They ___ travel to Japan next year.",opts:["wants to","want to","are want"],correct:1}
+          ]}
+      ]
+    },
+    {
+      kind:"grammar", title:"will / won't", sub:"Decisions and offers of help",
+      rule:`<h4>will для решений «прямо now»</h4>
+        <p>Spontaneous decisions, promises, and offers of help.</p>
+        <div class="ex">It's heavy — I'<b>ll help</b> you.</div>
+        <div class="ex">I <b>won't be</b> late, I promise.</div>
+        <p class="ru">'ll = will · won't = will not. After them, use the verb without to.</p>`,
+      exercises:[
+        { type:"order", instr:"Make a sentence with will / won't.",
+          items:[
+            {words:["I","'ll","carry","that","bag"], answer:"i 'll carry that bag"},
+            {words:["we","won't","forget","you"], answer:"we won't forget you"}
+          ]},
+        { type:"mcq", instr:"Выбери верный вариант.",
+          items:[
+            {q:"The phone is ringing — I ___ answer it.",opts:["am going to","will","would"],correct:1},
+            {q:"Don't worry, I ___ tell anyone.",opts:["won't","willn't","don't will"],correct:0}
+          ]}
+      ]
+    },
+    {
+      kind:"grammar", title:"can / have to", sub:"Ability, possibility, and necessity",
+      rule:`<h4>can и have to</h4>
+        <p><b>can / can't</b> — ability, possibility, permission.</p>
+        <div class="ex">I <b>can</b> swim. You <b>can't</b> park here.</div>
+        <p><b>have to / has to</b> — necessity, obligation.</p>
+        <div class="ex">She <b>has to</b> work on Saturday.</div>
+        <p class="ru">don't have to = «not necessary» (а не запрет!).</p>`,
+      exercises:[
+        { type:"mcq", instr:"Choose the correct option.",
+          items:[
+            {q:"You ___ wear a uniform at this school. (obligation)",opts:["can","have to","would like"],correct:1},
+            {q:"___ you speak French?",opts:["Can","Have to","Do can"],correct:0},
+            {q:"He ___ get up early at the weekend. (not necessary)",opts:["doesn't have to","can't","hasn't to"],correct:0}
+          ]}
+      ]
+    },
+    {
+      kind:"vocab", title:"Vocabulary · -ed / -ing adjectives & Events", sub:"Vocabulary: adjectives and events",
+      rule:`<h4>-ed or -ing?</h4>
+        <p><b>-ed</b> — how I feel: I am <b>bored</b>.</p>
+        <p><b>-ing</b> — what the thing is like: The film is <b>boring</b>.</p>
+        <p><b>Organising events:</b> book a venue, send invitations, plan, decorate, hire.</p>`,
+      exercises:[
+        { type:"mcq", instr:"Choose -ed or -ing.",
+          items:[
+            {q:"The lesson was really ___ . (an interesting lesson)",opts:["interested","interesting"],correct:1},
+            {q:"I'm so ___ about the trip! (how I feel)",opts:["excited","exciting"],correct:0},
+            {q:"After work I always feel ___ . (how I feel)",opts:["tired","tiring"],correct:0}
+          ]}
+      ]
+    }
+  ]
+},
+{
+  num:5, title:"The world of work", tag:"Работа · описания",
+  sections:[
+    {
+      kind:"grammar", title:"Relative clauses: who · which · that", sub:"Relative clauses",
+      rule:`<h4>who / which / that</h4>
+        <ul>
+          <li><b>who</b> → for people: A nurse is a person <b>who</b> helps patients.</li>
+          <li><b>which</b> → for things: A laptop is a thing <b>which</b> you use for work.</li>
+          <li><b>that</b> → и for people, и for things (универсально).</li>
+        </ul>`,
+      exercises:[
+        { type:"mcq", instr:"Выбери who / which / that.",
+          items:[
+            {q:"A teacher is a person ___ helps students.",opts:["which","who","what"],correct:1},
+            {q:"A dictionary is a book ___ explains words.",opts:["who","which","whose"],correct:1},
+            {q:"That's the man ___ car was stolen.",opts:["who","which","that"],correct:2}
+          ]},
+        { type:"order", instr:"Make a job definition.",
+          items:[
+            {words:["a","doctor","is","someone","who","helps","sick","people"], answer:"a doctor is someone who helps sick people"}
+          ]}
+      ]
+    },
+    {
+      kind:"vocab", title:"Vocabulary · Job skills", sub:"Vocabulary: job skills",
+      rule:`<h4>Job skills & preferences</h4>
+        <p>work well in a team, meet deadlines, solve problems, be organised, work under pressure, be creative, be good with people.</p>`,
+      exercises:[
+        { type:"match", instr:"Match the skill with the meaning.",
+          pairs:[
+            {l:"meet deadlines",r:"finish work on time"},
+            {l:"work in a team",r:"work with other people"},
+            {l:"solve problems",r:"find answers to problems"},
+            {l:"be organised",r:"plan things well"},
+            {l:"work under pressure",r:"work well in stressful situations"}
+          ]}
+      ]
+    }
+  ]
+}
+];
+
+/* =========================================================
+   ENGINE
+   ========================================================= */
+const norm = s => s.toLowerCase().replace(/[.]/g,"").replace(/\s+/g," ").replace(/’/g,"'").trim();
+const shuffle = a => a.map(x=>[Math.random(),x]).sort((p,q)=>p[0]-q[0]).map(p=>p[1]);
+
+let TOTAL=0, results={};
+const tabsEl=document.getElementById('tabs');
+const unitsEl=document.getElementById('units');
+
+function exId(u,s,i){return `u${u}s${s}e${i}`;}
+
+/* count total checkable exercise-blocks */
+LESSON.forEach((u,ui)=>u.sections.forEach((sec,si)=>sec.exercises.forEach((ex,ei)=>TOTAL++)));
+document.getElementById('total').textContent=TOTAL;
+
+/* ---- build tabs ---- */
+LESSON.forEach((u,ui)=>{
+  const b=document.createElement('button');
+  b.className='tab'+(ui===0?' active':'');
+  b.dataset.unit=ui;
+  b.innerHTML=`<small>Unit ${u.num} <span class="tick">✓</span></small>${u.title}`;
+  b.onclick=()=>switchUnit(ui);
+  tabsEl.appendChild(b);
+});
+
+/* ---- build units ---- */
+LESSON.forEach((u,ui)=>{
+  const sec=document.createElement('section');
+  sec.className='unit'+(ui===0?' active':'');
+  sec.dataset.unit=ui;
+  sec.innerHTML=`<div class="unit-head">
+      <div class="unit-num">${u.num}</div>
+      <div><h2>${u.title}</h2><div class="tag">${u.tag}</div></div>
+    </div>
+    <div class="complete" id="comp${ui}">🎉 Great! Unit ${u.num} is complete — all answers are correct!</div>`;
+  u.sections.forEach((s,si)=>sec.appendChild(buildCard(u,ui,s,si)));
+  unitsEl.appendChild(sec);
+});
+
+function buildCard(unit,ui,s,si){
+  const card=document.createElement('div');
+  card.className='card'+(s.kind==='vocab'?' vocab':'');
+  const typeLabel = s.kind==='vocab' ? '<span class="chip-type voc">Vocabulary</span>' : '<span class="chip-type">Grammar</span>';
+  const head=document.createElement('div');
+  head.innerHTML=`<div class="card-title">${typeLabel}${s.title}</div>
+                  <div class="card-sub">${s.sub}</div>`;
+  card.appendChild(head);
+
+  // rule toggle
+  if(s.rule){
+    const btn=document.createElement('button');
+    btn.className='btn-rule';
+    btn.innerHTML='💡 Show rule';
+    const rule=document.createElement('div');
+    rule.className='rule';
+    rule.innerHTML=s.rule;
+    btn.onclick=()=>{
+      rule.classList.toggle('open');
+      btn.innerHTML=rule.classList.contains('open')?'📖 Hide rule':'💡 Show rule';
+    };
+    card.appendChild(btn);
+    card.appendChild(rule);
+  }
+
+  // exercises
+  s.exercises.forEach((ex,ei)=>{
+    card.appendChild(buildExercise(unit,ui,si,ex,ei));
+  });
+  return card;
+}
+
+function buildExercise(unit,ui,si,ex,ei){
+  const id=exId(ui,si,ei);
+  const wrap=document.createElement('div');
+  wrap.className='ex-block';
+  wrap.innerHTML=`<div class="ex-instr"><span class="n">${ei+1}</span><span>${ex.instr}</span></div>`;
+  const body=document.createElement('div');
+  wrap.appendChild(body);
+
+  let checkFn;
+  if(ex.type==='mcq') checkFn=renderMCQ(body,ex);
+  else if(ex.type==='gap') checkFn=renderGap(body,ex);
+  else if(ex.type==='order') checkFn=renderOrder(body,ex);
+  else if(ex.type==='match') checkFn=renderMatch(body,ex);
+
+  // actions
+  const act=document.createElement('div');act.className='actions';
+  const chk=document.createElement('button');chk.className='btn-check';chk.innerHTML='✓ Check';
+  const rev=document.createElement('button');rev.className='btn-ghost';rev.textContent='Show answers';
+  const pill=document.createElement('span');pill.className='score-pill';
+  act.appendChild(chk);act.appendChild(rev);act.appendChild(pill);
+  wrap.appendChild(act);
+
+  chk.onclick=()=>{
+    const res=checkFn(false);
+    pill.classList.add('show');
+    pill.textContent=`${res.ok}/${res.total} correct`;
+    const allOK = res.ok===res.total;
+    results[id]=allOK;
+    updateProgress();
+    if(allOK){chk.innerHTML='✓ Done!';}
+  };
+  rev.onclick=()=>{ checkFn(true); };
+
+  return wrap;
+}
+
+/* ---------- MCQ ---------- */
+function renderMCQ(body,ex){
+  const blocks=[];
+  ex.items.forEach(it=>{
+    const q=document.createElement('div');q.className='q';
+    q.innerHTML=`<div class="qtext">${it.q}</div>`;
+    const opts=document.createElement('div');opts.className='opts';
+    let sel=-1;const obtns=[];
+    it.opts.forEach((o,oi)=>{
+      const ob=document.createElement('button');ob.className='opt';ob.textContent=o;
+      ob.onclick=()=>{sel=oi;obtns.forEach(b=>b.classList.remove('sel'));ob.classList.add('sel');};
+      obtns.push(ob);opts.appendChild(ob);
+    });
+    q.appendChild(opts);
+    q.innerHTML+=`<div class="fb ok">🌿 Correct!</div><div class="fb no">Try again</div>
+                  <div class="reveal">Answer: <b>${it.opts[it.correct]}</b></div>`;
+    body.appendChild(q);
+    blocks.push({q,get sel(){return sel},correct:it.correct,obtns,opts:it.opts});
+  });
+  return (reveal)=>{
+    let ok=0;
+    blocks.forEach(b=>{
+      b.q.classList.remove('correct','wrong');
+      b.obtns.forEach(x=>x.classList.remove('right'));
+      if(reveal){b.obtns[b.correct].classList.add('right');b.q.querySelector('.reveal').classList.add('show');return;}
+      if(b.sel===-1)return;
+      if(b.sel===b.correct){b.q.classList.add('correct');ok++;}
+      else{b.q.classList.add('wrong');b.obtns[b.correct].classList.add('right');b.q.querySelector('.reveal').classList.add('show');}
+    });
+    return {ok,total:blocks.length};
+  };
+}
+
+/* ---------- GAP ---------- */
+function renderGap(body,ex){
+  const blocks=[];
+  ex.items.forEach(it=>{
+    const q=document.createElement('div');q.className='q';
+    const parts=it.q.split('___');
+    const line=document.createElement('div');line.className='gapline qtext';
+    line.appendChild(document.createTextNode(parts[0]));
+    const inp=document.createElement('input');inp.className='gap';inp.type='text';inp.autocomplete='off';
+    line.appendChild(inp);
+    if(parts[1]!==undefined)line.appendChild(document.createTextNode(parts[1]));
+    q.appendChild(line);
+    if(it.hint){const h=document.createElement('div');h.className='hint';h.textContent='hint: '+it.hint;q.appendChild(h);}
+    q.innerHTML+=`<div class="fb ok">🌿 Correct!</div><div class="fb no">Not quite…</div>
+                  <div class="reveal">Answer: <b>${it.answers[0]}</b></div>`;
+    body.appendChild(q);
+    blocks.push({q,inp,answers:it.answers.map(norm)});
+  });
+  return (reveal)=>{
+    let ok=0;
+    blocks.forEach(b=>{
+      b.q.classList.remove('correct','wrong');
+      if(reveal){b.q.querySelector('.reveal').classList.add('show');return;}
+      if(!b.inp.value.trim())return;
+      if(b.answers.includes(norm(b.inp.value))){b.q.classList.add('correct');ok++;}
+      else{b.q.classList.add('wrong');b.q.querySelector('.reveal').classList.add('show');}
+    });
+    return {ok,total:blocks.length};
+  };
+}
+
+/* ---------- WORD ORDER ---------- */
+function renderOrder(body,ex){
+  const blocks=[];
+  ex.items.forEach(it=>{
+    const q=document.createElement('div');q.className='q';
+    const ans=document.createElement('div');ans.className='answer';
+    const bank=document.createElement('div');bank.className='bank';
+    shuffle([...it.words]).forEach(w=>{
+      const chip=document.createElement('button');chip.className='word';chip.textContent=w;
+      chip.onclick=()=>{
+        if(chip.parentElement===bank){ans.appendChild(chip);}else{bank.appendChild(chip);}
+      };
+      bank.appendChild(chip);
+    });
+    q.appendChild(ans);q.appendChild(bank);
+    const reset=document.createElement('button');reset.className='btn-ghost';reset.style.marginTop='8px';reset.textContent='↺ Reset';
+    reset.onclick=()=>{[...ans.querySelectorAll('.word')].forEach(c=>bank.appendChild(c));};
+    q.appendChild(reset);
+    q.innerHTML+=`<div class="fb ok">🌿 Correct!</div><div class="fb no">The word order is not correct</div>
+                  <div class="reveal">Answer: <b>${it.answer.replace(/\bi\b/g,'I')}</b></div>`;
+    body.appendChild(q);
+    blocks.push({q,ans,answer:norm(it.answer)});
+  });
+  return (reveal)=>{
+    let ok=0;
+    blocks.forEach(b=>{
+      b.q.classList.remove('correct','wrong');
+      if(reveal){b.q.querySelector('.reveal').classList.add('show');return;}
+      const built=[...b.ans.querySelectorAll('.word')].map(c=>c.textContent).join(' ');
+      if(!built)return;
+      if(norm(built)===b.answer){b.q.classList.add('correct');ok++;}
+      else{b.q.classList.add('wrong');b.q.querySelector('.reveal').classList.add('show');}
+    });
+    return {ok,total:blocks.length};
+  };
+}
+
+/* ---------- MATCH ---------- */
+function renderMatch(body,ex){
+  const rights=shuffle(ex.pairs.map(p=>p.r));
+  const rows=[];
+  ex.pairs.forEach(p=>{
+    const row=document.createElement('div');row.className='match-row';
+    const key=document.createElement('div');key.className='match-key';key.textContent=p.l;
+    const sel=document.createElement('select');sel.className='match-sel';
+    sel.innerHTML='<option value="">— choose —</option>'+rights.map(r=>`<option value="${r}">${r}</option>`).join('');
+    row.appendChild(key);row.appendChild(sel);
+    body.appendChild(row);
+    rows.push({row,sel,correct:p.r});
+  });
+  return (reveal)=>{
+    let ok=0;
+    rows.forEach(r=>{
+      r.row.classList.remove('ok','bad');
+      if(reveal){r.sel.value=r.correct;r.row.classList.add('ok');ok++;return;}
+      if(!r.sel.value)return;
+      if(r.sel.value===r.correct){r.row.classList.add('ok');ok++;}
+      else r.row.classList.add('bad');
+    });
+    return {ok,total:rows.length};
+  };
+}
+
+/* ---------- progress + nav ---------- */
+function updateProgress(){
+  const done=Object.values(results).filter(Boolean).length;
+  document.getElementById('done').textContent=done;
+  document.getElementById('barFill').style.width=(done/TOTAL*100)+'%';
+  // per-unit completion
+  LESSON.forEach((u,ui)=>{
+    let all=true,any=false;
+    u.sections.forEach((s,si)=>s.exercises.forEach((ex,ei)=>{
+      any=true;
+      if(!results[exId(ui,si,ei)])all=false;
+    }));
+    const tab=document.querySelector(`.tab[data-unit="${ui}"]`);
+    const comp=document.getElementById('comp'+ui);
+    if(all&&any){tab.classList.add('done');if(!comp.classList.contains('show')){comp.classList.add('show');confetti();}}
+    else{tab.classList.remove('done');comp.classList.remove('show');}
+  });
+}
+
+function switchUnit(ui){
+  document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('active',+t.dataset.unit===ui));
+  document.querySelectorAll('.unit').forEach(s=>s.classList.toggle('active',+s.dataset.unit===ui));
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+/* ---------- confetti ---------- */
+function confetti(){
+  const cols=['#34a67f','#5fd6a8','#6b4329','#d99a55','#c9f0df'];
+  for(let i=0;i<60;i++){
+    const c=document.createElement('div');c.className='confetti';
+    c.style.left=Math.random()*100+'vw';
+    c.style.background=cols[i%cols.length];
+    c.style.animation=`fall ${1.6+Math.random()*1.4}s ease-in ${Math.random()*0.3}s forwards`;
+    c.style.transform=`rotate(${Math.random()*360}deg)`;
+    document.body.appendChild(c);
+    setTimeout(()=>c.remove(),3400);
+  }
+}
+
+/* ---------- background decorations ---------- */
+(function(){
+  const deco=document.getElementById('deco');
+  const leaf=`<svg class="leaf" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><path d="M50 5C25 25 15 55 30 80c20-5 45-25 50-55C72 12 60 8 50 5Z" fill="#5fd6a8"/><path d="M50 5C50 30 42 60 30 80" stroke="#1f7d5e" stroke-width="3" fill="none"/></svg>`;
+  for(let i=0;i<7;i++){
+    const el=document.createElement('div');el.className='float';
+    el.innerHTML = i%2? leaf : '<div class="choc-sq" style="position:relative"></div>';
+    el.style.left=Math.random()*92+'vw';
+    el.style.top=Math.random()*92+'vh';
+    el.style.animationDuration=(8+Math.random()*8)+'s';
+    el.style.animationDelay=(-Math.random()*6)+'s';
+    el.style.opacity=.32+Math.random()*.22;
+    deco.appendChild(el);
+  }
+})();
+
+updateProgress();
+</script>
+</body>
+</html>
