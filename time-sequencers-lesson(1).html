@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Time Sequencers · A2 Lesson</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,900;1,9..144,500&family=Spectral:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --espresso:#160f0c;
+    --coffee:#1f1611;
+    --mocha:#2a1d16;
+    --bark:#372619;
+    --bark-2:#43301f;
+    --caramel:#cd9354;
+    --gold:#e3b878;
+    --cream:#f1e7d8;
+    --muted:#ac9379;
+    --line:#4a3422;
+    --ok:#a9ba6a;
+    --ok-bg:#2e3318;
+    --err:#cf7253;
+    --err-bg:#3a1f15;
+    --shadow:0 22px 50px -18px rgba(0,0,0,.75);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:
+      radial-gradient(1200px 600px at 80% -10%, rgba(205,147,84,.10), transparent 60%),
+      radial-gradient(900px 500px at -10% 30%, rgba(227,184,120,.06), transparent 55%),
+      var(--espresso);
+    color:var(--cream);
+    font-family:'Spectral',serif;
+    font-weight:400;
+    line-height:1.65;
+    overflow-x:hidden;
+  }
+  body::before{
+    content:"";position:fixed;inset:0;pointer-events:none;z-index:9999;opacity:.04;
+    background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* progress + nav */
+  #progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:1000;
+    background:linear-gradient(90deg,var(--caramel),var(--gold));box-shadow:0 0 12px rgba(227,184,120,.6)}
+  nav{position:fixed;top:0;left:0;right:0;z-index:900;display:flex;justify-content:center;gap:6px;
+    padding:14px 12px;flex-wrap:wrap;backdrop-filter:blur(10px);
+    background:linear-gradient(180deg,rgba(22,15,12,.92),rgba(22,15,12,.55));border-bottom:1px solid var(--line)}
+  nav a{font-family:'Fraunces',serif;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--muted);text-decoration:none;padding:6px 12px;border:1px solid transparent;border-radius:30px;transition:.25s}
+  nav a:hover{color:var(--gold);border-color:var(--line);background:rgba(205,147,84,.08)}
+
+  .wrap{max-width:920px;margin:0 auto;padding:0 22px}
+
+  /* hero */
+  header.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;
+    padding:120px 22px 70px;max-width:960px;margin:0 auto;position:relative}
+  .eyebrow{font-family:'Fraunces',serif;letter-spacing:.42em;text-transform:uppercase;font-size:.78rem;
+    color:var(--caramel);margin-bottom:26px}
+  .hero h1{font-family:'Fraunces',serif;font-weight:900;font-size:clamp(3.4rem,11vw,7.5rem);
+    line-height:.92;letter-spacing:-.02em;color:var(--cream)}
+  .hero h1 em{font-style:italic;font-weight:500;color:var(--gold);display:block}
+  .hero p.lead{font-size:1.25rem;color:var(--muted);max-width:560px;margin-top:30px;font-weight:300}
+  .meta{display:flex;gap:14px;flex-wrap:wrap;margin-top:42px}
+  .pill{font-family:'Fraunces',serif;font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;
+    border:1px solid var(--line);padding:9px 16px;border-radius:30px;color:var(--gold);
+    background:rgba(67,48,31,.35)}
+  .scroll-cue{position:absolute;bottom:34px;left:50%;transform:translateX(-50%);color:var(--muted);
+    font-family:'Fraunces';letter-spacing:.2em;font-size:.7rem;text-transform:uppercase;animation:bob 2.4s ease-in-out infinite}
+  @keyframes bob{0%,100%{transform:translate(-50%,0);opacity:.5}50%{transform:translate(-50%,8px);opacity:1}}
+
+  /* sections */
+  section{padding:78px 0;position:relative}
+  .stage{display:inline-flex;align-items:center;gap:14px;margin-bottom:14px}
+  .stage .num{font-family:'Fraunces';font-weight:900;font-size:1rem;color:var(--espresso);
+    background:var(--gold);width:34px;height:34px;border-radius:50%;display:grid;place-items:center}
+  .stage .tag{font-family:'Fraunces';letter-spacing:.32em;text-transform:uppercase;font-size:.74rem;color:var(--caramel)}
+  .stage .time{margin-left:auto;font-family:'Fraunces';font-size:.74rem;color:var(--muted);letter-spacing:.1em}
+  h2.sec{font-family:'Fraunces';font-weight:900;font-size:clamp(2rem,5vw,3.1rem);line-height:1.04;
+    letter-spacing:-.01em;margin-bottom:18px}
+  h2.sec em{font-style:italic;color:var(--gold);font-weight:500}
+  p.intro{color:var(--muted);font-size:1.1rem;max-width:640px;margin-bottom:34px;font-weight:300}
+
+  .divider{height:1px;background:linear-gradient(90deg,transparent,var(--line),transparent);margin:0 auto;max-width:920px}
+
+  /* cards / panels */
+  .card{background:linear-gradient(165deg,var(--mocha),var(--coffee));border:1px solid var(--line);
+    border-radius:18px;padding:28px;box-shadow:var(--shadow)}
+  .soft{background:rgba(67,48,31,.28);border:1px solid var(--line);border-radius:16px;padding:22px}
+
+  .label{font-family:'Fraunces';letter-spacing:.2em;text-transform:uppercase;font-size:.72rem;
+    color:var(--caramel);margin-bottom:14px;display:flex;align-items:center;gap:10px}
+  .label::before{content:"";width:22px;height:2px;background:var(--caramel)}
+
+  /* buttons */
+  .btn{font-family:'Fraunces';font-weight:600;letter-spacing:.06em;font-size:.86rem;cursor:pointer;
+    border-radius:30px;padding:11px 22px;border:1px solid var(--caramel);color:var(--gold);
+    background:rgba(205,147,84,.1);transition:.22s;display:inline-flex;align-items:center;gap:8px}
+  .btn:hover{background:var(--caramel);color:var(--espresso);transform:translateY(-2px);box-shadow:0 10px 24px -10px rgba(205,147,84,.6)}
+  .btn.solid{background:var(--gold);color:var(--espresso);border-color:var(--gold)}
+  .btn.solid:hover{background:var(--cream);border-color:var(--cream)}
+  .btn.ghost{border-color:var(--line);color:var(--muted);background:transparent}
+  .btn.ghost:hover{color:var(--gold);border-color:var(--caramel);background:transparent;box-shadow:none}
+  .btn-row{display:flex;gap:12px;flex-wrap:wrap;margin-top:20px;align-items:center}
+
+  /* warm-up discussion */
+  .prompt-box{font-family:'Fraunces';font-style:italic;font-weight:500;font-size:1.6rem;line-height:1.3;
+    color:var(--cream);min-height:120px;display:flex;align-items:center}
+  .prompt-box .quote{color:var(--caramel);font-size:2.4rem;font-weight:900;margin-right:8px;vertical-align:-10px}
+  .chips{display:flex;flex-wrap:wrap;gap:9px;margin-top:8px}
+  .chip{font-family:'Fraunces';font-size:.82rem;letter-spacing:.04em;padding:7px 14px;border-radius:30px;
+    border:1px solid var(--line);color:var(--gold);background:rgba(227,184,120,.07)}
+
+  /* flip cards */
+  .flip-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:16px}
+  .flip{perspective:1200px;height:178px;cursor:pointer}
+  .flip-in{position:relative;width:100%;height:100%;transition:transform .7s cubic-bezier(.6,.05,.2,1);transform-style:preserve-3d}
+  .flip.on .flip-in{transform:rotateY(180deg)}
+  .face{position:absolute;inset:0;backface-visibility:hidden;border-radius:16px;border:1px solid var(--line);
+    display:flex;flex-direction:column;justify-content:center;padding:18px;text-align:center}
+  .face.front{background:linear-gradient(160deg,var(--bark),var(--mocha))}
+  .face.front .word{font-family:'Fraunces';font-weight:900;font-size:1.35rem;color:var(--gold);line-height:1.1}
+  .face.front .hint{font-family:'Fraunces';letter-spacing:.18em;text-transform:uppercase;font-size:.62rem;color:var(--muted);margin-top:12px}
+  .face.back{background:linear-gradient(160deg,var(--caramel),#9c6a36);transform:rotateY(180deg);color:var(--espresso)}
+  .face.back .ex{font-style:italic;font-size:.96rem;font-weight:500;line-height:1.32}
+  .face.back .ex b{font-style:normal;text-decoration:underline;text-underline-offset:3px}
+  .face.back .tr{font-size:.82rem;line-height:1.25;margin-top:9px;opacity:.72;border-top:1px solid rgba(22,15,12,.25);padding-top:8px}
+
+  /* timeline */
+  .timeline{position:relative;margin:40px 0 10px;padding:30px 0}
+  .tl-line{position:absolute;top:50%;left:0;right:0;height:2px;background:var(--line)}
+  .tl-fill{position:absolute;top:50%;left:0;height:2px;width:0;background:linear-gradient(90deg,var(--caramel),var(--gold));transition:width 1.6s ease}
+  .tl-row{position:relative;display:flex;justify-content:space-between}
+  .tl-node{display:flex;flex-direction:column;align-items:center;gap:12px;opacity:0;transform:translateY(14px);transition:.6s}
+  .tl-node.show{opacity:1;transform:none}
+  .tl-dot{width:16px;height:16px;border-radius:50%;background:var(--bark);border:2px solid var(--caramel);z-index:2}
+  .tl-node.show .tl-dot{background:var(--gold);box-shadow:0 0 0 6px rgba(227,184,120,.12)}
+  .tl-label{font-family:'Fraunces';font-weight:600;font-size:.84rem;color:var(--cream);text-align:center}
+
+  /* rule cards */
+  .rule{display:flex;gap:14px;align-items:flex-start;padding:16px 0;border-bottom:1px dashed var(--line)}
+  .rule:last-child{border-bottom:none}
+  .rule .ic{font-family:'Fraunces';font-weight:900;font-size:1.1rem;width:30px;flex:0 0 30px;height:30px;border-radius:8px;display:grid;place-items:center}
+  .rule.good .ic{background:var(--ok-bg);color:var(--ok)}
+  .rule.bad .ic{background:var(--err-bg);color:var(--err)}
+  .rule .txt em{font-style:italic;color:var(--gold)}
+  .rule .strike{text-decoration:line-through;color:var(--muted)}
+
+  /* ordering exercise */
+  .order-item{display:flex;align-items:center;gap:14px;background:rgba(67,48,31,.3);border:1px solid var(--line);
+    border-radius:12px;padding:12px 14px;margin-bottom:10px;transition:.35s}
+  .order-item .pos{font-family:'Fraunces';font-weight:900;color:var(--gold);width:30px;height:30px;flex:0 0 30px;
+    border-radius:8px;background:var(--bark);display:grid;place-items:center;font-size:.95rem}
+  .order-item .body{flex:1;font-size:.98rem}
+  .order-item .arrows{display:flex;flex-direction:column;gap:3px}
+  .arrow{cursor:pointer;background:none;border:1px solid var(--line);color:var(--muted);border-radius:6px;
+    width:30px;height:22px;display:grid;place-items:center;font-size:.8rem;transition:.18s}
+  .arrow:hover{color:var(--gold);border-color:var(--caramel)}
+  .order-item.correct{border-color:var(--ok);background:var(--ok-bg)}
+  .order-item.correct .pos{background:var(--ok);color:var(--espresso)}
+  .order-item.wrong{border-color:var(--err);background:var(--err-bg)}
+
+  /* gap fill */
+  .gap-row{display:flex;gap:12px;align-items:baseline;padding:13px 0;border-bottom:1px dashed var(--line);flex-wrap:wrap}
+  .gap-row .n{font-family:'Fraunces';font-weight:900;color:var(--caramel);flex:0 0 22px}
+  .gap-row .sent{flex:1;font-size:1.02rem;min-width:240px}
+  select.gap{font-family:'Spectral';font-size:.96rem;background:var(--bark);color:var(--gold);border:1px solid var(--caramel);
+    border-radius:8px;padding:4px 8px;margin:0 4px;cursor:pointer}
+  select.gap.right{border-color:var(--ok);color:var(--ok);background:var(--ok-bg)}
+  select.gap.wrong{border-color:var(--err);color:var(--err);background:var(--err-bg)}
+
+  .score{font-family:'Fraunces';font-weight:600;color:var(--gold);font-size:1.05rem;display:none;align-items:center;gap:10px}
+  .score.show{display:inline-flex}
+
+  /* timer */
+  .timer{display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+  .timer .clock{font-family:'Fraunces';font-weight:900;font-size:2.6rem;color:var(--gold);font-variant-numeric:tabular-nums;letter-spacing:.02em}
+  .timer .clock.ring{color:var(--err);animation:flash .6s ease-in-out 4}
+  @keyframes flash{50%{opacity:.25}}
+
+  /* story builder */
+  .events{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;margin-top:8px}
+  .event{background:rgba(67,48,31,.3);border:1px solid var(--line);border-radius:12px;padding:14px;font-size:.92rem;
+    position:relative;min-height:78px;display:flex;align-items:center}
+  .event .e-num{position:absolute;top:-9px;left:-9px;width:24px;height:24px;border-radius:50%;background:var(--gold);
+    color:var(--espresso);font-family:'Fraunces';font-weight:900;display:grid;place-items:center;font-size:.78rem}
+
+  /* checklist */
+  .check{display:flex;align-items:center;gap:14px;padding:13px 0;cursor:pointer;border-bottom:1px dashed var(--line)}
+  .check:last-child{border-bottom:none}
+  .check .box{width:26px;height:26px;flex:0 0 26px;border:2px solid var(--caramel);border-radius:8px;display:grid;place-items:center;transition:.2s;color:transparent;font-weight:900}
+  .check.on .box{background:var(--gold);border-color:var(--gold);color:var(--espresso)}
+  .check .ct{font-size:1.02rem;transition:.2s}
+  .check.on .ct{color:var(--muted)}
+
+  /* reveal animation */
+  .reveal{opacity:0;transform:translateY(28px);transition:.8s cubic-bezier(.2,.7,.2,1)}
+  .reveal.in{opacity:1;transform:none}
+
+  footer{padding:60px 22px 90px;text-align:center;color:var(--muted);font-size:.9rem}
+  footer .logo{font-family:'Fraunces';font-weight:900;font-size:1.4rem;color:var(--gold);letter-spacing:-.01em}
+
+  .hide{display:none!important}
+  @media(max-width:560px){
+    nav a{font-size:.62rem;padding:5px 9px}
+    .prompt-box{font-size:1.25rem}
+  }
+</style>
+</head>
+<body>
+
+<div id="progress"></div>
+<nav>
+  <a href="#top">Time Sequencers</a>
+  <a href="#warmup">Warm-up</a>
+  <a href="#present">Sequencers</a>
+  <a href="#connectors">Connectors</a>
+  <a href="#practice">Practice</a>
+  <a href="#speaking">Speaking</a>
+  <a href="#wrap">Wrap-up</a>
+</nav>
+
+<!-- HERO -->
+<header class="hero" id="top">
+  <div class="eyebrow reveal">Unit 2C · English Lesson</div>
+  <h1 class="reveal">First, then,<em>after that…</em></h1>
+  <p class="lead reveal">Tell stories in the right order — and say <em>why</em>. A speaking lesson on <strong style="color:var(--gold);font-weight:600">time sequencers</strong> and the connectors <strong style="color:var(--gold);font-weight:600">because, so, but, although</strong>.</p>
+  <div class="meta">
+    <span class="pill reveal">Level A2 – A2+</span>
+    <span class="pill reveal">90 minutes</span>
+    <span class="pill reveal">Speaking focus</span>
+    <span class="pill reveal">PPP lesson</span>
+  </div>
+  <div class="scroll-cue">scroll to begin ↓</div>
+</header>
+
+<div class="divider"></div>
+
+<!-- WARM UP -->
+<section id="warmup">
+  <div class="wrap">
+    <div class="stage reveal"><span class="num">1</span><span class="tag">Warm-up · Lead-in</span><span class="time">≈ 10 min</span></div>
+    <h2 class="sec reveal">Talk about <em>your day</em></h2>
+    <p class="intro reveal">Speak with your teacher. Don't worry about mistakes — just tell the story of your day in order, from morning to now.</p>
+
+    <div class="card reveal">
+      <div class="label">Speaking prompt</div>
+      <div class="prompt-box"><span><span class="quote">“</span><span id="warmPrompt">What did you do this morning? Tell me everything — step by step, in order.</span>”</span></div>
+      <div class="chips">
+        <span class="chip">First…</span><span class="chip">Then…</span><span class="chip">After that…</span><span class="chip">Later…</span><span class="chip">Finally…</span>
+      </div>
+      <div class="btn-row">
+        <button class="btn solid" onclick="nextWarm()">↻ New question</button>
+        <button class="btn ghost" onclick="startTimer(120,'warmTimer')">▶ Speak for 2 min</button>
+        <span class="clock" id="warmTimer" style="font-size:1.6rem">02:00</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PRESENTATION -->
+<section id="present">
+  <div class="wrap">
+    <div class="stage reveal"><span class="num">2</span><span class="tag">Presentation · Grammar</span><span class="time">≈ 20 min</span></div>
+    <h2 class="sec reveal">The words that <em>order time</em></h2>
+    <p class="intro reveal">We use <strong style="color:var(--gold);font-weight:600">time sequencers</strong> to say <em>when</em> or <em>in what order</em> things happen. Tap each card to see an example.</p>
+
+    <div class="flip-grid reveal" id="flipGrid"></div>
+
+    <!-- timeline -->
+    <div class="card reveal" style="margin-top:26px">
+      <div class="label">A story on a timeline</div>
+      <p style="color:var(--muted);margin-bottom:6px">The same morning, told in order:</p>
+      <div class="timeline" id="timeline">
+        <div class="tl-line"></div><div class="tl-fill" id="tlFill"></div>
+        <div class="tl-row" id="tlRow"></div>
+      </div>
+    </div>
+
+    <!-- rules -->
+    <div class="card reveal" style="margin-top:26px">
+      <div class="label">Watch out · key rules</div>
+
+      <div class="rule good"><div class="ic">✓</div><div class="txt"><em>When</em> joins two actions: <em>“I was watching TV <b style="color:var(--gold)">when</b> the phone rang.”</em> (two verbs in one sentence)</div></div>
+
+      <div class="rule good"><div class="ic">✓</div><div class="txt">For two actions one after another, use <em>then</em> or <em>after that</em>:<br><em>“I got up and got dressed. <b style="color:var(--gold)">Then / After that</b>, I made a cup of coffee.”</em></div></div>
+
+      <div class="rule bad"><div class="ic">✕</div><div class="txt">Don't use <em>after</em> alone to mean "next":<br><span class="strike">“After I made a cup of coffee.”</span> (when you mean <em>then</em>)</div></div>
+
+      <div class="rule good"><div class="ic">✓</div><div class="txt"><em>Later</em> and <em>… minutes/days later</em> show time passing:<br><em>“Two minutes <b style="color:var(--gold)">later</b>, my phone rang.” · “<b style="color:var(--gold)">The next day</b>, I went to work.”</em></div></div>
+
+      <div class="btn-row">
+        <button class="btn ghost" onclick="document.getElementById('cce').classList.toggle('hide')">Concept-check questions ▾</button>
+      </div>
+      <div id="cce" class="soft hide" style="margin-top:14px">
+        <p style="color:var(--muted);font-size:.96rem"><strong style="color:var(--gold)">Think and answer:</strong><br>
+        • In <em>"When I arrived, she was cooking"</em> — how many actions are there?<br>
+        • Can I say <em>"After, I went home"</em> to mean "next"?<br>
+        • Is <em>"the next day"</em> the same day or a different day?</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PRESENTATION 2: CONNECTORS -->
+<section id="connectors">
+  <div class="wrap">
+    <div class="stage reveal"><span class="num">2</span><span class="tag">Presentation · Connectors</span><span class="time">≈ 12 min</span></div>
+    <h2 class="sec reveal"><em>because, so, but, although</em></h2>
+    <p class="intro reveal">Sequencers tell us <em>when</em>. Connectors tell us <em>why</em> and show <em>contrast</em>. Tap each card.</p>
+
+    <div class="flip-grid reveal" id="connGrid"></div>
+
+    <!-- connector rules -->
+    <div class="card reveal" style="margin-top:26px">
+      <div class="label">How they work</div>
+
+      <div class="rule good"><div class="ic">↺</div><div class="txt"><em>because</em> gives a <b style="color:var(--gold)">reason</b>; <em>so</em> gives a <b style="color:var(--gold)">result</b>. They are opposite directions:<br><em>“She drove fast <b style="color:var(--gold)">because</b> she was late.” = “She was late, <b style="color:var(--gold)">so</b> she drove fast.”</em></div></div>
+
+      <div class="rule good"><div class="ic">⇄</div><div class="txt"><em>but</em> and <em>although</em> both show a <b style="color:var(--gold)">contrast</b>:<br><em>“She was tired, <b style="color:var(--gold)">but</b> she couldn't sleep.” = “<b style="color:var(--gold)">Although</b> she was tired, she couldn't sleep.”</em></div></div>
+
+      <div class="rule good"><div class="ic">↕</div><div class="txt"><em>although</em> can go at the <b style="color:var(--gold)">beginning</b> or in the <b style="color:var(--gold)">middle</b> of the sentence:<br><em>“<b style="color:var(--gold)">Although</b> it was cold, …” · “…, <b style="color:var(--gold)">although</b> it was cold.”</em></div></div>
+
+      <div class="btn-row">
+        <button class="btn ghost" onclick="document.getElementById('cce2').classList.toggle('hide')">Concept-check questions ▾</button>
+      </div>
+      <div id="cce2" class="soft hide" style="margin-top:14px">
+        <p style="color:var(--muted);font-size:.96rem"><strong style="color:var(--gold)">Think and answer:</strong><br>
+        • In <em>"I was hungry, so I ate"</em> — which part is the reason, which is the result?<br>
+        • What's the difference between <em>because</em> and <em>so</em>?<br>
+        • Can <em>although</em> start a sentence? Can <em>but</em>?<br>
+        • Do <em>but</em> and <em>although</em> show a similar idea or an opposite one?</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PRACTICE -->
+<section id="practice">
+  <div class="wrap">
+    <div class="stage reveal"><span class="num">3</span><span class="tag">Practice · Controlled</span><span class="time">≈ 25 min</span></div>
+    <h2 class="sec reveal">Put it in <em>order</em></h2>
+    <p class="intro reveal">Exercise A — A true story about a bus. Use the arrows to put the sentences in the correct order, then check.</p>
+
+    <div class="card reveal">
+      <div class="label">Exercise A · order the story</div>
+      <div id="orderList"></div>
+      <div class="btn-row">
+        <button class="btn solid" onclick="checkOrder()">✓ Check order</button>
+        <button class="btn" onclick="showOrder()">Show answer</button>
+        <button class="btn ghost" onclick="buildOrder(true)">↻ Shuffle</button>
+        <span class="score" id="orderScore"></span>
+      </div>
+    </div>
+
+    <p class="intro reveal" style="margin-top:50px">Exercise B — One typical day. Choose the best time sequencer for each gap.</p>
+    <div class="card reveal">
+      <div class="label">Exercise B · choose the word</div>
+      <div id="gapList"></div>
+      <div class="btn-row">
+        <button class="btn solid" onclick="checkGaps()">✓ Check answers</button>
+        <button class="btn" onclick="showGaps()">Show answers</button>
+        <button class="btn ghost" onclick="buildGaps()">↻ Reset</button>
+        <span class="score" id="gapScore"></span>
+      </div>
+    </div>
+
+    <p class="intro reveal" style="margin-top:50px">Exercise C — Connectors. Complete each sentence with <em>so, because, but</em> or <em>although</em>.</p>
+    <div class="card reveal">
+      <div class="label">Exercise C · because, so, but, although</div>
+      <div id="connList"></div>
+      <div class="btn-row">
+        <button class="btn solid" onclick="checkConn()">✓ Check answers</button>
+        <button class="btn" onclick="showConn()">Show answers</button>
+        <button class="btn ghost" onclick="buildConn()">↻ Reset</button>
+        <span class="score" id="connScore"></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- SPEAKING / PRODUCTION -->
+<section id="speaking">
+  <div class="wrap">
+    <div class="stage reveal"><span class="num">4</span><span class="tag">Production · Speaking</span><span class="time">≈ 25 min</span></div>
+    <h2 class="sec reveal">Now <em>tell the story</em></h2>
+    <p class="intro reveal">Your turn to speak freely. Use as many time sequencers as you can.</p>
+
+    <!-- story builder -->
+    <div class="card reveal">
+      <div class="label">Task 1 · build a story (5–6 min)</div>
+      <p style="color:var(--muted);margin-bottom:6px">Here are six things that happened. Connect them into one story <strong style="color:var(--gold)">out loud</strong>, adding sequencers between them.</p>
+      <div class="events" id="events"></div>
+      <div class="chips" style="margin-top:16px">
+        <span class="chip">First</span><span class="chip">Then</span><span class="chip">After that</span><span class="chip">A few minutes later</span><span class="chip">When</span><span class="chip">Finally</span>
+      </div>
+      <div class="btn-row">
+        <button class="btn solid" onclick="newEvents()">↻ New events</button>
+        <button class="btn ghost" onclick="startTimer(300,'storyTimer')">▶ Timer 5 min</button>
+        <span class="clock" id="storyTimer" style="font-size:1.6rem">05:00</span>
+      </div>
+    </div>
+
+    <!-- personal prompts -->
+    <div class="card reveal" style="margin-top:26px">
+      <div class="label">Task 2 · your real life (10–12 min)</div>
+      <div class="prompt-box"><span><span class="quote">“</span><span id="speakPrompt">Tell me about a day you will never forget. What happened first? And then?</span>”</span></div>
+      <p style="color:var(--muted);font-size:.92rem">Speak for about two minutes. Your teacher will ask <em>"And then? What happened after that?"</em></p>
+      <div class="btn-row">
+        <button class="btn solid" onclick="nextSpeak()">↻ New topic</button>
+        <button class="btn ghost" onclick="startTimer(120,'speakTimer')">▶ Speak for 2 min</button>
+        <span class="clock" id="speakTimer" style="font-size:1.6rem">02:00</span>
+      </div>
+    </div>
+
+    <!-- connectors speaking -->
+    <div class="card reveal" style="margin-top:26px">
+      <div class="label">Task 3 · finish the sentence (8–10 min)</div>
+      <p style="color:var(--muted);margin-bottom:6px">Read the sentence start <strong style="color:var(--gold)">aloud</strong> and finish it in your own words. Watch the connector!</p>
+      <div class="prompt-box" style="min-height:90px;font-size:1.4rem"><span><span class="quote">“</span><span id="connPrompt">I was really tired last night, so…</span>”</span></div>
+      <div class="chips" style="margin-top:6px">
+        <span class="chip">because = reason</span><span class="chip">so = result</span><span class="chip">but = contrast</span><span class="chip">although = contrast</span>
+      </div>
+      <div class="btn-row">
+        <button class="btn solid" onclick="nextConnSpeak()">↻ New sentence</button>
+        <button class="btn ghost" onclick="startTimer(180,'connTimer')">▶ Timer 3 min</button>
+        <span class="clock" id="connTimer" style="font-size:1.6rem">03:00</span>
+      </div>
+    </div>
+
+    <!-- roleplay -->
+    <div class="soft reveal" style="margin-top:26px">
+      <div class="label">Task 4 · tell a true story (optional)</div>
+      <p style="color:var(--muted)">Tell a real story from your life (a trip, a funny day, how you learned to drive). Use <strong style="color:var(--gold)">both</strong> sequencers <em>(first, then, after that…)</em> and connectors <em>(because, so, but, although)</em>: <em>“First I missed the bus, so I was late, but in the end it was fine because…”</em></p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- WRAP UP -->
+<section id="wrap">
+  <div class="wrap">
+    <div class="stage reveal"><span class="num">5</span><span class="tag">Wrap-up · Reflection</span><span class="time">≈ 8 min</span></div>
+    <h2 class="sec reveal">Before you <em>go</em></h2>
+    <p class="intro reveal">Two quick things to round off the lesson.</p>
+
+    <div class="card reveal">
+      <div class="label">Say it back · 30 seconds</div>
+      <p style="font-size:1.05rem;line-height:1.7">Tell the story of <strong style="color:var(--gold)">today's lesson</strong> in 4–5 sentences, using sequencers and connectors: <em>“First we talked about my day, then we learned new words, after that…, but the hardest part was…, so…”</em></p>
+    </div>
+
+    <div class="card reveal" style="margin-top:26px">
+      <div class="label">One-sentence exit ticket</div>
+      <div class="prompt-box" style="min-height:70px;font-size:1.3rem"><span>Finish this aloud: <em style="color:var(--gold)">“Today I learned…”</em></span></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="logo">First → Then → Finally</div>
+  <p style="margin-top:10px">Time Sequencers · A2 – A2+ · 90-minute speaking lesson</p>
+</footer>
+
+<script>
+/* ---------- progress bar ---------- */
+const prog=document.getElementById('progress');
+addEventListener('scroll',()=>{const h=document.documentElement;prog.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+'%';});
+
+/* ---------- reveal on scroll ---------- */
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}}),{threshold:.15});
+document.querySelectorAll('.reveal').forEach((el,i)=>{el.style.transitionDelay=(i%5*70)+'ms';io.observe(el);});
+
+/* ---------- warm-up prompts ---------- */
+const warmPrompts=[
+ "What did you do this morning? Tell me everything — step by step, in order.",
+ "Think about yesterday evening. What did you do first, and what did you do after that?",
+ "Describe your usual Monday morning, from the moment you wake up.",
+ "What did you do last weekend? Start with Saturday morning.",
+ "How did you get here today? Tell me the journey in order.",
+ "What's the first thing you do when you get home from work?"
+];
+let wI=0;
+function nextWarm(){wI=(wI+1)%warmPrompts.length;typeInto('warmPrompt',warmPrompts[wI]);}
+
+/* ---------- flip cards: sequencers ---------- */
+const seq=[
+ {w:"First / First of all",h:"the start",ex:"<b>First</b>, I got up and had a shower.",tr:"Сначала я встал и принял душ."},
+ {w:"Then",h:"the next action",ex:"<b>Then</b> I had breakfast in the kitchen.",tr:"Потом я позавтракал на кухне."},
+ {w:"After that",h:"= then",ex:"<b>After that</b>, I left the house.",tr:"После этого я вышел из дома."},
+ {w:"… later",h:"time passes",ex:"Two minutes <b>later</b>, my phone rang.",tr:"Через две минуты зазвонил телефон."},
+ {w:"The next day",h:"a new day",ex:"<b>The next day</b>, I went back to work.",tr:"На следующий день я вернулся на работу."},
+ {w:"When",h:"joins 2 actions",ex:"<b>When</b> I came out, he was waiting for me.",tr:"Когда я вышел, он меня ждал."},
+ {w:"Before / After",h:"+ an action",ex:"<b>Before</b> I went to bed, I read a book.",tr:"Перед тем как лечь спать, я почитал книгу."},
+ {w:"Finally / In the end",h:"the last thing",ex:"<b>Finally</b>, I fell asleep.",tr:"Наконец я уснул."}
+];
+/* ---------- flip cards: connectors ---------- */
+const conn=[
+ {w:"because",h:"a reason",ex:"She drove fast <b>because</b> she was late.",tr:"Она ехала быстро, потому что опаздывала."},
+ {w:"so",h:"a result",ex:"She was late, <b>so</b> she drove fast.",tr:"Она опаздывала, поэтому ехала быстро."},
+ {w:"but",h:"a contrast",ex:"She was very tired, <b>but</b> she couldn't sleep.",tr:"Она очень устала, но не могла уснуть."},
+ {w:"although",h:"a contrast",ex:"<b>Although</b> she was tired, she couldn't sleep.",tr:"Хотя она устала, она не могла уснуть."}
+];
+function renderFlips(arr,containerId){
+ const c=document.getElementById(containerId);
+ arr.forEach(s=>{
+  const d=document.createElement('div');d.className='flip';
+  d.innerHTML=`<div class="flip-in"><div class="face front"><div class="word">${s.w}</div><div class="hint">${s.h} · tap</div></div><div class="face back"><div class="ex">${s.ex}</div><div class="tr">${s.tr}</div></div></div>`;
+  d.onclick=()=>d.classList.toggle('on');
+  c.appendChild(d);
+ });
+}
+renderFlips(seq,'flipGrid');
+renderFlips(conn,'connGrid');
+
+/* ---------- timeline ---------- */
+const tlNodes=["First","Then","After that","Later","Finally"];
+const tlRow=document.getElementById('tlRow');
+tlNodes.forEach(n=>{const d=document.createElement('div');d.className='tl-node';d.innerHTML=`<div class="tl-dot"></div><div class="tl-label">${n}</div>`;tlRow.appendChild(d);});
+const tlIO=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){
+ document.getElementById('tlFill').style.width='100%';
+ [...tlRow.children].forEach((n,i)=>setTimeout(()=>n.classList.add('show'),i*280));
+ tlIO.disconnect();}}),{threshold:.4});
+tlIO.observe(document.getElementById('timeline'));
+
+/* ---------- ordering exercise ---------- */
+const story=[
+ {id:'C',t:"Last week I was waiting for a bus.",c:0},
+ {id:'G',t:"The bus arrived, but suddenly a man ran in front of me and got on.",c:1},
+ {id:'B',t:"Then another man tried to do the same.",c:2},
+ {id:'E',t:"When I asked the second man what he was doing, he told me he was a policeman.",c:3},
+ {id:'A',t:"He explained that he was looking for a thief, and then he got on the bus.",c:4},
+ {id:'F',t:"A few seconds later, he got off the bus with the thief.",c:5},
+ {id:'H',t:"After that, a police car came and took the thief away.",c:6},
+ {id:'D',t:"The next day, I saw the story on a local news website.",c:7}
+];
+let order=[];
+const ol=document.getElementById('orderList');
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+function buildOrder(re){
+ if(re||order.length===0){order=shuffle([...Array(story.length).keys()]);}
+ renderOrder();document.getElementById('orderScore').classList.remove('show');
+}
+function renderOrder(){
+ ol.innerHTML='';
+ order.forEach((sIdx,pos)=>{
+  const s=story[sIdx];
+  const row=document.createElement('div');row.className='order-item';
+  row.innerHTML=`<div class="pos">${pos+1}</div><div class="body">${s.t}</div>
+   <div class="arrows"><button class="arrow" onclick="moveItem(${pos},-1)">▲</button><button class="arrow" onclick="moveItem(${pos},1)">▼</button></div>`;
+  ol.appendChild(row);
+ });
+}
+function moveItem(pos,dir){
+ const np=pos+dir;if(np<0||np>=order.length)return;
+ [order[pos],order[np]]=[order[np],order[pos]];renderOrder();
+ document.getElementById('orderScore').classList.remove('show');
+}
+function checkOrder(){
+ let right=0;
+ [...ol.children].forEach((row,pos)=>{
+  row.classList.remove('correct','wrong');
+  if(story[order[pos]].c===pos){row.classList.add('correct');right++;}else{row.classList.add('wrong');}
+ });
+ const sc=document.getElementById('orderScore');
+ sc.textContent=`${right} / ${story.length} in the right place`;sc.classList.add('show');
+}
+function showOrder(){
+ order=[...Array(story.length).keys()].sort((a,b)=>story[a].c-story[b].c);
+ renderOrder();
+ [...ol.children].forEach(r=>r.classList.add('correct'));
+ const sc=document.getElementById('orderScore');sc.textContent='✓ Correct order';sc.classList.add('show');
+}
+
+/* ---------- gap fill ---------- */
+const gaps=[
+ {pre:"",opts:["First","Later","When"],ans:"First",post:" I got up at seven o'clock."},
+ {pre:"I had a shower. ",opts:["After that","When","Before"],ans:"After that",post:", I made some coffee."},
+ {pre:"",opts:["When","Then","Finally"],ans:"When",post:" I was having breakfast, my phone rang."},
+ {pre:"I left the house. Ten minutes ",opts:["later","then","when"],ans:"later",post:", I was at the station."},
+ {pre:"",opts:["Then","When","Later"],ans:"Then",post:" I caught the train to work."},
+ {pre:"I worked all day. ",opts:["In the end","When","Before"],ans:"In the end",post:", I went home and relaxed."},
+ {pre:"",opts:["Before","After that","Later"],ans:"Before",post:" I went to bed, I read for a while."},
+ {pre:"",opts:["Finally","When","Before"],ans:"Finally",post:", I fell asleep."}
+];
+const gl=document.getElementById('gapList');
+function buildGaps(){
+ gl.innerHTML='';
+ gaps.forEach((g,i)=>{
+  const row=document.createElement('div');row.className='gap-row';
+  const sel=`<select class="gap" id="g${i}"><option value="">— choose —</option>${g.opts.map(o=>`<option>${o}</option>`).join('')}</select>`;
+  row.innerHTML=`<div class="n">${i+1}</div><div class="sent">${g.pre}${sel}${g.post}</div>`;
+  gl.appendChild(row);
+ });
+ document.getElementById('gapScore').classList.remove('show');
+}
+function checkGaps(){
+ let right=0;
+ gaps.forEach((g,i)=>{
+  const s=document.getElementById('g'+i);s.classList.remove('right','wrong');
+  if(s.value===g.ans){s.classList.add('right');right++;}else if(s.value!==''){s.classList.add('wrong');}
+ });
+ const sc=document.getElementById('gapScore');sc.textContent=`${right} / ${gaps.length} correct`;sc.classList.add('show');
+}
+function showGaps(){
+ gaps.forEach((g,i)=>{const s=document.getElementById('g'+i);s.value=g.ans;s.classList.remove('wrong');s.classList.add('right');});
+ const sc=document.getElementById('gapScore');sc.textContent='✓ Answers shown';sc.classList.add('show');
+}
+
+/* ---------- connectors gap fill (Exercise C) ---------- */
+const conns=[
+ {pre:"We couldn't find a taxi, ",opts:["so","because","but"],ans:"so",post:" we walked home."},
+ {pre:"",opts:["Although","Because","So"],ans:"Although",post:" it was very cold, she wasn't wearing a coat."},
+ {pre:"I woke up in the night ",opts:["because","so","although"],ans:"because",post:" there was a noise."},
+ {pre:"I called him, ",opts:["but","so","because"],ans:"but",post:" his mobile was turned off."},
+ {pre:"",opts:["Although","So","But"],ans:"Although",post:" she's very nice, she doesn't have many friends."},
+ {pre:"There was nothing on TV, ",opts:["so","but","because"],ans:"so",post:" I went to bed."},
+ {pre:"All the cafés were full ",opts:["because","but","although"],ans:"because",post:" it was a public holiday."},
+ {pre:"She wanted to be a doctor, ",opts:["but","so","although"],ans:"but",post:" she failed her exams."},
+ {pre:"The garden looked beautiful, ",opts:["so","but","although"],ans:"so",post:" I took a photograph."}
+];
+const cnl=document.getElementById('connList');
+function buildConn(){
+ cnl.innerHTML='';
+ conns.forEach((g,i)=>{
+  const row=document.createElement('div');row.className='gap-row';
+  const sel=`<select class="gap" id="c${i}"><option value="">— choose —</option>${g.opts.map(o=>`<option>${o}</option>`).join('')}</select>`;
+  row.innerHTML=`<div class="n">${i+1}</div><div class="sent">${g.pre}${sel}${g.post}</div>`;
+  cnl.appendChild(row);
+ });
+ document.getElementById('connScore').classList.remove('show');
+}
+function checkConn(){
+ let right=0;
+ conns.forEach((g,i)=>{
+  const s=document.getElementById('c'+i);s.classList.remove('right','wrong');
+  if(s.value===g.ans){s.classList.add('right');right++;}else if(s.value!==''){s.classList.add('wrong');}
+ });
+ const sc=document.getElementById('connScore');sc.textContent=`${right} / ${conns.length} correct`;sc.classList.add('show');
+}
+function showConn(){
+ conns.forEach((g,i)=>{const s=document.getElementById('c'+i);s.value=g.ans;s.classList.remove('wrong');s.classList.add('right');});
+ const sc=document.getElementById('connScore');sc.textContent='✓ Answers shown';sc.classList.add('show');
+}
+
+/* ---------- story builder events ---------- */
+const eventSets=[
+ ["You woke up late","You couldn't find your keys","You missed the bus","A stranger gave you a lift","You arrived at work on time","Your boss thanked you"],
+ ["It started to rain","You forgot your umbrella","You ran into a café","You met an old friend there","You talked for an hour","You walked home together"],
+ ["You found €50 on the street","You looked for the owner","Nobody answered","You bought a gift for a friend","Your friend was very happy","You felt great all day"],
+ ["You booked a holiday online","The flight was cancelled","You called the airline","They gave you a new flight","You arrived a day late","The hotel was wonderful"],
+ ["You started cooking dinner","The lights went out","You used your phone for light","You finished cooking anyway","Your friends arrived","Everyone loved the food"]
+];
+let eI=0;
+const evWrap=document.getElementById('events');
+function renderEvents(){
+ evWrap.innerHTML='';
+ eventSets[eI].forEach((e,i)=>{const d=document.createElement('div');d.className='event';d.innerHTML=`<span class="e-num">${i+1}</span>${e}`;evWrap.appendChild(d);});
+}
+function newEvents(){eI=(eI+1)%eventSets.length;renderEvents();}
+
+/* ---------- speaking prompts ---------- */
+const speakPrompts=[
+ "Tell me about a day you will never forget. What happened first? And then?",
+ "How did you meet your best friend? Tell the story from the beginning.",
+ "Describe the best trip you've ever taken, in order.",
+ "Tell me about a time something went wrong. What happened, step by step?",
+ "How did you learn to drive / ride a bike / cook? Tell the story.",
+ "Describe your first day at a new job or school."
+];
+let sI=0;
+function nextSpeak(){sI=(sI+1)%speakPrompts.length;typeInto('speakPrompt',speakPrompts[sI]);}
+
+/* ---------- connectors speaking prompts ---------- */
+const connPrompts=[
+ "I was really tired last night, so…",
+ "I started learning English because…",
+ "I wanted to go out, but…",
+ "Although the weather was bad, …",
+ "I didn't have any money, so…",
+ "I love my city because…",
+ "I tried to call my friend, but…",
+ "Although I was very busy, …",
+ "It was raining, so…",
+ "I couldn't sleep because…"
+];
+let cpI=0;
+function nextConnSpeak(){cpI=(cpI+1)%connPrompts.length;typeInto('connPrompt',connPrompts[cpI]);}
+
+/* ---------- typewriter effect ---------- */
+function typeInto(id,text){
+ const el=document.getElementById(id);el.textContent='';let i=0;
+ const t=setInterval(()=>{el.textContent+=text[i++];if(i>=text.length)clearInterval(t);},14);
+}
+
+/* ---------- reusable countdown timer ---------- */
+const timers={};
+function startTimer(sec,id){
+ const el=document.getElementById(id);
+ if(timers[id]){clearInterval(timers[id].iv);}
+ let t=timers[id]&&timers[id].running?null:sec;
+ // toggle pause/resume
+ if(timers[id]&&timers[id].running){clearInterval(timers[id].iv);timers[id].running=false;el.classList.remove('ring');return;}
+ let remaining=(timers[id]&&timers[id].remaining!=null)?timers[id].remaining:sec;
+ timers[id]={running:true,remaining};
+ el.classList.remove('ring');
+ timers[id].iv=setInterval(()=>{
+  remaining--;timers[id].remaining=remaining;
+  const m=String(Math.floor(remaining/60)).padStart(2,'0');
+  const s=String(remaining%60).padStart(2,'0');
+  el.textContent=`${m}:${s}`;
+  if(remaining<=10)el.classList.add('ring');
+  if(remaining<=0){clearInterval(timers[id].iv);timers[id]={running:false,remaining:null};el.textContent='time!';}
+ },1000);
+}
+
+/* ---------- init ---------- */
+buildOrder(true);buildGaps();buildConn();renderEvents();
+</script>
+</body>
+</html>
