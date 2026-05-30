@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Character Vocabulary · Cards</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,900;1,9..144,500&family=Spectral:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --espresso:#160f0c; --coffee:#1f1611; --mocha:#2a1d16; --bark:#372619; --bark-2:#43301f;
+    --caramel:#cd9354; --gold:#e3b878; --cream:#f1e7d8; --muted:#ac9379; --line:#4a3422;
+    --ok:#a9ba6a; --ok-bg:#2e3318; --err:#cf7253; --err-bg:#3a1f15; --shadow:0 22px 50px -18px rgba(0,0,0,.75);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:
+      radial-gradient(1200px 600px at 80% -10%, rgba(205,147,84,.10), transparent 60%),
+      radial-gradient(900px 500px at -10% 30%, rgba(227,184,120,.06), transparent 55%),
+      var(--espresso);
+    color:var(--cream); font-family:'Spectral',serif; font-weight:400; line-height:1.65; overflow-x:hidden;
+  }
+  body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:9999;opacity:.04;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+  #progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:1000;background:linear-gradient(90deg,var(--caramel),var(--gold));box-shadow:0 0 12px rgba(227,184,120,.6)}
+  nav{position:fixed;top:0;left:0;right:0;z-index:900;display:flex;justify-content:center;gap:6px;padding:14px 12px;flex-wrap:wrap;backdrop-filter:blur(10px);background:linear-gradient(180deg,rgba(22,15,12,.92),rgba(22,15,12,.55));border-bottom:1px solid var(--line)}
+  nav a{font-family:'Fraunces',serif;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);text-decoration:none;padding:6px 12px;border:1px solid transparent;border-radius:30px;transition:.25s}
+  nav a:hover{color:var(--gold);border-color:var(--line);background:rgba(205,147,84,.08)}
+  .wrap{max-width:980px;margin:0 auto;padding:0 22px}
+  header.hero{min-height:88vh;display:flex;flex-direction:column;justify-content:center;padding:120px 22px 70px;max-width:960px;margin:0 auto;position:relative}
+  .eyebrow{font-family:'Fraunces',serif;letter-spacing:.42em;text-transform:uppercase;font-size:.78rem;color:var(--caramel);margin-bottom:26px}
+  .hero h1{font-family:'Fraunces',serif;font-weight:900;font-size:clamp(3.2rem,10vw,7rem);line-height:.92;letter-spacing:-.02em;color:var(--cream)}
+  .hero h1 em{font-style:italic;font-weight:500;color:var(--gold);display:block}
+  .hero p.lead{font-size:1.22rem;color:var(--muted);max-width:620px;margin-top:30px;font-weight:300}
+  .meta{display:flex;gap:14px;flex-wrap:wrap;margin-top:42px}
+  .pill{font-family:'Fraunces',serif;font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;border:1px solid var(--line);padding:9px 16px;border-radius:30px;color:var(--gold);background:rgba(67,48,31,.35)}
+  section{padding:78px 0;position:relative}.divider{height:1px;background:linear-gradient(90deg,transparent,var(--line),transparent);margin:0 auto;max-width:920px}
+  .stage{display:inline-flex;align-items:center;gap:14px;margin-bottom:14px}.stage .num{font-family:'Fraunces';font-weight:900;font-size:1rem;color:var(--espresso);background:var(--gold);width:34px;height:34px;border-radius:50%;display:grid;place-items:center}.stage .tag{font-family:'Fraunces';letter-spacing:.32em;text-transform:uppercase;font-size:.74rem;color:var(--caramel)}
+  h2.sec{font-family:'Fraunces';font-weight:900;font-size:clamp(2rem,5vw,3.1rem);line-height:1.04;letter-spacing:-.01em;margin-bottom:18px}h2.sec em{font-style:italic;color:var(--gold);font-weight:500}.intro{color:var(--muted);font-size:1.08rem;max-width:680px;margin-bottom:34px;font-weight:300}
+  .card{background:linear-gradient(165deg,var(--mocha),var(--coffee));border:1px solid var(--line);border-radius:18px;padding:28px;box-shadow:var(--shadow)}
+  .soft{background:rgba(67,48,31,.28);border:1px solid var(--line);border-radius:16px;padding:22px}.label{font-family:'Fraunces';letter-spacing:.2em;text-transform:uppercase;font-size:.72rem;color:var(--caramel);margin-bottom:14px;display:flex;align-items:center;gap:10px}.label::before{content:"";width:22px;height:2px;background:var(--caramel)}
+  .btn{font-family:'Fraunces';font-weight:600;letter-spacing:.06em;font-size:.86rem;cursor:pointer;border-radius:30px;padding:11px 22px;border:1px solid var(--caramel);color:var(--gold);background:rgba(205,147,84,.1);transition:.22s;display:inline-flex;align-items:center;gap:8px}.btn:hover{background:var(--caramel);color:var(--espresso);transform:translateY(-2px);box-shadow:0 10px 24px -10px rgba(205,147,84,.6)}.btn.solid{background:var(--gold);color:var(--espresso);border-color:var(--gold)}.btn.solid:hover{background:var(--cream);border-color:var(--cream)}.btn.ghost{border-color:var(--line);color:var(--muted);background:transparent}.btn.ghost:hover{color:var(--gold);border-color:var(--caramel);background:transparent;box-shadow:none}.btn-row{display:flex;gap:12px;flex-wrap:wrap;margin-top:20px;align-items:center}
+  .flip-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:16px}.flip{perspective:1200px;height:218px;cursor:pointer}.flip-in{position:relative;width:100%;height:100%;transition:transform .7s cubic-bezier(.6,.05,.2,1);transform-style:preserve-3d}.flip.on .flip-in{transform:rotateY(180deg)}.face{position:absolute;inset:0;backface-visibility:hidden;border-radius:16px;border:1px solid var(--line);display:flex;flex-direction:column;justify-content:center;padding:18px;text-align:center}.front{background:linear-gradient(160deg,var(--bark),var(--mocha))}.front .word{font-family:'Fraunces';font-weight:900;font-size:1.55rem;color:var(--gold);line-height:1.1}.front .ipa{font-family:'Spectral';font-size:1rem;color:var(--cream);opacity:.8;margin-top:8px}.front .hint{font-family:'Fraunces';letter-spacing:.16em;text-transform:uppercase;font-size:.62rem;color:var(--muted);margin-top:14px}.back{background:linear-gradient(160deg,var(--caramel),#9c6a36);transform:rotateY(180deg);color:var(--espresso)}.back .tr{font-family:'Fraunces';font-weight:900;font-size:1.25rem;line-height:1.2}.back .note{font-size:.9rem;line-height:1.35;margin-top:9px;opacity:.8}.sound{position:absolute;right:12px;top:12px;border:1px solid rgba(22,15,12,.35);background:rgba(22,15,12,.12);border-radius:999px;width:34px;height:34px;display:grid;place-items:center;font-size:1rem;cursor:pointer;color:var(--espresso)}.sound.frontSound{color:var(--gold);border-color:var(--line);background:rgba(205,147,84,.08)}
+  .row{display:flex;gap:12px;align-items:center;padding:13px 0;border-bottom:1px dashed var(--line);flex-wrap:wrap}.row:last-child{border-bottom:none}.n{font-family:'Fraunces';font-weight:900;color:var(--caramel);flex:0 0 24px}.sent{flex:1;font-size:1.02rem;min-width:250px}.input,.select{font-family:'Spectral';font-size:.98rem;background:var(--bark);color:var(--gold);border:1px solid var(--caramel);border-radius:8px;padding:5px 9px;margin:0 4px;min-width:150px}.select{cursor:pointer}.right{border-color:var(--ok)!important;color:var(--ok)!important;background:var(--ok-bg)!important}.wrong{border-color:var(--err)!important;color:var(--err)!important;background:var(--err-bg)!important}.answer{color:var(--gold);font-style:italic;margin-left:8px;display:none}.answer.show{display:inline}.score{font-family:'Fraunces';font-weight:600;color:var(--gold);font-size:1.05rem;display:none;align-items:center;gap:10px}.score.show{display:inline-flex}
+  .word-bank{display:flex;flex-wrap:wrap;gap:9px;margin-bottom:16px}.chip{font-family:'Fraunces';font-size:.82rem;letter-spacing:.04em;padding:7px 14px;border-radius:30px;border:1px solid var(--line);color:var(--gold);background:rgba(227,184,120,.07)}
+  .reveal{opacity:0;transform:translateY(28px);transition:.8s cubic-bezier(.2,.7,.2,1)}.reveal.in{opacity:1;transform:none}
+  footer{padding:60px 22px 90px;text-align:center;color:var(--muted);font-size:.9rem}footer .logo{font-family:'Fraunces';font-weight:900;font-size:1.4rem;color:var(--gold);letter-spacing:-.01em}
+  @media(max-width:560px){nav a{font-size:.62rem;padding:5px 9px}.flip{height:205px}}
+</style>
+</head>
+<body>
+<div id="progress"></div>
+<nav><a href="#top">Vocabulary</a><a href="#cards">Cards</a><a href="#practice">Practice</a></nav>
+<header class="hero" id="top">
+  <div class="eyebrow reveal">Character vocabulary · A2</div>
+  <h1 class="reveal">Heroes, villains,<em>and strange creatures</em></h1>
+  <p class="lead reveal">Flip the cards, listen to the words, remember the transcription, then use the vocabulary in easy sentences.</p>
+  <div class="meta"><span class="pill reveal">7 words</span><span class="pill reveal">Translation</span><span class="pill reveal">Audio</span><span class="pill reveal">IPA</span></div>
+</header>
+<div class="divider"></div>
+<section id="cards"><div class="wrap">
+  <div class="stage reveal"><span class="num">1</span><span class="tag">Flashcards</span></div>
+  <h2 class="sec reveal">Tap, listen, <em>remember</em></h2>
+  <p class="intro reveal">Click a card to see the Russian translation. Click the sound button to hear the word in English.</p>
+  <div class="flip-grid reveal" id="flipGrid"></div>
+  <div class="btn-row reveal"><button class="btn solid" onclick="flipAll()">Flip All</button><button class="btn" onclick="speakAll()">🔊 Play All</button><button class="btn ghost" onclick="resetAll()">Reset</button><button class="btn ghost" onclick="shuffleCards()">Shuffle</button></div>
+</div></section>
+<div class="divider"></div>
+<section id="practice"><div class="wrap">
+  <div class="stage reveal"><span class="num">2</span><span class="tag">Easy practice</span></div>
+  <h2 class="sec reveal">Check the <em>new words</em></h2>
+  <p class="intro reveal">Exercise A — choose the right translation.</p>
+  <div class="card reveal"><div class="label">Exercise A · translation</div><div id="matchList"></div><div class="btn-row"><button class="btn solid" onclick="checkMatch()">✓ Check</button><button class="btn" onclick="showMatch()">Show answers</button><button class="btn ghost" onclick="buildMatch()">↻ Reset</button><span class="score" id="matchScore"></span></div></div>
+  <p class="intro reveal" style="margin-top:50px">Exercise B — complete the sentences.</p>
+  <div class="card reveal"><div class="label">Exercise B · gap fill</div><div class="word-bank" id="bank"></div><div id="gapList"></div><div class="btn-row"><button class="btn solid" onclick="checkGaps()">✓ Check</button><button class="btn" onclick="showGaps()">Show answers</button><button class="btn ghost" onclick="buildGaps()">↻ Reset</button><span class="score" id="gapScore"></span></div></div>
+</div></section>
+<footer><div class="logo">wizard · creature · vigilante</div><p style="margin-top:10px">Vocabulary cards with translation, audio and IPA transcription</p></footer>
+<script>
+const prog=document.getElementById('progress');addEventListener('scroll',()=>{const h=document.documentElement;prog.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+'%';});
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}}),{threshold:.15});document.querySelectorAll('.reveal').forEach((el,i)=>{el.style.transitionDelay=(i%5*70)+'ms';io.observe(el);});
+const words=[
+ {w:'wizard', ipa:'/ˈwɪzəd/', ru:'волшебник', note:'a man who can use magic'},
+ {w:'boarding school', ipa:'/ˈbɔːdɪŋ skuːl/', ru:'школа-интернат', note:'a school where students live and study'},
+ {w:'creature', ipa:'/ˈkriːtʃə/', ru:'существо', note:'an animal or strange living thing'},
+ {w:'sentence', ipa:'/ˈsentəns/', ru:'приговорить', note:'verb: to sentence someone to prison / death'},
+ {w:'anxious', ipa:'/ˈæŋkʃəs/', ru:'тревожный, взволнованный', note:'worried or nervous'},
+ {w:'vigilante', ipa:'/ˌvɪdʒɪˈlænti/', ru:'самосудник, мститель', note:'a person who catches or punishes criminals without official police power'},
+ {w:'protects', ipa:'/prəˈtekts/', ru:'защищает', note:'keeps someone safe'}
+];
+let cardOrder=[...words];
+function speak(text){speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text);u.lang='en-GB';u.rate=.86;u.pitch=1;speechSynthesis.speak(u)}
+function renderCards(){const grid=document.getElementById('flipGrid');grid.innerHTML='';cardOrder.forEach(x=>{const d=document.createElement('div');d.className='flip';d.innerHTML=`<div class="flip-in"><div class="face front"><button class="sound frontSound" onclick="event.stopPropagation();speak('${x.w.replace(/'/g,"\\'")}')">🔊</button><div class="word">${x.w}</div><div class="ipa">${x.ipa}</div><div class="hint">tap for translation</div></div><div class="face back"><button class="sound" onclick="event.stopPropagation();speak('${x.w.replace(/'/g,"\\'")}')">🔊</button><div class="tr">${x.ru}</div><div class="note">${x.note}</div></div></div>`;d.onclick=()=>d.classList.toggle('on');grid.appendChild(d);});}
+function flipAll(){document.querySelectorAll('.flip').forEach(c=>c.classList.add('on'))}function resetAll(){document.querySelectorAll('.flip').forEach(c=>c.classList.remove('on'))}function shuffleCards(){cardOrder.sort(()=>Math.random()-.5);renderCards()}function speakAll(){let i=0;function next(){if(i>=words.length)return;speak(words[i].w);i++;setTimeout(next,1150)}next()}
+const translations=words.map(x=>x.ru);
+function buildMatch(){const box=document.getElementById('matchList');box.innerHTML='';words.forEach((x,i)=>{const row=document.createElement('div');row.className='row';row.innerHTML=`<div class="n">${i+1}</div><div class="sent"><strong style="color:var(--gold)">${x.w}</strong> <span style="color:var(--muted)">${x.ipa}</span> <select class="select" id="m${i}"><option value="">— choose —</option>${translations.map(t=>`<option>${t}</option>`).join('')}</select><span class="answer" id="ma${i}">→ ${x.ru}</span></div>`;box.appendChild(row);});document.getElementById('matchScore').classList.remove('show')}
+function checkMatch(){let r=0;words.forEach((x,i)=>{const s=document.getElementById('m'+i);s.classList.remove('right','wrong');if(s.value===x.ru){s.classList.add('right');r++}else if(s.value){s.classList.add('wrong')}});const sc=document.getElementById('matchScore');sc.textContent=`${r} / ${words.length} correct`;sc.classList.add('show')}
+function showMatch(){words.forEach((x,i)=>{const s=document.getElementById('m'+i);s.value=x.ru;s.classList.remove('wrong');s.classList.add('right');document.getElementById('ma'+i).classList.add('show')});const sc=document.getElementById('matchScore');sc.textContent='✓ Answers shown';sc.classList.add('show')}
+const gaps=[
+ {pre:'Harry Potter is a famous ', ans:'wizard', post:'.'},
+ {pre:'Hogwarts is a magical ', ans:'boarding school', post:'.'},
+ {pre:'Yoda is a small green ', ans:'creature', post:' who speaks in an unusual way.'},
+ {pre:'The judge can ', ans:'sentence', post:' a criminal to prison.'},
+ {pre:'Andy is an ', ans:'anxious', post:' assistant in a fashion magazine.'},
+ {pre:'Batman is a ', ans:'vigilante', post:' in Gotham.'},
+ {pre:'Batman ', ans:'protects', post:' Gotham from criminals.'}
+];
+function buildGaps(){document.getElementById('bank').innerHTML=words.map(x=>`<span class="chip">${x.w}</span>`).join('');const box=document.getElementById('gapList');box.innerHTML='';gaps.forEach((g,i)=>{const row=document.createElement('div');row.className='row';row.innerHTML=`<div class="n">${i+1}</div><div class="sent">${g.pre}<input class="input" id="g${i}" autocomplete="off">${g.post}<span class="answer" id="ga${i}">→ ${g.ans}</span></div>`;box.appendChild(row);});document.getElementById('gapScore').classList.remove('show')}
+function clean(v){return v.trim().toLowerCase().replace(/\s+/g,' ')}function checkGaps(){let r=0;gaps.forEach((g,i)=>{const inp=document.getElementById('g'+i);inp.classList.remove('right','wrong');if(clean(inp.value)===g.ans){inp.classList.add('right');r++}else if(inp.value.trim()){inp.classList.add('wrong')}});const sc=document.getElementById('gapScore');sc.textContent=`${r} / ${gaps.length} correct`;sc.classList.add('show')}
+function showGaps(){gaps.forEach((g,i)=>{const inp=document.getElementById('g'+i);inp.value=g.ans;inp.classList.remove('wrong');inp.classList.add('right');document.getElementById('ga'+i).classList.add('show')});const sc=document.getElementById('gapScore');sc.textContent='✓ Answers shown';sc.classList.add('show')}
+renderCards();buildMatch();buildGaps();
+</script>
+</body>
+</html>
