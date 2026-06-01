@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Journey through China · Review Test (Units 1–5)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,900;1,9..144,400;1,9..144,500&family=Hanken+Grotesk:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#14181f;--paper2:#1f2630;--ink:#f1e9da;--soft:#a99e8b;
+    --red:#d24a39;--red-deep:#f18b73;--gold:#c79a36;--gold-deep:#e6bf68;
+    --jade:#46a98c;--jade-deep:#74cfae;--ink2:#27313a;
+    --line:#343c47;--ok:#5cbd82;--ok-bg:#1d2f26;--err:#e07a60;--err-bg:#37221b;
+    --acc:var(--red);--acc2:var(--red-deep);--r:20px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:
+      radial-gradient(900px 520px at 88% -6%,rgba(199,154,54,.20),transparent 60%),
+      radial-gradient(820px 480px at -6% 22%,rgba(210,74,57,.18),transparent 58%),
+      var(--paper);background-attachment:fixed;color:var(--ink);
+      font-family:'Hanken Grotesk',sans-serif;font-weight:400;line-height:1.6;overflow-x:hidden}
+  body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.5;
+    background-image:radial-gradient(rgba(255,255,255,.03) 1px,transparent 1px);background-size:24px 24px}
+
+  #progress{position:fixed;top:0;left:0;height:4px;width:0;z-index:1000;
+    background:linear-gradient(90deg,var(--red),var(--gold),var(--jade));border-radius:0 4px 4px 0}
+  nav{position:fixed;top:0;left:0;right:0;z-index:900;display:flex;justify-content:center;gap:4px;
+    padding:11px 12px;flex-wrap:wrap;backdrop-filter:blur(9px);background:rgba(19,23,30,.9);border-bottom:1px solid var(--line)}
+  nav a{font-family:'Hanken Grotesk';font-weight:600;font-size:.72rem;letter-spacing:.08em;color:var(--soft);
+    text-decoration:none;padding:6px 12px;border-radius:30px;transition:.2s}
+  nav a:hover{color:#fff;background:var(--red)}
+  nav a.score{margin-left:6px;background:var(--ink);color:var(--gold)}
+
+  .wrap{max-width:880px;margin:0 auto;padding:0 22px;position:relative;z-index:1}
+
+  /* hero */
+  header.hero{min-height:96vh;display:flex;flex-direction:column;justify-content:center;
+    max-width:920px;margin:0 auto;padding:120px 22px 60px;position:relative;z-index:1}
+  .kicker{display:inline-flex;align-self:flex-start;align-items:center;gap:10px;font-family:'Hanken Grotesk';font-weight:700;
+    letter-spacing:.22em;text-transform:uppercase;font-size:.72rem;color:#fff;background:var(--red);padding:8px 16px;border-radius:30px}
+  .hero h1{font-family:'Fraunces';font-weight:900;font-size:clamp(2.8rem,8vw,5.4rem);line-height:.98;margin:24px 0 6px;letter-spacing:-.01em}
+  .hero h1 em{font-style:italic;font-weight:400;color:var(--red)}
+  .hero .cn{font-family:'Fraunces';color:var(--gold-deep);font-size:1.4rem;letter-spacing:.3em;margin-bottom:8px}
+  .hero p.lead{font-size:1.2rem;color:var(--soft);max-width:560px;margin-top:14px}
+  .hero p.lead b{color:var(--red-deep);font-weight:700}
+  .badges{display:flex;gap:9px;flex-wrap:wrap;margin-top:30px}
+  .badge{font-family:'Hanken Grotesk';font-weight:600;font-size:.78rem;padding:7px 15px;border-radius:30px;border:1px solid var(--line);background:var(--paper2);color:var(--soft)}
+  .lanterns{display:flex;gap:18px;margin-top:36px;font-size:2rem}
+  .lantern{animation:sway 3s ease-in-out infinite}
+  .lantern:nth-child(2){animation-delay:.4s}.lantern:nth-child(3){animation-delay:.8s}.lantern:nth-child(4){animation-delay:1.2s}.lantern:nth-child(5){animation-delay:1.6s}
+  @keyframes sway{0%,100%{transform:rotate(-6deg)}50%{transform:rotate(6deg)}}
+  .scroll-cue{margin-top:30px;font-family:'Hanken Grotesk';font-weight:600;letter-spacing:.2em;text-transform:uppercase;font-size:.68rem;color:var(--soft);animation:bob 2.3s infinite}
+  @keyframes bob{0%,100%{transform:translateY(0);opacity:.6}50%{transform:translateY(7px);opacity:1}}
+
+  section{padding:58px 0;position:relative;z-index:1}
+  .stamp{display:inline-flex;align-items:center;gap:12px;border:2px dashed var(--acc);color:var(--acc2);
+    padding:8px 18px;border-radius:14px;transform:rotate(-1.5deg);background:var(--paper2);margin-bottom:16px}
+  .stamp .em{font-size:1.5rem}
+  .stamp .t{font-family:'Fraunces';font-weight:900;font-style:italic;letter-spacing:.04em}
+  .stamp .n{margin-left:6px;font-family:'Hanken Grotesk';font-weight:700;font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--soft)}
+  h2.sec{font-family:'Fraunces';font-weight:900;font-size:clamp(1.8rem,5vw,2.8rem);line-height:1.05;margin-bottom:12px}
+  h2.sec em{font-style:italic;font-weight:400;color:var(--acc2)}
+  p.intro{color:var(--soft);font-size:1.08rem;max-width:640px;margin-bottom:26px}
+  p.intro em{font-style:italic;color:var(--acc2)}
+
+  .card{background:var(--paper2);border:1px solid var(--line);border-left:5px solid var(--acc);border-radius:var(--r);
+    padding:26px;box-shadow:0 18px 40px -26px rgba(0,0,0,.6);margin-bottom:20px}
+  .label{display:inline-flex;align-items:center;gap:9px;font-family:'Hanken Grotesk';font-weight:700;letter-spacing:.1em;
+    text-transform:uppercase;font-size:.72rem;color:var(--acc2);margin-bottom:14px}
+  .label .num{background:var(--acc);color:#fff;width:22px;height:22px;border-radius:6px;display:grid;place-items:center;font-family:'Fraunces';font-size:.78rem}
+  .tip{font-size:.92rem;color:var(--soft);margin-bottom:14px}
+
+  .btn{font-family:'Hanken Grotesk';font-weight:700;font-size:.86rem;cursor:pointer;border-radius:30px;padding:10px 20px;
+    border:1px solid var(--acc);background:var(--acc);color:#fff;transition:.18s;display:inline-flex;align-items:center;gap:7px}
+  .btn:hover{transform:translateY(-2px);filter:brightness(1.05)}
+  .btn.ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+  .btn.ghost:hover{border-color:var(--acc);color:var(--acc2)}
+  .btn.dark{background:var(--ink);border-color:var(--ink)}
+  .btn-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px;align-items:center}
+  .score{font-family:'Fraunces';font-weight:700;color:var(--acc2);font-size:1.02rem;display:none;align-items:center;gap:7px}
+  .score.show{display:inline-flex}
+
+  /* segmented rows */
+  .row{display:flex;gap:10px;align-items:baseline;padding:12px 0;border-bottom:1px dashed var(--line);flex-wrap:wrap}
+  .row:last-child{border-bottom:none}
+  .row .n{font-family:'Fraunces';font-weight:900;color:var(--acc2);flex:0 0 22px}
+  .row .s{flex:1;font-size:1.03rem;min-width:230px;line-height:2.1}
+  .row .s b{color:var(--ink)}
+  .seg{display:inline-flex;gap:5px;margin:0 5px;vertical-align:middle;flex-wrap:wrap}
+  .seg button{font-family:'Hanken Grotesk';font-weight:600;font-size:.88rem;cursor:pointer;border:1px solid var(--line);
+    background:var(--paper);color:var(--soft);border-radius:10px;padding:4px 11px;transition:.14s}
+  .seg button:hover{border-color:var(--acc);color:var(--acc2)}
+  .seg button.sel{background:var(--acc);color:#fff;border-color:var(--acc)}
+  .seg button.right{background:var(--ok-bg);color:var(--ok);border-color:var(--ok)}
+  .seg button.wrong{background:var(--err-bg);color:var(--err);border-color:var(--err)}
+  .seg button.miss{border-color:var(--ok);color:var(--ok)}
+
+  select.gap{font-family:'Hanken Grotesk';font-weight:600;font-size:.94rem;background:var(--paper);color:var(--acc2);
+    border:1px solid var(--acc);border-radius:10px;padding:4px 8px;margin:0 3px;cursor:pointer}
+  select.gap.right{border-color:var(--ok);color:var(--ok);background:var(--ok-bg)}
+  select.gap.wrong{border-color:var(--err);color:var(--err);background:var(--err-bg)}
+
+  /* matching */
+  .match{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .mcol{display:flex;flex-direction:column;gap:9px}
+  .mcol .h{font-family:'Hanken Grotesk';font-weight:700;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--soft);margin-bottom:2px}
+  .mitem{font-family:'Hanken Grotesk';font-weight:600;font-size:.95rem;cursor:pointer;border:1px solid var(--line);
+    background:var(--paper);border-radius:12px;padding:11px 14px;transition:.14s;position:relative;display:flex;align-items:center;gap:8px}
+  .mitem:hover{border-color:var(--acc)}
+  .mitem.active{border-color:var(--acc);background:#2a3340;box-shadow:0 0 0 2px var(--acc) inset}
+  .mitem .badge{width:22px;height:22px;border-radius:50%;background:var(--acc);color:#fff;font-family:'Fraunces';font-weight:900;
+    font-size:.78rem;display:none;place-items:center;flex:0 0 22px}
+  .mitem.paired .badge{display:grid}
+  .mitem.right{background:var(--ok-bg);border-color:var(--ok)}
+  .mitem.wrong{background:var(--err-bg);border-color:var(--err)}
+
+  /* categorize (one at a time) */
+  .qcard{text-align:center}
+  .qmeta{font-family:'Hanken Grotesk';font-weight:600;color:var(--soft);font-size:.8rem;letter-spacing:.06em;margin-bottom:8px}
+  .qword{font-family:'Fraunces';font-weight:900;font-size:2.3rem;color:var(--acc2);margin:6px 0 18px}
+  .opts{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
+  .opt{font-family:'Hanken Grotesk';font-weight:600;font-size:.95rem;cursor:pointer;border:1px solid var(--line);
+    background:var(--paper);color:var(--ink);border-radius:14px;padding:11px 18px;transition:.15s}
+  .opt:hover{border-color:var(--acc);transform:translateY(-2px)}
+  .opt.right{background:var(--ok-bg);border-color:var(--ok);color:var(--ok)}
+  .opt.wrong{background:var(--err-bg);border-color:var(--err);color:var(--err)}
+
+  /* order words */
+  .word-bank,.answer-line{display:flex;flex-wrap:wrap;gap:8px;min-height:46px;padding:10px;border-radius:12px}
+  .answer-line{border:2px dashed var(--line);background:var(--paper);margin-bottom:10px}
+  .chip{font-family:'Hanken Grotesk';font-weight:600;font-size:.95rem;cursor:pointer;border:1px solid var(--acc);
+    background:#262e39;color:var(--acc2);border-radius:10px;padding:6px 13px;transition:.12s}
+  .chip:hover{background:var(--acc);color:#fff}
+  .answer-line.right{border-color:var(--ok);background:var(--ok-bg)}
+  .answer-line.wrong{border-color:var(--err);background:var(--err-bg)}
+
+  .prompt{font-family:'Fraunces';font-style:italic;font-weight:500;font-size:1.45rem;line-height:1.35;min-height:74px;display:flex;align-items:center;color:var(--ink)}
+  .prompt .q{font-style:normal;color:var(--acc2);font-size:2rem;font-weight:900;margin-right:8px;vertical-align:-8px}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+  .chiptag{font-family:'Hanken Grotesk';font-weight:600;font-size:.8rem;padding:6px 13px;border-radius:20px;background:#fbeee0;color:var(--gold-deep);border:1px solid #ecd6ad}
+
+  /* final score */
+  .final{text-align:center;background:linear-gradient(160deg,#1c232d,#10141a);color:var(--ink);border:1px solid var(--line)}
+  .final .big{font-family:'Fraunces';font-weight:900;font-size:clamp(3rem,12vw,6rem);color:var(--gold);line-height:1}
+  .final .rank{font-family:'Fraunces';font-style:italic;font-size:1.5rem;color:#fff;margin-top:8px}
+  .final .bar{height:14px;background:rgba(255,255,255,.14);border-radius:8px;overflow:hidden;margin:22px auto;max-width:480px}
+  .final .barfill{height:100%;width:0;background:linear-gradient(90deg,var(--red),var(--gold),var(--jade));transition:width 1.4s ease;border-radius:8px}
+  .breakdown{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:8px}
+  .bd{font-family:'Hanken Grotesk';font-weight:700;font-size:.78rem;padding:6px 12px;border-radius:20px;background:rgba(255,255,255,.08);color:var(--ink)}
+
+  .clockface{font-family:'Fraunces';font-weight:900;font-size:1.5rem;color:var(--acc);font-variant-numeric:tabular-nums}
+  .reveal{opacity:0;transform:translateY(24px);transition:.7s cubic-bezier(.2,.7,.2,1)}
+  .reveal.in{opacity:1;transform:none}
+  footer{padding:50px 22px 90px;text-align:center;color:var(--soft);position:relative;z-index:1}
+  footer .big{font-family:'Fraunces';font-weight:900;font-style:italic;font-size:1.4rem;color:var(--red)}
+  .hide{display:none!important}
+  /* confetti */
+  .conf{position:fixed;top:-20px;font-size:1.4rem;z-index:2000;pointer-events:none;animation:fall linear forwards}
+  @keyframes fall{to{transform:translateY(110vh) rotate(540deg);opacity:.2}}
+</style>
+</head>
+<body>
+<div id="progress"></div>
+<nav>
+  <a href="#top">中国 Journey</a>
+  <a href="#warmup">Start</a>
+  <a href="#beijing">Beijing</a>
+  <a href="#wall">Great Wall</a>
+  <a href="#xian">Xi'an</a>
+  <a href="#chengdu">Chengdu</a>
+  <a href="#shanghai">Shanghai</a>
+  <a href="#final" class="score">Score</a>
+</nav>
+
+<!-- HERO -->
+<header class="hero" id="top">
+  <div class="kicker reveal">Review Test · Units 1–5</div>
+  <div class="cn reveal" style="margin-top:22px">你好 · nǐ hǎo</div>
+  <h1 class="reveal">A journey<br>through <em>China</em> 🏮</h1>
+  <p class="lead reveal">Five stops, one big adventure. At each city you'll check what you remember from this year — <b>vocabulary and grammar from Units 1 to 5</b> — in lots of different ways. Tap, match, sort and choose. Collect points and become a <b>China Explorer!</b></p>
+  <div class="badges">
+    <span class="badge reveal">Level B1</span>
+    <span class="badge reveal">120 minutes</span>
+    <span class="badge reveal">Self-checking</span>
+    <span class="badge reveal">119 points to win</span>
+  </div>
+  <div class="lanterns reveal"><span class="lantern">🏮</span><span class="lantern">🐼</span><span class="lantern">🥟</span><span class="lantern">🧧</span><span class="lantern">🐉</span></div>
+  <div class="scroll-cue reveal">start the journey ↓</div>
+</header>
+
+<!-- WARM-UP -->
+<section id="warmup" style="--acc:var(--red);--acc2:var(--red-deep)">
+  <div class="wrap">
+    <div class="stamp reveal"><span class="em">✈️</span><span class="t">Departures</span><span class="n">warm-up</span></div>
+    <h2 class="sec reveal">Ready for <em>take-off</em>?</h2>
+    <p class="intro reveal">Before the test, let's talk! Speak with your teacher.</p>
+
+    <div class="card reveal">
+      <div class="label"><span class="num">★</span>Talk about it</div>
+      <div class="prompt"><span><span class="q">“</span><span id="warmPrompt">You love China! Why? What do you like most about it?</span>”</span></div>
+      <div class="chips"><span class="chiptag">I think…</span><span class="chiptag">I've always wanted to…</span><span class="chiptag">because…</span></div>
+      <div class="btn-row"><button class="btn" onclick="nextWarm()">↻ New question</button></div>
+    </div>
+
+    <div class="card reveal">
+      <div class="label"><span class="num">1</span>True or false? · China facts</div>
+      <div class="tip">Tap True or False. (Just for fun — and a few warm-up points!)</div>
+      <div id="tfList"></div>
+      <div class="btn-row">
+        <button class="btn" onclick="checkGroup('tf',5,'tfScore','tf')">✓ Check</button>
+        <button class="btn ghost" onclick="showGroup('tf','tfScore')">Answers</button>
+        <span class="score" id="tfScore"></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STOP 1 BEIJING -->
+<section id="beijing" style="--acc:var(--red);--acc2:var(--red-deep)">
+  <div class="wrap">
+    <div class="stamp reveal"><span class="em">🏯</span><span class="t">Beijing</span><span class="n">Stop 1 · families &amp; the present</span></div>
+    <h2 class="sec reveal">Beijing: <em>families &amp; daily life</em></h2>
+    <p class="intro reveal">Unit 1 — family words, word-building, present tenses and articles.</p>
+
+    <div class="card reveal">
+      <div class="label"><span class="num">2</span>Match · family words</div>
+      <div class="tip">Tap a word on the left, then its meaning on the right.</div>
+      <div id="famMatch"></div>
+      <div class="btn-row"><button class="btn" onclick="checkMatch('fam')">✓ Check</button><button class="btn ghost" onclick="buildMatch('fam')">↻ Reset</button><span class="score" id="famScore"></span></div>
+    </div>
+
+    <div class="card reveal">
+      <div class="label"><span class="num">3</span>Word-building · noun suffixes</div>
+      <div class="tip">Choose the right ending: <b>-ment</b>, <b>-ion</b> or <b>-ence</b>.</div>
+      <div id="sufList"></div>
+      <div class="btn-row"><button class="btn" onclick="checkGroup('suf',5,'sufScore','suf')">✓ Check</button><button class="btn ghost" onclick="showGroup('suf','sufScore')">Answers</button><button class="btn ghost" onclick="buildSuf()">↻</button><span class="score" id="sufScore"></span></div>
+    </div>
+
+    <div class="card reveal">
+      <div class="label"><span class="num">4</span>Present simple or present continuous?</div>
+      <div id="presList"></div>
+      <div class="btn-row"><button class="btn" onclick="checkGroup('pres',6,'presScore','pres')">✓ Check</button><button class="btn ghost" onclick="showGroup('pres','presScore')">Answers</button><button class="btn ghost" onclick="buildPres()">↻</button><span class="score" id="presScore"></span></div>
+    </div>
+
+    <div class="card reveal">
+      <div class="label"><span class="num">5</span>Articles · a, an, the or — (nothing)</div>
+      <div id="artList"></div>
+      <div class="btn-row"><button class="btn" onclick="checkSelect('art',6,'artScore','art')">✓ Check</button><button class="btn ghost" onclick="showSelect('art','artScore')">Answers</button><button class="btn ghost" onclick="buildArt()">↻</button><span class="score" id="artScore"></span></div>
+    </div>
+  </div>
+</section>
+
+<!-- STOP 2 GREAT WALL -->
+<section id="wall" style="--acc:var(--gold-deep);--acc2:var(--gold-deep)">
+  <div class="wrap">
+    <div class="stamp reveal"><span class="em">🧱</span><span class="t">The Great Wall</span><span class="n">Stop 2 · crime &amp; the past</span></div>
+    <h2 class="sec reveal">The Great Wall: <em>mysteries of the past</em></h2>
+    <p class="intro reveal">Unit 2 — crimes &amp; detectives, phrasal verbs, past simple, past continuous and <em>used to</em>.</p>
+
+    <div class="card reveal">
+      <div class="label"><span class="num">6</span>Odd one out · which word is NOT a crime/criminal word?</div>
+      <div id="oddList"></div>
+      <div class="btn-row"><button class="btn" onclick="checkGroup('odd',4,'oddScore','odd')">✓ Check</button><button class="btn ghost" onclick="showGroup('odd','oddScore')">Answers</button><span class="score" id="oddScore"></span></div>
+    </div>
+
+    <div class="card reveal">
+      <div class="label"><span class="num">7</span>Phrasal verbs · investigating &amp; finding</div>
+      <div class="tip">Choose the right phrasal verb from the menu.</div>
+      <div id="phrList"></div>
+      <div class="btn-row"><button class="btn" onclick="checkSelect('phr',5,'phrScore','phr')">✓ Check</button><button class="btn ghost" onclick="showSelect('phr','phrScore')">Answers</button><button class="btn ghost" onclick="buildPhr()">↻</button><span class="score" id="phrScore"></span></div>
+    </div>
+
+    <div class="card reveal">
+      <div class="label"><span class="num">8</span>Past simple or past continuous?</div>
+      <div id="pastList"></div>
+      <div class="btn-row"><button class="btn" onclick="checkGroup('past',5,'pastScore','past')">✓ Check</button><button class="btn ghost" onclick="showGroup('past','pastScore')">Answers</button><button class="btn ghost" onclick="buildPast()">↻</button><span class="score" id="pastScore"></span></div>
+    </div>
+
+    <div class="card reveal">
+      <div class="label"><span class="num">9</span><em>used to</em> · choose the correct option</div>
+      <div id="usedList"></div>
+      <div class="btn-row"><button class="btn" onclick="checkGroup('used',4,'usedScore','used')">✓ Check</button><button class="btn ghost" onclick="showGroup('used','usedScore')">Answers</button><button class="btn ghost" onclick="buildUsed()">↻</button><span class="score" id="usedScore"></span></div>
+    </div>
+  </div>
+</section>
+
+<!-- STOP 3 XIAN -->
+<section id="xian" style="--acc:var(--jade-deep);--acc2:var(--jade-deep)">
+  <div class="wrap">
+    <div class="stamp reveal"><span class="em">🏺</span><span class="t">Xi'an</span><span class="n">Stop 3 · languages &amp; the world</span></div>
+    <h2 class="sec reveal">Xi'an: <em>languages &amp; the world</em></h2>
+    <p class="intro reveal">Unit 3 — nationalities, negative prefixes, quantifiers and relative clauses.</p>
+
+    <div class="card reveal">
+      <div class="label"><span class="num">10</span>Nationalities · choose the correct word</div>
+      <div id="natList"></div>
+      <div class="btn-row"><button class="btn" onclick="checkGroup('nat',5,'natScore','nat')">✓ Check</button><button class="btn ghost" onclick="showGroup('nat','natScore')">Answers</button><button class="btn ghost" onclick="buildNat()">↻</button><span class="score" id="natScore"></span></div>
+    </div>
+
+    <div class="card reveal">
+      <div class="label"><span class="num">11</span>Negative prefixes · un-, in-, im-, ir-, il-</div>
+      <div id="preList"></div>
+      <div class="btn-row"><button class="btn" onclick="checkGroup('pre',6,'preScore','pre')">✓ Check</button><button class="btn ghost" onclick="showGroup('pre','preScore')">Answers</button><button class="btn ghost" onclick="buildPre()">↻</button><span class="score" id="preScore"></span></div>
+    </div>
+
+    <div class="card reveal">
+      <div class="label"><span class="num">12</span>Quantifiers · much, many, some, any, a few…</div>
+      <div id="quantList"></div>
+      <div class="btn-row"><button class="btn" onclick="checkGroup('quant',5,'quantScore','quant')">✓ Check</button><button class="btn ghost" onclick="showGroup('quant','quantScore')">Answers</button><button class="btn ghost" onclick="buildQuant()">↻</button><span class="score" id="quantScore"></span></div>
+    </div>
+
+    <div class="card reveal">
+      <div class="label"><span class="num">13</span>Relative clauses · who, which, that, where, whose</div>
+      <div id="relList"></div>
+      <div class="btn-row"><button class="btn" onclick="checkGroup('rel',5,'relScore','rel')">✓ Check</button><button class="btn ghost" onclick="showGroup('rel','relScore')">Answers</button><button class="btn ghost" onclick="buildRel()">↻</button><span class="score" id="relScore"></span></div>
+    </div>
+  </div>
+</section>
+
+<!-- STOP 4 CHENGDU -->
+<section id="chengdu" style="--acc:var(--jade);--acc2:var(--jade-deep)">
+  <div class="wrap">
+    <div class="stamp reveal"><span class="em">🐼</span><span class="t">Chengdu</span><span class="n">Stop 4 · health &amp; the present perfect</span></div>
+    <h2 class="sec reveal">Chengdu: <em>pandas &amp; good health</em></h2>
+    <p class="intro reveal">Unit 4 — body &amp; health words and the present perfect.</p>
+
+    <div class="card reveal">
+      <div class="label"><span class="num">14</span>Sort it · body part or health problem?</div>
+      <div class="card" style="border-left:none;box-shadow:none;border:1px solid var(--line);margin:0">
+        <div class="qcard">
+          <div class="qmeta" id="bhMeta"></div>
+          <div class="qword" id="bhWord"></div>
+          <div class="opts" id="bhOpts"></div>
+        </div>
+      </div>
+      <div class="btn-row" style="justify-content:center"><button class="btn ghost" id="bhNext" onclick="nextCat('bh')" disabled>Next →</button><span class="score" id="bhScore"></span></div>
+    </div>
+
+    <div class="card reveal">
+      <div class="label"><span class="num">15</span>Health problems · complete the sentence</div>
+      <div id="healthList"></div>
+      <div class="btn-row"><button class="btn" onclick="checkSelect('health',5,'healthScore','health')">✓ Check</button><button class="btn ghost" onclick="showSelect('health','healthScore')">Answers</button><button class="btn ghost" onclick="buildHealth()">↻</button><span class="score" id="healthScore"></span></div>
+    </div>
+
+    <div class="card reveal">
+      <div class="label"><span class="num">16</span>Present perfect · for/since &amp; ever/never/just/yet/already</div>
+      <div id="pp1List"></div>
+      <div class="btn-row"><button class="btn" onclick="checkGroup('pp1',6,'pp1Score','pp1')">✓ Check</button><button class="btn ghost" onclick="showGroup('pp1','pp1Score')">Answers</button><button class="btn ghost" onclick="buildPp1()">↻</button><span class="score" id="pp1Score"></span></div>
+    </div>
+
+    <div class="card reveal">
+      <div class="label"><span class="num">17</span>Present perfect or past simple?</div>
+      <div id="pp2List"></div>
+      <div class="btn-row"><button class="btn" onclick="checkGroup('pp2',5,'pp2Score','pp2')">✓ Check</button><button class="btn ghost" onclick="showGroup('pp2','pp2Score')">Answers</button><button class="btn ghost" onclick="buildPp2()">↻</button><span class="score" id="pp2Score"></span></div>
+    </div>
+  </div>
+</section>
+
+<!-- STOP 5 SHANGHAI -->
+<section id="shanghai" style="--acc:var(--red);--acc2:var(--red-deep)">
+  <div class="wrap">
+    <div class="stamp reveal"><span class="em">🌃</span><span class="t">Shanghai</span><span class="n">Stop 5 · screen time &amp; comparison</span></div>
+    <h2 class="sec reveal">Shanghai: <em>screens &amp; comparisons</em></h2>
+    <p class="intro reveal">Unit 5 — TV words, describing programmes, comparatives, superlatives and <em>as…as</em>.</p>
+
+    <div class="card reveal">
+      <div class="label"><span class="num">18</span>Match · TV programmes</div>
+      <div class="tip">Tap a programme, then what it is.</div>
+      <div id="progMatch"></div>
+      <div class="btn-row"><button class="btn" onclick="checkMatch('prog')">✓ Check</button><button class="btn ghost" onclick="buildMatch('prog')">↻ Reset</button><span class="score" id="progScore"></span></div>
+    </div>
+
+    <div class="card reveal">
+      <div class="label"><span class="num">19</span>Positive or negative? · adjectives for TV</div>
+      <div class="card" style="border-left:none;box-shadow:none;border:1px solid var(--line);margin:0">
+        <div class="qcard">
+          <div class="qmeta" id="adjMeta"></div>
+          <div class="qword" id="adjWord"></div>
+          <div class="opts" id="adjOpts"></div>
+        </div>
+      </div>
+      <div class="btn-row" style="justify-content:center"><button class="btn ghost" id="adjNext" onclick="nextCat('adj')" disabled>Next →</button><span class="score" id="adjScore"></span></div>
+    </div>
+
+    <div class="card reveal">
+      <div class="label"><span class="num">20</span>Comparatives &amp; superlatives</div>
+      <div id="compList"></div>
+      <div class="btn-row"><button class="btn" onclick="checkGroup('comp',5,'compScore','comp')">✓ Check</button><button class="btn ghost" onclick="showGroup('comp','compScore')">Answers</button><button class="btn ghost" onclick="buildComp()">↻</button><span class="score" id="compScore"></span></div>
+    </div>
+
+    <div class="card reveal">
+      <div class="label"><span class="num">21</span>Modifiers &amp; (not) as … as</div>
+      <div id="modList"></div>
+      <div class="btn-row"><button class="btn" onclick="checkGroup('mod',5,'modScore','mod')">✓ Check</button><button class="btn ghost" onclick="showGroup('mod','modScore')">Answers</button><button class="btn ghost" onclick="buildMod()">↻</button><span class="score" id="modScore"></span></div>
+    </div>
+
+    <div class="card reveal">
+      <div class="label"><span class="num">22</span>Build the sentence · tap the words in order</div>
+      <div id="orderBox"></div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL -->
+<section id="final" style="--acc:var(--gold);--acc2:var(--gold-deep)">
+  <div class="wrap">
+    <div class="stamp reveal"><span class="em">🛬</span><span class="t">Arrival</span><span class="n">your results</span></div>
+    <h2 class="sec reveal">How was the <em>journey</em>?</h2>
+    <p class="intro reveal">Press the button to add up all your points from every stop.</p>
+
+    <div class="card final reveal">
+      <div style="font-family:'Hanken Grotesk';font-weight:700;letter-spacing:.16em;text-transform:uppercase;font-size:.75rem;opacity:.8">Your score</div>
+      <div class="big"><span id="finalScore">?</span><span style="font-size:.4em;opacity:.7">  / 119</span></div>
+      <div class="rank" id="finalRank">Tap below to see your result</div>
+      <div class="bar"><div class="barfill" id="finalBar"></div></div>
+      <div class="breakdown" id="breakdown"></div>
+      <div class="btn-row" style="justify-content:center"><button class="btn dark" style="border-color:var(--gold);background:var(--gold);color:var(--ink)" onclick="tally()">🧮 Add up my points!</button></div>
+    </div>
+
+    <div class="card reveal">
+      <div class="label"><span class="num">★</span>Speaking · plan your dream trip 🐉</div>
+      <p style="font-weight:600;margin-bottom:8px">Tell your teacher about your dream trip to China. Try to use:</p>
+      <ul style="list-style:none;display:flex;flex-direction:column;gap:8px;font-weight:500">
+        <li>🏙️ a <b>comparative/superlative</b>: "Shanghai is bigger than…", "the most amazing place…"</li>
+        <li>✅ the <b>present perfect</b>: "I've always wanted to…", "I've never seen…"</li>
+        <li>🗣️ a <b>relative clause</b>: "It's the city where…"</li>
+        <li>🐼 some <b>new words</b> from the year!</li>
+      </ul>
+      <div class="btn-row"><button class="btn" onclick="startTimer(180,'spkTimer')">▶ Speak for 3 min</button><span class="clockface" id="spkTimer" style="font-size:1.4rem">03:00</span></div>
+    </div>
+
+    <div class="card reveal">
+      <div class="label"><span class="num">✎</span>Before the holidays…</div>
+      <div class="prompt" style="font-size:1.3rem;min-height:50px"><span>Finish it: <em style="color:var(--red)">"This year the hardest thing was… and the easiest was…"</em></span></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="big">再见 · zài jiàn · safe travels! 🏮</div>
+  <p style="margin-top:8px">Review Test · Units 1–5 · Gateway to the World B1 · Have a wonderful summer!</p>
+</footer>
+
+<script>
+const prog=document.getElementById('progress');
+addEventListener('scroll',()=>{const h=document.documentElement;prog.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+'%';});
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}}),{threshold:.1});
+document.querySelectorAll('.reveal').forEach((el,i)=>{el.style.transitionDelay=(i%4*55)+'ms';io.observe(el);});
+function typeInto(id,t){const el=document.getElementById(id);el.textContent='';let i=0;const x=setInterval(()=>{el.textContent+=t[i++];if(i>=t.length)clearInterval(x);},11);}
+function shuffle(a){a=[...a];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+
+/* ===== global scores ===== */
+const scores={};
+function rec(key,c,t){scores[key]={c,t};}
+
+/* ===== warm-up speaking ===== */
+const warmQs=[
+ "You love China! Why? What do you like most about it?",
+ "Have you ever been to China? Where would you go first?",
+ "What do you know about Chinese food, festivals or language?",
+ "If you could learn one thing about China this summer, what would it be?",
+ "Who would you take with you on a trip to China, and why?"
+];
+let wI=0;function nextWarm(){wI=(wI+1)%warmQs.length;typeInto('warmPrompt',warmQs[wI]);}
+
+/* ===== SEGMENTED ENGINE ===== */
+const answers={},picked={};
+function clearGroup(p){Object.keys(answers).forEach(k=>{if(k.startsWith(p)){delete answers[k];delete picked[k];}});}
+function slotHTML(id,opts,ans){answers[id]=ans;
+ return `<span class="seg" id="${id}">${shuffle(opts).map(v=>`<button data-v="${v.replace(/"/g,'&quot;')}" onclick="pickSlot('${id}',this)">${v}</button>`).join('')}</span>`;}
+function pickSlot(id,btn){picked[id]=btn.dataset.v;[...btn.parentNode.children].forEach(b=>b.classList.remove('sel','right','wrong','miss'));btn.classList.add('sel');}
+function checkGroup(prefix,total,scoreId,key){let r=0;Object.keys(answers).filter(k=>k.startsWith(prefix+'_')).forEach(id=>{
+  const seg=document.getElementById(id),ans=answers[id],pk=picked[id];
+  [...seg.children].forEach(b=>{b.classList.remove('sel','right','wrong','miss');const v=b.dataset.v;
+    if(v===ans){b.classList.add(pk===v?'right':'miss');}else if(pk===v){b.classList.add('wrong');}});
+  if(pk===ans)r++;});
+ const sc=document.getElementById(scoreId);sc.textContent=`${r} / ${total} ★`;sc.classList.add('show');rec(key,r,total);}
+function showGroup(prefix,scoreId){Object.keys(answers).filter(k=>k.startsWith(prefix+'_')).forEach(id=>{
+  const seg=document.getElementById(id);[...seg.children].forEach(b=>{b.classList.remove('sel','right','wrong','miss');if(b.dataset.v===answers[id])b.classList.add('right');});picked[id]=answers[id];});
+ const sc=document.getElementById(scoreId);sc.textContent='✓ Answers shown';sc.classList.add('show');}
+function buildSeg(list,prefix,containerId){clearGroup(prefix);const c=document.getElementById(containerId);c.innerHTML='';
+ list.forEach((g,i)=>{const row=document.createElement('div');row.className='row';
+   row.innerHTML=`<div class="n">${i+1}</div><div class="s">${g.pre||''}${slotHTML(prefix+'_'+i,g.opts,g.ans)}${g.post||''}</div>`;c.appendChild(row);});}
+
+/* ===== SELECT (dropdown) ENGINE ===== */
+const selAns={};
+function buildSelectEx(list,prefix,containerId,bank){const c=document.getElementById(containerId);c.innerHTML='';
+ list.forEach((g,i)=>{const id=prefix+'_'+i;selAns[id]=g.ans;const opts=(g.opts||bank);
+   const sel=`<select class="gap" id="${id}"><option value="">— choose —</option>${opts.map(o=>`<option>${o}</option>`).join('')}</select>`;
+   const row=document.createElement('div');row.className='row';
+   row.innerHTML=`<div class="n">${i+1}</div><div class="s">${g.pre||''}${sel}${g.post||''}</div>`;c.appendChild(row);});}
+function checkSelect(prefix,total,scoreId,key){let r=0;Object.keys(selAns).filter(k=>k.startsWith(prefix+'_')).forEach(id=>{
+  const s=document.getElementById(id);s.classList.remove('right','wrong');
+  if(s.value===selAns[id]){s.classList.add('right');r++;}else if(s.value!==''){s.classList.add('wrong');}});
+ const sc=document.getElementById(scoreId);sc.textContent=`${r} / ${total} ★`;sc.classList.add('show');rec(key,r,total);}
+function showSelect(prefix,scoreId){Object.keys(selAns).filter(k=>k.startsWith(prefix+'_')).forEach(id=>{
+  const s=document.getElementById(id);s.value=selAns[id];s.classList.remove('wrong');s.classList.add('right');});
+ const sc=document.getElementById(scoreId);sc.textContent='✓ Answers shown';sc.classList.add('show');}
+
+/* ===== MATCHING ENGINE ===== */
+const matchDefs={
+ fam:{key:'fam',score:'famScore',pairs:[
+   {l:"cousin",r:"your aunt or uncle's child"},
+   {l:"niece",r:"your brother or sister's daughter"},
+   {l:"only child",r:"a child with no brothers or sisters"},
+   {l:"twins",r:"two children born on the same day"},
+   {l:"grandparent",r:"your mother or father's parent"},
+   {l:"in-laws",r:"the family of your husband or wife"}
+ ]},
+ prog:{key:'prog',score:'progScore',pairs:[
+   {l:"documentary",r:"facts about real life, e.g. Blue Planet"},
+   {l:"comedy",r:"a funny programme that makes you laugh"},
+   {l:"the news",r:"tells you what is happening in the world"},
+   {l:"game show",r:"people answer questions to win prizes"},
+   {l:"chat show",r:"a host talks to famous guests"},
+   {l:"cartoon",r:"an animated programme, often for children"}
+ ]}
+};
+const matchState={};
+function buildMatch(name){
+ const d=matchDefs[name];const container=document.getElementById(name+'Match');
+ const right=shuffle(d.pairs.map((p,i)=>({ci:i,r:p.r})));
+ matchState[name]={active:null,assign:{}};
+ let html=`<div class="match"><div class="mcol"><div class="h">word</div>`;
+ d.pairs.forEach((p,i)=>{html+=`<div class="mitem" data-side="L" data-name="${name}" data-i="${i}" onclick="matchClick('${name}','L',${i})"><span class="badge"></span><span>${p.l}</span></div>`;});
+ html+=`</div><div class="mcol"><div class="h">meaning</div>`;
+ right.forEach(o=>{html+=`<div class="mitem" data-side="R" data-name="${name}" data-ci="${o.ci}" onclick="matchClick('${name}','R',${o.ci})"><span class="badge"></span><span>${o.r}</span></div>`;});
+ html+=`</div></div>`;container.innerHTML=html;
+ document.getElementById(d.score).classList.remove('show');
+}
+function matchClick(name,side,idx){
+ const st=matchState[name];const cont=document.getElementById(name+'Match');
+ if(side==='L'){st.active=idx;cont.querySelectorAll('[data-side="L"]').forEach(e=>e.classList.toggle('active',+e.dataset.i===idx));}
+ else{ if(st.active==null)return;
+   const li=st.active;st.assign[li]=idx;
+   // badge numbers
+   const lEl=cont.querySelector(`[data-side="L"][data-i="${li}"]`);
+   lEl.classList.add('paired');lEl.querySelector('.badge').textContent=li+1;
+   const rEl=cont.querySelector(`[data-side="R"][data-ci="${idx}"]`);
+   // clear any previous R that had this number
+   cont.querySelectorAll('[data-side="R"]').forEach(e=>{if(e!==rEl&&e.querySelector('.badge').textContent==String(li+1)){e.classList.remove('paired');e.querySelector('.badge').textContent='';}});
+   rEl.classList.add('paired');rEl.querySelector('.badge').textContent=li+1;
+   st.active=null;cont.querySelectorAll('[data-side="L"]').forEach(e=>e.classList.remove('active'));
+ }
+}
+function checkMatch(name){
+ const d=matchDefs[name];const st=matchState[name];const cont=document.getElementById(name+'Match');let r=0;
+ d.pairs.forEach((p,i)=>{const li=cont.querySelector(`[data-side="L"][data-i="${i}"]`);li.classList.remove('right','wrong');
+   if(st.assign[i]===i){li.classList.add('right');r++;}else if(st.assign[i]!=null){li.classList.add('wrong');}});
+ const sc=document.getElementById(d.score);sc.textContent=`${r} / ${d.pairs.length} ★`;sc.classList.add('show');rec(d.key,r,d.pairs.length);
+}
+
+/* ===== CATEGORIZE (one at a time) ENGINE ===== */
+const catDefs={
+ bh:{key:'bh',score:'bhScore',meta:'bhMeta',word:'bhWord',opts:'bhOpts',next:'bhNext',cats:["body part","health problem"],
+   data:[{w:"ankle",c:"body part"},{w:"a headache",c:"health problem"},{w:"shoulder",c:"body part"},{w:"a cough",c:"health problem"},
+         {w:"elbow",c:"body part"},{w:"a sore throat",c:"health problem"},{w:"knee",c:"body part"},{w:"a fever",c:"health problem"}]},
+ adj:{key:'adj',score:'adjScore',meta:'adjMeta',word:'adjWord',opts:'adjOpts',next:'adjNext',cats:["positive 👍","negative 👎"],
+   data:[{w:"brilliant",c:"positive 👍"},{w:"annoying",c:"negative 👎"},{w:"entertaining",c:"positive 👍"},{w:"awful",c:"negative 👎"},
+         {w:"inspiring",c:"positive 👍"},{w:"dull",c:"negative 👎"},{w:"funny",c:"positive 👍"},{w:"violent",c:"negative 👎"},
+         {w:"moving",c:"positive 👍"},{w:"scary",c:"negative 👎"}]}
+};
+const catState={};
+function startCat(name){const d=catDefs[name];catState[name]={order:shuffle(d.data.map((_,i)=>i)),i:0,score:0,done:false};renderCat(name);}
+function renderCat(name){const d=catDefs[name];const st=catState[name];st.done=false;
+ const cur=d.data[st.order[st.i]];
+ document.getElementById(d.meta).textContent=`${st.i+1} of ${d.data.length}`;
+ document.getElementById(d.word).textContent=cur.w;
+ const box=document.getElementById(d.opts);box.innerHTML='';
+ d.cats.forEach(cat=>{const b=document.createElement('button');b.className='opt';b.textContent=cat;b.onclick=()=>pickCat(name,b,cat===cur.c,cur.c);box.appendChild(b);});
+ document.getElementById(d.next).disabled=true;document.getElementById(d.score).classList.remove('show');}
+function pickCat(name,btn,correct,answer){const d=catDefs[name];const st=catState[name];if(st.done)return;st.done=true;
+ if(correct){btn.classList.add('right');st.score++;}else{btn.classList.add('wrong');[...document.getElementById(d.opts).children].forEach(b=>{if(b.textContent===answer)b.classList.add('right');});}
+ document.getElementById(d.next).disabled=false;}
+function nextCat(name){const d=catDefs[name];const st=catState[name];
+ if(st.i<st.order.length-1){st.i++;renderCat(name);}
+ else{const sc=document.getElementById(d.score);sc.textContent=`${st.score} / ${d.data.length} ★`;sc.classList.add('show');document.getElementById(d.next).disabled=true;rec(d.key,st.score,d.data.length);}}
+
+/* ===== ORDER WORDS ENGINE ===== */
+const orderData=[
+ {answer:"Shanghai is the biggest city in China",key:'order_0'},
+ {answer:"Have you ever been to the Great Wall",key:'order_1'}
+];
+function buildOrder(){const box=document.getElementById('orderBox');box.innerHTML='';
+ orderData.forEach((o,idx)=>{
+   const wrap=document.createElement('div');wrap.style.marginBottom='18px';
+   const words=shuffle(o.answer.split(' '));
+   wrap.innerHTML=`<div class="tip">Sentence ${idx+1}${idx===1?' (it is a question — add the ? yourself)':''}:</div>
+     <div class="answer-line" id="ans_${idx}"></div>
+     <div class="word-bank" id="bank_${idx}">${words.map((w,j)=>`<span class="chip" data-w="${w}" onclick="orderTake(${idx},this)">${w}</span>`).join('')}</div>
+     <div class="btn-row"><button class="btn" onclick="orderCheck(${idx})">✓ Check</button><button class="btn ghost" onclick="buildOrderOne(${idx})">↻ Reset</button> <span class="score" id="orderScore_${idx}"></span></div>`;
+   box.appendChild(wrap);
+ });
+}
+function buildOrderOne(idx){const o=orderData[idx];const words=shuffle(o.answer.split(' '));
+ document.getElementById('ans_'+idx).innerHTML='';document.getElementById('ans_'+idx).className='answer-line';
+ document.getElementById('bank_'+idx).innerHTML=words.map(w=>`<span class="chip" data-w="${w}" onclick="orderTake(${idx},this)">${w}</span>`).join('');
+ document.getElementById('orderScore_'+idx).classList.remove('show');}
+function orderTake(idx,chip){const ans=document.getElementById('ans_'+idx);
+ const s=document.createElement('span');s.className='chip';s.dataset.w=chip.dataset.w;s.textContent=chip.dataset.w;
+ s.onclick=()=>{chip.style.display='';s.remove();};
+ ans.appendChild(s);chip.style.display='none';}
+function orderCheck(idx){const ans=document.getElementById('ans_'+idx);
+ const got=[...ans.children].map(c=>c.dataset.w).join(' ');
+ const ok=got.toLowerCase()===orderData[idx].answer.toLowerCase();
+ ans.classList.remove('right','wrong');ans.classList.add(ok?'right':'wrong');
+ const sc=document.getElementById('orderScore_'+idx);sc.textContent=ok?'Correct! ★':'Not yet — try again';sc.classList.add('show');
+ rec(orderData[idx].key,ok?1:0,1);}
+
+/* ===== DATA: build functions ===== */
+function buildTf(){buildSeg([
+ {pre:"<b>The Great Wall of China is over 20,000 km long.</b> ",opts:["True","False"],ans:"True"},
+ {pre:"<b>Giant pandas eat mostly bamboo.</b> ",opts:["True","False"],ans:"True"},
+ {pre:"<b>The Forbidden City is in Shanghai.</b> ",opts:["True","False"],ans:"False"},
+ {pre:"<b>Mandarin Chinese uses characters, not an alphabet like English.</b> ",opts:["True","False"],ans:"True"},
+ {pre:"<b>Beijing is the capital of China.</b> ",opts:["True","False"],ans:"True"}
+],'tf','tfList');}
+
+function buildSuf(){buildSeg([
+ {pre:"argue → argu",opts:["-ment","-ion","-ence"],ans:"-ment",post:""},
+ {pre:"decide → decis",opts:["-ment","-ion","-ence"],ans:"-ion",post:""},
+ {pre:"differ → differ",opts:["-ment","-ion","-ence"],ans:"-ence",post:""},
+ {pre:"develop → develop",opts:["-ment","-ion","-ence"],ans:"-ment",post:""},
+ {pre:"discuss → discuss",opts:["-ment","-ion","-ence"],ans:"-ion",post:""}
+],'suf','sufList');}
+
+function buildPres(){buildSeg([
+ {pre:"Right now I ",opts:["am watching","watch"],ans:"am watching",post:" a documentary about China."},
+ {pre:"My cousin ",opts:["speaks","is speaking"],ans:"speaks",post:" Mandarin every day."},
+ {pre:"Look! That panda ",opts:["is eating","eats"],ans:"is eating",post:" bamboo right now."},
+ {pre:"Water ",opts:["boils","is boiling"],ans:"boils",post:" at 100°C."},
+ {pre:"Sorry, I ",opts:["don't understand","am not understanding"],ans:"don't understand",post:" this sign. (state verb)"},
+ {pre:"We usually ",opts:["visit","are visiting"],ans:"visit",post:" our grandparents on Sundays."}
+],'pres','presList');}
+
+function buildArt(){buildSelectEx([
+ {pre:"Beijing is ",ans:"the",post:" capital of China.",opts:["a","an","the","—"]},
+ {pre:"I'd love to learn ",ans:"—",post:" Chinese this summer.",opts:["a","an","the","—"]},
+ {pre:"Yesterday we saw ",ans:"an",post:" amazing temple.",opts:["a","an","the","—"]},
+ {pre:"The Great Wall is ",ans:"the",post:" longest wall in the world.",opts:["a","an","the","—"]},
+ {pre:"My sister is ",ans:"a",post:" university student in Xi'an.",opts:["a","an","the","—"]},
+ {pre:"We had ",ans:"—",post:" noodles for lunch.",opts:["a","an","the","—"]}
+],'art','artList');}
+
+function buildOdd(){buildSeg([
+ {pre:"",opts:["theft","robbery","burglary","detective"],ans:"detective"},
+ {pre:"",opts:["witness","suspect","criminal","dumpling"],ans:"dumpling"},
+ {pre:"",opts:["steal","arrest","investigate","celebrate"],ans:"celebrate"},
+ {pre:"",opts:["thief","burglar","robber","teacher"],ans:"teacher"}
+],'odd','oddList');}
+
+function buildPhr(){buildSelectEx([
+ {pre:"The police are ",ans:"looking into",post:" the crime.",opts:["looking into","getting away","finding out","working out","breaking in"]},
+ {pre:"Detectives want to ",ans:"finding out",post:" who did it.",opts:["looking into","getting away","finding out","working out","breaking in"]},
+ {pre:"The thief managed to ",ans:"getting away",post:" before the police came.",opts:["looking into","getting away","finding out","working out","breaking in"]},
+ {pre:"Someone tried to ",ans:"breaking in",post:" through the window last night.",opts:["looking into","getting away","finding out","working out","breaking in"]},
+ {pre:"It took them weeks to ",ans:"working out",post:" how the thief did it.",opts:["looking into","getting away","finding out","working out","breaking in"]}
+],'phr','phrList');}
+
+function buildPast(){buildSeg([
+ {pre:"While we ",opts:["were walking","walked"],ans:"were walking",post:" on the Great Wall, it started to rain."},
+ {pre:"Last summer I ",opts:["visited","was visiting"],ans:"visited",post:" Beijing for two weeks."},
+ {pre:"What ",opts:["were you doing","did you do"],ans:"were you doing",post:" at 8 p.m. yesterday?"},
+ {pre:"She ",opts:["saw","was seeing"],ans:"saw",post:" a panda when she was in Chengdu."},
+ {pre:"They ",opts:["were having","had"],ans:"were having",post:" dinner when I phoned them."}
+],'past','pastList');}
+
+function buildUsed(){buildSeg([
+ {pre:"I ",opts:["used to eat","use to eat"],ans:"used to eat",post:" a lot of fast food, but now I cook."},
+ {pre:"",opts:["Did you use to","Did you used to"],ans:"Did you use to",post:" live in another city?"},
+ {pre:"She ",opts:["didn't use to","didn't used to"],ans:"didn't use to",post:" like tea, but now she loves it."},
+ {pre:"There ",opts:["used to be","use to be"],ans:"used to be",post:" a cinema here when I was young."}
+],'used','usedList');}
+
+function buildNat(){buildSeg([
+ {pre:"Someone from China is ",opts:["Chinese","Chinish","Chinan"],ans:"Chinese",post:"."},
+ {pre:"Someone from Japan is ",opts:["Japanese","Japanish","Japanian"],ans:"Japanese",post:"."},
+ {pre:"Someone from Poland is ",opts:["Polish","Polian","Polese"],ans:"Polish",post:"."},
+ {pre:"Someone from Spain is ",opts:["Spanish","Spainish","Spainese"],ans:"Spanish",post:"."},
+ {pre:"Someone from Brazil is ",opts:["Brazilian","Brazilish","Brazilese"],ans:"Brazilian",post:"."}
+],'nat','natList');}
+
+function buildPre(){buildSeg([
+ {pre:"",opts:["im","in","un"],ans:"im",post:"possible"},
+ {pre:"",opts:["il","ir","in"],ans:"il",post:"legal"},
+ {pre:"",opts:["ir","im","un"],ans:"ir",post:"responsible"},
+ {pre:"",opts:["im","in","il"],ans:"im",post:"polite"},
+ {pre:"",opts:["in","im","ir"],ans:"in",post:"correct"},
+ {pre:"",opts:["un","in","im"],ans:"un",post:"happy"}
+],'pre','preList');}
+
+function buildQuant(){buildSeg([
+ {pre:"How ",opts:["many","much"],ans:"many",post:" languages do you speak?"},
+ {pre:"I don't have ",opts:["much","many"],ans:"much",post:" free time this week."},
+ {pre:"There were ",opts:["a lot of","much"],ans:"a lot of",post:" tourists at the Terracotta Army."},
+ {pre:"Would you like ",opts:["some","any"],ans:"some",post:" green tea?"},
+ {pre:"I only know ",opts:["a few","a little"],ans:"a few",post:" words in Mandarin."}
+],'quant','quantList');}
+
+function buildRel(){buildSeg([
+ {pre:"Xi'an is the city ",opts:["where","which","who"],ans:"where",post:" you can see the Terracotta Army."},
+ {pre:"A linguist is a person ",opts:["who","which","where"],ans:"who",post:" studies languages."},
+ {pre:"Mandarin is a language ",opts:["which","who","where"],ans:"which",post:" uses characters."},
+ {pre:"That's the girl ",opts:["whose","who","which"],ans:"whose",post:" father is from Beijing."},
+ {pre:"The book ",opts:["that","who","where"],ans:"that",post:" I read was all about China."}
+],'rel','relList');}
+
+function buildHealth(){buildSelectEx([
+ {pre:"I can't talk well — I have a ",ans:"sore throat",post:".",opts:["sore throat","headache","temperature","cough","cold"]},
+ {pre:"My head really hurts. I have a ",ans:"headache",post:".",opts:["sore throat","headache","temperature","cough","cold"]},
+ {pre:"He's very hot and ill. He has a high ",ans:"temperature",post:".",opts:["sore throat","headache","temperature","cough","cold"]},
+ {pre:"I keep sneezing and my nose is running. I have a ",ans:"cold",post:".",opts:["sore throat","headache","temperature","cough","cold"]},
+ {pre:"She can't stop coughing. She has a bad ",ans:"cough",post:".",opts:["sore throat","headache","temperature","cough","cold"]}
+],'health','healthList');}
+
+function buildPp1(){buildSeg([
+ {pre:"I've lived in this city ",opts:["since","for"],ans:"since",post:" 2019."},
+ {pre:"She's studied Chinese ",opts:["for","since"],ans:"for",post:" three years."},
+ {pre:"Have you ",opts:["ever","yet"],ans:"ever",post:" been to China?"},
+ {pre:"I've ",opts:["never","yet"],ans:"never",post:" eaten real dim sum."},
+ {pre:"Great news — he has ",opts:["already","yet"],ans:"already",post:" finished all his homework!"},
+ {pre:"We can't leave; I haven't packed ",opts:["yet","already"],ans:"yet",post:"."}
+],'pp1','pp1List');}
+
+function buildPp2(){buildSeg([
+ {pre:"I ",opts:["visited","have visited"],ans:"visited",post:" China in 2019."},
+ {pre:"I ",opts:["have never been","never was"],ans:"have never been",post:" to Japan."},
+ {pre:"",opts:["Have you ever tried","Did you ever tried"],ans:"Have you ever tried",post:" Chinese food?"},
+ {pre:"Last night we ",opts:["watched","have watched"],ans:"watched",post:" a film about pandas."},
+ {pre:"She ",opts:["has just arrived","just arrived yesterday"],ans:"has just arrived",post:" — she's at the door now!"}
+],'pp2','pp2List');}
+
+function buildComp(){buildSeg([
+ {pre:"Shanghai is ",opts:["bigger","more big","biggest"],ans:"bigger",post:" than Xi'an."},
+ {pre:"The Great Wall is ",opts:["the most amazing","the amazingest","more amazing"],ans:"the most amazing",post:" place I've ever seen."},
+ {pre:"This documentary is ",opts:["better","gooder","more good"],ans:"better",post:" than that one."},
+ {pre:"For me, Mandarin is ",opts:["more difficult","difficulter","most difficult"],ans:"more difficult",post:" than Spanish."},
+ {pre:"Chengdu is one of ",opts:["the most relaxing","the relaxingest","more relaxing"],ans:"the most relaxing",post:" cities in China."}
+],'comp','compList');}
+
+function buildMod(){buildSeg([
+ {pre:"Beijing is ",opts:["much","very"],ans:"much",post:" bigger than my town. (big difference)"},
+ {pre:"A cartoon is ",opts:["a bit","far"],ans:"a bit",post:" more violent than the news. (small difference)"},
+ {pre:"This show isn't as funny ",opts:["as","than"],ans:"as",post:" that one."},
+ {pre:"Reality TV is ",opts:["less","least"],ans:"less",post:" interesting than documentaries, in my opinion."},
+ {pre:"The book was ",opts:["not as","not so much"],ans:"not as",post:" exciting as the film."}
+],'mod','modList');}
+
+/* ===== TIMER ===== */
+const timers={};
+function startTimer(sec,id){const el=document.getElementById(id);
+ if(timers[id]&&timers[id].running){clearInterval(timers[id].iv);timers[id].running=false;return;}
+ let rem=(timers[id]&&timers[id].remaining!=null)?timers[id].remaining:sec;timers[id]={running:true,remaining:rem,iv:null};
+ timers[id].iv=setInterval(()=>{rem--;timers[id].remaining=rem;el.textContent=String(Math.floor(rem/60)).padStart(2,'0')+':'+String(rem%60).padStart(2,'0');
+  if(rem<=0){clearInterval(timers[id].iv);timers[id]={running:false,remaining:null};el.textContent='time! ★';}},1000);}
+
+/* ===== FINAL TALLY ===== */
+const MAX=119;
+function tally(){
+ let c=0;for(const k in scores)c+=scores[k].c;
+ document.getElementById('finalScore').textContent=c;
+ const pct=Math.round(c/MAX*100);
+ document.getElementById('finalBar').style.width=pct+'%';
+ let rank;
+ if(c>=100)rank="🐉 China Explorer Legend! Amazing work!";
+ else if(c>=80)rank="🏮 Brilliant! You really know your stuff.";
+ else if(c>=60)rank="🐼 Great job — a strong journey!";
+ else if(c>=40)rank="🥟 Good effort! Review a few stops and try again.";
+ else rank="✈️ Nice start! Go back and collect more points.";
+ document.getElementById('finalRank').textContent=`${pct}% · ${rank}`;
+ const bd=document.getElementById('breakdown');bd.innerHTML='';
+ const groups={Beijing:['fam','suf','pres','art'],"Great Wall":['odd','phr','past','used'],"Xi'an":['nat','pre','quant','rel'],Chengdu:['bh','health','pp1','pp2'],Shanghai:['prog','adj','comp','mod','order_0','order_1'],"Warm-up":['tf']};
+ for(const g in groups){let gc=0,gt=0;groups[g].forEach(k=>{if(scores[k]){gc+=scores[k].c;gt+=scores[k].t;}});
+   const span=document.createElement('span');span.className='bd';span.textContent=`${g}: ${gc}/${gt||'…'}`;bd.appendChild(span);}
+ confetti();document.getElementById('final').scrollIntoView({behavior:'smooth'});
+}
+function confetti(){const em=['🏮','🎉','🧧','⭐','🐼','🐉'];for(let i=0;i<40;i++){const s=document.createElement('span');s.className='conf';
+ s.textContent=em[Math.floor(Math.random()*em.length)];s.style.left=Math.random()*100+'vw';s.style.animationDuration=(2.5+Math.random()*2.5)+'s';
+ s.style.animationDelay=(Math.random()*.6)+'s';document.body.appendChild(s);setTimeout(()=>s.remove(),5500);}}
+
+/* ===== INIT ===== */
+buildTf();
+buildMatch('fam');buildSuf();buildPres();buildArt();
+buildOdd();buildPhr();buildPast();buildUsed();
+buildNat();buildPre();buildQuant();buildRel();
+startCat('bh');buildHealth();buildPp1();buildPp2();
+buildMatch('prog');startCat('adj');buildComp();buildMod();buildOrder();
+</script>
+</body>
+</html>
