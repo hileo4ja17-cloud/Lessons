@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Past Continuous — Extra Practice</title>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js">
+function checkMarksOnly(){
+  if(!requireSaved()) return;
+  checkMarks();
+}
+function showMarkAnswers(){
+  if(!requireSaved()) return;
+  document.getElementById('markAnswers').classList.toggle('show');
+}
+
+</script>
+<style>
+:root{--ink:#213B5E;--paper:#F6F1E5;--sand:#ECE3D1;--blue:#6FA0C0;--blue2:#3F7CA0;--orange:#E08A52;--gold:#E0B36A;--green:#6FA98A;--bad:#FBE4DA;--good:#E2EFE8}
+*{box-sizing:border-box} body{margin:0;font-family:Nunito,sans-serif;color:var(--ink);background:radial-gradient(circle at 10% 0,#dbeaf3 0,transparent 35%),radial-gradient(circle at 90% 5%,#f6d8c4 0,transparent 34%),var(--paper)}
+.wrap{max-width:930px;margin:auto;padding:22px 16px 80px}
+h1,h2,h3,.btn,.tag{font-family:Fredoka,sans-serif} h1{font-size:clamp(2rem,5vw,3.2rem);margin:8px 0} h2{margin:8px 0 5px;font-size:1.55rem} h3{margin:22px 0 8px;color:#2E6184}
+.hero,.card{background:#fff;border:4px solid var(--ink);border-radius:28px;box-shadow:0 10px 0 rgba(33,59,94,.13)}
+.hero{text-align:center;padding:34px 18px;margin-bottom:18px}.hero p{font-weight:800;color:#5A6E85}
+.card{padding:24px;margin:18px 0}.tag{display:inline-block;color:white;background:var(--blue2);border-radius:20px;padding:4px 14px;text-transform:uppercase;font-size:.78rem;letter-spacing:1px}.tag.orange{background:var(--orange)}.tag.gold{background:#C2964A}
+.lead,.small{font-weight:800;color:#5A6E85}.small{font-size:.92rem}.nav,.actions{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin:14px 0}.nav a,.btn{border:3px solid var(--ink);border-radius:18px;background:#fff;color:var(--ink);padding:9px 15px;font-weight:800;text-decoration:none;box-shadow:0 5px 0 rgba(33,59,94,.16);cursor:pointer}.btn{background:var(--blue2);color:white}.btn.save{background:#3E8B66}.btn.print{background:#C2964A}.btn.reset{background:#fff;color:var(--ink)}.btn:disabled{opacity:.45;cursor:not-allowed}
+.formula{font-family:Fredoka;text-align:center;border:3px solid var(--ink);border-radius:18px;padding:13px;margin:14px 0}.chip{border-radius:12px;padding:4px 10px;margin:2px;display:inline-block}.sub{background:var(--blue);color:white}.was{background:var(--blue2);color:white}.ing{background:var(--gold)}
+table{width:100%;border-collapse:collapse;margin:10px 0;font-weight:800}td,th{border:2px solid var(--ink);padding:9px;text-align:center}th{background:var(--ink);color:white;font-family:Fredoka}tr:nth-child(even) td{background:var(--sand)}
+.timeline{border:3px solid var(--ink);border-radius:18px;padding:18px;margin:15px 0}.linebox{height:78px;position:relative}.axis{position:absolute;left:3%;right:3%;top:38px;height:4px;background:var(--ink)}.arrow{position:absolute;right:2%;top:30px;border-left:15px solid var(--ink);border-top:10px solid transparent;border-bottom:10px solid transparent}.wave{position:absolute;left:11%;right:34%;top:19px;height:38px;border-radius:15px;background:repeating-linear-gradient(45deg,#3F7CA0,#3F7CA0 9px,#2E6184 9px,#2E6184 18px);color:white;font-weight:900;display:flex;align-items:center;justify-content:center;font-size:.82rem}.pop{position:absolute;right:29%;top:10px;width:50px;height:50px;border-radius:50%;background:var(--orange);color:white;border:3px solid white;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:.72rem;text-align:center}
+.hl1{background:linear-gradient(transparent 55%,#C3DBEC 55%);font-weight:900}.hl2{background:linear-gradient(transparent 55%,#F2CBB2 55%);font-weight:900}
+.q{background:var(--sand);border:3px solid var(--ink);border-radius:17px;padding:13px 15px;margin:12px 0;font-weight:800}.q.ok{background:var(--good);border-color:#3E8B66}.q.no{background:var(--bad);border-color:#C5713C}.num{display:inline-flex;width:28px;height:28px;border-radius:50%;background:var(--ink);color:white;align-items:center;justify-content:center;font-family:Fredoka;margin-right:8px}
+.choice{display:inline-block;border:3px solid var(--ink);border-radius:14px;background:white;padding:5px 13px;margin:2px;cursor:pointer}.choice.sel{background:var(--gold);box-shadow:inset 0 -3px 0 #C2964A}.choice.right{background:var(--green);color:white}.choice.wrong{background:var(--orange);color:white}
+input{font:800 1rem Nunito;border:0;border-bottom:3px solid #4E7D9D;background:#fff6ef;border-radius:8px 8px 0 0;padding:5px 8px;color:var(--ink);min-width:110px}input.long{width:min(100%,430px);text-align:left}
+.diary{background:#fffdf7;border:3px solid var(--ink);border-radius:18px;padding:18px;margin:12px 0;font-weight:800}.tools{display:flex;gap:9px;flex-wrap:wrap;margin:10px 0}.tool{font:800 .95rem Fredoka;border:3px solid var(--ink);border-radius:16px;background:white;padding:8px 12px;cursor:pointer}.tool.active[data-tool=pc],.mark.pc{background:#DCEEF8;border-bottom:5px solid #3F7CA0}.tool.active[data-tool=ps],.mark.ps{background:#FFF1D0;border:2px solid #C2964A;border-radius:18px}.mark{cursor:pointer;padding:1px 3px}.mark:hover{background:#edf6ff}.mark.ok{outline:3px solid #3E8B66}.mark.no{outline:3px solid #C5713C}
+.match{position:relative;display:grid;grid-template-columns:1fr 1fr;gap:24px;margin:10px 0}.svg{position:absolute;inset:0;pointer-events:none;z-index:1;overflow:visible}.col{position:relative;z-index:2;background:white;border:3px solid var(--ink);border-radius:17px;padding:12px}.item{display:flex;gap:9px;align-items:center;min-height:54px;border:3px solid var(--ink);border-radius:15px;background:white;padding:9px;margin:8px 0;font-weight:900;cursor:pointer}.item.sel{background:#FFF1D0}.item.matched{background:#EAF7FF}.item.ok{background:var(--good);border-color:#3E8B66}.item.no{background:var(--bad);border-color:#C5713C}.badge{flex:0 0 28px;width:28px;height:28px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;background:var(--ink);color:white;font-family:Fredoka}
+.note{font-weight:900;color:#C5713C;text-align:center}.note.done{color:#3E8B66}
+@media(max-width:680px){.match{grid-template-columns:1fr}.svg{display:none}.card{padding:17px}}
+@media print{body{background:white}.hero,.nav,.actions,.note{display:none!important}.wrap{max-width:100%;padding:0}.card{box-shadow:none;border-width:2px;break-inside:avoid}.choice,.item,input{border-width:1px}}
+
+.answer-pc{background:#DCEEF8;border-bottom:5px solid var(--blue-d);padding:1px 3px}
+.answer-ps{background:#FFF1D0;border:2px solid var(--yellow-d);border-radius:18px;padding:1px 3px}
+.markable.correct{outline:3px solid var(--green-d);border-radius:8px}
+.markable.wrong{outline:3px solid var(--red-d);border-radius:8px}
+
+</style>
+</head>
+<body>
+<div class="wrap">
+<section class="hero"><span class="tag">A2 Grammar</span><h1>Past Continuous + Past Simple</h1><p>Extra practice page</p></section>
+<nav class="nav"><a href="#rule">Rule</a><a href="#timeline">Timeline</a><a href="#while">while / when</a><a href="#book">Exercises</a></nav>
+<div class="actions"><button class="btn print" onclick="window.print()">🖨️ Print page</button></div>
+
+<section class="card" id="rule">
+<span class="tag">Presentation</span><h2>⏳ Part 1 — Past Continuous</h2><p class="lead">We use Past Continuous for an action in progress in the past.</p>
+<div class="formula"><span class="chip sub">subject</span> + <span class="chip was">was / were</span> + <span class="chip ing">verb + -ing</span></div>
+<table><tr><th>Subject</th><th>was / were</th><th>example</th></tr><tr><td>I / He / She / It</td><td>was</td><td>She was sleeping.</td></tr><tr><td>You / We / They</td><td>were</td><td>They were playing.</td></tr></table>
+<h3>Negatives & Questions</h3>
+<table><tr><th>Type</th><th>Form</th><th>Example</th></tr><tr><td>➖ Negative</td><td>wasn’t / weren’t + -ing</td><td>He wasn’t reading.</td></tr><tr><td>❓ Question</td><td>Was/Were + subject + -ing?</td><td>Was Bob sleeping?</td></tr><tr><td>✅ Short answer</td><td>Yes, ... was/were. / No, ... wasn’t/weren’t.</td><td>Yes, he was.</td></tr></table>
+<h3>✏️ Spelling: how to add -ing</h3>
+<table><tr><th>Rule</th><th>Example</th></tr><tr><td>Normal → + ing</td><td>play → playing</td></tr><tr><td>-e → drop e, + ing</td><td>make → making</td></tr><tr><td>short vowel + 1 consonant → double it</td><td>sit → sitting, run → running</td></tr></table>
+</section>
+
+<section class="card" id="timeline">
+<span class="tag">Presentation</span><h2>⌛ Part 2 — The two pasts together</h2><p class="lead">This is the magic rule. Watch the timeline! ⬇️</p>
+<div class="timeline"><p style="text-align:center;font-weight:900">"<span class="hl1">I was watching TV</span> <span class="hl2">when the phone rang.</span>"</p><div class="linebox"><div class="axis"></div><div class="arrow"></div><div class="wave">📺 I was watching TV</div><div class="pop">📞 rang!</div></div><p><span class="hl1">Past Continuous</span> = the longer action already happening.</p><p><span class="hl2">Past Simple</span> = the short action that interrupts it.</p></div>
+<p class="q">🔑 <b>WHEN + Past Simple</b> | <b>WHILE + Past Continuous</b></p>
+</section>
+
+<section class="card" id="while">
+<span class="tag orange">Practice</span><h2>🎯 D. while or when?</h2><p class="lead"><b>while</b> goes before the long action (-ing). <b>when</b> goes before the short, finished action.</p>
+<div class="q pick" data-answer="while"><span class="num">1</span><span class="choice">while</span><span class="choice">when</span> I was sleeping, the storm started.</div>
+<div class="q pick" data-answer="when"><span class="num">2</span>She was cooking <span class="choice">while</span><span class="choice">when</span> the phone rang.</div>
+<div class="q pick" data-answer="while"><span class="num">3</span>They saw a fox <span class="choice">while</span><span class="choice">when</span> they were walking home.</div>
+</section>
+
+<section class="card" id="book">
+<span class="tag gold">Extra from book</span><h2>📘 Extra exercises</h2><p class="lead">Do the tasks first. Then save your answers as a picture. After that you can check.</p>
+<div class="actions"><button class="btn save" onclick="savePic()">📸 Save result as picture</button><button class="btn print" onclick="window.print()">🖨️ Print page</button></div><p class="note" id="note">Checking is locked until you save your answers as a picture.</p>
+
+<h3>1. Read Vicky’s diary. Underline the forms.</h3><p class="small">Choose a colour and click the verb forms in the text.</p>
+<div class="tools"><button class="tool active" data-tool="pc" onclick="tool('pc')">Blue: Past Continuous</button><button class="tool" data-tool="ps" onclick="tool('ps')">Gold: Past Simple</button><button class="tool" onclick="clearMarks()">Clear marks</button></div>
+<div class="btn-row">
+    <button class="btn btn-check locked-check" disabled onclick="checkMarksOnly()">✅ Check task 1</button>
+    <button class="btn btn-reveal locked-check" disabled onclick="showMarkAnswers()">👀 Show answers</button>
+  </div>
+  <div class="reveal" id="markAnswers">
+    <b>Past Continuous:</b> <span class="answer-pc">was sitting</span>, <span class="answer-pc">was watching</span>, <span class="answer-pc">was feeling</span>, <span class="answer-pc">were riding</span>, <span class="answer-pc">was making</span>, <span class="answer-pc">were drinking</span><br>
+    <b>Past Simple:</b> <span class="answer-ps">texted</span>, <span class="answer-ps">asked</span>, <span class="answer-ps">met</span>, <span class="answer-ps">started</span>, <span class="answer-ps">didn’t have</span>, <span class="answer-ps">went</span>, <span class="answer-ps">arrived</span>, <span class="answer-ps">made</span>, <span class="answer-ps">came out</span>, <span class="answer-ps">ate</span>
+  </div>
+  <div class="diary">
+<p>Dear Diary,</p>
+<p>Yesterday I <span class="mark" data-answer="pc">was sitting</span> at home in the living room. I <span class="mark" data-answer="pc">was watching</span> TV when my friend, Tina, <span class="mark" data-answer="ps">texted</span> me. Tina <span class="mark" data-answer="pc">was feeling</span> bored, so she <span class="mark" data-answer="ps">asked</span> me to come out. I <span class="mark" data-answer="ps">met</span> Tina in the park at two o’clock. At half past two we <span class="mark" data-answer="pc">were riding</span> our bikes in the park when it <span class="mark" data-answer="ps">started</span> to rain. We <span class="mark" data-answer="ps">didn’t have</span> umbrellas, so we <span class="mark" data-answer="ps">went</span> to my house. Mum <span class="mark" data-answer="pc">was making</span> biscuits when we <span class="mark" data-answer="ps">arrived</span>. She <span class="mark" data-answer="ps">made</span> us some hot tea. We <span class="mark" data-answer="pc">were drinking</span> our tea when the biscuits <span class="mark" data-answer="ps">came out</span> of the oven. We <span class="mark" data-answer="ps">ate</span> them all!</p>
+<p>What a great afternoon!<br>More tomorrow!<br>Vicky</p></div>
+
+<h3>2. Put the words in the correct order.</h3>
+<div class="q text" data-answer="i was reading a book when my parents came home"><span class="num">1</span>I came reading when was a book home my parents.<br><input class="long" placeholder="Write the sentence"></div>
+<div class="q text" data-answer="dad was cooking in the kitchen when we opened the front door"><span class="num">2</span>the kitchen was Dad when opened we the front door in cooking.<br><input class="long" placeholder="Write the sentence"></div>
+<div class="q text" data-answer="the twins were playing a game when i arrived"><span class="num">3</span>when the twins a game were I playing arrived.<br><input class="long" placeholder="Write the sentence"></div>
+
+<h3>3. Read the story and circle the correct answer.</h3>
+<div class="q multi" data-answers="was working,flew"><span class="num">1</span>Doctor Q <span class="choice" data-choice="was working">was working</span><span class="choice" data-choice="worked">worked</span> in his lab one day when Pi <span class="choice" data-pair="2" data-choice="was flying">was flying</span><span class="choice" data-pair="2" data-choice="flew">flew</span> in.</div>
+<div class="q multi" data-answers="was hopping,found"><span class="num">2</span>Pi <span class="choice" data-choice="was hopping">was hopping</span><span class="choice" data-choice="hopped">hopped</span> in the garden when I <span class="choice" data-pair="2" data-choice="was finding">was finding</span><span class="choice" data-pair="2" data-choice="found">found</span> this strange box.</div>
+<div class="q multi" data-answers="was looking,came"><span class="num">3</span>I <span class="choice" data-choice="was looking">was looking</span><span class="choice" data-choice="looked">looked</span> for that box when you <span class="choice" data-pair="2" data-choice="were coming">were coming</span><span class="choice" data-pair="2" data-choice="came">came</span> in.</div>
+
+<h3>4. Complete the dialogue.</h3>
+<div class="q">Ann: Mum, this morning I <b>was using</b> (use) the blender when it <input data-answer="stopped"> (stop) working.</div>
+<div class="q">Mum: That’s strange. It worked yesterday.</div>
+<div class="q">Ann: Olga <input data-answer="was putting"> (put) strawberries into the blender when Dad <input data-answer="came"> (come) in. The blender <input data-answer="was mixing"> (mix) the strawberries and yogurt when suddenly it <input data-answer="turned off"> (turn off).</div>
+<div class="q">Mum: Hmm. Did you ask Dad to fix it?<br>Ann: Yes, and he says we need a new blender.</div>
+
+<h3>5. Match 1–6 to a–f.</h3><p class="small">Click one sentence on the left, then one answer on the right.</p>
+<div class="match" id="match"><svg class="svg" id="svg"></svg>
+<div class="col">
+<div class="item left" data-id="1" data-answer="f"><span class="badge">1</span>Wendy is good at English.</div>
+<div class="item left" data-id="2" data-answer="c"><span class="badge">2</span>I don’t know a lot of French.</div>
+<div class="item left" data-id="3" data-answer="b"><span class="badge">3</span>Dave is good at Maths.</div>
+<div class="item left" data-id="4" data-answer="a"><span class="badge">4</span>Dogs like running.</div>
+<div class="item left" data-id="5" data-answer="e"><span class="badge">5</span>Grandpa is old.</div>
+<div class="item left" data-id="6" data-answer="d"><span class="badge">6</span>The baby is sleeping.</div>
+</div><div class="col">
+<div class="item right" data-id="a"><span class="badge">a</span>They can go fast.</div>
+<div class="item right" data-id="b"><span class="badge">b</span>He does his homework easily.</div>
+<div class="item right" data-id="c"><span class="badge">c</span>I speak it badly.</div>
+<div class="item right" data-id="d"><span class="badge">d</span>Please talk quietly.</div>
+<div class="item right" data-id="e"><span class="badge">e</span>He walks slowly.</div>
+<div class="item right" data-id="f"><span class="badge">f</span>She speaks it well.</div>
+</div></div>
+
+<div class="actions"><button class="btn locked" disabled onclick="checkAll()">✅ Check answers</button><button class="btn reset" onclick="resetAll()">↺ Reset all</button></div>
+</section></div>
+
+<script>
+let saved=false, cur='pc', chosen=null; const matches={};
+const N=s=>(s||'').toLowerCase().replace(/[’']/g,"'").replace(/[.,!?]/g,'').replace(/\s+/g,' ').trim();
+function tool(t){cur=t;document.querySelectorAll('.tool[data-tool]').forEach(b=>b.classList.remove('active'));document.querySelector('.tool[data-tool="'+t+'"]').classList.add('active')}
+document.querySelectorAll('.mark').forEach(x=>x.onclick=()=>{x.classList.remove('pc','ps');x.classList.add(cur)});
+function clearMarks(){document.querySelectorAll('.mark').forEach(x=>x.className='mark')}
+document.querySelectorAll('.choice').forEach(b=>b.onclick=()=>{let q=b.closest('.q'),p=b.dataset.pair||'main';q.querySelectorAll('.choice').forEach(c=>{if((c.dataset.pair||'main')===p)c.classList.remove('sel','right','wrong')});b.classList.add('sel')});
+document.querySelectorAll('.left').forEach(i=>i.onclick=()=>{document.querySelectorAll('.item').forEach(x=>x.classList.remove('sel'));chosen=i.dataset.id;i.classList.add('sel')});
+document.querySelectorAll('.right').forEach(i=>i.onclick=()=>{if(!chosen)return;Object.keys(matches).forEach(k=>{if(matches[k]===i.dataset.id)delete matches[k]});matches[chosen]=i.dataset.id;chosen=null;document.querySelectorAll('.item').forEach(x=>x.classList.remove('sel'));draw()});
+function draw(){let svg=document.getElementById('svg'),area=document.getElementById('match'),r0=area.getBoundingClientRect();svg.innerHTML='';svg.setAttribute('width',r0.width);svg.setAttribute('height',r0.height);document.querySelectorAll('.item').forEach(x=>x.classList.remove('matched'));Object.entries(matches).forEach(([l,r])=>{let a=document.querySelector('.left[data-id="'+l+'"]'),b=document.querySelector('.right[data-id="'+r+'"]');if(!a||!b)return;a.classList.add('matched');b.classList.add('matched');let ar=a.getBoundingClientRect(),br=b.getBoundingClientRect(),x1=ar.right-r0.left,y1=ar.top+ar.height/2-r0.top,x2=br.left-r0.left,y2=br.top+br.height/2-r0.top,m=(x1+x2)/2,p=document.createElementNS('http://www.w3.org/2000/svg','path');p.setAttribute('d',`M ${x1} ${y1} C ${m} ${y1}, ${m} ${y2}, ${x2} ${y2}`);p.setAttribute('stroke','#3F7CA0');p.setAttribute('stroke-width','5');p.setAttribute('fill','none');p.setAttribute('stroke-linecap','round');svg.appendChild(p)})}
+addEventListener('resize',draw);addEventListener('scroll',draw,{passive:true});
+async function savePic(){let note=document.getElementById('note');draw();note.textContent='Saving...';if(typeof html2canvas==='undefined'){note.textContent='Screenshot tool did not load. Use Print page or open the file online.';return}let c=await html2canvas(document.getElementById('book'),{backgroundColor:'#fff',scale:2,useCORS:true});let a=document.createElement('a');a.download='past-continuous-results.png';a.href=c.toDataURL('image/png');a.click();saved=true;document.querySelectorAll('.locked').forEach(b=>b.disabled=false);note.textContent='Saved! Now you can check your answers.';note.classList.add('done')}
+function guard(){if(saved)return true;let n=document.getElementById('note');n.textContent='First save your answers as a picture. Then checking will unlock.';n.scrollIntoView({behavior:'smooth',block:'center'});return false}
+function checkAll(){if(!guard())return;checkPick();checkMarks();checkText();checkMulti();checkInputs();checkMatch()}
+function checkPick(){document.querySelectorAll('.pick').forEach(q=>{let s=q.querySelector('.choice.sel'),ok=s&&N(s.textContent)===N(q.dataset.answer);q.classList.toggle('ok',ok);q.classList.toggle('no',!ok);if(s)s.classList.add(ok?'right':'wrong')})}
+function checkMarks(){document.querySelectorAll('.mark').forEach(x=>{x.classList.remove('ok','no');let v=x.classList.contains('pc')?'pc':x.classList.contains('ps')?'ps':'';x.classList.add(v===x.dataset.answer?'ok':'no')})}
+function checkText(){document.querySelectorAll('.text').forEach(q=>{let ok=N(q.querySelector('input').value)===N(q.dataset.answer);q.classList.toggle('ok',ok);q.classList.toggle('no',!ok)})}
+function checkMulti(){document.querySelectorAll('.multi').forEach(q=>{let ans=q.dataset.answers.split(',').map(N),sel=[...q.querySelectorAll('.choice.sel')].map(x=>N(x.dataset.choice||x.textContent)),ok=ans.length===sel.length&&ans.every(a=>sel.includes(a));q.classList.toggle('ok',ok);q.classList.toggle('no',!ok);q.querySelectorAll('.choice.sel').forEach(c=>c.classList.add(ans.includes(N(c.dataset.choice||c.textContent))?'right':'wrong'))})}
+function checkInputs(){document.querySelectorAll('input[data-answer]').forEach(i=>i.style.background=N(i.value)===N(i.dataset.answer)?'#E2EFE8':'#FBE4DA')}
+function checkMatch(){document.querySelectorAll('.item').forEach(i=>i.classList.remove('ok','no'));document.querySelectorAll('.left').forEach(l=>{let r=matches[l.dataset.id],ri=document.querySelector('.right[data-id="'+r+'"]'),ok=r===l.dataset.answer;l.classList.add(ok?'ok':'no');if(ri)ri.classList.add(ok?'ok':'no')})}
+function resetAll(){saved=false;document.querySelectorAll('.locked').forEach(b=>b.disabled=true);document.getElementById('note').textContent='Checking is locked until you save your answers as a picture.';document.getElementById('note').classList.remove('done');document.querySelectorAll('input').forEach(i=>{i.value='';i.style.background='#fff'});document.querySelectorAll('.q').forEach(q=>q.classList.remove('ok','no'));document.querySelectorAll('.choice').forEach(c=>c.classList.remove('sel','right','wrong'));clearMarks();document.querySelectorAll('.item').forEach(i=>i.classList.remove('sel','matched','ok','no'));Object.keys(matches).forEach(k=>delete matches[k]);draw()}
+
+function checkMarksOnly(){
+  if(!requireSaved()) return;
+  checkMarks();
+}
+function showMarkAnswers(){
+  if(!requireSaved()) return;
+  document.getElementById('markAnswers').classList.toggle('show');
+}
+
+</script>
+</body></html>
