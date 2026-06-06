@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quantifiers B1 — Interactive Exercises</title>
+  <style>
+    :root{
+      --bg:#110804; --bg2:#1d0f08; --card:#2b180f; --card2:#3b2113;
+      --gold:#d7a94b; --gold2:#ffe4a3; --cream:#fff3d7; --muted:#caa978;
+      --rose:#e89aaa; --green:#93c46b; --red:#da6e57; --ink:#241005;
+      --shadow:rgba(0,0,0,.42); --glow:rgba(255,228,163,.55);
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0; min-height:100vh; color:var(--cream);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at 12% 7%, rgba(255,228,163,.16), transparent 25%),
+        radial-gradient(circle at 88% 15%, rgba(232,154,170,.11), transparent 22%),
+        radial-gradient(circle at 50% 100%, rgba(215,169,75,.13), transparent 33%),
+        linear-gradient(135deg, #0d0503 0%, #1b0d07 48%, #30190d 100%);
+      overflow-x:hidden;
+    }
+    body::before{
+      content:""; position:fixed; inset:0; pointer-events:none;
+      background-image:radial-gradient(circle, rgba(255,228,163,.24) 1px, transparent 1.7px), radial-gradient(circle, rgba(255,255,255,.08) 1px, transparent 1.5px);
+      background-size:34px 34px, 58px 58px; background-position:0 0, 14px 18px;
+      opacity:.32; mask-image:linear-gradient(to bottom,#000,transparent 92%);
+    }
+    .wrap{width:min(1180px,calc(100% - 32px)); margin:0 auto; padding:28px 0 44px; position:relative}
+    .hero{
+      position:relative; padding:42px; border-radius:34px; overflow:hidden;
+      border:1px solid rgba(255,228,163,.27);
+      background:linear-gradient(145deg, rgba(61,34,19,.93), rgba(23,11,6,.95));
+      box-shadow:0 24px 80px var(--shadow), inset 0 1px rgba(255,255,255,.08);
+    }
+    .hero::after{content:""; position:absolute; right:-120px; top:-120px; width:360px; height:360px; border-radius:50%; background:radial-gradient(circle, rgba(255,228,163,.22), transparent 66%); animation:float 5s ease-in-out infinite alternate}
+    @keyframes float{to{transform:translate(-25px,30px) scale(1.08)}}
+    .kicker{color:var(--gold2); letter-spacing:.18em; text-transform:uppercase; font-size:12px; font-weight:900; margin-bottom:14px}
+    h1{font-family:Georgia,"Times New Roman",serif; margin:0; font-size:clamp(42px,6vw,76px); line-height:.92; letter-spacing:-.045em; text-shadow:0 0 30px rgba(215,169,75,.24)}
+    .subtitle{max-width:760px; margin:20px 0 0; color:#ead2a6; font-size:18px; line-height:1.65}
+    .nav{display:flex; flex-wrap:wrap; gap:10px; margin-top:26px; position:relative; z-index:2}
+    .nav a,.btn{
+      border:1px solid rgba(255,228,163,.35); color:#fff1cc; text-decoration:none;
+      background:linear-gradient(145deg, rgba(52,29,17,.95), rgba(18,8,4,.95));
+      padding:10px 14px; border-radius:999px; font-weight:800; cursor:pointer; font-family:inherit;
+      transition:.22s ease; box-shadow:inset 0 0 0 1px rgba(255,255,255,.03);
+    }
+    .nav a:hover,.btn:hover{transform:translateY(-2px); box-shadow:0 10px 22px rgba(0,0,0,.28),0 0 20px rgba(215,169,75,.18)}
+    .rule-strip{display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-top:24px}
+    .rule-mini{padding:16px; border-radius:22px; background:rgba(255,228,163,.07); border:1px solid rgba(255,228,163,.18); cursor:pointer; transition:.22s ease}
+    .rule-mini:hover{background:rgba(255,228,163,.12); transform:translateY(-3px)}
+    .rule-mini b{display:block; font-family:Georgia,"Times New Roman",serif; font-size:24px; color:var(--gold2)}
+    .rule-mini span{display:block; color:#d9b071; margin-top:7px; line-height:1.35; font-size:14px}
+    .section{margin-top:26px; padding:28px; border-radius:32px; background:rgba(27,13,7,.82); border:1px solid rgba(255,228,163,.2); box-shadow:0 18px 60px rgba(0,0,0,.25)}
+    h2{font-family:Georgia,"Times New Roman",serif; margin:0 0 10px; font-size:36px; color:var(--gold2); letter-spacing:-.025em}
+    .section-note{margin:0 0 18px; color:#d9b071; line-height:1.5}
+    .task{display:grid; gap:14px}
+    .q{padding:18px; border-radius:22px; background:linear-gradient(145deg, rgba(58,33,20,.74), rgba(22,10,5,.76)); border:1px solid rgba(255,228,163,.16); position:relative; overflow:hidden}
+    .q::before{content:"✦"; position:absolute; right:18px; top:14px; color:var(--gold2); opacity:.45}
+    .q-title{font-weight:850; color:#fff0c5; padding-right:28px; line-height:1.45}
+    .choices{display:flex; flex-wrap:wrap; gap:10px; margin-top:12px}
+    .choice{
+      border:1px solid rgba(255,228,163,.34); background:linear-gradient(145deg, rgba(55,31,18,.96), rgba(22,10,5,.96));
+      color:#fff1cf; border-radius:999px; padding:10px 15px; cursor:pointer; font-weight:850; transition:.2s ease; font-family:inherit;
+    }
+    .choice:hover{transform:translateY(-2px); box-shadow:0 10px 20px rgba(0,0,0,.25),0 0 18px rgba(215,169,75,.18)}
+    .choice.selected{border-color:rgba(255,228,163,.82); box-shadow:0 0 0 2px rgba(215,169,75,.22), 0 0 18px rgba(215,169,75,.16); background:linear-gradient(145deg, rgba(80,47,28,.96), rgba(28,13,7,.96));}
+    .choice.correct{background:linear-gradient(135deg, rgba(94,123,57,.94), rgba(43,70,33,.94)); border-color:rgba(207,236,151,.68)}
+    .choice.wrong{background:linear-gradient(135deg, rgba(139,58,45,.94), rgba(72,24,18,.94)); border-color:rgba(218,110,87,.76)}
+    .feedback{min-height:24px; margin-top:10px; color:#eacc96; font-weight:750; line-height:1.45}
+    .split{display:grid; grid-template-columns:1fr 1fr; gap:18px}
+    .bank{display:flex; flex-wrap:wrap; gap:10px; margin-bottom:16px}
+    .token{padding:10px 13px; border-radius:14px; background:rgba(255,228,163,.11); border:1px solid rgba(255,228,163,.22); color:#fff3d7; font-weight:850; cursor:grab; user-select:none; transition:.18s}
+    .token.dragging{opacity:.55; transform:scale(.95)}
+    .drop-line{display:flex; flex-wrap:wrap; align-items:center; gap:8px; padding:14px; border-radius:18px; background:rgba(255,228,163,.06); border:1px solid rgba(255,228,163,.14); margin-bottom:10px; line-height:1.55}
+    .blank{min-width:112px; min-height:42px; padding:8px 12px; border-radius:999px; border:1px dashed rgba(255,228,163,.55); display:inline-flex; align-items:center; justify-content:center; color:#d9b071; background:rgba(17,8,4,.5)}
+    .blank.filled{border-style:solid; color:#fff0c5; font-weight:900; background:rgba(255,228,163,.12)}
+    .blank.correct{box-shadow:0 0 0 2px rgba(147,196,107,.42)} .blank.wrong{box-shadow:0 0 0 2px rgba(218,110,87,.52)}
+    input.text-answer, textarea{
+      width:100%; border:1px solid rgba(255,228,163,.28); background:rgba(15,7,3,.65); color:#fff3d7;
+      border-radius:16px; padding:12px 14px; outline:none; font:inherit; margin-top:10px;
+    }
+    input.text-answer:focus, textarea:focus{border-color:rgba(255,228,163,.75); box-shadow:0 0 0 3px rgba(215,169,75,.15)}
+    textarea{min-height:126px; resize:vertical; line-height:1.55}
+    .match-grid{display:grid; grid-template-columns:1fr 1fr; gap:16px}
+    .match-card{padding:15px; border-radius:20px; background:rgba(255,228,163,.07); border:1px solid rgba(255,228,163,.15); cursor:pointer; transition:.2s}
+    .match-card:hover,.match-card.selected{border-color:rgba(255,228,163,.65); transform:translateY(-2px); background:rgba(255,228,163,.11)}
+    .match-card.done{background:rgba(147,196,107,.15); border-color:rgba(147,196,107,.55)}
+    .match-card.pending{border-style:dashed; opacity:.82}
+    .action-row{display:flex; flex-wrap:wrap; gap:10px; align-items:center}
+    .score{position:sticky; bottom:14px; z-index:4; margin-top:22px; display:flex; justify-content:space-between; gap:12px; align-items:center; padding:14px 16px; border-radius:24px; background:rgba(255,240,197,.94); color:var(--ink); box-shadow:0 12px 40px rgba(0,0,0,.38); font-weight:900}
+    .submit-panel{margin-top:26px; padding:24px; border-radius:30px; background:linear-gradient(145deg, rgba(255,228,163,.16), rgba(58,33,20,.76)); border:1px solid rgba(255,228,163,.35); box-shadow:0 18px 60px rgba(0,0,0,.26)}
+    .submit-panel h2{margin-bottom:8px}
+    .submit-panel p{margin:0 0 16px; color:#f0d09a; line-height:1.45}
+    .submit-panel .btn{font-size:17px; padding:13px 18px}
+    .score .btn{color:var(--ink); background:linear-gradient(135deg,var(--gold2),var(--gold)); border-color:rgba(36,16,5,.18)}
+    .toast{position:fixed; left:50%; bottom:26px; transform:translateX(-50%) translateY(95px); background:#fff0c5; color:#241005; border-radius:999px; padding:12px 18px; font-weight:900; box-shadow:0 12px 40px rgba(0,0,0,.38); transition:.32s ease; z-index:6}
+    .toast.show{transform:translateX(-50%) translateY(0)}
+    .hidden{display:none}
+    @media (max-width:900px){.hero{padding:30px}.rule-strip,.split,.match-grid{grid-template-columns:1fr}.section{padding:22px}.score{position:static; flex-direction:column; align-items:flex-start}.wrap{width:min(100% - 22px,1180px)}}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="hero">
+      <div class="kicker">B1 adult student · interactive practice</div>
+      <h1>Quantifiers<br><span style="color:var(--gold2)">Chocolate Gold</span> Exercises</h1>
+      <p class="subtitle">Practice much, many, a lot of, some, any, a little, a few, little, few, too much, too many, a/an and none. Click, choose, drag, match and write.</p>
+      <nav class="nav">
+        <a href="#warmup">Warm-up</a><a href="#choose">Choose</a><a href="#drag">Drag & drop</a><a href="#match">Match</a><a href="#rewrite">Rewrite</a><a href="#speaking">Speaking</a><a href="#submit">Results</a>
+      </nav>
+      <div class="rule-strip">
+        <div class="rule-mini" data-popup="uncountable"><b>much / little</b><span>uncountable: time, money, butter</span></div>
+        <div class="rule-mini" data-popup="countable"><b>many / few</b><span>plural countable: people, apples</span></div>
+        <div class="rule-mini" data-popup="both"><b>some / any / a lot of</b><span>both countable and uncountable</span></div>
+        <div class="rule-mini" data-popup="too"><b>too much / too many</b><span>more than needed</span></div>
+      </div>
+    </header>
+
+    <section class="section" id="warmup">
+      <h2>1. Warm-up: countable or uncountable?</h2>
+      <p class="section-note">Click the correct category. The nouns are adult-life friendly: work, travel, shopping, routines.</p>
+      <div class="task" data-task="warmup">
+        <div class="q" data-answer="uncountable"><div class="q-title">advice</div><div class="choices"><button class="choice">countable</button><button class="choice">uncountable</button></div><div class="feedback"></div></div>
+        <div class="q" data-answer="countable"><div class="q-title">emails</div><div class="choices"><button class="choice">countable</button><button class="choice">uncountable</button></div><div class="feedback"></div></div>
+        <div class="q" data-answer="uncountable"><div class="q-title">traffic</div><div class="choices"><button class="choice">countable</button><button class="choice">uncountable</button></div><div class="feedback"></div></div>
+        <div class="q" data-answer="countable"><div class="q-title">meetings</div><div class="choices"><button class="choice">countable</button><button class="choice">uncountable</button></div><div class="feedback"></div></div>
+      </div>
+    </section>
+
+    <section class="section" id="choose">
+      <h2>2. Choose the best quantifier</h2>
+      <p class="section-note">B1 style: small context, natural everyday English.</p>
+      <div class="task" data-task="choose">
+        <div class="q" data-answer="many"><div class="q-title">1. I don't have ___ colleagues in this department.</div><div class="choices"><button class="choice">much</button><button class="choice">many</button><button class="choice">a little</button></div><div class="feedback"></div></div>
+        <div class="q" data-answer="much"><div class="q-title">2. There isn't ___ information on the website.</div><div class="choices"><button class="choice">many</button><button class="choice">much</button><button class="choice">few</button></div><div class="feedback"></div></div>
+        <div class="q" data-answer="a few"><div class="q-title">3. We have ___ minutes before the meeting, so let's get coffee.</div><div class="choices"><button class="choice">a few</button><button class="choice">little</button><button class="choice">much</button></div><div class="feedback"></div></div>
+        <div class="q" data-answer="a little"><div class="q-title">4. I speak ___ Italian, enough to order food.</div><div class="choices"><button class="choice">few</button><button class="choice">a little</button><button class="choice">many</button></div><div class="feedback"></div></div>
+        <div class="q" data-answer="few"><div class="q-title">5. Very ___ people understand this software, so training is necessary.</div><div class="choices"><button class="choice">few</button><button class="choice">a few</button><button class="choice">little</button></div><div class="feedback"></div></div>
+        <div class="q" data-answer="little"><div class="q-title">6. We have very ___ time, so please be brief.</div><div class="choices"><button class="choice">few</button><button class="choice">little</button><button class="choice">many</button></div><div class="feedback"></div></div>
+      </div>
+    </section>
+
+    <section class="section" id="drag">
+      <h2>3. Drag & drop: complete the sentences</h2>
+      <p class="section-note">Drag the golden words into the gaps. Then save the results as an image and press “Check answers”.</p>
+      <div class="bank" id="bank">
+        <span class="token" draggable="true" data-word="some">some</span>
+        <span class="token" draggable="true" data-word="any">any</span>
+        <span class="token" draggable="true" data-word="too much">too much</span>
+        <span class="token" draggable="true" data-word="too many">too many</span>
+        <span class="token" draggable="true" data-word="a lot of">a lot of</span>
+        <span class="token" draggable="true" data-word="none">none</span>
+      </div>
+      <div class="drop-line">1. I can't sleep because I drank <span class="blank" data-answer="too much">drop here</span> coffee.</div>
+      <div class="drop-line">2. Are there <span class="blank" data-answer="any">drop here</span> messages for me?</div>
+      <div class="drop-line">3. She has <span class="blank" data-answer="a lot of">drop here</span> experience in marketing.</div>
+      <div class="drop-line">4. There were <span class="blank" data-answer="too many">drop here</span> people in the room.</div>
+      <div class="drop-line">5. Could I have <span class="blank" data-answer="some">drop here</span> water, please?</div>
+      <div class="drop-line">6. How many tickets are left? — <span class="blank" data-answer="none">drop here</span>.</div>
+      <button class="btn" id="clearDrag">Clear drag gaps</button>
+      <div class="feedback" id="dragFeedback"></div>
+    </section>
+
+    <section class="section" id="match">
+      <h2>4. Match meaning and example</h2>
+      <p class="section-note">Click one meaning, then one example. Correct pairs glow green.</p>
+      <div class="match-grid">
+        <div>
+          <div class="match-card" data-pair="1">small quantity, but enough</div>
+          <div class="match-card" data-pair="2">small quantity and not enough</div>
+          <div class="match-card" data-pair="3">more than needed</div>
+          <div class="match-card" data-pair="4">zero</div>
+        </div>
+        <div>
+          <div class="match-card" data-pair="3">There are too many apps on my phone.</div>
+          <div class="match-card" data-pair="1">I have a few ideas for the project.</div>
+          <div class="match-card" data-pair="4">There is none left.</div>
+          <div class="match-card" data-pair="2">We have little chance of finishing today.</div>
+        </div>
+      </div>
+      <div class="feedback" id="matchFeedback"></div>
+    </section>
+
+    <section class="section" id="rewrite">
+      <h2>5. Rewrite with a natural quantifier</h2>
+      <p class="section-note">Type your version. Example: <b>I have a few friends, so I can enjoy the trip.</b></p>
+      <div class="split">
+        <div class="q"><div class="q-title">1. I have some friends. It is enough to enjoy the trip.</div><input class="text-answer" placeholder="Use: a few" data-sample="I have a few friends, so I can enjoy the trip." /></div>
+        <div class="q"><div class="q-title">2. We do not have enough time.</div><input class="text-answer" placeholder="Use: little" data-sample="We have little time." /></div>
+        <div class="q"><div class="q-title">3. The room has more people than comfortable.</div><input class="text-answer" placeholder="Use: too many" data-sample="There are too many people in the room." /></div>
+        <div class="q"><div class="q-title">4. I need butter. Can you offer it politely?</div><input class="text-answer" placeholder="Use: some" data-sample="Would you like some butter? / Can I have some butter?" /></div>
+      </div>
+      <div class="feedback" id="sampleBox"></div>
+    </section>
+
+    <section class="section" id="speaking">
+      <h2>6. Speaking / writing card</h2>
+      <p class="section-note">Write 5–7 sentences about your week. Try to use at least five quantifiers.</p>
+      <textarea id="freeText" placeholder="Example: I had too many tasks this week, but I still found a little time for myself..."></textarea>
+      <button class="btn" id="analyzeText" style="margin-top:12px">Highlight quantifiers</button>
+      <div class="feedback" id="analysisBox"></div>
+    </section>
+
+    <section class="submit-panel" id="submit">
+      <h2>Submit your answers</h2>
+      <p>First download the result picture for your teacher. After that, the “Check answers” button will appear.</p>
+      <div class="action-row">
+        <button class="btn" id="saveImage">Download result picture</button>
+        <button class="btn hidden" id="checkAll">Check answers</button>
+      </div>
+    </section>
+
+    <div class="score">
+      <div id="scoreText">Ready to submit: 0/20 items completed</div>
+      <div class="action-row">
+        <a class="btn" href="#submit">Download result picture</a>
+        <button class="btn" id="resetAll">Reset all</button>
+      </div>
+    </div>
+  </div>
+  <div class="toast" id="toast">Lovely ✦</div>
+
+  <script>
+    const toast = document.getElementById('toast');
+    const scoreText = document.getElementById('scoreText');
+    const saveImageBtn = document.getElementById('saveImage');
+    const checkAllBtn = document.getElementById('checkAll');
+    const resetBtn = document.getElementById('resetAll');
+    const clearDragBtn = document.getElementById('clearDrag');
+
+    const choiceQuestions = [...document.querySelectorAll('.q[data-answer]')];
+    const dragBlanks = [...document.querySelectorAll('.blank[data-answer]')];
+    const matchCards = [...document.querySelectorAll('.match-card[data-pair]')];
+    const objectiveMax = choiceQuestions.length + dragBlanks.length + 4;
+
+    let activeToken = null;
+    let selectedMatch = null;
+    let matchedPairs = new Set();
+
+    function showToast(text){
+      toast.textContent = text;
+      toast.classList.add('show');
+      clearTimeout(window.toastTimer);
+      window.toastTimer = setTimeout(()=>toast.classList.remove('show'), 1300);
+    }
+
+    function normalize(value){
+      return (value || '').trim().toLowerCase();
+    }
+
+    function updateProgress(){
+      const answeredChoices = choiceQuestions.filter(q => q.dataset.selected).length;
+      const filledBlanks = dragBlanks.filter(b => b.dataset.value).length;
+      const matched = matchedPairs.size;
+      scoreText.textContent = `Ready to submit: ${answeredChoices + filledBlanks + matched}/${objectiveMax} items completed`;
+    }
+
+    document.querySelectorAll('.rule-mini').forEach(card => card.addEventListener('click', () => {
+      const txt = {
+        uncountable:'Use much, too much, a little, little with uncountable nouns: money, time, traffic, advice.',
+        countable:'Use many, too many, a few, few with plural countable nouns: books, emails, colleagues.',
+        both:'Use some, any and a lot of with both types. Some is also natural in requests and offers.',
+        too:'Too much / too many means the quantity is bigger than needed or comfortable.'
+      }[card.dataset.popup];
+      showToast(txt);
+    }));
+
+    choiceQuestions.forEach(q => {
+      q.querySelectorAll('.choice').forEach(btn => btn.addEventListener('click', () => {
+        q.querySelectorAll('.choice').forEach(b => b.classList.remove('selected'));
+        btn.classList.add('selected');
+        q.dataset.selected = btn.textContent.trim();
+        q.querySelector('.feedback').textContent = `Your answer: ${btn.textContent.trim()}`;
+        updateProgress();
+        showToast('Answer selected ✦');
+      }));
+    });
+
+    document.querySelectorAll('.token').forEach(token => {
+      token.addEventListener('dragstart', () => { activeToken = token; token.classList.add('dragging'); });
+      token.addEventListener('dragend', () => { token.classList.remove('dragging'); });
+      token.addEventListener('click', () => {
+        document.querySelectorAll('.token').forEach(t => t.classList.remove('selected'));
+        activeToken = token;
+        token.classList.add('selected');
+        showToast(`Selected: ${token.dataset.word}`);
+      });
+    });
+
+    dragBlanks.forEach(blank => {
+      blank.addEventListener('dragover', e => e.preventDefault());
+      blank.addEventListener('drop', e => {
+        e.preventDefault();
+        if(!activeToken) return;
+        blank.textContent = activeToken.dataset.word;
+        blank.dataset.value = activeToken.dataset.word;
+        blank.classList.add('filled');
+        updateProgress();
+        showToast('Dropped ✦');
+      });
+      blank.addEventListener('click', () => {
+        if(!activeToken) return;
+        blank.textContent = activeToken.dataset.word;
+        blank.dataset.value = activeToken.dataset.word;
+        blank.classList.add('filled');
+        updateProgress();
+        showToast('Added ✦');
+      });
+    });
+
+    clearDragBtn.addEventListener('click', () => {
+      dragBlanks.forEach(blank => {
+        blank.textContent = 'drop here';
+        blank.dataset.value = '';
+        blank.classList.remove('filled', 'correct', 'wrong');
+      });
+      document.getElementById('dragFeedback').textContent = '';
+      updateProgress();
+      showToast('Drag gaps cleared ✦');
+    });
+
+    matchCards.forEach(card => card.addEventListener('click', () => {
+      if(card.classList.contains('done')) return;
+      if(!selectedMatch){
+        selectedMatch = card;
+        card.classList.add('selected');
+        return;
+      }
+      if(selectedMatch === card){
+        card.classList.remove('selected');
+        selectedMatch = null;
+        return;
+      }
+      if(selectedMatch.dataset.pair === card.dataset.pair){
+        selectedMatch.classList.remove('selected');
+        selectedMatch.classList.add('done');
+        card.classList.add('done');
+        matchedPairs.add(card.dataset.pair);
+        document.getElementById('matchFeedback').textContent = `Matched pairs: ${matchedPairs.size}/4`;
+        showToast('Matched ✦');
+      } else {
+        selectedMatch.classList.remove('selected');
+        card.classList.add('pending');
+        setTimeout(()=>card.classList.remove('pending'), 700);
+        document.getElementById('matchFeedback').textContent = 'Not a pair. Try again.';
+        showToast('Not a pair');
+      }
+      selectedMatch = null;
+      updateProgress();
+    }));
+
+    document.getElementById('analyzeText').addEventListener('click', () => {
+      const txt = document.getElementById('freeText').value;
+      const list = ['too much','too many','a lot of','a little','a few','much','many','some','any','little','few','none','an','a'];
+      const found = list.filter(w => new RegExp('\\b' + w.replace(/ /g,'\\s+') + '\\b','i').test(txt));
+      document.getElementById('analysisBox').innerHTML = found.length
+        ? `I found: <b>${found.join(', ')}</b>. Nice work ✦`
+        : 'No target quantifiers found yet. Add five of them and try again.';
+      showToast(found.length ? 'Found ✦' : 'Add quantifiers');
+    });
+
+    function getDropPrompt(blank){
+      const line = blank.parentElement.cloneNode(true);
+      const nestedBlank = line.querySelector('.blank');
+      if(nestedBlank) nestedBlank.replaceWith('_____');
+      return line.textContent.replace(/\s+/g, ' ').trim();
+    }
+
+    function computeResults(){
+      const wrongs = [];
+      let score = 0;
+
+      choiceQuestions.forEach(q => {
+        const correctAnswer = q.dataset.answer;
+        const studentAnswer = q.dataset.selected || 'No answer';
+        if(normalize(studentAnswer) === normalize(correctAnswer)){
+          score++;
+        } else {
+          wrongs.push({
+            prompt: q.querySelector('.q-title').textContent.trim(),
+            student: studentAnswer,
+            correct: correctAnswer
+          });
+        }
+      });
+
+      dragBlanks.forEach(blank => {
+        const correctAnswer = blank.dataset.answer;
+        const studentAnswer = blank.dataset.value || 'No answer';
+        if(normalize(studentAnswer) === normalize(correctAnswer)){
+          score++;
+        } else {
+          wrongs.push({
+            prompt: getDropPrompt(blank),
+            student: studentAnswer,
+            correct: correctAnswer
+          });
+        }
+      });
+
+      score += matchedPairs.size;
+      if(matchedPairs.size < 4){
+        wrongs.push({
+          prompt: 'Match meaning and example',
+          student: `${matchedPairs.size}/4 pairs matched`,
+          correct: '4/4 pairs matched'
+        });
+      }
+
+      return { score, max: objectiveMax, wrongs };
+    }
+
+    function wrapText(ctx, text, x, y, maxWidth, lineHeight, color){
+      ctx.fillStyle = color;
+      const words = text.split(' ');
+      let line = '';
+      let currentY = y;
+      for(let n = 0; n < words.length; n++){
+        const testLine = line + words[n] + ' ';
+        const metrics = ctx.measureText(testLine);
+        if(metrics.width > maxWidth && n > 0){
+          ctx.fillText(line.trim(), x, currentY);
+          line = words[n] + ' ';
+          currentY += lineHeight;
+        } else {
+          line = testLine;
+        }
+      }
+      ctx.fillText(line.trim(), x, currentY);
+      return currentY + lineHeight;
+    }
+
+    function downloadResultsImage(){
+      const results = computeResults();
+      const wrongCount = Math.max(results.wrongs.length, 1);
+      const canvas = document.createElement('canvas');
+      canvas.width = 1400;
+      canvas.height = 320 + wrongCount * 120;
+      const ctx = canvas.getContext('2d');
+
+      const bg = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+      bg.addColorStop(0, '#120804');
+      bg.addColorStop(0.55, '#2b170d');
+      bg.addColorStop(1, '#3a2112');
+      ctx.fillStyle = bg;
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      ctx.strokeStyle = 'rgba(255,228,163,0.42)';
+      ctx.lineWidth = 3;
+      ctx.strokeRect(28, 28, canvas.width - 56, canvas.height - 56);
+
+      ctx.fillStyle = '#ffe4a3';
+      ctx.font = '700 28px Georgia';
+      ctx.fillText('Quantifiers — Student Results', 76, 96);
+
+      ctx.font = '700 52px Georgia';
+      ctx.fillText(`${results.score} / ${results.max}`, 76, 170);
+
+      ctx.font = '600 24px Inter, Arial';
+      ctx.fillStyle = '#f6d69a';
+      ctx.fillText('Total score', 255, 170);
+
+      ctx.font = '600 20px Inter, Arial';
+      ctx.fillStyle = '#d9b071';
+      ctx.fillText('Open tasks (rewrite / speaking) are shown on the page and are not auto-scored.', 76, 220);
+
+      ctx.fillStyle = '#ffe4a3';
+      ctx.font = '700 28px Georgia';
+      ctx.fillText('Wrong answers', 76, 282);
+
+      let y = 332;
+      if(results.wrongs.length === 0){
+        ctx.font = '600 24px Inter, Arial';
+        ctx.fillStyle = '#d9f0a4';
+        ctx.fillText('No mistakes. Excellent work ✦', 76, y);
+      } else {
+        results.wrongs.forEach((item, index) => {
+          ctx.fillStyle = 'rgba(255,228,163,0.1)';
+          ctx.fillRect(62, y - 36, canvas.width - 124, 92);
+          ctx.strokeStyle = 'rgba(255,228,163,0.16)';
+          ctx.strokeRect(62, y - 36, canvas.width - 124, 92);
+
+          ctx.font = '700 20px Inter, Arial';
+          y = wrapText(ctx, `${index + 1}. ${item.prompt}`, 82, y - 6, canvas.width - 180, 28, '#fff3d7');
+          ctx.font = '600 18px Inter, Arial';
+          y = wrapText(ctx, `Student answer: ${item.student}`, 82, y - 2, canvas.width - 180, 24, '#ffbea9');
+          y = wrapText(ctx, `Correct answer: ${item.correct}`, 82, y - 4, canvas.width - 180, 24, '#d9f0a4');
+          y += 16;
+        });
+      }
+
+      const link = document.createElement('a');
+      link.download = 'quantifiers-results.png';
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+
+      checkAllBtn.classList.remove('hidden');
+      const resultsNow = computeResults();
+      scoreText.textContent = `Saved result image: ${resultsNow.score}/${resultsNow.max} points`;
+      showToast('Result image downloaded ✦');
+    }
+
+    function checkAnswers(){
+      const results = computeResults();
+      scoreText.textContent = `Score: ${results.score}/${results.max} points`;
+
+      choiceQuestions.forEach(q => {
+        const correctAnswer = q.dataset.answer;
+        const selected = q.dataset.selected || '';
+        const feedback = q.querySelector('.feedback');
+        q.querySelectorAll('.choice').forEach(btn => {
+          const value = btn.textContent.trim();
+          btn.classList.remove('correct', 'wrong');
+          if(normalize(value) === normalize(correctAnswer)) btn.classList.add('correct');
+          if(selected && normalize(value) === normalize(selected) && normalize(selected) !== normalize(correctAnswer)) btn.classList.add('wrong');
+        });
+        if(!selected){
+          feedback.textContent = `No answer. Correct answer: ${correctAnswer}`;
+        } else if(normalize(selected) === normalize(correctAnswer)){
+          feedback.textContent = `Correct. Your answer: ${selected}`;
+        } else {
+          feedback.textContent = `Your answer: ${selected}. Correct answer: ${correctAnswer}`;
+        }
+      });
+
+      let dragLines = [];
+      dragBlanks.forEach(blank => {
+        const correctAnswer = blank.dataset.answer;
+        const studentAnswer = blank.dataset.value || 'No answer';
+        blank.classList.remove('correct', 'wrong');
+        if(normalize(studentAnswer) === normalize(correctAnswer)) {
+          blank.classList.add('correct');
+        } else {
+          blank.classList.add('wrong');
+          dragLines.push(`${getDropPrompt(blank)} → your answer: ${studentAnswer}; correct: ${correctAnswer}`);
+        }
+      });
+      document.getElementById('dragFeedback').innerHTML = dragLines.length
+        ? '<b>Check the mistakes:</b><br>' + dragLines.join('<br>')
+        : 'All drag answers are correct ✦';
+
+      const remainingPairs = 4 - matchedPairs.size;
+      document.getElementById('matchFeedback').textContent = remainingPairs
+        ? `You matched ${matchedPairs.size}/4 pairs. Correct all four pairs to finish this task.`
+        : 'All pairs are correct ✦';
+
+      const rewriteReview = [...document.querySelectorAll('input[data-sample]')].map((input, index) => {
+        const student = input.value.trim() || 'No answer';
+        return `${index + 1}. <b>Your answer:</b> ${student}<br><b>Correct version:</b> ${input.dataset.sample}`;
+      }).join('<br><br>');
+      document.getElementById('sampleBox').innerHTML = '<b>Rewrite review:</b><br><br>' + rewriteReview;
+
+      const freeText = document.getElementById('freeText').value.trim();
+      document.getElementById('analysisBox').innerHTML = freeText
+        ? '<b>Your text is saved on the page.</b> You can compare it with the highlighted quantifiers or check it manually.'
+        : 'No speaking / writing answer yet.';
+
+      showToast('Answers checked ✦');
+    }
+
+    saveImageBtn.addEventListener('click', downloadResultsImage);
+    checkAllBtn.addEventListener('click', checkAnswers);
+
+    resetBtn.addEventListener('click', () => {
+      choiceQuestions.forEach(q => {
+        delete q.dataset.selected;
+        q.querySelectorAll('.choice').forEach(btn => btn.classList.remove('selected', 'correct', 'wrong'));
+        q.querySelector('.feedback').textContent = '';
+      });
+      dragBlanks.forEach(blank => {
+        blank.textContent = 'drop here';
+        blank.dataset.value = '';
+        blank.classList.remove('filled', 'correct', 'wrong');
+      });
+      document.querySelectorAll('.token').forEach(t => t.classList.remove('selected'));
+      matchedPairs = new Set();
+      selectedMatch = null;
+      matchCards.forEach(card => card.classList.remove('selected', 'done', 'pending'));
+      document.querySelectorAll('input.text-answer').forEach(input => input.value = '');
+      document.getElementById('freeText').value = '';
+      document.getElementById('sampleBox').textContent = '';
+      document.getElementById('analysisBox').textContent = '';
+      document.getElementById('dragFeedback').textContent = '';
+      document.getElementById('matchFeedback').textContent = '';
+      checkAllBtn.classList.add('hidden');
+      activeToken = null;
+      updateProgress();
+      showToast('Reset ✦');
+    });
+
+    updateProgress();
+  </script>
+</body>
+</html>
