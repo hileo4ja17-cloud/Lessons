@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Alexander · Past Simple & Present Perfect (A2)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,900;1,9..144,500&family=Spectral:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --green-900:#10241a;
+  --green-800:#16301f;
+  --green-700:#1d3d28;
+  --green-600:#264e33;
+  --brown-800:#2a1d12;
+  --brown-700:#3d2a1a;
+  --brown-600:#553c25;
+  --brown-500:#6b4e30;
+  --gold:#d4af37;
+  --gold-soft:#e6c869;
+  --gold-deep:#a9831f;
+  --cream:#f3ead4;
+  --cream-dim:#cdbf9d;
+  --red:#c75b4a;
+  --red-soft:#e88a78;
+  --ok:#7fb069;
+  --ok-soft:#a8d28e;
+  --shadow:0 18px 40px -18px rgba(0,0,0,.7);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Spectral',Georgia,serif;
+  color:var(--cream);
+  background:
+    radial-gradient(1200px 700px at 12% -10%, rgba(212,175,55,.10), transparent 55%),
+    radial-gradient(1000px 800px at 110% 20%, rgba(107,78,48,.30), transparent 50%),
+    linear-gradient(160deg,var(--green-900),var(--brown-800) 60%,var(--green-800));
+  background-attachment:fixed;
+  min-height:100vh;
+  line-height:1.6;
+  padding:0 0 120px;
+  position:relative;
+}
+body::before{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.05;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+.wrap{max-width:880px;margin:0 auto;padding:0 22px;position:relative;z-index:1}
+
+/* ---------- HEADER ---------- */
+header{text-align:center;padding:64px 0 30px;animation:rise .9s ease both}
+.eyebrow{
+  font-family:'Spectral';font-style:italic;letter-spacing:.18em;text-transform:uppercase;
+  font-size:.78rem;color:var(--gold-soft);opacity:.9
+}
+h1{
+  font-family:'Fraunces';font-weight:900;font-size:clamp(2.3rem,7vw,4rem);
+  line-height:1.02;margin:.25em 0 .15em;
+  background:linear-gradient(92deg,var(--gold-soft),var(--gold),var(--cream),var(--gold));
+  background-size:240% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;
+  animation:shimmer 7s linear infinite;
+}
+@keyframes shimmer{to{background-position:240% 0}}
+.subtitle{font-style:italic;color:var(--cream-dim);font-size:1.05rem}
+.namecard{
+  display:inline-flex;flex-wrap:wrap;gap:6px 16px;justify-content:center;margin-top:18px;
+  font-size:.9rem;color:var(--cream-dim)
+}
+.namecard b{color:var(--gold-soft);font-family:'Fraunces';font-weight:600}
+.rule-strip{
+  margin-top:26px;display:inline-block;font-size:.8rem;letter-spacing:.05em;
+  color:var(--cream-dim);border-top:1px solid rgba(212,175,55,.35);
+  border-bottom:1px solid rgba(212,175,55,.35);padding:6px 0
+}
+
+/* ---------- RULE BOX ---------- */
+.rules{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:34px 0 10px;animation:rise 1s ease .15s both}
+@media(max-width:640px){.rules{grid-template-columns:1fr}}
+.rulebox{
+  position:relative;border-radius:16px;padding:22px 22px 20px;overflow:hidden;
+  background:linear-gradient(155deg,rgba(38,78,51,.55),rgba(42,29,18,.55));
+  border:1px solid rgba(212,175,55,.28);box-shadow:var(--shadow);
+}
+.rulebox h3{
+  font-family:'Fraunces';font-weight:600;font-size:1.28rem;color:var(--gold);margin-bottom:8px;
+  display:flex;align-items:center;gap:9px
+}
+.rulebox h3 .dot{width:10px;height:10px;border-radius:50%;background:var(--gold);box-shadow:0 0 12px var(--gold)}
+.rulebox p{font-size:.95rem;color:var(--cream);margin-bottom:10px}
+.rulebox .sig{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
+.tag{
+  font-size:.72rem;letter-spacing:.04em;padding:3px 9px;border-radius:20px;
+  background:rgba(212,175,55,.14);border:1px solid rgba(212,175,55,.4);color:var(--gold-soft)
+}
+.ex{font-style:italic;font-size:.92rem;color:var(--cream-dim);border-left:3px solid var(--gold-deep);padding-left:10px}
+.ex b{color:var(--gold-soft);font-style:normal}
+
+/* ---------- EXERCISE CARD ---------- */
+.card{
+  position:relative;border-radius:18px;padding:26px 26px 24px;margin:26px 0;
+  background:linear-gradient(160deg,rgba(29,61,40,.78),rgba(45,29,18,.82));
+  border:1px solid rgba(212,175,55,.22);box-shadow:var(--shadow);
+  opacity:0;transform:translateY(26px)
+}
+.card.in{animation:rise .7s cubic-bezier(.2,.8,.2,1) both}
+.card::after{content:"";position:absolute;inset:0;border-radius:18px;pointer-events:none;
+  background:radial-gradient(700px 200px at 90% 0%,rgba(212,175,55,.07),transparent 60%)}
+.cardhead{display:flex;align-items:baseline;gap:12px;margin-bottom:6px}
+.num{
+  font-family:'Fraunces';font-weight:900;font-size:1.5rem;color:var(--brown-800);
+  background:linear-gradient(150deg,var(--gold-soft),var(--gold-deep));
+  width:42px;height:42px;border-radius:12px;display:grid;place-items:center;flex:0 0 auto;
+  box-shadow:0 6px 14px -4px rgba(0,0,0,.6);transform:rotate(-4deg)
+}
+.cardhead h2{font-family:'Fraunces';font-weight:600;font-size:1.4rem;color:var(--cream)}
+.hint{font-size:.85rem;color:var(--cream-dim);font-style:italic;margin:2px 0 18px 54px}
+@media(max-width:560px){.hint{margin-left:0}}
+
+/* questions */
+.q{margin:0 0 16px;padding:14px 16px;border-radius:12px;background:rgba(16,36,26,.45);border:1px solid rgba(212,175,55,.12)}
+.q .sent{font-size:1.05rem;margin-bottom:10px}
+.q .sent .gap{display:inline-block;min-width:64px;border-bottom:2px dashed var(--gold-deep);text-align:center;color:var(--gold-soft);font-style:italic}
+.opts{display:flex;flex-wrap:wrap;gap:9px}
+.opt{
+  font-family:'Spectral';font-size:.95rem;color:var(--cream);cursor:pointer;
+  padding:8px 16px;border-radius:10px;background:rgba(85,60,37,.4);
+  border:1px solid rgba(212,175,55,.3);transition:.22s;user-select:none
+}
+.opt:hover{transform:translateY(-2px);background:rgba(212,175,55,.18);border-color:var(--gold)}
+.opt.sel{background:linear-gradient(150deg,var(--gold-soft),var(--gold-deep));color:var(--brown-800);font-weight:600;border-color:var(--gold)}
+.opt.correct{background:linear-gradient(150deg,var(--ok-soft),var(--ok));color:#10241a;border-color:var(--ok)}
+.opt.wrong{background:linear-gradient(150deg,var(--red-soft),var(--red));color:#2a1212;border-color:var(--red)}
+.opt.reveal{outline:2px dashed var(--ok);outline-offset:2px}
+
+/* time sorter */
+.timerow{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;
+  padding:9px 12px;border-radius:10px;background:rgba(16,36,26,.4);margin-bottom:9px;border:1px solid rgba(212,175,55,.1)}
+.timeword{font-family:'Fraunces';font-weight:600;font-size:1.05rem;color:var(--gold-soft)}
+.tbtns{display:flex;gap:8px}
+.tbtn{cursor:pointer;font-size:.82rem;padding:6px 13px;border-radius:8px;background:rgba(85,60,37,.4);
+  border:1px solid rgba(212,175,55,.3);color:var(--cream);transition:.2s}
+.tbtn:hover{background:rgba(212,175,55,.18);border-color:var(--gold)}
+.tbtn.sel{background:linear-gradient(150deg,var(--gold-soft),var(--gold-deep));color:var(--brown-800);font-weight:600}
+.tbtn.correct{background:linear-gradient(150deg,var(--ok-soft),var(--ok));color:#10241a}
+.tbtn.wrong{background:linear-gradient(150deg,var(--red-soft),var(--red));color:#2a1212}
+.tbtn.reveal{outline:2px dashed var(--ok);outline-offset:2px}
+
+/* build sentence */
+.builder{margin:0 0 18px}
+.bsent{font-size:.9rem;color:var(--cream-dim);font-style:italic;margin-bottom:8px}
+.tiles{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px}
+.tile{cursor:pointer;font-family:'Spectral';font-size:.98rem;padding:7px 14px;border-radius:9px;
+  background:rgba(85,60,37,.5);border:1px solid rgba(212,175,55,.35);color:var(--cream);transition:.18s}
+.tile:hover{transform:translateY(-2px);background:rgba(212,175,55,.2)}
+.tile.used{opacity:.28;pointer-events:none;text-decoration:line-through}
+.answerline{min-height:46px;border-radius:10px;border:1px dashed var(--gold-deep);
+  background:rgba(16,36,26,.5);padding:9px 12px;display:flex;flex-wrap:wrap;gap:7px;align-items:center}
+.answerline .placeholder{color:var(--cream-dim);font-style:italic;opacity:.6}
+.chosen{padding:4px 11px;border-radius:7px;background:rgba(212,175,55,.22);border:1px solid rgba(212,175,55,.4);cursor:pointer;font-size:.92rem}
+.chosen:hover{background:rgba(199,91,74,.3)}
+.clearbtn{margin-top:8px;cursor:pointer;font-size:.78rem;color:var(--cream-dim);background:none;border:none;text-decoration:underline;font-family:'Spectral'}
+.solvenote{margin-top:8px;font-size:.88rem;display:none}
+.solvenote.show{display:block}
+.solvenote.ok{color:var(--ok-soft)}.solvenote.bad{color:var(--red-soft)}
+
+/* matching */
+.matchgrid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:560px){.matchgrid{grid-template-columns:1fr}}
+.mcol h4{font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;color:var(--gold-soft);margin-bottom:8px}
+.mitem{cursor:pointer;padding:11px 13px;border-radius:10px;margin-bottom:8px;font-size:.93rem;
+  background:rgba(85,60,37,.38);border:1px solid rgba(212,175,55,.22);transition:.2s;position:relative}
+.mitem:hover{border-color:var(--gold)}
+.mitem.active{outline:2px solid var(--gold-soft);background:rgba(212,175,55,.16)}
+.mitem .badge{position:absolute;top:-9px;right:-9px;width:24px;height:24px;border-radius:50%;
+  display:none;place-items:center;font-family:'Fraunces';font-weight:700;font-size:.8rem;color:#10241a}
+.mitem.matched .badge{display:grid}
+.mitem.matched{background:rgba(212,175,55,.1)}
+.mitem.correct{border-color:var(--ok);background:rgba(127,176,105,.18)}
+.mitem.wrong{border-color:var(--red);background:rgba(199,91,74,.18)}
+.mfix{font-size:.8rem;color:var(--ok-soft);margin-top:4px;display:none}
+.mfix.show{display:block}
+
+/* ---------- ACTIONS ---------- */
+.scorebar{position:sticky;bottom:18px;margin:38px auto 0;max-width:560px;z-index:30;
+  background:linear-gradient(150deg,rgba(29,61,40,.96),rgba(45,29,18,.96));
+  border:1px solid rgba(212,175,55,.4);border-radius:16px;padding:16px 20px;box-shadow:0 22px 50px -16px rgba(0,0,0,.8);
+  backdrop-filter:blur(8px)}
+.progresswrap{display:flex;align-items:center;gap:14px;margin-bottom:14px}
+.ring{font-family:'Fraunces';font-weight:900;font-size:1.1rem;color:var(--gold-soft);white-space:nowrap}
+.track{flex:1;height:12px;border-radius:8px;background:rgba(16,36,26,.7);overflow:hidden;border:1px solid rgba(212,175,55,.25)}
+.fill{height:100%;width:0;border-radius:8px;background:linear-gradient(90deg,var(--gold-deep),var(--gold-soft));transition:width .8s cubic-bezier(.2,.8,.2,1)}
+.actions{display:flex;gap:12px;flex-wrap:wrap}
+.btn{flex:1;min-width:160px;cursor:pointer;font-family:'Fraunces';font-weight:600;font-size:1rem;
+  padding:13px 18px;border-radius:12px;border:none;transition:.22s;letter-spacing:.01em}
+.btn-dl{background:linear-gradient(150deg,var(--gold-soft),var(--gold-deep));color:var(--brown-800)}
+.btn-dl:hover{transform:translateY(-3px);box-shadow:0 12px 24px -8px var(--gold-deep)}
+.btn-check{background:transparent;color:var(--gold-soft);border:1px solid var(--gold)!important}
+.btn-check:hover{background:rgba(212,175,55,.16);transform:translateY(-3px)}
+.btn-check.live{background:linear-gradient(150deg,var(--ok-soft),var(--ok));color:#10241a;border:none!important}
+.btn-submit{background:linear-gradient(150deg,var(--ok-soft),var(--ok));color:#10241a}
+.btn-submit:hover{transform:translateY(-3px);box-shadow:0 12px 24px -8px var(--ok)}
+.btn-submit.done{background:linear-gradient(150deg,var(--gold-soft),var(--gold-deep));color:var(--brown-800)}
+.btn:disabled{opacity:.38;cursor:not-allowed;filter:grayscale(.5)}
+.btn:disabled:hover{transform:none;box-shadow:none}
+body.locked .card{pointer-events:none}
+body.locked .card{position:relative}
+body.locked .card::before{content:"";position:absolute;inset:0;border-radius:18px;z-index:5;background:rgba(16,36,26,.04)}
+.resultline{text-align:center;margin-top:12px;font-style:italic;color:var(--cream-dim);font-size:.92rem;min-height:1.2em}
+
+footer{text-align:center;margin-top:40px;color:var(--cream-dim);font-size:.8rem;opacity:.7;font-style:italic}
+canvas{display:none}
+
+@keyframes rise{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:translateY(0)}}
+@keyframes pop{0%{transform:scale(.8)}60%{transform:scale(1.08)}100%{transform:scale(1)}}
+.pop{animation:pop .35s ease}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="eyebrow">English Grammar · Level A2 · Homework</div>
+    <h1>Then &amp; Now</h1>
+    <p class="subtitle">Past Simple vs Present Perfect — with a focus on the Present Perfect</p>
+    <div class="namecard">
+      <span>For <b>Alexander</b></span><span>· wife <b>Victoria</b></span>
+      <span>· son <b>Ivan</b> (12)</span><span>· baby <b>Yaroslav</b></span>
+    </div>
+    <div class="rule-strip">Click, don't write — train your tenses, then download your results.</div>
+  </header>
+
+  <!-- ===== RULES ===== -->
+  <section class="rules">
+    <div class="rulebox">
+      <h3><span class="dot"></span>Past Simple</h3>
+      <p>A <b>finished</b> action at a <b>known past time</b>. We say <i>when</i> it happened.</p>
+      <div class="sig">
+        <span class="tag">yesterday</span><span class="tag">last week</span>
+        <span class="tag">… ago</span><span class="tag">in 2019</span>
+      </div>
+      <p class="ex">Ivan <b>played</b> football <b>yesterday</b>.</p>
+    </div>
+    <div class="rulebox">
+      <h3><span class="dot"></span>Present Perfect</h3>
+      <p>A past action <b>connected to now</b>. The time is <b>not</b> important — the result is.<br><i>have/has + V3 (past participle)</i></p>
+      <div class="sig">
+        <span class="tag">just</span><span class="tag">already</span><span class="tag">yet</span>
+        <span class="tag">ever / never</span><span class="tag">since / for</span>
+      </div>
+      <p class="ex">Victoria <b>has just cooked</b> dinner. (it's ready now!)</p>
+    </div>
+  </section>
+
+  <!-- ===== EX 1 ===== -->
+  <section class="card" data-ex="1">
+    <div class="cardhead"><div class="num">1</div><h2>Choose the right form</h2></div>
+    <p class="hint">Tap the correct verb form for each sentence.</p>
+    <div class="mc-list"></div>
+  </section>
+
+  <!-- ===== EX 2 ===== -->
+  <section class="card" data-ex="2">
+    <div class="cardhead"><div class="num">2</div><h2>Which tense lives here?</h2></div>
+    <p class="hint">Each time word belongs to one tense. Tap the tense it signals.</p>
+    <div class="time-list"></div>
+  </section>
+
+  <!-- ===== EX 3 ===== -->
+  <section class="card" data-ex="3">
+    <div class="cardhead"><div class="num">3</div><h2>Pick the little word</h2></div>
+    <p class="hint">since / for, ever / never — choose the correct one.</p>
+    <div class="word-list"></div>
+  </section>
+
+  <!-- ===== EX 4 ===== -->
+  <section class="card" data-ex="4">
+    <div class="cardhead"><div class="num">4</div><h2>Correct or wrong?</h2></div>
+    <p class="hint">Is the sentence grammatically correct? Tap to judge.</p>
+    <div class="judge-list"></div>
+  </section>
+
+  <!-- ===== EX 5 ===== -->
+  <section class="card" data-ex="5">
+    <div class="cardhead"><div class="num">5</div><h2>Build the sentence</h2></div>
+    <p class="hint">Tap the words in the right order. Tap a chosen word to remove it.</p>
+    <div class="build-list"></div>
+  </section>
+
+  <!-- ===== EX 6 ===== -->
+  <section class="card" data-ex="6">
+    <div class="cardhead"><div class="num">6</div><h2>Match question &amp; answer</h2></div>
+    <p class="hint">Tap a question on the left, then its answer on the right.</p>
+    <div class="matchgrid">
+      <div class="mcol"><h4>Question</h4><div class="match-left"></div></div>
+      <div class="mcol"><h4>Answer</h4><div class="match-right"></div></div>
+    </div>
+  </section>
+
+  <!-- ===== ACTIONS ===== -->
+  <div class="scorebar">
+    <div class="progresswrap">
+      <span class="ring" id="ring">0 / 0</span>
+      <div class="track"><div class="fill" id="fill"></div></div>
+    </div>
+    <div class="actions">
+      <button class="btn btn-submit" id="submitBtn">➤ Submit answers</button>
+      <button class="btn btn-dl" id="dlBtn" disabled>⬇ Download results</button>
+      <button class="btn btn-check" id="checkBtn" disabled>✓ Check answers</button>
+    </div>
+    <div class="resultline" id="resultline"></div>
+  </div>
+
+  <footer>Great job, Alexander — keep your green-gold streak going. 🌿</footer>
+</div>
+<canvas id="cv"></canvas>
+
+<script>
+/* ============ DATA ============ */
+const EX1 = [
+  {id:"q1-1", parts:["Look! Victoria"," a delicious cake — it's on the table now."], opts:["baked","has baked","bake"], correct:"has baked"},
+  {id:"q1-2", parts:["Ivan"," his English homework two hours ago."], opts:["has finished","finished","finish"], correct:"finished"},
+  {id:"q1-3", parts:["Alexander has never"," sushi in his life."], opts:["eaten","ate","eat"], correct:"eaten"},
+  {id:"q1-4", parts:["The whole family"," to the zoo last Sunday."], opts:["have gone","went","go"], correct:"went"},
+  {id:"q1-5", parts:["Sssh! Baby Yaroslav has just"," asleep."], opts:["fallen","fell","fall"], correct:"fallen"}
+];
+const EX2 = [
+  {id:"t1", word:"yesterday", correct:"Past"},
+  {id:"t2", word:"already", correct:"Present Perfect"},
+  {id:"t3", word:"last week", correct:"Past"},
+  {id:"t4", word:"just", correct:"Present Perfect"},
+  {id:"t5", word:"two days ago", correct:"Past"},
+  {id:"t6", word:"yet", correct:"Present Perfect"},
+  {id:"t7", word:"in 2019", correct:"Past"},
+  {id:"t8", word:"never", correct:"Present Perfect"}
+];
+const EX3 = [
+  {id:"w1", parts:["Alexander has worked at his company"," five years."], opts:["for","since"], correct:"for"},
+  {id:"w2", parts:["Victoria has known Alexander"," 2010."], opts:["for","since"], correct:"since"},
+  {id:"w3", parts:["Have you"," been to London, Alexander?"], opts:["ever","never"], correct:"ever"},
+  {id:"w4", parts:["Ivan has"," played chess — he doesn't know the rules."], opts:["ever","never"], correct:"never"},
+  {id:"w5", parts:["They haven't visited grandma"," a month."], opts:["for","since"], correct:"for"}
+];
+const EX4 = [
+  {id:"j1", sent:"Ivan has played football yesterday.", correct:false},
+  {id:"j2", sent:"Alexander has just woken up the baby.", correct:true},
+  {id:"j3", sent:"Victoria cooked dinner an hour ago.", correct:true},
+  {id:"j4", sent:"Have you finished your homework yet?", correct:true},
+  {id:"j5", sent:"We have went to the cinema last night.", correct:false},
+  {id:"j6", sent:"Yaroslav has never spoken a word.", correct:true}
+];
+const EX5 = [
+  {id:"b1", words:["Victoria","has","just","fed","Yaroslav"], answer:"Victoria has just fed Yaroslav"},
+  {id:"b2", words:["Ivan","has","finished","his","homework"], answer:"Ivan has finished his homework"},
+  {id:"b3", words:["Alexander","has","never","been","to","Italy"], answer:"Alexander has never been to Italy"}
+];
+const EX6 = {
+  left:[
+    {id:"L1", t:"Have you ever been to Paris?"},
+    {id:"L2", t:"What did Ivan do yesterday?"},
+    {id:"L3", t:"Has Victoria cooked dinner?"},
+    {id:"L4", t:"When did you buy this car?"}
+  ],
+  right:[
+    {id:"R1", t:"I bought it in 2020.", match:"L4"},
+    {id:"R2", t:"No, I have never been there.", match:"L1"},
+    {id:"R3", t:"Yes, she has just finished.", match:"L3"},
+    {id:"R4", t:"He played football.", match:"L2"}
+  ]
+};
+
+/* ============ STATE ============ */
+const state = {mc:{}, time:{}, word:{}, judge:{}, build:{}, match:{}};
+let checked = false;
+let submitted = false;
+const ITEMS = []; // unified list for scoring + image: {label, get(), correct, isRight()}
+
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+const el=(t,c,txt)=>{const e=document.createElement(t);if(c)e.className=c;if(txt!=null)e.textContent=txt;return e};
+
+/* ============ BUILD EX1 (multiple choice) ============ */
+const mcWrap=document.querySelector('.mc-list');
+EX1.forEach(q=>{
+  const box=el('div','q');
+  const s=el('div','sent');
+  s.append(q.parts[0]+' ');const gap=el('span','gap','___');s.append(gap);s.append(' '+q.parts[1]);
+  box.append(s);
+  const opts=el('div','opts');
+  q.opts.forEach(o=>{
+    const b=el('div','opt',o);
+    b.onclick=()=>{if(checked)return;state.mc[q.id]=o;opts.querySelectorAll('.opt').forEach(x=>x.classList.remove('sel'));b.classList.add('sel');b.classList.add('pop');setTimeout(()=>b.classList.remove('pop'),350);updateProgress();};
+    opts.append(b);
+  });
+  box.append(opts);mcWrap.append(box);
+  ITEMS.push({label:'Ex1: "'+q.parts[0].trim()+' ___"', get:()=>state.mc[q.id], correct:q.correct, isRight:()=>state.mc[q.id]===q.correct});
+});
+
+/* ============ BUILD EX2 (time sorter) ============ */
+const timeWrap=document.querySelector('.time-list');
+EX2.forEach(q=>{
+  const row=el('div','timerow');
+  row.append(el('span','timeword',q.word));
+  const btns=el('div','tbtns');
+  ['Past','Present Perfect'].forEach(opt=>{
+    const b=el('div','tbtn',opt==='Past'?'Past Simple':'Present Perfect');
+    b.dataset.v=opt;
+    b.onclick=()=>{if(checked)return;state.time[q.id]=opt;btns.querySelectorAll('.tbtn').forEach(x=>x.classList.remove('sel'));b.classList.add('sel','pop');setTimeout(()=>b.classList.remove('pop'),350);updateProgress();};
+    btns.append(b);
+  });
+  row.append(btns);timeWrap.append(row);
+  ITEMS.push({label:'Ex2: "'+q.word+'"', get:()=>state.time[q.id], correct:q.correct==='Past'?'Past Simple':'Present Perfect', isRight:()=>state.time[q.id]===q.correct});
+});
+
+/* ============ BUILD EX3 (little words) ============ */
+const wordWrap=document.querySelector('.word-list');
+EX3.forEach(q=>{
+  const box=el('div','q');
+  const s=el('div','sent');
+  s.append(q.parts[0]+' ');const gap=el('span','gap','___');s.append(gap);s.append(' '+q.parts[1]);
+  box.append(s);
+  const opts=el('div','opts');
+  q.opts.forEach(o=>{
+    const b=el('div','opt',o);
+    b.onclick=()=>{if(checked)return;state.word[q.id]=o;opts.querySelectorAll('.opt').forEach(x=>x.classList.remove('sel'));b.classList.add('sel','pop');setTimeout(()=>b.classList.remove('pop'),350);updateProgress();};
+    opts.append(b);
+  });
+  box.append(opts);wordWrap.append(box);
+  ITEMS.push({label:'Ex3: "'+q.parts[0].trim()+' ___"', get:()=>state.word[q.id], correct:q.correct, isRight:()=>state.word[q.id]===q.correct});
+});
+
+/* ============ BUILD EX4 (judge) ============ */
+const judgeWrap=document.querySelector('.judge-list');
+EX4.forEach(q=>{
+  const box=el('div','q');
+  box.append(el('div','sent',q.sent));
+  const opts=el('div','opts');
+  [['✓ Correct',true],['✗ Wrong',false]].forEach(([lab,val])=>{
+    const b=el('div','opt',lab);b.dataset.v=val;
+    b.onclick=()=>{if(checked)return;state.judge[q.id]=val;opts.querySelectorAll('.opt').forEach(x=>x.classList.remove('sel'));b.classList.add('sel','pop');setTimeout(()=>b.classList.remove('pop'),350);updateProgress();};
+    opts.append(b);
+  });
+  box.append(opts);judgeWrap.append(box);
+  ITEMS.push({label:'Ex4: "'+q.sent+'"', get:()=>state.judge[q.id]===undefined?undefined:(state.judge[q.id]?'Correct':'Wrong'), correct:q.correct?'Correct':'Wrong', isRight:()=>state.judge[q.id]===q.correct});
+});
+
+/* ============ BUILD EX5 (sentence builder) ============ */
+const buildWrap=document.querySelector('.build-list');
+EX5.forEach(q=>{
+  state.build[q.id]=[];
+  const box=el('div','builder');
+  const tiles=el('div','tiles');
+  const line=el('div','answerline');
+  const ph=el('span','placeholder','your sentence appears here…');line.append(ph);
+  const note=el('div','solvenote');
+  const render=()=>{
+    line.innerHTML='';
+    if(state.build[q.id].length===0){line.append(ph);}
+    else state.build[q.id].forEach((w,i)=>{
+      const c=el('span','chosen',w);
+      c.onclick=()=>{if(checked)return;state.build[q.id].splice(i,1);tiles.children[w._ti] && 0;syncTiles();render();updateProgress();};
+      c._w=w;line.append(c);
+    });
+  };
+  function syncTiles(){
+    [...tiles.children].forEach(t=>{
+      const cnt=state.build[q.id].filter(x=>x===t._word).length;
+      const avail=q.words.filter(x=>x===t._word).length;
+      // mark used based on how many of this word are placed vs index
+      t.classList.toggle('used', t._placed===true);
+    });
+  }
+  shuffle(q.words).forEach((w)=>{
+    const t=el('div','tile',w);t._word=w;
+    t.onclick=()=>{if(checked||t.classList.contains('used'))return;t._placed=true;t.classList.add('used');state.build[q.id].push(w);render();updateProgress();
+      t._bind=()=>{t._placed=false;t.classList.remove('used');};
+    };
+    tiles.append(t);
+  });
+  // re-add: when a chosen chip removed, free a matching tile
+  const origRender=render;
+  const render2=()=>{
+    line.innerHTML='';
+    if(state.build[q.id].length===0){line.append(ph);}
+    else state.build[q.id].forEach((w,i)=>{
+      const c=el('span','chosen',w);
+      c.onclick=()=>{if(checked)return;
+        state.build[q.id].splice(i,1);
+        // free one tile with this word
+        const tile=[...tiles.children].find(t=>t._word===w && t.classList.contains('used'));
+        if(tile){tile._placed=false;tile.classList.remove('used');}
+        render2();updateProgress();
+      };
+      line.append(c);
+    });
+  };
+  // override tile click to use render2
+  [...tiles.children].forEach(t=>{
+    t.onclick=()=>{if(checked||t.classList.contains('used'))return;t._placed=true;t.classList.add('used');state.build[q.id].push(t._word);render2();updateProgress();};
+  });
+  render2();
+  box.append(tiles,line);
+  const clr=el('button','clearbtn','↺ clear');
+  clr.onclick=()=>{if(checked)return;state.build[q.id]=[];[...tiles.children].forEach(t=>{t._placed=false;t.classList.remove('used');});render2();updateProgress();};
+  box.append(clr);box.append(note);
+  buildWrap.append(box);
+  q._noteEl=note;
+  ITEMS.push({label:'Ex5: build → "'+q.answer+'"',
+    get:()=>state.build[q.id].length?state.build[q.id].join(' '):undefined,
+    correct:q.answer,
+    isRight:()=>state.build[q.id].join(' ').trim()===q.answer});
+});
+
+/* ============ BUILD EX6 (matching) ============ */
+const mLeft=document.querySelector('.match-left');
+const mRight=document.querySelector('.match-right');
+let activeLeft=null;
+const colors=['#e6c869','#a8d28e','#e88a78','#9ec5c0'];
+let matchCounter=0;
+const leftEls={}, rightEls={};
+EX6.left.forEach(l=>{
+  const d=el('div','mitem',l.t);d.dataset.id=l.id;
+  const badge=el('span','badge');d.append(badge);d._badge=badge;
+  d.onclick=()=>{if(checked)return;mLeft.querySelectorAll('.mitem').forEach(x=>x.classList.remove('active'));d.classList.add('active');activeLeft=l.id;};
+  mLeft.append(d);leftEls[l.id]=d;
+});
+shuffle(EX6.right).forEach(r=>{
+  const d=el('div','mitem',r.t);d.dataset.id=r.id;
+  const badge=el('span','badge');d.append(badge);d._badge=badge;
+  const fix=el('div','mfix');d.append(fix);d._fix=fix;
+  d.onclick=()=>{
+    if(checked||!activeLeft)return;
+    // clear any previous mapping that used this right or this left
+    for(const k in state.match){if(state.match[k]===r.id)delete state.match[k];}
+    state.match[activeLeft]=r.id;
+    paintMatches();
+    leftEls[activeLeft].classList.remove('active');activeLeft=null;
+    updateProgress();
+  };
+  mRight.append(d);rightEls[r.id]=d;
+});
+function paintMatches(){
+  // reset
+  Object.values(leftEls).forEach(d=>{d.classList.remove('matched');d._badge.style.display='none'});
+  Object.values(rightEls).forEach(d=>{d.classList.remove('matched');d._badge.style.display='none'});
+  let n=0;
+  for(const lid in state.match){
+    n++;const c=colors[(n-1)%colors.length];const rid=state.match[lid];
+    [leftEls[lid],rightEls[rid]].forEach(d=>{if(!d)return;d.classList.add('matched');d._badge.style.display='grid';d._badge.style.background=c;d._badge.textContent=n;});
+  }
+}
+EX6.right.forEach(r=>{
+  ITEMS.push({label:'Ex6: "'+EX6.left.find(l=>l.id===r.match).t+'"',
+    get:()=>{const lid=Object.keys(state.match).find(k=>state.match[k]===r.id);return lid?EX6.left.find(l=>l.id===lid).t:undefined;},
+    correct:r.t,
+    isRight:()=>state.match[r.match]===r.id});
+});
+
+/* ============ PROGRESS ============ */
+const ring=document.getElementById('ring'), fill=document.getElementById('fill');
+function score(){let right=0;ITEMS.forEach(it=>{if(it.isRight())right++});return right;}
+function answered(){let a=0;ITEMS.forEach(it=>{if(it.get()!==undefined)a++});return a;}
+function updateProgress(){
+  const total=ITEMS.length, done=answered();
+  if(!checked){ring.textContent=done+' / '+total+' answered';fill.style.width=(done/total*100)+'%';}
+}
+
+/* ============ SUBMIT ANSWERS ============ */
+const submitBtn=document.getElementById('submitBtn');
+const dlBtn=document.getElementById('dlBtn');
+submitBtn.onclick=()=>{
+  if(submitted)return;
+  const total=ITEMS.length, done=answered();
+  if(done<total){
+    if(!confirm('You have answered '+done+' of '+total+'. Submit anyway? You will not be able to change your answers after submitting.'))return;
+  }
+  submitted=true;
+  document.body.classList.add('locked');           // freeze all exercises
+  dlBtn.disabled=false;                             // unlock download
+  checkBtn.disabled=false;                          // unlock check
+  submitBtn.classList.add('done');
+  submitBtn.textContent='✓ Submitted';
+  ring.textContent=done+' / '+total+' answered';
+  fill.style.width=(done/total*100)+'%';
+  resultline.textContent='Answers submitted! Now download your results, then tap “Check answers”.';
+};
+
+/* ============ CHECK ANSWERS ============ */
+const checkBtn=document.getElementById('checkBtn');
+const resultline=document.getElementById('resultline');
+checkBtn.onclick=()=>{
+  checked=true;
+  // EX1
+  EX1.forEach((q,i)=>{
+    const box=mcWrap.children[i];
+    box.querySelectorAll('.opt').forEach(b=>{
+      if(b.textContent===q.correct)b.classList.add('reveal');
+      if(b.classList.contains('sel'))b.classList.add(state.mc[q.id]===q.correct?'correct':'wrong');
+    });
+  });
+  // EX2
+  EX2.forEach((q,i)=>{
+    const row=timeWrap.children[i];
+    row.querySelectorAll('.tbtn').forEach(b=>{
+      if(b.dataset.v===q.correct)b.classList.add('reveal');
+      if(b.classList.contains('sel'))b.classList.add(state.time[q.id]===q.correct?'correct':'wrong');
+    });
+  });
+  // EX3
+  EX3.forEach((q,i)=>{
+    const box=wordWrap.children[i];
+    box.querySelectorAll('.opt').forEach(b=>{
+      if(b.textContent===q.correct)b.classList.add('reveal');
+      if(b.classList.contains('sel'))b.classList.add(state.word[q.id]===q.correct?'correct':'wrong');
+    });
+  });
+  // EX4
+  EX4.forEach((q,i)=>{
+    const box=judgeWrap.children[i];
+    box.querySelectorAll('.opt').forEach(b=>{
+      const v=b.dataset.v==='true';
+      if(v===q.correct)b.classList.add('reveal');
+      if(b.classList.contains('sel'))b.classList.add((state.judge[q.id]===q.correct)?'correct':'wrong');
+    });
+  });
+  // EX5
+  EX5.forEach((q,i)=>{
+    const note=q._noteEl;note.classList.add('show');
+    const got=state.build[q.id].join(' ').trim();
+    if(got===q.answer){note.classList.add('ok');note.textContent='✓ Correct: '+q.answer;}
+    else{note.classList.add('bad');note.textContent='✗ Correct answer: '+q.answer;}
+  });
+  // EX6
+  EX6.right.forEach(r=>{
+    const d=rightEls[r.id];
+    const got=state.match[r.match]; // the right id mapped to this right's correct left
+    const okForThisLeft=state.match[r.match]===r.id;
+    // mark each right item based on whether the left that points to it is correct
+    const lidPointing=Object.keys(state.match).find(k=>state.match[k]===r.id);
+    if(lidPointing){d.classList.add(lidPointing===r.match?'correct':'wrong');}
+    else d.classList.add('wrong');
+    if(!(lidPointing===r.match)){d._fix.classList.add('show');d._fix.textContent='✓ matches: "'+EX6.left.find(l=>l.id===r.match).t+'"';}
+  });
+
+  // summary
+  const total=ITEMS.length, right=score();
+  ring.textContent=right+' / '+total+' correct';
+  fill.style.width=(right/total*100)+'%';
+  const pct=Math.round(right/total*100);
+  resultline.textContent='You scored '+right+' / '+total+' ('+pct+'%). '+
+    (pct>=80?'Excellent, Alexander! 🌟':pct>=60?'Good work — review the red ones.':'Keep practising — check the gold answers.');
+  checkBtn.classList.add('live');checkBtn.textContent='✓ Answers checked';
+};
+
+/* ============ DOWNLOAD RESULTS IMAGE ============ */
+document.getElementById('dlBtn').onclick=()=>{
+  const total=ITEMS.length, right=score();
+  const wrong=ITEMS.filter(it=>!it.isRight());
+  const pct=Math.round(right/total*100);
+
+  const W=1000, pad=56, rowH=64;
+  const headH=300;
+  const H=headH + 40 + Math.max(1,wrong.length)*rowH + 90;
+  const cv=document.getElementById('cv');cv.width=W;cv.height=H;
+  const x=cv.getContext('2d');
+
+  // background
+  const g=x.createLinearGradient(0,0,W,H);
+  g.addColorStop(0,'#10241a');g.addColorStop(.6,'#2a1d12');g.addColorStop(1,'#16301f');
+  x.fillStyle=g;x.fillRect(0,0,W,H);
+  // gold frame
+  x.strokeStyle='rgba(212,175,55,.55)';x.lineWidth=4;x.strokeRect(18,18,W-36,H-36);
+
+  // header
+  x.fillStyle='#e6c869';x.font='italic 24px Georgia';
+  x.fillText('ENGLISH · A2 · PAST SIMPLE & PRESENT PERFECT', pad, 70);
+  x.fillStyle='#f3ead4';x.font='bold 56px Georgia';
+  x.fillText("Alexander's Results", pad, 135);
+  x.fillStyle='#cdbf9d';x.font='20px Georgia';
+  const d=new Date();
+  x.fillText('Homework completed · '+d.toLocaleDateString('en-GB'), pad, 168);
+
+  // big score
+  x.fillStyle='#d4af37';x.font='bold 80px Georgia';
+  x.fillText(right+' / '+total, pad, 250);
+  x.fillStyle='#f3ead4';x.font='bold 34px Georgia';
+  x.fillText('('+pct+'%)', pad+ x.measureText(right+' / '+total).width + 30, 248);
+
+  // progress bar
+  const barX=pad, barY=270, barW=W-pad*2, barH=26;
+  x.fillStyle='rgba(16,36,26,.9)';roundRect(x,barX,barY,barW,barH,13);x.fill();
+  const fg=x.createLinearGradient(barX,0,barX+barW,0);
+  fg.addColorStop(0,'#a9831f');fg.addColorStop(1,'#e6c869');
+  x.fillStyle=fg;roundRect(x,barX,barY,Math.max(barH,barW*right/total),barH,13);x.fill();
+
+  // mistakes header
+  let yy=headH+56;
+  x.fillStyle='#e88a78';x.font='bold 30px Georgia';
+  x.fillText(wrong.length? '✗ '+wrong.length+' to review:' : '✓ Perfect — no mistakes!', pad, yy);
+  yy+=16;
+  x.font='22px Georgia';
+  wrong.forEach((it)=>{
+    yy+=rowH;
+    x.fillStyle='rgba(199,91,74,.12)';roundRect(x,pad,yy-40,W-pad*2,rowH-12,10);x.fill();
+    x.fillStyle='#f3ead4';x.font='bold 21px Georgia';
+    const lbl=trunc(x,it.label,W-pad*2-40,'bold 21px Georgia');
+    x.fillText(lbl, pad+16, yy-14);
+    x.font='19px Georgia';
+    const ya=it.get()===undefined?'(no answer)':it.get();
+    x.fillStyle='#e88a78';x.fillText('your answer: '+trunc(x,ya,420,'19px Georgia'), pad+16, yy+10);
+    x.fillStyle='#a8d28e';x.fillText('correct: '+trunc(x,it.correct,420,'19px Georgia'), pad+480, yy+10);
+  });
+
+  // footer
+  x.fillStyle='#cdbf9d';x.font='italic 18px Georgia';
+  x.fillText('Then & Now — keep your green-gold streak going.', pad, H-40);
+
+  const a=document.createElement('a');
+  a.download='Alexander_results_'+pct+'percent.png';
+  a.href=cv.toDataURL('image/png');a.click();
+};
+function roundRect(c,x,y,w,h,r){c.beginPath();c.moveTo(x+r,y);c.arcTo(x+w,y,x+w,y+h,r);c.arcTo(x+w,y+h,x,y+h,r);c.arcTo(x,y+h,x,y,r);c.arcTo(x,y,x+w,y,r);c.closePath();}
+function trunc(ctx,s,maxW,font){ctx.font=font;if(ctx.measureText(s).width<=maxW)return s;let r=s;while(ctx.measureText(r+'…').width>maxW&&r.length>1)r=r.slice(0,-1);return r+'…';}
+
+/* ============ SCROLL REVEAL ============ */
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}}),{threshold:.12});
+document.querySelectorAll('.card').forEach(c=>io.observe(c));
+updateProgress();
+</script>
+</body>
+</html>
