@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Much / Many / A lot of — Interactive Rule</title>
+  <style>
+    :root{
+      --bg:#130b07;
+      --bg2:#22120b;
+      --card:#2b180f;
+      --card2:#3a2114;
+      --gold:#d8ad55;
+      --gold2:#f7df99;
+      --cream:#fff3d7;
+      --muted:#c9a878;
+      --pink:#e994a4;
+      --green:#98c379;
+      --red:#e27d60;
+      --shadow:rgba(0,0,0,.42);
+      --glow:rgba(247,223,153,.55);
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      min-height:100vh;
+      color:var(--cream);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at 12% 10%, rgba(216,173,85,.18), transparent 26%),
+        radial-gradient(circle at 86% 18%, rgba(233,148,164,.13), transparent 22%),
+        radial-gradient(circle at 50% 100%, rgba(216,173,85,.13), transparent 30%),
+        linear-gradient(135deg, #100704 0%, #1b0e08 50%, #2a160c 100%);
+      overflow-x:hidden;
+    }
+    body::before{
+      content:"";
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      background-image:
+        radial-gradient(circle, rgba(247,223,153,.28) 1px, transparent 1.6px),
+        radial-gradient(circle, rgba(255,255,255,.08) 1px, transparent 1.4px);
+      background-size:34px 34px, 52px 52px;
+      background-position:0 0, 12px 17px;
+      opacity:.35;
+      mask-image:linear-gradient(to bottom, #000, transparent 90%);
+    }
+    .wrap{width:min(1180px, calc(100% - 34px)); margin:0 auto; padding:30px 0 46px; position:relative;}
+    .hero{
+      position:relative;
+      display:grid;
+      grid-template-columns:1.06fr .94fr;
+      gap:28px;
+      align-items:stretch;
+      min-height:520px;
+    }
+    .panel{
+      position:relative;
+      border:1px solid rgba(247,223,153,.28);
+      border-radius:34px;
+      background:linear-gradient(145deg, rgba(58,33,20,.92), rgba(31,16,9,.94));
+      box-shadow:0 24px 80px var(--shadow), inset 0 1px rgba(255,255,255,.08);
+      overflow:hidden;
+    }
+    .panel::after{
+      content:"";
+      position:absolute;
+      inset:1px;
+      border-radius:32px;
+      pointer-events:none;
+      background:linear-gradient(125deg, rgba(247,223,153,.2), transparent 24%, transparent 75%, rgba(233,148,164,.09));
+    }
+    .intro{padding:42px 38px 34px;}
+    .kicker{
+      color:var(--gold2);
+      letter-spacing:.18em;
+      text-transform:uppercase;
+      font-size:12px;
+      font-weight:800;
+      margin-bottom:16px;
+    }
+    h1{
+      margin:0;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size:clamp(44px, 6vw, 82px);
+      line-height:.9;
+      letter-spacing:-.045em;
+      text-shadow:0 0 30px rgba(216,173,85,.22);
+    }
+    .gold{color:var(--gold2)}
+    .subtitle{margin:22px 0 0; color:#ead2a6; font-size:18px; line-height:1.65; max-width:620px;}
+    .hint-row{display:flex; flex-wrap:wrap; gap:12px; margin-top:26px;}
+    .pill{
+      border:1px solid rgba(216,173,85,.36);
+      color:#f8e7bd;
+      background:rgba(24,11,5,.58);
+      padding:10px 14px;
+      border-radius:999px;
+      font-weight:700;
+      font-size:14px;
+      box-shadow:inset 0 0 0 1px rgba(255,255,255,.03);
+    }
+    .rule-map{padding:32px 32px 30px; min-height:520px;}
+    .axis{
+      position:absolute;
+      left:40px;
+      top:42px;
+      bottom:40px;
+      width:6px;
+      border-radius:999px;
+      background:linear-gradient(to top, var(--gold2), #805321);
+      box-shadow:0 0 24px rgba(247,223,153,.7), 0 0 52px rgba(216,173,85,.32);
+      animation:pulse 2.2s ease-in-out infinite;
+    }
+    .axis::before{
+      content:"";
+      position:absolute;
+      left:50%;
+      top:-18px;
+      transform:translateX(-50%);
+      width:0;height:0;
+      border-left:16px solid transparent;
+      border-right:16px solid transparent;
+      border-bottom:28px solid var(--gold2);
+      filter:drop-shadow(0 0 15px var(--glow));
+    }
+    .axis-label{
+      position:absolute;
+      left:60px;
+      top:28px;
+      color:var(--gold2);
+      font-weight:900;
+      font-size:13px;
+      letter-spacing:.14em;
+      text-transform:uppercase;
+    }
+    @keyframes pulse{50%{box-shadow:0 0 34px rgba(247,223,153,.95), 0 0 80px rgba(216,173,85,.48)}}
+    .scale{position:relative; margin-left:58px; display:grid; gap:14px; z-index:2;}
+    .rule-card{
+      border:1px solid rgba(247,223,153,.28);
+      background:linear-gradient(145deg, rgba(43,24,15,.92), rgba(21,10,5,.86));
+      border-radius:24px;
+      padding:18px 18px 16px;
+      cursor:pointer;
+      transition:.25s ease;
+      box-shadow:0 12px 32px rgba(0,0,0,.24);
+    }
+    .rule-card:hover,.rule-card.active{
+      transform:translateX(8px) scale(1.012);
+      border-color:rgba(247,223,153,.74);
+      box-shadow:0 16px 40px rgba(0,0,0,.34), 0 0 28px rgba(216,173,85,.2);
+      background:linear-gradient(145deg, rgba(67,38,22,.96), rgba(28,13,7,.92));
+    }
+    .rule-top{display:flex; align-items:flex-end; justify-content:space-between; gap:14px;}
+    .rule-title{font-family:Georgia,"Times New Roman",serif; font-size:30px; line-height:1; color:#fff4d6;}
+    .rule-tag{font-size:12px; color:#261106; background:linear-gradient(135deg,var(--gold2),var(--gold)); border-radius:999px; padding:6px 9px; font-weight:900; white-space:nowrap;}
+    .rule-note{margin:10px 0 0; color:#dfbf86; font-size:14px; line-height:1.45;}
+    .drawer{display:none; margin-top:14px; padding-top:14px; border-top:1px solid rgba(247,223,153,.18); color:#f9e8c2; line-height:1.55;}
+    .rule-card.active .drawer{display:block; animation:open .25s ease both;}
+    @keyframes open{from{opacity:0; transform:translateY(-5px)}to{opacity:1; transform:translateY(0)}}
+    .mini-ex{display:flex; flex-wrap:wrap; gap:8px; margin-top:12px;}
+    .chip{padding:8px 10px; border-radius:12px; background:rgba(247,223,153,.09); border:1px solid rgba(247,223,153,.16); color:#fff2d2; font-size:14px;}
+    .section{margin-top:28px; padding:30px; border-radius:32px; background:rgba(28,13,7,.78); border:1px solid rgba(247,223,153,.2); box-shadow:0 18px 60px rgba(0,0,0,.25);}
+    .section h2{margin:0 0 18px; font-family:Georgia,"Times New Roman",serif; color:var(--gold2); font-size:36px; letter-spacing:-.02em;}
+    .grid{display:grid; grid-template-columns:repeat(3,1fr); gap:16px;}
+    .flip{min-height:170px; perspective:900px; cursor:pointer;}
+    .flip-inner{position:relative; width:100%; height:100%; min-height:170px; transition:transform .55s ease; transform-style:preserve-3d;}
+    .flip.flipped .flip-inner{transform:rotateY(180deg)}
+    .face{position:absolute; inset:0; padding:22px; border-radius:24px; backface-visibility:hidden; border:1px solid rgba(247,223,153,.25); background:linear-gradient(145deg, rgba(58,33,20,.95), rgba(24,11,5,.92)); box-shadow:0 14px 34px rgba(0,0,0,.22);}
+    .back{transform:rotateY(180deg); background:linear-gradient(145deg, rgba(85,50,25,.94), rgba(31,14,7,.95));}
+    .face h3{margin:0 0 10px; font-family:Georgia,"Times New Roman",serif; font-size:31px; color:#fff1cc;}
+    .face p{margin:0; color:#dfbf86; line-height:1.5;}
+    .example-box{display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:12px;}
+    .speech{padding:20px; border-radius:24px; background:linear-gradient(145deg, rgba(71,41,23,.9), rgba(30,14,7,.9)); border:1px solid rgba(247,223,153,.22); position:relative;}
+    .speech::before{content:"✦"; color:var(--gold2); position:absolute; right:18px; top:13px; opacity:.75;}
+    .speech b{color:#fff2cb}
+    .speech span{display:block; margin-top:8px; color:#d9b071; font-style:italic;}
+    .quiz{display:grid; gap:14px;}
+    .q{padding:18px; border-radius:22px; background:rgba(247,223,153,.07); border:1px solid rgba(247,223,153,.16);}
+    .q-title{font-weight:800; color:#fff0c5; margin-bottom:12px;}
+    .choices{display:flex; flex-wrap:wrap; gap:10px;}
+    button.choice, .reset{
+      border:1px solid rgba(247,223,153,.34);
+      background:linear-gradient(145deg, rgba(55,31,18,.96), rgba(22,10,5,.96));
+      color:#fff1cf;
+      border-radius:999px;
+      padding:10px 15px;
+      cursor:pointer;
+      font-weight:800;
+      transition:.2s ease;
+      font-family:inherit;
+    }
+    button.choice:hover,.reset:hover{transform:translateY(-2px); box-shadow:0 10px 20px rgba(0,0,0,.25),0 0 18px rgba(216,173,85,.18)}
+    button.choice.correct{background:linear-gradient(135deg, rgba(95,122,60,.92), rgba(45,73,35,.92)); border-color:rgba(198,230,143,.6)}
+    button.choice.wrong{background:linear-gradient(135deg, rgba(139,59,46,.92), rgba(72,24,18,.92)); border-color:rgba(226,125,96,.72)}
+    .feedback{min-height:24px; margin-top:10px; color:#eacc96; font-weight:700;}
+    .reset{margin-top:16px; color:#2a1307; background:linear-gradient(135deg,var(--gold2),var(--gold));}
+    .toast{position:fixed; left:50%; bottom:22px; transform:translateX(-50%) translateY(90px); background:#fff0c5; color:#2a1307; border-radius:999px; padding:12px 18px; font-weight:900; box-shadow:0 12px 40px rgba(0,0,0,.38); transition:.32s ease; z-index:5;}
+    .toast.show{transform:translateX(-50%) translateY(0)}
+    .footer{margin:24px 0 0; text-align:center; color:#b99461; font-size:13px;}
+    @media (max-width:900px){.hero{grid-template-columns:1fr}.grid{grid-template-columns:1fr}.example-box{grid-template-columns:1fr}.rule-title{font-size:25px}.intro{padding:34px 28px}.rule-map{padding:28px 22px}.axis{left:26px}.axis-label{left:48px}.scale{margin-left:42px}}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <main class="hero">
+      <section class="panel intro">
+        <div class="kicker">Interactive grammar rule</div>
+        <h1>Much, Many <span class="gold">&</span><br>A lot of</h1>
+        <p class="subtitle">Click the chocolate cards, open examples, flip the mini-rules, and check yourself. The glowing arrow shows the idea of quantity: from zero to too much.</p>
+        <div class="hint-row">
+          <div class="pill">uncountable: water, money, time</div>
+          <div class="pill">countable plural: apples, books, cats</div>
+          <div class="pill">both: a lot of / some / any</div>
+        </div>
+      </section>
+
+      <section class="panel rule-map" aria-label="Quantity scale">
+        <div class="axis"></div>
+        <div class="axis-label">more quantity</div>
+        <div class="scale">
+          <article class="rule-card" data-rule>
+            <div class="rule-top"><div class="rule-title">too much / too many</div><div class="rule-tag">more than needed</div></div>
+            <p class="rule-note">Use it when the quantity is too big.</p>
+            <div class="drawer"><b>Too much</b> + uncountable nouns. <b>Too many</b> + plural countable nouns.
+              <div class="mini-ex"><span class="chip">too much sugar</span><span class="chip">too much homework</span><span class="chip">too many apples</span><span class="chip">too many people</span></div>
+            </div>
+          </article>
+
+          <article class="rule-card" data-rule>
+            <div class="rule-top"><div class="rule-title">much / many / a lot of</div><div class="rule-tag">large quantity</div></div>
+            <p class="rule-note">Much = uncountable. Many = countable plural. A lot of = both.</p>
+            <div class="drawer"><b>Much</b> is common in questions and negatives: <i>Do you have much time?</i> <b>Many</b> goes with things we can count: <i>many lessons</i>. <b>A lot of</b> is natural in positive sentences.
+              <div class="mini-ex"><span class="chip">much water</span><span class="chip">many books</span><span class="chip">a lot of money</span><span class="chip">a lot of friends</span></div>
+            </div>
+          </article>
+
+          <article class="rule-card" data-rule>
+            <div class="rule-top"><div class="rule-title">some / any</div><div class="rule-tag">some quantity</div></div>
+            <p class="rule-note">Some and any can work with both countable plural and uncountable nouns.</p>
+            <div class="drawer"><b>Some</b> is usual in positive sentences and polite requests. <b>Any</b> is usual in questions and negatives.
+              <div class="mini-ex"><span class="chip">some apples</span><span class="chip">some butter</span><span class="chip">any milk?</span><span class="chip">not any books</span></div>
+            </div>
+          </article>
+
+          <article class="rule-card" data-rule>
+            <div class="rule-top"><div class="rule-title">a little / a few</div><div class="rule-tag">small but enough</div></div>
+            <p class="rule-note">A little = uncountable. A few = countable plural.</p>
+            <div class="drawer">The article <b>a</b> makes the meaning positive: not much, but enough.
+              <div class="mini-ex"><span class="chip">a little time</span><span class="chip">a little cheese</span><span class="chip">a few apples</span><span class="chip">a few questions</span></div>
+            </div>
+          </article>
+
+          <article class="rule-card" data-rule>
+            <div class="rule-top"><div class="rule-title">little / few</div><div class="rule-tag">small and not enough</div></div>
+            <p class="rule-note">Little = uncountable. Few = countable plural.</p>
+            <div class="drawer">Without <b>a</b>, the meaning is more negative: not enough.
+              <div class="mini-ex"><span class="chip">little money</span><span class="chip">little water</span><span class="chip">few friends</span><span class="chip">few ideas</span></div>
+            </div>
+          </article>
+
+          <article class="rule-card" data-rule>
+            <div class="rule-top"><div class="rule-title">a / an / none</div><div class="rule-tag">one or zero</div></div>
+            <p class="rule-note">A / an = one singular countable thing. None = zero.</p>
+            <div class="drawer"><b>A</b> before a consonant sound, <b>an</b> before a vowel sound. <b>None</b> means “not one / not any”.
+              <div class="mini-ex"><span class="chip">a cat</span><span class="chip">an apple</span><span class="chip">no sugar</span><span class="chip">none</span></div>
+            </div>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <section class="section">
+      <h2>Flip the golden cards</h2>
+      <div class="grid">
+        <div class="flip" data-flip><div class="flip-inner"><div class="face"><h3>Uncountable</h3><p>Things we do not count one by one.</p></div><div class="face back"><h3>Use</h3><p>much, too much, a little, little<br><br>milk, water, sugar, money, time, butter</p></div></div></div>
+        <div class="flip" data-flip><div class="flip-inner"><div class="face"><h3>Countable plural</h3><p>Things we can count: one, two, three...</p></div><div class="face back"><h3>Use</h3><p>many, too many, a few, few<br><br>apples, books, lessons, cats, people</p></div></div></div>
+        <div class="flip" data-flip><div class="flip-inner"><div class="face"><h3>Both</h3><p>These words are friendly with both types.</p></div><div class="face back"><h3>Use</h3><p>a lot of, some, any<br><br>a lot of milk / a lot of apples<br>some butter / some books</p></div></div></div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Requests & offers</h2>
+      <div class="example-box">
+        <div class="speech"><b>Can I have some apples?</b><span>request: “some” sounds polite and natural.</span></div>
+        <div class="speech"><b>Would you like some butter?</b><span>offer: we expect a possible “yes”.</span></div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Quick check</h2>
+      <div class="quiz" id="quiz">
+        <div class="q" data-answer="much"><div class="q-title">1. There is too ___ sugar in my tea.</div><div class="choices"><button class="choice">much</button><button class="choice">many</button><button class="choice">a few</button></div><div class="feedback"></div></div>
+        <div class="q" data-answer="many"><div class="q-title">2. I have ___ books on my desk.</div><div class="choices"><button class="choice">much</button><button class="choice">many</button><button class="choice">little</button></div><div class="feedback"></div></div>
+        <div class="q" data-answer="a little"><div class="q-title">3. We have ___ time. We can finish.</div><div class="choices"><button class="choice">few</button><button class="choice">a little</button><button class="choice">many</button></div><div class="feedback"></div></div>
+        <div class="q" data-answer="some"><div class="q-title">4. Would you like ___ butter?</div><div class="choices"><button class="choice">some</button><button class="choice">any</button><button class="choice">many</button></div><div class="feedback"></div></div>
+        <div class="q" data-answer="few"><div class="q-title">5. He has ___ friends, so he feels lonely.</div><div class="choices"><button class="choice">a few</button><button class="choice">few</button><button class="choice">much</button></div><div class="feedback"></div></div>
+      </div>
+      <button class="reset" id="reset">Reset answers</button>
+    </section>
+
+    <div class="footer">Click everything: cards open, gold blocks flip, answers check themselves.</div>
+  </div>
+  <div class="toast" id="toast">Lovely ✦</div>
+
+  <script>
+    const toast = document.getElementById('toast');
+    function showToast(text){
+      toast.textContent = text;
+      toast.classList.add('show');
+      clearTimeout(window.toastTimer);
+      window.toastTimer = setTimeout(()=>toast.classList.remove('show'), 1200);
+    }
+
+    document.querySelectorAll('[data-rule]').forEach(card=>{
+      card.addEventListener('click', ()=>{
+        const was = card.classList.contains('active');
+        document.querySelectorAll('[data-rule]').forEach(c=>c.classList.remove('active'));
+        if(!was){ card.classList.add('active'); showToast('Rule opened ✦'); }
+      });
+    });
+
+    document.querySelectorAll('[data-flip]').forEach(card=>{
+      card.addEventListener('click', ()=>{
+        card.classList.toggle('flipped');
+        showToast(card.classList.contains('flipped') ? 'Back side ✦' : 'Front side ✦');
+      });
+    });
+
+    document.querySelectorAll('.q').forEach(q=>{
+      q.querySelectorAll('.choice').forEach(btn=>{
+        btn.addEventListener('click', ()=>{
+          q.querySelectorAll('.choice').forEach(b=>{b.classList.remove('correct','wrong'); b.disabled=false;});
+          const answer = q.dataset.answer.trim().toLowerCase();
+          const chosen = btn.textContent.trim().toLowerCase();
+          const feedback = q.querySelector('.feedback');
+          if(chosen === answer){
+            btn.classList.add('correct');
+            feedback.textContent = 'Correct. Gold star for you ✦';
+            showToast('Correct ✦');
+          } else {
+            btn.classList.add('wrong');
+            feedback.textContent = 'Try again: look at the noun after the gap.';
+            showToast('Almost…');
+          }
+        });
+      });
+    });
+
+    document.getElementById('reset').addEventListener('click', ()=>{
+      document.querySelectorAll('.choice').forEach(b=>b.classList.remove('correct','wrong'));
+      document.querySelectorAll('.feedback').forEach(f=>f.textContent='');
+      document.querySelectorAll('[data-rule]').forEach(c=>c.classList.remove('active'));
+      document.querySelectorAll('[data-flip]').forEach(c=>c.classList.remove('flipped'));
+      showToast('Reset ✦');
+    });
+  </script>
+</body>
+</html>
