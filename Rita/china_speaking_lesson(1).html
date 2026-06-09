@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>路 · Speaking Journey to China · A2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500&family=Mulish:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#072420;
+    --surface:#0E322D;
+    --surface-2:#0A2A26;
+    --surface-hi:#12403A;
+    --line:rgba(94,234,212,.16);
+    --teal-700:#0C7A72;
+    --teal-600:#0E9088;
+    --teal-500:#14A89E;
+    --teal-400:#2CC1B4;
+    --teal-300:#5EEAD4;
+    --teal-dim:#173F3A;
+    --coral:#F0784C;
+    --coral-soft:rgba(240,120,76,.16);
+    --gold:#E6B450;
+    --text:#E7F4F1;
+    --text-soft:#9DC1BB;
+    --ink:#E7F4F1;
+    --shadow:0 22px 48px -22px rgba(0,0,0,.6);
+    --shadow-sm:0 10px 24px -14px rgba(0,0,0,.55);
+    --r:18px;
+    --maxw:880px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;
+    font-family:'Mulish',system-ui,sans-serif;
+    color:var(--text);
+    background:var(--bg);
+    background-image:
+      radial-gradient(circle at 16px 32px, rgba(94,234,212,.05) 1.4px, transparent 1.6px),
+      radial-gradient(circle at 0 0, rgba(94,234,212,.05) 1.4px, transparent 1.6px);
+    background-size:32px 32px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,.display{font-family:'Fraunces',Georgia,serif;font-weight:600;line-height:1.14;margin:0;letter-spacing:-.01em}
+  .mono{font-family:'DM Mono',monospace}
+
+  /* ---------- Progress (Confidence) ---------- */
+  .topbar{
+    position:sticky;top:0;z-index:60;
+    backdrop-filter:blur(12px);
+    background:rgba(7,36,32,.82);
+    border-bottom:1px solid var(--line);
+    padding:10px 16px;
+  }
+  .topbar-inner{max-width:var(--maxw);margin:0 auto;display:flex;align-items:center;gap:14px}
+  .conf-label{font-weight:700;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--teal-300);white-space:nowrap;display:flex;align-items:center;gap:8px}
+  .conf-heart{font-size:1rem;animation:beat 2.6s ease-in-out infinite}
+  @keyframes beat{0%,100%{transform:scale(1)}10%{transform:scale(1.2)}20%{transform:scale(1)}}
+  .conf-track{flex:1;height:10px;border-radius:999px;background:var(--teal-dim);overflow:hidden;position:relative}
+  .conf-fill{height:100%;width:6%;border-radius:999px;
+    background:linear-gradient(90deg,var(--teal-500),var(--teal-300));
+    transition:width .8s cubic-bezier(.22,1,.36,1);position:relative}
+  .conf-fill::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.45),transparent);animation:shine 2.8s linear infinite}
+  @keyframes shine{0%{transform:translateX(-100%)}100%{transform:translateX(100%)}}
+  .conf-pct{font-family:'DM Mono',monospace;font-size:.8rem;font-weight:500;color:var(--teal-300);min-width:38px;text-align:right}
+
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 18px 80px}
+
+  /* ---------- Hero ---------- */
+  .hero{
+    position:relative;overflow:hidden;
+    background:linear-gradient(165deg,#0A332E,#0C5650 60%,#0E726B);
+    border-radius:0 0 34px 34px;
+    padding:60px 22px 64px;text-align:center;margin-bottom:34px;
+    border-bottom:1px solid var(--line);
+  }
+  .hero-inner{max-width:var(--maxw);margin:0 auto;position:relative;z-index:2}
+  .ni-hao{font-family:'Fraunces';font-weight:500;font-size:clamp(3.2rem,12vw,5.6rem);line-height:1;color:#fff;
+    text-shadow:0 4px 40px rgba(94,234,212,.5);animation:fade .9s ease both}
+  @keyframes fade{0%{transform:translateY(14px);opacity:0}100%{transform:translateY(0);opacity:1}}
+  .ni-hao small{display:block;font-family:'DM Mono',monospace;font-size:.82rem;letter-spacing:.5em;font-weight:400;opacity:.78;margin-top:14px;color:var(--teal-300)}
+  .hero h1{font-size:clamp(1.7rem,5.4vw,2.7rem);margin:22px 0 8px;color:#fff;font-style:italic;font-weight:500}
+  .hero p{max-width:540px;margin:0 auto;font-size:1.05rem;color:rgba(231,244,241,.9)}
+  .hero .calm{margin-top:16px;display:inline-block;background:rgba(94,234,212,.12);
+    border:1px solid rgba(94,234,212,.3);border-radius:999px;padding:8px 20px;font-weight:600;font-size:.92rem;color:var(--teal-300)}
+  .name-row{margin-top:24px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap;align-items:center}
+  .name-row input{font-family:'Mulish';font-size:1rem;font-weight:600;border:1px solid var(--line);border-radius:12px;
+    padding:12px 16px;min-width:200px;color:var(--text);background:rgba(7,36,32,.5)}
+  .name-row input::placeholder{color:var(--text-soft)}
+  .name-row input:focus{outline:2px solid var(--gold);outline-offset:1px}
+
+  .lantern{position:absolute;width:26px;height:38px;border-radius:50% 50% 46% 46%;
+    background:linear-gradient(180deg,var(--coral),#c9532b);opacity:.42;z-index:1;
+    box-shadow:0 0 22px rgba(240,120,76,.6)}
+  .lantern::before{content:"";position:absolute;top:-5px;left:50%;width:9px;height:5px;background:var(--gold);border-radius:3px;transform:translateX(-50%)}
+  .lantern::after{content:"";position:absolute;bottom:-7px;left:50%;width:2px;height:9px;background:var(--gold);transform:translateX(-50%)}
+  .l1{left:9%;top:20%;animation:float 6.5s ease-in-out infinite}
+  .l2{right:11%;top:30%;animation:float 7.8s ease-in-out infinite .8s;transform:scale(.78)}
+  .l3{left:17%;bottom:16%;animation:float 8.2s ease-in-out infinite .4s;transform:scale(1.15)}
+  .l4{right:7%;bottom:22%;animation:float 6.8s ease-in-out infinite 1.2s;transform:scale(.68)}
+  @keyframes float{0%,100%{transform:translateY(0) rotate(-3deg)}50%{transform:translateY(-15px) rotate(3deg)}}
+
+  .start-btn{margin-top:26px}
+  .btn{cursor:pointer;font-family:'Mulish';font-weight:700;border:none;border-radius:12px;
+    padding:13px 28px;font-size:1rem;letter-spacing:.01em;transition:transform .16s ease,box-shadow .2s ease,background .2s ease}
+  .btn:active{transform:translateY(1px)}
+  .btn-coral{background:var(--coral);color:#fff;box-shadow:0 14px 28px -14px rgba(240,120,76,.9)}
+  .btn-coral:hover{transform:translateY(-2px);box-shadow:0 18px 32px -14px rgba(240,120,76,.95)}
+  .btn-teal{background:var(--teal-300);color:#06302b;box-shadow:var(--shadow-sm)}
+  .btn-teal:hover{transform:translateY(-2px);background:#7af0dd}
+  .btn-ghost{background:var(--surface-hi);color:var(--teal-300);box-shadow:none;border:1px solid var(--line);font-size:.95rem;padding:11px 22px}
+  .btn-ghost:hover{background:#16504a}
+
+  /* ---------- Stations ---------- */
+  .station{position:relative;padding-left:58px;margin-bottom:36px}
+  .rail{position:absolute;left:18px;top:8px;bottom:-36px;width:3px;border-radius:3px;
+    background:repeating-linear-gradient(var(--teal-dim) 0 8px, transparent 8px 16px)}
+  .station:last-of-type .rail{display:none}
+  .node{position:absolute;left:0;top:2px;width:40px;height:40px;border-radius:50%;
+    background:var(--surface);border:2px solid var(--teal-500);display:flex;align-items:center;justify-content:center;
+    font-family:'Fraunces';font-weight:600;color:var(--teal-300);font-size:1.05rem;z-index:3;transition:all .4s ease}
+  .station.done .node{background:var(--teal-500);border-color:var(--teal-300);color:#06302b;transform:scale(1.06);box-shadow:0 0 20px rgba(94,234,212,.5)}
+  .station.done .node .num{display:none}
+  .station.done .node::after{content:"✓";font-size:1.15rem;font-family:'Mulish';font-weight:800}
+
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);
+    box-shadow:var(--shadow);padding:26px 24px;position:relative;overflow:hidden}
+  .eyebrow{font-family:'DM Mono',monospace;font-size:.7rem;letter-spacing:.24em;text-transform:uppercase;
+    color:var(--coral);font-weight:500;margin-bottom:6px}
+  .station h2{font-size:clamp(1.45rem,4.6vw,2rem);color:var(--text);font-weight:600}
+  .station h2 .cn{color:var(--coral);font-weight:600;margin-right:8px;font-style:italic}
+  .lead{color:var(--text-soft);margin:8px 0 20px;font-size:1.02rem}
+  .min{display:inline-block;background:var(--teal-dim);color:var(--teal-300);border-radius:999px;
+    font-family:'DM Mono',monospace;font-size:.72rem;font-weight:500;padding:3px 11px;margin-left:6px;vertical-align:middle}
+
+  .tip{background:rgba(20,168,158,.1);border-left:3px solid var(--teal-500);border-radius:0 12px 12px 0;
+    padding:12px 16px;margin:18px 0;font-size:.95rem;color:var(--text)}
+  .tip b{color:var(--teal-300)}
+
+  /* warm-up deck */
+  .deck{perspective:1200px;margin:6px auto 0;max-width:440px}
+  .q-card{background:var(--surface-hi);border:1px solid rgba(94,234,212,.28);
+    border-radius:18px;padding:38px 26px;text-align:center;min-height:150px;display:flex;
+    flex-direction:column;align-items:center;justify-content:center;box-shadow:var(--shadow-sm);
+    transition:transform .35s cubic-bezier(.22,1,.36,1)}
+  .q-card .qnum{font-family:'DM Mono',monospace;font-size:.74rem;color:var(--teal-300);letter-spacing:.12em}
+  .q-card .qtext{font-family:'Fraunces';font-weight:500;font-style:italic;font-size:clamp(1.3rem,5vw,1.75rem);color:#fff;margin:12px 0 8px}
+  .q-card .qhint{color:var(--text-soft);font-size:.88rem}
+  .q-flip{animation:flipq .42s ease}
+  @keyframes flipq{0%{transform:rotateY(-90deg);opacity:0}100%{transform:rotateY(0);opacity:1}}
+  .row{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:18px}
+
+  /* phrase flip cards */
+  .phrase-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(184px,1fr));gap:13px;margin-top:6px}
+  .flip{height:130px;perspective:900px;cursor:pointer}
+  .flip-in{position:relative;width:100%;height:100%;transition:transform .55s cubic-bezier(.22,1,.36,1);transform-style:preserve-3d}
+  .flip.on .flip-in{transform:rotateY(180deg)}
+  .face{position:absolute;inset:0;backface-visibility:hidden;border-radius:14px;padding:14px;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+  .face-front{background:var(--surface-hi);border:1px solid rgba(94,234,212,.28);color:#fff}
+  .face-front .en{font-family:'Fraunces';font-weight:500;font-size:1.06rem;line-height:1.25}
+  .face-front .hint{font-size:.66rem;color:var(--teal-300);margin-top:9px;font-family:'DM Mono',monospace;letter-spacing:.06em}
+  .face-back{background:linear-gradient(150deg,var(--teal-600),var(--teal-500));color:#fff;transform:rotateY(180deg)}
+  .face-back .use{font-weight:600;font-size:.98rem}
+  .listen{margin-top:11px;background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.4);
+    color:#fff;border-radius:999px;padding:5px 13px;font-size:.76rem;font-weight:700;cursor:pointer;font-family:'Mulish'}
+  .listen:hover{background:rgba(255,255,255,.32)}
+  .rescue{background:var(--coral-soft);border:1px dashed var(--coral);border-radius:14px;padding:18px 20px;margin-top:20px}
+  .rescue h3{color:var(--coral);font-size:1.12rem;margin-bottom:4px}
+  .rescue p{margin:0;color:var(--text-soft);font-size:.92rem}
+  .rescue ul{margin:10px 0 0;padding-left:0;list-style:none}
+  .rescue li{padding:8px 0;border-bottom:1px dashed rgba(240,120,76,.3);font-size:.98rem;cursor:pointer}
+  .rescue li:last-child{border:none}
+  .rescue li b{color:#fff;font-weight:700}
+  .rescue li span{color:var(--text-soft);font-size:.85rem}
+
+  /* dialogue */
+  .dlg{margin-top:10px;display:flex;flex-direction:column;gap:12px}
+  .bubble{max-width:80%;padding:12px 16px;border-radius:16px;font-size:1rem;opacity:0;transform:translateY(10px);animation:rise .4s forwards}
+  @keyframes rise{to{opacity:1;transform:translateY(0)}}
+  .b-them{align-self:flex-start;background:var(--surface-hi);border:1px solid rgba(94,234,212,.28);border-bottom-left-radius:4px}
+  .b-them .who{font-size:.68rem;color:var(--teal-300);font-weight:800;letter-spacing:.06em;display:block;margin-bottom:3px;text-transform:uppercase}
+  .b-you{align-self:flex-end;background:linear-gradient(150deg,var(--coral),#e0623a);color:#fff;border-bottom-right-radius:4px}
+  .b-you .who{font-size:.68rem;opacity:.92;font-weight:800;letter-spacing:.06em;display:block;margin-bottom:3px;text-transform:uppercase}
+  .say-now{align-self:center;background:var(--gold);color:#5a3d00;font-weight:800;border-radius:999px;
+    padding:7px 18px;font-size:.9rem;box-shadow:var(--shadow-sm)}
+
+  /* menu */
+  .menu{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;margin-top:6px}
+  .dish{background:var(--surface-hi);border:1px solid rgba(94,234,212,.22);border-radius:14px;padding:15px;cursor:pointer;
+    text-align:center;transition:transform .15s ease,border-color .2s ease;user-select:none}
+  .dish:hover{transform:translateY(-3px);border-color:var(--coral)}
+  .dish.picked{border-color:var(--teal-300);background:#163f3a}
+  .dish .emoji{font-size:2rem}
+  .dish .dn{font-family:'Fraunces';font-weight:500;color:#fff;margin-top:4px;line-height:1.15}
+  .dish .pinyin{font-size:.74rem;color:var(--teal-300);font-style:italic}
+  .dish .price{font-family:'DM Mono',monospace;font-size:.82rem;color:var(--coral);font-weight:500;margin-top:5px}
+  .dish .qty{display:inline-block;margin-top:5px;font-family:'DM Mono';font-size:.78rem;color:var(--teal-300);font-weight:700;min-height:1em}
+  .tray{margin-top:18px;background:var(--surface-2);border-radius:14px;padding:16px 18px;border:1px solid var(--line)}
+  .tray h3{font-size:1.02rem;color:var(--teal-300);margin-bottom:6px}
+  .tray .empty{color:var(--text-soft);font-style:italic}
+  .tray ul{margin:0;padding-left:18px}
+  .tray li{margin:3px 0}
+  .tray li b{color:#fff}
+  .tray .total{margin-top:9px;font-family:'DM Mono';font-weight:500;color:var(--coral)}
+  .chips{display:flex;flex-wrap:wrap;gap:9px;margin-top:12px}
+  .chip{background:var(--surface-hi);border:1px solid rgba(94,234,212,.28);color:var(--teal-300);border-radius:999px;
+    padding:8px 16px;font-weight:700;cursor:pointer;font-size:.92rem;transition:all .15s ease}
+  .chip:hover{background:var(--teal-600);color:#fff;border-color:var(--teal-600);transform:translateY(-2px)}
+  .chip.on{background:var(--coral);color:#fff;border-color:var(--coral)}
+
+  /* wheel */
+  .wheel-wrap{display:flex;flex-direction:column;align-items:center;margin-top:6px}
+  .wheel-box{position:relative;width:240px;height:240px;margin:8px 0}
+  .pointer{position:absolute;top:-4px;left:50%;transform:translateX(-50%);z-index:5;
+    width:0;height:0;border-left:12px solid transparent;border-right:12px solid transparent;border-top:22px solid var(--coral);filter:drop-shadow(0 2px 3px rgba(0,0,0,.4))}
+  .wheel{width:240px;height:240px;border-radius:50%;border:6px solid var(--surface);box-shadow:var(--shadow),0 0 0 2px var(--teal-300);
+    transition:transform 3.4s cubic-bezier(.17,.67,.2,1);
+    background:conic-gradient(
+      var(--teal-600) 0 45deg, var(--teal-400) 45deg 90deg,
+      var(--teal-600) 90deg 135deg, var(--teal-400) 135deg 180deg,
+      var(--teal-600) 180deg 225deg, var(--teal-400) 225deg 270deg,
+      var(--teal-600) 270deg 315deg, var(--teal-400) 315deg 360deg)}
+  .wheel-hub{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:52px;height:52px;
+    border-radius:50%;background:var(--surface);box-shadow:var(--shadow-sm);display:flex;align-items:center;justify-content:center;font-size:1.4rem;z-index:4;border:1px solid var(--line)}
+  .wheel-out{margin-top:16px;min-height:62px;width:100%;max-width:460px;background:var(--surface-hi);border:1px solid rgba(94,234,212,.28);
+    border-radius:14px;padding:14px 18px;text-align:center;font-family:'Fraunces';font-weight:500;font-style:italic;font-size:1.25rem;color:#fff;
+    display:flex;align-items:center;justify-content:center}
+  .wheel-out.empty{color:var(--text-soft);font-style:normal;font-family:'Mulish';font-size:1rem}
+
+  /* dice */
+  .dice-wrap{display:flex;flex-direction:column;align-items:center;gap:14px;margin-top:6px}
+  .dice{width:84px;height:84px;border-radius:16px;background:var(--surface-hi);border:1px solid rgba(94,234,212,.3);
+    box-shadow:var(--shadow);display:flex;align-items:center;justify-content:center;font-size:2.6rem;color:var(--teal-300)}
+  .dice.roll{animation:roll .6s ease}
+  @keyframes roll{0%{transform:rotate(0) scale(1)}50%{transform:rotate(200deg) scale(1.12)}100%{transform:rotate(360deg) scale(1)}}
+  .prompt-out{min-height:60px;width:100%;max-width:480px;background:var(--surface-hi);
+    border:1px solid rgba(94,234,212,.28);border-radius:14px;padding:14px 18px;text-align:center;
+    font-family:'Fraunces';font-weight:500;font-style:italic;font-size:1.2rem;color:#fff;display:flex;align-items:center;justify-content:center}
+  .prompt-out.empty{color:var(--text-soft);font-style:normal;font-family:'Mulish';font-size:1rem}
+  .timer{display:flex;align-items:center;gap:12px;margin-top:4px}
+  .timer .t-num{font-family:'DM Mono';font-size:1.5rem;font-weight:500;color:var(--coral);min-width:42px}
+  .timer-ring{width:46px;height:46px}
+  .timer-ring circle{fill:none;stroke-width:5}
+  .timer-ring .bg{stroke:var(--teal-dim)}
+  .timer-ring .fg{stroke:var(--coral);stroke-linecap:round;transform:rotate(-90deg);transform-origin:center;transition:stroke-dashoffset 1s linear}
+
+  /* plans */
+  .plan-board{display:flex;flex-wrap:wrap;gap:10px;margin-top:6px}
+  .plan-chip{background:var(--surface-hi);border:1px solid rgba(94,234,212,.24);border-radius:12px;padding:12px 15px;cursor:pointer;
+    display:flex;align-items:center;gap:9px;font-weight:700;color:var(--text);transition:all .15s ease}
+  .plan-chip .e{font-size:1.3rem}
+  .plan-chip:hover{transform:translateY(-2px);border-color:var(--coral)}
+  .plan-chip.on{background:var(--teal-600);color:#fff;border-color:var(--teal-300)}
+  .my-plan{margin-top:18px;background:var(--surface-2);border-radius:14px;padding:16px 18px;border:1px solid var(--line);min-height:60px}
+  .my-plan h3{font-size:1.02rem;color:var(--teal-300);margin-bottom:6px}
+  .my-plan .empty{color:var(--text-soft);font-style:italic}
+  .my-plan ul{margin:0;padding-left:20px}
+  .my-plan li{margin:4px 0;font-size:1rem}
+  .my-plan li b{color:#fff}
+
+  /* done */
+  .done-row{margin-top:22px;display:flex;align-items:center;gap:13px;flex-wrap:wrap}
+  .btn-done{background:var(--teal-600);color:#fff;box-shadow:0 14px 28px -16px rgba(20,168,158,.9);font-size:.98rem;padding:12px 26px}
+  .btn-done:hover{transform:translateY(-2px);background:var(--teal-500)}
+  .btn-done.done{background:var(--gold);color:#5a3d00;box-shadow:0 14px 28px -16px rgba(230,180,80,.9)}
+  .done-note{color:var(--text-soft);font-size:.88rem}
+
+  /* toast */
+  .toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(120px);
+    background:var(--surface-hi);border:1px solid var(--line);color:#fff;padding:14px 24px;border-radius:14px;
+    font-family:'Fraunces';font-weight:500;font-size:1.05rem;box-shadow:var(--shadow);z-index:90;opacity:0;
+    transition:all .4s cubic-bezier(.22,1.3,.4,1)}
+  .toast.show{transform:translateX(-50%) translateY(0);opacity:1}
+
+  /* finale */
+  .finale{background:linear-gradient(165deg,#0A332E,#0C5650 60%,#0E726B);color:#fff;border-radius:28px;
+    padding:46px 26px;text-align:center;position:relative;overflow:hidden;margin-top:10px;border:1px solid var(--line)}
+  .finale h2{font-size:clamp(1.8rem,6vw,2.6rem);font-weight:600;font-style:italic}
+  .finale .jiayou{font-size:clamp(2.6rem,10vw,4.2rem);font-family:'Fraunces';font-weight:600;margin:10px 0;
+    text-shadow:0 4px 40px rgba(94,234,212,.5)}
+  .finale p{max-width:520px;margin:0 auto;font-size:1.05rem;color:rgba(231,244,241,.92)}
+  .recap{background:rgba(7,36,32,.4);border:1px solid rgba(94,234,212,.24);border-radius:16px;
+    padding:20px;margin:24px auto 0;max-width:480px;text-align:left}
+  .recap h3{font-size:1.1rem;margin-bottom:10px;font-weight:600}
+  .recap li{padding:6px 0;border-bottom:1px solid rgba(94,234,212,.14);list-style:none}
+  .recap li:last-child{border:none}
+  .recap li b{color:var(--gold);font-family:'Mulish';font-weight:700}
+  .recap ul{padding:0;margin:0}
+  .confetti{position:absolute;top:-12px;width:9px;height:13px;opacity:0;z-index:1}
+
+  .footer{text-align:center;color:var(--text-soft);font-size:.82rem;margin-top:32px;font-family:'DM Mono',monospace;letter-spacing:.05em}
+
+  @media (max-width:560px){
+    .station{padding-left:46px}
+    .node{width:34px;height:34px;font-size:.95rem}
+    .rail{left:15px}
+    .card{padding:22px 17px}
+    .bubble{max-width:90%}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{animation-duration:.001ms !important;transition-duration:.05ms !important}
+    .wheel{transition:transform .4s ease}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <span class="conf-label"><span class="conf-heart">💪</span>Confidence</span>
+    <div class="conf-track"><div class="conf-fill" id="confFill"></div></div>
+    <span class="conf-pct" id="confPct">6%</span>
+  </div>
+</div>
+
+<header class="hero">
+  <span class="lantern l1"></span><span class="lantern l2"></span>
+  <span class="lantern l3"></span><span class="lantern l4"></span>
+  <div class="hero-inner">
+    <div class="ni-hao">你好<small>NǏ HǍO · HELLO</small></div>
+    <h1 id="heroTitle">Your journey to China 🇨🇳</h1>
+    <p>Today we don't study rules and we don't test anything. Today we just <b>talk</b> — calmly, kindly, with a smile.</p>
+    <span class="calm">😌 No mistakes here. Only practice.</span>
+    <div class="name-row">
+      <input id="nameInput" type="text" placeholder="What's your name?" autocomplete="off" maxlength="20">
+      <button class="btn btn-teal" id="nameBtn">Let's go!</button>
+    </div>
+    <div class="start-btn">
+      <a href="#s1"><button class="btn btn-coral">▶ Start the journey</button></a>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <!-- 1 WARM-UP -->
+  <section class="station" id="s1" data-station="s1">
+    <div class="rail"></div><div class="node"><span class="num">1</span></div>
+    <div class="card">
+      <div class="eyebrow">Station 01 · Warm-up</div>
+      <h2><span class="cn">出发</span>Warm-up — let's just chat <span class="min">~6 min</span></h2>
+      <p class="lead">Before the trip, let's warm up your voice. Tap the card and answer out loud. Full sentences, take your time. Mistakes are okay!</p>
+      <div class="deck">
+        <div class="q-card" id="warmCard">
+          <span class="qnum">QUESTION 1 / 10</span>
+          <div class="qtext">How are you today?</div>
+          <div class="qhint">Take your time — two sentences is great.</div>
+        </div>
+      </div>
+      <div class="row">
+        <button class="btn btn-ghost" id="warmNext">Next question →</button>
+      </div>
+      <div class="tip">💡 <b>Tip:</b> answer in at least two sentences. Not just “Fine”, but “I'm fine, thank you. I'm a little excited today!”</div>
+      <div class="done-row">
+        <button class="btn btn-done" data-done="s1">Done, let's go ✓</button>
+        <span class="done-note">Answered every question out loud</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2 PHRASES -->
+  <section class="station" data-station="s2">
+    <div class="rail"></div><div class="node"><span class="num">2</span></div>
+    <div class="card">
+      <div class="eyebrow">Station 02 · Magic phrases</div>
+      <h2><span class="cn">魔法</span>Magic phrases <span class="min">~8 min</span></h2>
+      <p class="lead">These phrases will save you in any situation in China. Tap a card to see when to use it, press 🔊 to listen, then say each one out loud <b>three times</b>.</p>
+      <div class="phrase-grid" id="phraseGrid"></div>
+      <div class="rescue">
+        <h3>🆘 Rescue phrases (when you don't understand)</h3>
+        <p>Learn these by heart — with them you'll never feel lost. Tap to listen:</p>
+        <ul id="rescueList"></ul>
+      </div>
+      <div class="tip">💡 <b>Tip:</b> a smile and “Sorry, my English is not perfect” solve 90% of problems. People always help!</div>
+      <div class="done-row">
+        <button class="btn btn-done" data-done="s2">I said all the phrases ✓</button>
+        <span class="done-note">Said each one out loud</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 AIRPORT -->
+  <section class="station" data-station="s3">
+    <div class="rail"></div><div class="node"><span class="num">3</span></div>
+    <div class="card">
+      <div class="eyebrow">Station 03 · Role-play</div>
+      <h2><span class="cn">机场</span>At the airport <span class="min">~10 min</span></h2>
+      <p class="lead">You've just landed. Your teacher is the airport officer. Press “Next”, read what the officer says, and say your line <b>out loud</b>. The yellow hint means it's your turn!</p>
+      <div class="dlg" id="dialogue"></div>
+      <div class="row">
+        <button class="btn btn-ghost" id="dlgNext">Next →</button>
+        <button class="btn btn-ghost" id="dlgReset" style="color:var(--coral);border-color:rgba(240,120,76,.4)">↺ Restart</button>
+      </div>
+      <div class="tip">💡 <b>Tip:</b> if you don't know a word, don't stay silent! Say “I'm here to…” and keep going as best you can.</div>
+      <div class="done-row">
+        <button class="btn btn-done" data-done="s3">I finished the dialogue ✓</button>
+        <span class="done-note">Said all my lines</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 FOOD -->
+  <section class="station" data-station="s4">
+    <div class="rail"></div><div class="node"><span class="num">4</span></div>
+    <div class="card">
+      <div class="eyebrow">Station 04 · Ordering food</div>
+      <h2><span class="cn">点菜</span>Ordering food <span class="min">~10 min</span></h2>
+      <p class="lead">You're in a Chinese café! Tap the dishes to build your order, then say it out loud to the waiter: “I would like…”, “Can I have…, please?”</p>
+      <div class="menu" id="menu"></div>
+      <div class="tray">
+        <h3>🧾 Your order</h3>
+        <div id="trayBody"><span class="empty">Empty for now — choose some dishes above 👆</span></div>
+      </div>
+      <p style="margin:18px 0 4px;font-weight:700;color:var(--teal-300)">The food has arrived! Describe it. Tap a word and say: “It's very… !”</p>
+      <div class="chips" id="adjChips"></div>
+      <div class="tip">💡 <b>Tip:</b> “a bowl of noodles”, “a cup of tea”. Don't forget the little word <b>a</b>!</div>
+      <div class="done-row">
+        <button class="btn btn-done" data-done="s4">I ordered out loud ✓</button>
+        <span class="done-note">Ordered and described the food</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5 MEETING -->
+  <section class="station" data-station="s5">
+    <div class="rail"></div><div class="node"><span class="num">5</span></div>
+    <div class="card">
+      <div class="eyebrow">Station 05 · Small talk</div>
+      <h2><span class="cn">认识</span>Meeting people <span class="min">~10 min</span></h2>
+      <p class="lead">In China you'll meet new friends and colleagues. Spin the wheel — it gives you a question to ask a new friend <b>out loud</b>. Then answer it yourself too!</p>
+      <div class="wheel-wrap">
+        <div class="wheel-box">
+          <div class="pointer"></div>
+          <div class="wheel" id="wheel"></div>
+          <div class="wheel-hub">🧧</div>
+        </div>
+        <button class="btn btn-coral" id="spinBtn" style="margin-top:4px">Spin the wheel!</button>
+        <div class="wheel-out empty" id="wheelOut">Press the button and ask the question out loud 🎡</div>
+      </div>
+      <div class="tip">💡 <b>Bonus:</b> describe your new friend! “She <b>is</b> kind and funny. She <b>looks like</b> a student.”</div>
+      <div class="done-row">
+        <button class="btn btn-done" data-done="s5">I asked 5+ questions ✓</button>
+        <span class="done-note">Asked and answered out loud</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6 STORIES -->
+  <section class="station" data-station="s6">
+    <div class="rail"></div><div class="node"><span class="num">6</span></div>
+    <div class="card">
+      <div class="eyebrow">Station 06 · Tell a story</div>
+      <h2><span class="cn">故事</span>Telling stories <span class="min">~8 min</span></h2>
+      <p class="lead">Roll the dice — you get a topic. Talk about it for <b>30 seconds</b> without stopping (pauses are fine!). Want a challenge? Start the timer.</p>
+      <div class="dice-wrap">
+        <div class="dice" id="dice">🎲</div>
+        <button class="btn btn-coral" id="rollBtn">Roll the dice!</button>
+        <div class="prompt-out empty" id="promptOut">Roll the dice and tell a story 🗣️</div>
+        <div class="timer">
+          <svg class="timer-ring" viewBox="0 0 46 46"><circle class="bg" cx="23" cy="23" r="20"/><circle class="fg" id="ring" cx="23" cy="23" r="20"/></svg>
+          <span class="t-num" id="tNum">30</span>
+          <button class="btn btn-ghost" id="timerBtn">▶ Start 30 sec</button>
+        </div>
+      </div>
+      <div class="tip">💡 <b>Tip:</b> start with “Last week I…”, “Yesterday I…” or “I have never…”. Don't stay silent — fill the pauses: “Well…”, “Let me think…”.</div>
+      <div class="done-row">
+        <button class="btn btn-done" data-done="s6">I told 3 stories ✓</button>
+        <span class="done-note">Spoke without switching languages</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7 PLANS -->
+  <section class="station" data-station="s7">
+    <div class="rail"></div><div class="node"><span class="num">7</span></div>
+    <div class="card">
+      <div class="eyebrow">Station 07 · Your plans</div>
+      <h2><span class="cn">计划</span>My plans in China <span class="min">~6 min</span></h2>
+      <p class="lead">This is your real trip! Tap what you want to do in China and say it <b>out loud</b>: “I'm going to…”, “I want to…”, “I would like to…”</p>
+      <div class="plan-board" id="planBoard"></div>
+      <div class="my-plan">
+        <h3>✈️ My China plan</h3>
+        <div id="planBody"><span class="empty">Choose what you'd like to do 👆 and talk about it</span></div>
+      </div>
+      <div class="tip">💡 <b>Question for you:</b> “What are you going to do <b>first</b> in China?” — answer out loud in one sentence.</div>
+      <div class="done-row">
+        <button class="btn btn-done" data-done="s7">I talked about my plans ✓</button>
+        <span class="done-note">Used “going to” / “want to”</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINALE -->
+  <section class="finale" id="finale">
+    <h2>You're ready! 🎉</h2>
+    <div class="jiayou">加油!</div>
+    <p>“Jiāyóu” in Chinese means “Come on — you can do it!”. You've just spoken English for a whole lesson, calmly and with confidence. You'll do exactly the same in China. 🌏</p>
+    <div class="recap">
+      <h3>🎒 Your rescue phrases for the trip:</h3>
+      <ul>
+        <li><b>Sorry, I don't understand.</b> — when something is unclear</li>
+        <li><b>Can you say that again, please?</b> — ask to repeat</li>
+        <li><b>How much is it?</b> — ask about a price</li>
+        <li><b>I would like…, please.</b> — order or ask for something</li>
+        <li><b>Can you help me?</b> — ask for help</li>
+      </ul>
+    </div>
+    <p style="margin-top:24px;font-weight:700">The golden rule: <span style="color:var(--gold)">speaking matters more than speaking perfectly.</span> 💛</p>
+  </section>
+
+  <div class="footer">Speaking Journey · A2 · made with care for your move to China 路</div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+(function(){
+  "use strict";
+  function speak(text){
+    if(!('speechSynthesis' in window))return;
+    try{ speechSynthesis.cancel();
+      var u=new SpeechSynthesisUtterance(text);
+      u.lang='en-US'; u.rate=0.88; u.pitch=1;
+      speechSynthesis.speak(u);
+    }catch(e){}
+  }
+
+  var toast=document.getElementById('toast'), toastTimer;
+  function showToast(msg){
+    toast.textContent=msg; toast.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer=setTimeout(function(){toast.classList.remove('show')},2600);
+  }
+
+  var done={}, totalStations=7, baseline=6;
+  var fill=document.getElementById('confFill'), pct=document.getElementById('confPct');
+  var praises=['Great! Your confidence is growing 🌱','Awesome — keep going 🚀','Well done! You\u2019re doing it 💪',
+    'Brilliant! 🎉','Wow! Keep it up ✨','We\u2019re proud of you! 💛'];
+  function updateProgress(){
+    var n=Object.keys(done).length;
+    var p=Math.round(baseline + (100-baseline)*(n/totalStations));
+    if(n===totalStations)p=100;
+    fill.style.width=p+'%'; pct.textContent=p+'%';
+  }
+  document.querySelectorAll('[data-done]').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      var id=btn.getAttribute('data-done');
+      var sec=document.querySelector('[data-station="'+id+'"]');
+      if(done[id])return;
+      done[id]=true;
+      if(sec)sec.classList.add('done');
+      btn.classList.add('done');
+      btn.textContent='Done! ✓';
+      updateProgress();
+      showToast(praises[Math.floor(Math.random()*praises.length)]);
+      if(Object.keys(done).length===totalStations) setTimeout(launchFinale,700);
+    });
+  });
+
+  var nameInput=document.getElementById('nameInput'), heroTitle=document.getElementById('heroTitle');
+  function setName(){
+    var v=nameInput.value.trim();
+    if(v){ heroTitle.textContent='Your journey to China, '+v+'! 🇨🇳'; showToast('Hi, '+v+'! Ready? 😊'); }
+  }
+  document.getElementById('nameBtn').addEventListener('click',setName);
+  nameInput.addEventListener('keydown',function(e){if(e.key==='Enter')setName();});
+
+  /* warm-up */
+  var warmQ=[
+    ['How are you today?','Take your time — two sentences is great.'],
+    ['What is your name?','Say a full sentence, not one word.'],
+    ['Where do you live?','You can add: and I like it / I want to move.'],
+    ['Do you like travelling? Why?','Give one reason.'],
+    ['What is your favourite food?','Say why you like it too.'],
+    ['Do you drink tea or coffee?','When? In the morning? With friends?'],
+    ['What do you usually do at the weekend?','Use “usually” and “sometimes”.'],
+    ['Why are you going to China?','To work? To study? To travel?'],
+    ['Are you excited or nervous? Why?','Both is okay!'],
+    ['What do you want to see in China?','Name one or two things.']
+  ];
+  var wi=0, warmCard=document.getElementById('warmCard');
+  function renderWarm(){
+    warmCard.innerHTML='<span class="qnum">QUESTION '+(wi+1)+' / '+warmQ.length+'</span>'+
+      '<div class="qtext">'+warmQ[wi][0]+'</div><div class="qhint">'+warmQ[wi][1]+'</div>';
+    warmCard.classList.remove('q-flip'); void warmCard.offsetWidth; warmCard.classList.add('q-flip');
+  }
+  document.getElementById('warmNext').addEventListener('click',function(){ wi=(wi+1)%warmQ.length; renderWarm(); });
+
+  /* phrases */
+  var phrases=[
+    ['Excuse me…','Get attention politely'],
+    ['Can you help me, please?','Ask for help'],
+    ["I don't understand.","When something is unclear"],
+    ['Can you say that again?','Ask them to repeat'],
+    ['Can you speak slowly?','Ask for slower speech'],
+    ['How much is it?','Ask about a price'],
+    ['Where is the toilet?','Find the bathroom'],
+    ['I would like…, please.','Order or ask for something'],
+    ['Thank you so much!','Say a big thank you'],
+    ["I'm looking for…","Say what you need to find"]
+  ];
+  var grid=document.getElementById('phraseGrid');
+  phrases.forEach(function(p){
+    var d=document.createElement('div'); d.className='flip';
+    d.innerHTML='<div class="flip-in">'+
+      '<div class="face face-front"><div class="en">'+p[0]+'</div><div class="hint">tap → when to use</div></div>'+
+      '<div class="face face-back"><div class="use">'+p[1]+'</div>'+
+      '<button class="listen" type="button">🔊 Listen</button></div></div>';
+    d.addEventListener('click',function(e){
+      if(e.target.classList.contains('listen')){ e.stopPropagation(); speak(p[0]); return; }
+      d.classList.toggle('on');
+    });
+    grid.appendChild(d);
+  });
+
+  var rescue=[
+    ["Sorry, I don't speak much English.","It's okay to say this — be honest"],
+    ['One moment, please.','Ask for a little time'],
+    ['How do you say… in English?','Ask for a word'],
+    ['Can you write it down, please?','Ask them to write it for you']
+  ];
+  var rl=document.getElementById('rescueList');
+  rescue.forEach(function(r){
+    var li=document.createElement('li');
+    li.innerHTML='<b>'+r[0]+'</b><br><span>'+r[1]+'</span>';
+    li.title='Tap to listen';
+    li.addEventListener('click',function(){speak(r[0]);});
+    rl.appendChild(li);
+  });
+
+  /* airport */
+  var script=[
+    ['them','Officer','Hello! Passport, please.'],
+    ['you','You','Here you are.'],
+    ['them','Officer','Why are you in China?'],
+    ['you','You',"I'm here to work. / to study. / to travel."],
+    ['them','Officer','How long are you staying?'],
+    ['you','You','For three months. / For one year.'],
+    ['them','Officer','Where are you staying?'],
+    ['you','You','In a hotel. / In Beijing.'],
+    ['them','Officer','Welcome to China! 🎎'],
+    ['you','You','Thank you very much!'],
+    ['hint','','🚕 Now find a taxi. Say:'],
+    ['you','You','Excuse me, where is the taxi?'],
+    ['you','You','Hello, can you take me to the hotel, please?'],
+    ['you','You','How much is it?']
+  ];
+  var di=0, dialogue=document.getElementById('dialogue');
+  function renderDlgStep(){
+    var s=script[di];
+    if(s[0]==='hint'){
+      var hint=document.createElement('div'); hint.className='say-now'; hint.textContent=s[2];
+      dialogue.appendChild(hint);
+    } else if(s[0]==='them'){
+      var b=document.createElement('div'); b.className='bubble b-them';
+      b.innerHTML='<span class="who">'+s[1]+'</span>'+s[2];
+      dialogue.appendChild(b);
+    } else {
+      var sn=document.createElement('div'); sn.className='say-now'; sn.textContent='🗣️ Your turn — say it out loud:';
+      dialogue.appendChild(sn);
+      var y=document.createElement('div'); y.className='bubble b-you';
+      y.innerHTML='<span class="who">'+s[1]+'</span>'+s[2];
+      dialogue.appendChild(y);
+    }
+    di++;
+  }
+  function resetDlg(){ dialogue.innerHTML=''; di=0; renderDlgStep(); }
+  document.getElementById('dlgNext').addEventListener('click',function(){
+    if(di<script.length) renderDlgStep();
+    else showToast('Dialogue finished — great job 👏');
+  });
+  document.getElementById('dlgReset').addEventListener('click',resetDlg);
+  resetDlg();
+
+  /* food */
+  var dishes=[
+    ['🥟','Dumplings','jiǎozi',25],['🍜','Fried noodles','chǎomiàn',30],
+    ['🍚','Fried rice','chǎofàn',28],['🥢','Spring rolls','chūnjuǎn',18],
+    ['🍵','Green tea','lǜchá',10],['🧋','Bubble tea','zhēnzhū',22]
+  ];
+  var menu=document.getElementById('menu'), trayBody=document.getElementById('trayBody');
+  var order={};
+  dishes.forEach(function(d,i){
+    var el=document.createElement('div'); el.className='dish';
+    el.innerHTML='<div class="emoji">'+d[0]+'</div><div class="dn">'+d[1]+'</div>'+
+      '<div class="pinyin">'+d[2]+'</div><div class="price">'+d[3]+' ¥</div><div class="qty"></div>';
+    el.addEventListener('click',function(){
+      order[i]=(order[i]||0)+1;
+      el.classList.add('picked');
+      el.querySelector('.qty').textContent='× '+order[i];
+      renderTray();
+    });
+    menu.appendChild(el);
+  });
+  function renderTray(){
+    var keys=Object.keys(order);
+    if(!keys.length){ trayBody.innerHTML='<span class="empty">Empty for now — choose some dishes above 👆</span>'; return; }
+    var html='<ul>', total=0;
+    keys.forEach(function(k){ var d=dishes[k]; total+=d[3]*order[k];
+      var say=order[k]>1?(order[k]+' '+d[1]):('a '+d[1].toLowerCase().replace(/s$/,''));
+      html+='<li>'+order[k]+' × '+d[1]+' — say: “<b>'+say+'</b>, please”</li>'; });
+    html+='</ul><div class="total">Total: '+total+' ¥ — “How much is everything?”</div>';
+    trayBody.innerHTML=html;
+  }
+  var adjs=['spicy 🌶️','sweet 🍯','salty 🧂','delicious 😋','hot 🔥','too big 😅'];
+  var adjBox=document.getElementById('adjChips');
+  adjs.forEach(function(a){
+    var c=document.createElement('button'); c.type='button'; c.className='chip'; c.textContent=a;
+    c.addEventListener('click',function(){ c.classList.toggle('on');
+      showToast('Say out loud: “It\u2019s very '+a.split(' ')[0]+'!”'); });
+    adjBox.appendChild(c);
+  });
+
+  /* wheel */
+  var wheelQ=[
+    'Where are you from?','What do you do?','What is your family like?',
+    'What do you do in your free time?','Do you like your city?',
+    'Have you got any pets?','What is your favourite food?','Do you have brothers or sisters?'
+  ];
+  var wheel=document.getElementById('wheel'), wheelOut=document.getElementById('wheelOut');
+  var spinning=false, currentRot=0;
+  document.getElementById('spinBtn').addEventListener('click',function(){
+    if(spinning)return; spinning=true;
+    var n=wheelQ.length, seg=360/n;
+    var idx=Math.floor(Math.random()*n);
+    var desired=360-(idx*seg+seg/2);
+    var full=Math.ceil(currentRot/360)*360;
+    var newRot=full+360*4+desired;
+    if(newRot<=currentRot)newRot+=360;
+    currentRot=newRot;
+    wheel.style.transform='rotate('+currentRot+'deg)';
+    wheelOut.classList.remove('empty');
+    wheelOut.textContent='…';
+    setTimeout(function(){ wheelOut.textContent=wheelQ[idx]; spinning=false; },3500);
+  });
+
+  /* dice */
+  var storyP=[
+    'Tell me about yesterday. What did you do?',
+    'Tell me about your last holiday.',
+    'Have you ever eaten Chinese food?',
+    'Have you ever been on a plane?',
+    'What did you eat for breakfast today?',
+    'Have you ever visited another country?'
+  ];
+  var faces=['⚀','⚁','⚂','⚃','⚄','⚅'];
+  var dice=document.getElementById('dice'), promptOut=document.getElementById('promptOut');
+  document.getElementById('rollBtn').addEventListener('click',function(){
+    var n=Math.floor(Math.random()*6);
+    dice.classList.remove('roll'); void dice.offsetWidth; dice.classList.add('roll');
+    setTimeout(function(){ dice.textContent=faces[n]; },300);
+    setTimeout(function(){ promptOut.classList.remove('empty'); promptOut.textContent=storyP[n]; },600);
+  });
+
+  /* timer */
+  var tNum=document.getElementById('tNum'), ring=document.getElementById('ring'), timerBtn=document.getElementById('timerBtn');
+  var C=2*Math.PI*20; ring.style.strokeDasharray=C; ring.style.strokeDashoffset=0;
+  var tInt=null;
+  timerBtn.addEventListener('click',function(){
+    if(tInt){ clearInterval(tInt); tInt=null; timerBtn.textContent='▶ Start 30 sec'; tNum.textContent='30'; ring.style.strokeDashoffset=0; return; }
+    var t=30; tNum.textContent=t; timerBtn.textContent='■ Stop';
+    tInt=setInterval(function(){
+      t--; tNum.textContent=t; ring.style.strokeDashoffset=C*(1-t/30);
+      if(t<=0){ clearInterval(tInt); tInt=null; timerBtn.textContent='▶ Start 30 sec';
+        showToast('Time! You spoke for 30 seconds 🎉'); tNum.textContent='30'; ring.style.strokeDashoffset=0; }
+    },1000);
+  });
+
+  /* plans */
+  var plans=[
+    ['🧱','see the Great Wall'],['🥟','try real dumplings'],['🗣️','learn some Chinese'],
+    ['👥','make new friends'],['⛩️','visit a temple'],['📸','take lots of photos'],
+    ['🚄','take the fast train'],['🛍️','go shopping']
+  ];
+  var board=document.getElementById('planBoard'), planBody=document.getElementById('planBody');
+  var myPlan=[];
+  plans.forEach(function(p){
+    var el=document.createElement('div'); el.className='plan-chip';
+    el.innerHTML='<span class="e">'+p[0]+'</span>'+p[1];
+    el.addEventListener('click',function(){
+      var idx=myPlan.indexOf(p[1]);
+      if(idx>-1){ myPlan.splice(idx,1); el.classList.remove('on'); }
+      else { myPlan.push(p[1]); el.classList.add('on'); showToast('Say: “I\u2019m going to '+p[1]+'.”'); }
+      renderPlan();
+    });
+    board.appendChild(el);
+  });
+  function renderPlan(){
+    if(!myPlan.length){ planBody.innerHTML='<span class="empty">Choose what you\u2019d like to do 👆 and talk about it</span>'; return; }
+    var h='<ul>'; myPlan.forEach(function(x){ h+='<li>I\u2019m going to <b>'+x+'</b>.</li>'; });
+    h+='</ul>'; planBody.innerHTML=h;
+  }
+
+  /* finale */
+  function launchFinale(){
+    var f=document.getElementById('finale');
+    f.scrollIntoView({behavior:'smooth'});
+    if(window.matchMedia && window.matchMedia('(prefers-reduced-motion:reduce)').matches) return;
+    var colors=['#F0784C','#E6B450','#5EEAD4','#14A89E','#fff'];
+    for(var i=0;i<60;i++){
+      (function(i){
+        var c=document.createElement('div'); c.className='confetti';
+        c.style.background=colors[i%colors.length];
+        c.style.left=Math.random()*100+'%';
+        c.style.borderRadius=Math.random()>.5?'50%':'2px';
+        f.appendChild(c);
+        var dx=(Math.random()*2-1)*120, dur=2200+Math.random()*1600, delay=Math.random()*400;
+        c.animate([
+          {transform:'translate(0,0) rotate(0deg)',opacity:1},
+          {transform:'translate('+dx+'px,'+(f.offsetHeight+40)+'px) rotate('+(Math.random()*720)+'deg)',opacity:0}
+        ],{duration:dur,delay:delay,easing:'cubic-bezier(.3,.6,.6,1)'}).onfinish=function(){c.remove();};
+      })(i);
+    }
+  }
+
+  updateProgress();
+})();
+</script>
+</body>
+</html>
