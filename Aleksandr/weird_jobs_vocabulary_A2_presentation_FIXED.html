@@ -1,0 +1,1433 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Weird Jobs Vocabulary A2</title>
+  <style>
+    :root {
+      --bg:#e9e9e7;
+      --panel:#f8f8f6;
+      --panel2:#ffffff;
+      --line:#d2d2ce;
+      --ink:#3d454c;
+      --muted:#747b82;
+      --orange:#ff8a2a;
+      --orange2:#d8640e;
+      --ok:#4f7d64;
+      --bad:#a54f4a;
+      --shadow:0 18px 42px rgba(54,58,62,.10);
+    }
+    * { box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body {
+      margin:0;
+      background:radial-gradient(circle at 10% 0%, rgba(255,138,42,.10), transparent 28rem), linear-gradient(135deg,#eeeeec,#dededb);
+      color:var(--ink);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size:18px;
+    }
+    button,input,select { font:inherit; }
+    .nav {
+      position:sticky;
+      top:0;
+      z-index:10;
+      background:rgba(238,238,236,.86);
+      backdrop-filter:blur(12px);
+      border-bottom:1px solid var(--line);
+    }
+    .nav-inner {
+      max-width:1180px;
+      margin:0 auto;
+      padding:12px 20px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:14px;
+    }
+    .brand {
+      font-size:12px;
+      text-transform:uppercase;
+      letter-spacing:.18em;
+      font-style:italic;
+      color:#777d83;
+      white-space:nowrap;
+    }
+    .links {
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+    }
+    .links a,.plain {
+      border:1px solid var(--line);
+      background:#fff9;
+      color:#4b535a;
+      text-decoration:none;
+      border-radius:999px;
+      padding:7px 11px;
+      font-size:13px;
+      cursor:pointer;
+    }
+    .wrap {
+      max-width:1180px;
+      margin:0 auto;
+      padding:30px 20px 70px;
+    }
+    .hero,.section {
+      background:linear-gradient(180deg,rgba(255,255,255,.78),rgba(247,247,245,.72));
+      border:1px solid var(--line);
+      border-radius:30px;
+      box-shadow:var(--shadow);
+    }
+    .hero {
+      padding:34px 36px;
+      margin-bottom:28px;
+    }
+    .eyebrow {
+      color:#777d83;
+      text-transform:uppercase;
+      letter-spacing:.22em;
+      font-size:13px;
+      font-style:italic;
+      margin-bottom:10px;
+    }
+    h1,h2 {
+      margin:0;
+      font-weight:400;
+      font-style:italic;
+      text-transform:uppercase;
+      letter-spacing:.02em;
+      line-height:1.03;
+      background:linear-gradient(90deg,#3f4850 0%,#727a82 42%,#b45a1a 66%,#ff7d1e 100%);
+      -webkit-background-clip:text;
+      background-clip:text;
+      color:transparent;
+    }
+    h1 { font-size:clamp(34px,5.2vw,62px); max-width:920px; }
+    h2 { font-size:clamp(28px,3.8vw,42px); }
+    .hero p,.section-note {
+      color:#5e666d;
+      line-height:1.65;
+      max-width:760px;
+    }
+    .section {
+      padding:28px;
+      margin:28px 0;
+    }
+    .head {
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:18px;
+      margin-bottom:22px;
+    }
+    .pill {
+      white-space:nowrap;
+      border:1px solid var(--line);
+      background:#fff;
+      border-radius:999px;
+      padding:9px 13px;
+      font-size:14px;
+      color:#6a7178;
+    }
+    .cards {
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+      gap:18px;
+    }
+    .flip-card {
+      min-height:248px;
+      perspective:1000px;
+      cursor:pointer;
+    }
+    .flip-inner {
+      position:relative;
+      width:100%;
+      height:100%;
+      min-height:248px;
+      transition:transform .7s cubic-bezier(.2,.7,.2,1);
+      transform-style:preserve-3d;
+    }
+    .flip-card.flipped .flip-inner { transform:rotateY(180deg); }
+    .flip-face {
+      position:absolute;
+      inset:0;
+      backface-visibility:hidden;
+      border:1px solid var(--line);
+      border-radius:24px;
+      background:linear-gradient(160deg,#fff,#f3f3f1);
+      padding:22px;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+      box-shadow:0 12px 28px rgba(60,64,67,.08);
+    }
+    .flip-face.back {
+      transform:rotateY(180deg);
+      background:linear-gradient(160deg,#fff,#fff0e2);
+    }
+    .micro {
+      font-size:13px;
+      text-transform:uppercase;
+      letter-spacing:.12em;
+      color:#888f95;
+      font-style:italic;
+    }
+    .word-title {
+      margin-top:4px;
+      font-size:30px;
+      text-transform:uppercase;
+      font-style:italic;
+      line-height:1.08;
+    }
+    .translation {
+      font-size:24px;
+      color:var(--orange2);
+      text-transform:uppercase;
+      font-style:italic;
+      line-height:1.15;
+    }
+    .flip-face p {
+      line-height:1.5;
+      color:#5c646b;
+      margin:14px 0 0;
+      border-top:1px dashed #cfcfca;
+      padding-top:14px;
+    }
+    .card-bottom {
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      color:#8a9095;
+      font-size:13px;
+      text-transform:uppercase;
+      letter-spacing:.08em;
+      font-style:italic;
+    }
+    .orange {
+      border:0;
+      background:linear-gradient(180deg,#ffa85a,var(--orange));
+      color:white;
+      border-radius:999px;
+      box-shadow:0 10px 22px rgba(255,138,42,.20);
+      cursor:pointer;
+    }
+    .small { padding:9px 14px; font-size:14px; }
+    .check { padding:10px 16px; }
+    .ghost {
+      border:1px solid var(--line);
+      background:#fff;
+      color:#555d64;
+      border-radius:999px;
+      padding:10px 16px;
+      cursor:pointer;
+    }
+    .tasks {
+      display:grid;
+      gap:14px;
+    }
+    .task {
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.65);
+      border-radius:22px;
+      padding:18px;
+    }
+    .task-grid {
+      display:grid;
+      grid-template-columns:1fr minmax(210px,300px);
+      align-items:center;
+      gap:16px;
+    }
+    .question { line-height:1.6; }
+    .num { color:var(--orange2); font-style:italic; }
+    .inline-word {
+      font-size:25px;
+      text-transform:uppercase;
+      font-style:italic;
+    }
+    select,input {
+      width:100%;
+      border:1px solid var(--line);
+      background:#fff;
+      color:#333b42;
+      border-radius:16px;
+      padding:11px 13px;
+      outline:none;
+    }
+    select:focus,input:focus {
+      border-color:var(--orange);
+      box-shadow:0 0 0 4px rgba(255,138,42,.12);
+    }
+    .feedback {
+      min-height:20px;
+      margin-top:9px;
+      color:#6e757b;
+      font-size:15px;
+    }
+    .task.correct {
+      border-color:rgba(79,125,100,.45);
+      background:rgba(235,248,241,.78);
+    }
+    .task.wrong {
+      border-color:rgba(165,79,74,.42);
+      background:rgba(255,237,234,.78);
+    }
+    .controls {
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top:18px;
+    }
+    .word-bank {
+      display:flex;
+      flex-wrap:wrap;
+      gap:9px;
+      margin:0 0 18px;
+    }
+    .chip {
+      border:1px solid var(--line);
+      background:#fff;
+      border-radius:999px;
+      padding:8px 12px;
+      color:#4c535a;
+    }
+    .blank {
+      display:inline-block;
+      min-width:120px;
+      text-align:center;
+      border-bottom:1px solid #8d9399;
+      color:var(--orange2);
+    }
+    .result {
+      margin-top:14px;
+      color:#5d656c;
+      line-height:1.55;
+    }
+    .progress {
+      height:8px;
+      background:#dadad6;
+      border-radius:999px;
+      overflow:hidden;
+      margin-top:20px;
+    }
+    .progress span {
+      display:block;
+      height:100%;
+      width:0%;
+      background:linear-gradient(90deg,#747b82,var(--orange));
+      transition:width .35s ease;
+    }
+    @media(max-width:780px) {
+      .nav-inner,.head,.task-grid { display:block; }
+      .links { margin-top:10px; justify-content:flex-start; }
+      .pill { display:inline-block; margin-top:12px; }
+      .hero,.section { padding:22px; border-radius:24px; }
+      .task-grid select,.task-grid input { margin-top:12px; }
+    }
+    @media print {
+      .nav,.controls,.orange { display:none!important; }
+      body { background:white; }
+      .hero,.section,.flip-face { box-shadow:none; }
+      .flip-inner { transform:none!important; }
+      .flip-face { position:relative; min-height:auto; }
+      .flip-face.back { transform:none; margin-top:10px; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="nav-inner">
+      <div class="brand">A2 Vocabulary Presentation</div>
+      <div class="links">
+        <a href="#cards">Cards</a>
+        <a href="#match">Practice 1</a>
+        <a href="#fill">Practice 2</a>
+        <a href="#listen">Practice 3</a>
+        <a href="#type">Practice 4</a>
+        <a href="#choose">Practice 5</a>
+        <button class="plain" onclick="window.print()">Print</button>
+      </div>
+    </div>
+  </nav>
+
+  <main class="wrap">
+    <header class="hero">
+      <div class="eyebrow">Weird jobs · vocabulary</div>
+      <h1>Words for unusual professions</h1>
+      <p>Flip the cards, listen to the words in English, then practise them in five short exercises. The examples are simple and clear for A2.</p>
+      <div class="progress"><span id="progress"></span></div>
+    </header>
+
+    <section class="section" id="cards">
+      <div class="head">
+        <div>
+          <h2>Flip cards</h2>
+          <p class="section-note">English word on the front. Russian translation and a simple example on the back.</p>
+        </div>
+        <div class="pill" id="cardCounter">0 / 14 opened</div>
+      </div>
+      <div class="cards">
+
+        <article class="flip-card" data-card>
+          <div class="flip-inner">
+            <div class="flip-face front">
+              <div>
+                <div class="micro">word 1</div>
+                <div class="word-title">extract</div>
+              </div>
+              <div class="card-bottom">
+                <button class="orange small" type="button" onclick="event.stopPropagation(); speakText('extract')">Listen</button>
+                <span>click to flip</span>
+              </div>
+            </div>
+            <div class="flip-face back">
+              <div>
+                <div class="translation">извлекать, добывать</div>
+                <p>Snake milkers extract venom from snakes.</p>
+              </div>
+              <div class="card-bottom">
+                <button class="orange small" type="button" onclick="event.stopPropagation(); speakText('Snake milkers extract venom from snakes.')">Listen example</button>
+                <span>click back</span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="flip-card" data-card>
+          <div class="flip-inner">
+            <div class="flip-face front">
+              <div>
+                <div class="micro">word 2</div>
+                <div class="word-title">venom</div>
+              </div>
+              <div class="card-bottom">
+                <button class="orange small" type="button" onclick="event.stopPropagation(); speakText('venom')">Listen</button>
+                <span>click to flip</span>
+              </div>
+            </div>
+            <div class="flip-face back">
+              <div>
+                <div class="translation">яд</div>
+                <p>Some snakes have dangerous venom.</p>
+              </div>
+              <div class="card-bottom">
+                <button class="orange small" type="button" onclick="event.stopPropagation(); speakText('Some snakes have dangerous venom.')">Listen example</button>
+                <span>click back</span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="flip-card" data-card>
+          <div class="flip-inner">
+            <div class="flip-face front">
+              <div>
+                <div class="micro">word 3</div>
+                <div class="word-title">antivenom</div>
+              </div>
+              <div class="card-bottom">
+                <button class="orange small" type="button" onclick="event.stopPropagation(); speakText('antivenom')">Listen</button>
+                <span>click to flip</span>
+              </div>
+            </div>
+            <div class="flip-face back">
+              <div>
+                <div class="translation">противоядие, антидот</div>
+                <p>Hospitals use antivenom to help people.</p>
+              </div>
+              <div class="card-bottom">
+                <button class="orange small" type="button" onclick="event.stopPropagation(); speakText('Hospitals use antivenom to help people.')">Listen example</button>
+                <span>click back</span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="flip-card" data-card>
+          <div class="flip-inner">
+            <div class="flip-face front">
+              <div>
+                <div class="micro">word 4</div>
+                <div class="word-title">thousand</div>
+              </div>
+              <div class="card-bottom">
+                <button class="orange small" type="button" onclick="event.stopPropagation(); speakText('thousand')">Listen</button>
+                <span>click to flip</span>
+              </div>
+            </div>
+            <div class="flip-face back">
+              <div>
+                <div class="translation">тысяча</div>
+                <p>One gram can cost one thousand dollars.</p>
+              </div>
+              <div class="card-bottom">
+                <button class="orange small" type="button" onclick="event.stopPropagation(); speakText('One gram can cost one thousand dollars.')">Listen example</button>
+                <span>click back</span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="flip-card" data-card>
+          <div class="flip-inner">
+            <div class="flip-face front">
+              <div>
+                <div class="micro">word 5</div>
+                <div class="word-title">become</div>
+              </div>
+              <div class="card-bottom">
+                <button class="orange small" type="button" onclick="event.stopPropagation(); speakText('become')">Listen</button>
+                <span>click to flip</span>
+              </div>
+            </div>
+            <div class="flip-face back">
+              <div>
+                <div class="translation">становиться</div>
+                <p>This job became famous after 1912.</p>
+              </div>
+              <div class="card-bottom">
+                <button class="orange small" type="button" onclick="event.stopPropagation(); speakText('This job became famous after 1912.')">Listen example</button>
+                <span>click back</span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="flip-card" data-card>
+          <div class="flip-inner">
+            <div class="flip-face front">
+              <div>
+                <div class="micro">word 6</div>
+                <div class="word-title">sinking</div>
+              </div>
+              <div class="card-bottom">
+                <button class="orange small" type="button" onclick="event.stopPropagation(); speakText('sinking')">Listen</button>
+                <span>click to flip</span>
+              </div>
+            </div>
+            <div class="flip-face back">
+              <div>
+                <div class="translation">потопление</div>
+                <p>The sinking of the Titanic was a disaster.</p>
+              </div>
+              <div class="card-bottom">
+                <button class="orange small" type="button" onclick="event.stopPropagation(); speakText('The sinking of the Titanic was a disaster.')">Listen example</button>
+                <span>click back</span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="flip-card" data-card>
+          <div class="flip-inner">
+            <div class="flip-face front">
+              <div>
+                <div class="micro">word 7</div>
+                <div class="word-title">iceberg</div>
+              </div>
+              <div class="card-bottom">
+                <button class="orange small" type="button" onclick="event.stopPropagation(); speakText('iceberg')">Listen</button>
+                <span>click to flip</span>
+              </div>
+            </div>
+            <div class="flip-face back">
+              <div>
+                <div class="translation">айсберг</div>
+                <p>An iceberg is a large piece of ice in the sea.</p>
+              </div>
+              <div class="card-bottom">
+                <button class="orange small" type="button" onclick="event.stopPropagation(); speakText('An iceberg is a large piece of ice in the sea.')">Listen example</button>
+                <span>click back</span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="flip-card" data-card>
+          <div class="flip-inner">
+            <div class="flip-face front">
+              <div>
+                <div class="micro">word 8</div>
+                <div class="word-title">route</div>
+              </div>
+              <div class="card-bottom">
+                <button class="orange small" type="button" onclick="event.stopPropagation(); speakText('route')">Listen</button>
+                <span>click to flip</span>
+              </div>
+            </div>
+            <div class="flip-face back">
+              <div>
+                <div class="translation">маршрут</div>
+                <p>The ship needs a safe route.</p>
+              </div>
+              <div class="card-bottom">
+                <button class="orange small" type="button" onclick="event.stopPropagation(); speakText('The ship needs a safe route.')">Listen example</button>
+                <span>click back</span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="flip-card" data-card>
+          <div class="flip-inner">
+            <div class="flip-face front">
+              <div>
+                <div class="micro">word 9</div>
+                <div class="word-title">necessary</div>
+              </div>
+              <div class="card-bottom">
+                <button class="orange small" type="button" onclick="event.stopPropagation(); speakText('necessary')">Listen</button>
+                <span>click to flip</span>
+              </div>
+            </div>
+            <div class="flip-face back">
+              <div>
+                <div class="translation">необходимый</div>
+                <p>If necessary, the iceberg is moved.</p>
+              </div>
+              <div class="card-bottom">
+                <button class="orange small" type="button" onclick="event.stopPropagation(); speakText('If necessary, the iceberg is moved.')">Listen example</button>
+                <span>click back</span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="flip-card" data-card>
+          <div class="flip-inner">
+            <div class="flip-face front">
+              <div>
+                <div class="micro">word 10</div>
+                <div class="word-title">judge</div>
+              </div>
+              <div class="card-bottom">
+                <button class="orange small" type="button" onclick="event.stopPropagation(); speakText('judge')">Listen</button>
+                <span>click to flip</span>
+              </div>
+            </div>
+            <div class="flip-face back">
+              <div>
+                <div class="translation">судья, эксперт</div>
+                <p>An odor judge smells products at work.</p>
+              </div>
+              <div class="card-bottom">
+                <button class="orange small" type="button" onclick="event.stopPropagation(); speakText('An odor judge smells products at work.')">Listen example</button>
+                <span>click back</span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="flip-card" data-card>
+          <div class="flip-inner">
+            <div class="flip-face front">
+              <div>
+                <div class="micro">word 11</div>
+                <div class="word-title">odor</div>
+              </div>
+              <div class="card-bottom">
+                <button class="orange small" type="button" onclick="event.stopPropagation(); speakText('odor')">Listen</button>
+                <span>click to flip</span>
+              </div>
+            </div>
+            <div class="flip-face back">
+              <div>
+                <div class="translation">запах, отдушка</div>
+                <p>The judge rates the odor of the soap.</p>
+              </div>
+              <div class="card-bottom">
+                <button class="orange small" type="button" onclick="event.stopPropagation(); speakText('The judge rates the odor of the soap.')">Listen example</button>
+                <span>click back</span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="flip-card" data-card>
+          <div class="flip-inner">
+            <div class="flip-face front">
+              <div>
+                <div class="micro">word 12</div>
+                <div class="word-title">hygiene</div>
+              </div>
+              <div class="card-bottom">
+                <button class="orange small" type="button" onclick="event.stopPropagation(); speakText('hygiene')">Listen</button>
+                <span>click to flip</span>
+              </div>
+            </div>
+            <div class="flip-face back">
+              <div>
+                <div class="translation">гигиена</div>
+                <p>Good hygiene helps people stay clean.</p>
+              </div>
+              <div class="card-bottom">
+                <button class="orange small" type="button" onclick="event.stopPropagation(); speakText('Good hygiene helps people stay clean.')">Listen example</button>
+                <span>click back</span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="flip-card" data-card>
+          <div class="flip-inner">
+            <div class="flip-face front">
+              <div>
+                <div class="micro">word 13</div>
+                <div class="word-title">deodorant</div>
+              </div>
+              <div class="card-bottom">
+                <button class="orange small" type="button" onclick="event.stopPropagation(); speakText('deodorant')">Listen</button>
+                <span>click to flip</span>
+              </div>
+            </div>
+            <div class="flip-face back">
+              <div>
+                <div class="translation">дезодорант</div>
+                <p>Many people use deodorant every day.</p>
+              </div>
+              <div class="card-bottom">
+                <button class="orange small" type="button" onclick="event.stopPropagation(); speakText('Many people use deodorant every day.')">Listen example</button>
+                <span>click back</span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="flip-card" data-card>
+          <div class="flip-inner">
+            <div class="flip-face front">
+              <div>
+                <div class="micro">word 14</div>
+                <div class="word-title">rate</div>
+              </div>
+              <div class="card-bottom">
+                <button class="orange small" type="button" onclick="event.stopPropagation(); speakText('rate')">Listen</button>
+                <span>click to flip</span>
+              </div>
+            </div>
+            <div class="flip-face back">
+              <div>
+                <div class="translation">оценивать</div>
+                <p>Judges rate smells from one to ten.</p>
+              </div>
+              <div class="card-bottom">
+                <button class="orange small" type="button" onclick="event.stopPropagation(); speakText('Judges rate smells from one to ten.')">Listen example</button>
+                <span>click back</span>
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="match">
+      <div class="head">
+        <div>
+          <h2>Match the translation</h2>
+          <p class="section-note">Choose the Russian meaning for each English word.</p>
+        </div>
+        <div class="pill" id="score-match">Not checked</div>
+      </div>
+      <div class="tasks">
+
+        <div class="task" data-answer="извлекать, добывать">
+          <div class="task-grid">
+            <div class="question"><span class="num">1.</span> <span class="inline-word">extract</span></div>
+            <select>
+              <option value="">Choose translation</option>
+              <option value="извлекать, добывать">извлекать, добывать</option>
+<option value="яд">яд</option>
+<option value="противоядие, антидот">противоядие, антидот</option>
+<option value="тысяча">тысяча</option>
+<option value="становиться">становиться</option>
+<option value="потопление">потопление</option>
+<option value="айсберг">айсберг</option>
+<option value="маршрут">маршрут</option>
+<option value="необходимый">необходимый</option>
+<option value="судья, эксперт">судья, эксперт</option>
+<option value="запах, отдушка">запах, отдушка</option>
+<option value="гигиена">гигиена</option>
+<option value="дезодорант">дезодорант</option>
+<option value="оценивать">оценивать</option>
+            </select>
+          </div>
+          <div class="feedback"></div>
+        </div>
+
+        <div class="task" data-answer="яд">
+          <div class="task-grid">
+            <div class="question"><span class="num">2.</span> <span class="inline-word">venom</span></div>
+            <select>
+              <option value="">Choose translation</option>
+              <option value="извлекать, добывать">извлекать, добывать</option>
+<option value="яд">яд</option>
+<option value="противоядие, антидот">противоядие, антидот</option>
+<option value="тысяча">тысяча</option>
+<option value="становиться">становиться</option>
+<option value="потопление">потопление</option>
+<option value="айсберг">айсберг</option>
+<option value="маршрут">маршрут</option>
+<option value="необходимый">необходимый</option>
+<option value="судья, эксперт">судья, эксперт</option>
+<option value="запах, отдушка">запах, отдушка</option>
+<option value="гигиена">гигиена</option>
+<option value="дезодорант">дезодорант</option>
+<option value="оценивать">оценивать</option>
+            </select>
+          </div>
+          <div class="feedback"></div>
+        </div>
+
+        <div class="task" data-answer="противоядие, антидот">
+          <div class="task-grid">
+            <div class="question"><span class="num">3.</span> <span class="inline-word">antivenom</span></div>
+            <select>
+              <option value="">Choose translation</option>
+              <option value="извлекать, добывать">извлекать, добывать</option>
+<option value="яд">яд</option>
+<option value="противоядие, антидот">противоядие, антидот</option>
+<option value="тысяча">тысяча</option>
+<option value="становиться">становиться</option>
+<option value="потопление">потопление</option>
+<option value="айсберг">айсберг</option>
+<option value="маршрут">маршрут</option>
+<option value="необходимый">необходимый</option>
+<option value="судья, эксперт">судья, эксперт</option>
+<option value="запах, отдушка">запах, отдушка</option>
+<option value="гигиена">гигиена</option>
+<option value="дезодорант">дезодорант</option>
+<option value="оценивать">оценивать</option>
+            </select>
+          </div>
+          <div class="feedback"></div>
+        </div>
+
+        <div class="task" data-answer="тысяча">
+          <div class="task-grid">
+            <div class="question"><span class="num">4.</span> <span class="inline-word">thousand</span></div>
+            <select>
+              <option value="">Choose translation</option>
+              <option value="извлекать, добывать">извлекать, добывать</option>
+<option value="яд">яд</option>
+<option value="противоядие, антидот">противоядие, антидот</option>
+<option value="тысяча">тысяча</option>
+<option value="становиться">становиться</option>
+<option value="потопление">потопление</option>
+<option value="айсберг">айсберг</option>
+<option value="маршрут">маршрут</option>
+<option value="необходимый">необходимый</option>
+<option value="судья, эксперт">судья, эксперт</option>
+<option value="запах, отдушка">запах, отдушка</option>
+<option value="гигиена">гигиена</option>
+<option value="дезодорант">дезодорант</option>
+<option value="оценивать">оценивать</option>
+            </select>
+          </div>
+          <div class="feedback"></div>
+        </div>
+
+        <div class="task" data-answer="становиться">
+          <div class="task-grid">
+            <div class="question"><span class="num">5.</span> <span class="inline-word">become</span></div>
+            <select>
+              <option value="">Choose translation</option>
+              <option value="извлекать, добывать">извлекать, добывать</option>
+<option value="яд">яд</option>
+<option value="противоядие, антидот">противоядие, антидот</option>
+<option value="тысяча">тысяча</option>
+<option value="становиться">становиться</option>
+<option value="потопление">потопление</option>
+<option value="айсберг">айсберг</option>
+<option value="маршрут">маршрут</option>
+<option value="необходимый">необходимый</option>
+<option value="судья, эксперт">судья, эксперт</option>
+<option value="запах, отдушка">запах, отдушка</option>
+<option value="гигиена">гигиена</option>
+<option value="дезодорант">дезодорант</option>
+<option value="оценивать">оценивать</option>
+            </select>
+          </div>
+          <div class="feedback"></div>
+        </div>
+
+        <div class="task" data-answer="айсберг">
+          <div class="task-grid">
+            <div class="question"><span class="num">6.</span> <span class="inline-word">iceberg</span></div>
+            <select>
+              <option value="">Choose translation</option>
+              <option value="извлекать, добывать">извлекать, добывать</option>
+<option value="яд">яд</option>
+<option value="противоядие, антидот">противоядие, антидот</option>
+<option value="тысяча">тысяча</option>
+<option value="становиться">становиться</option>
+<option value="потопление">потопление</option>
+<option value="айсберг">айсберг</option>
+<option value="маршрут">маршрут</option>
+<option value="необходимый">необходимый</option>
+<option value="судья, эксперт">судья, эксперт</option>
+<option value="запах, отдушка">запах, отдушка</option>
+<option value="гигиена">гигиена</option>
+<option value="дезодорант">дезодорант</option>
+<option value="оценивать">оценивать</option>
+            </select>
+          </div>
+          <div class="feedback"></div>
+        </div>
+
+        <div class="task" data-answer="маршрут">
+          <div class="task-grid">
+            <div class="question"><span class="num">7.</span> <span class="inline-word">route</span></div>
+            <select>
+              <option value="">Choose translation</option>
+              <option value="извлекать, добывать">извлекать, добывать</option>
+<option value="яд">яд</option>
+<option value="противоядие, антидот">противоядие, антидот</option>
+<option value="тысяча">тысяча</option>
+<option value="становиться">становиться</option>
+<option value="потопление">потопление</option>
+<option value="айсберг">айсберг</option>
+<option value="маршрут">маршрут</option>
+<option value="необходимый">необходимый</option>
+<option value="судья, эксперт">судья, эксперт</option>
+<option value="запах, отдушка">запах, отдушка</option>
+<option value="гигиена">гигиена</option>
+<option value="дезодорант">дезодорант</option>
+<option value="оценивать">оценивать</option>
+            </select>
+          </div>
+          <div class="feedback"></div>
+        </div>
+
+        <div class="task" data-answer="запах, отдушка">
+          <div class="task-grid">
+            <div class="question"><span class="num">8.</span> <span class="inline-word">odor</span></div>
+            <select>
+              <option value="">Choose translation</option>
+              <option value="извлекать, добывать">извлекать, добывать</option>
+<option value="яд">яд</option>
+<option value="противоядие, антидот">противоядие, антидот</option>
+<option value="тысяча">тысяча</option>
+<option value="становиться">становиться</option>
+<option value="потопление">потопление</option>
+<option value="айсберг">айсберг</option>
+<option value="маршрут">маршрут</option>
+<option value="необходимый">необходимый</option>
+<option value="судья, эксперт">судья, эксперт</option>
+<option value="запах, отдушка">запах, отдушка</option>
+<option value="гигиена">гигиена</option>
+<option value="дезодорант">дезодорант</option>
+<option value="оценивать">оценивать</option>
+            </select>
+          </div>
+          <div class="feedback"></div>
+        </div>
+
+        <div class="task" data-answer="гигиена">
+          <div class="task-grid">
+            <div class="question"><span class="num">9.</span> <span class="inline-word">hygiene</span></div>
+            <select>
+              <option value="">Choose translation</option>
+              <option value="извлекать, добывать">извлекать, добывать</option>
+<option value="яд">яд</option>
+<option value="противоядие, антидот">противоядие, антидот</option>
+<option value="тысяча">тысяча</option>
+<option value="становиться">становиться</option>
+<option value="потопление">потопление</option>
+<option value="айсберг">айсберг</option>
+<option value="маршрут">маршрут</option>
+<option value="необходимый">необходимый</option>
+<option value="судья, эксперт">судья, эксперт</option>
+<option value="запах, отдушка">запах, отдушка</option>
+<option value="гигиена">гигиена</option>
+<option value="дезодорант">дезодорант</option>
+<option value="оценивать">оценивать</option>
+            </select>
+          </div>
+          <div class="feedback"></div>
+        </div>
+
+        <div class="task" data-answer="оценивать">
+          <div class="task-grid">
+            <div class="question"><span class="num">10.</span> <span class="inline-word">rate</span></div>
+            <select>
+              <option value="">Choose translation</option>
+              <option value="извлекать, добывать">извлекать, добывать</option>
+<option value="яд">яд</option>
+<option value="противоядие, антидот">противоядие, антидот</option>
+<option value="тысяча">тысяча</option>
+<option value="становиться">становиться</option>
+<option value="потопление">потопление</option>
+<option value="айсберг">айсберг</option>
+<option value="маршрут">маршрут</option>
+<option value="необходимый">необходимый</option>
+<option value="судья, эксперт">судья, эксперт</option>
+<option value="запах, отдушка">запах, отдушка</option>
+<option value="гигиена">гигиена</option>
+<option value="дезодорант">дезодорант</option>
+<option value="оценивать">оценивать</option>
+            </select>
+          </div>
+          <div class="feedback"></div>
+        </div>
+      </div>
+      <div class="controls">
+        <button class="orange check" onclick="checkSection('match')">Check answers</button>
+        <button class="ghost" onclick="resetSection('match')">Reset</button>
+      </div>
+      <div class="result" id="result-match"></div>
+    </section>
+
+    <section class="section" id="fill">
+      <div class="head">
+        <div>
+          <h2>Complete the sentences</h2>
+          <p class="section-note">Use the word bank. Type one word into each gap.</p>
+        </div>
+        <div class="pill" id="score-fill">Not checked</div>
+      </div>
+      <div class="word-bank"><span class="chip">extract</span> <span class="chip">antivenom</span> <span class="chip">route</span> <span class="chip">sinking</span> <span class="chip">rate</span> <span class="chip">hygiene</span> <span class="chip">iceberg</span> <span class="chip">deodorant</span> <span class="chip">necessary</span> <span class="chip">thousand</span></div>
+      <div class="tasks">
+
+        <div class="task" data-answer="extract">
+          <div class="task-grid">
+            <div class="question"><span class="num">1.</span> Snake milkers <span class="blank">_____</span> venom from snakes.</div>
+            <input type="text" placeholder="Type the word" autocomplete="off">
+          </div>
+          <div class="feedback"></div>
+        </div>
+
+        <div class="task" data-answer="antivenom">
+          <div class="task-grid">
+            <div class="question"><span class="num">2.</span> The hospital needs <span class="blank">_____</span> for snake bites.</div>
+            <input type="text" placeholder="Type the word" autocomplete="off">
+          </div>
+          <div class="feedback"></div>
+        </div>
+
+        <div class="task" data-answer="route">
+          <div class="task-grid">
+            <div class="question"><span class="num">3.</span> The ship needs a safe <span class="blank">_____</span> around the ice.</div>
+            <input type="text" placeholder="Type the word" autocomplete="off">
+          </div>
+          <div class="feedback"></div>
+        </div>
+
+        <div class="task" data-answer="sinking">
+          <div class="task-grid">
+            <div class="question"><span class="num">4.</span> The Titanic <span class="blank">_____</span> was a disaster.</div>
+            <input type="text" placeholder="Type the word" autocomplete="off">
+          </div>
+          <div class="feedback"></div>
+        </div>
+
+        <div class="task" data-answer="rate">
+          <div class="task-grid">
+            <div class="question"><span class="num">5.</span> Odor judges <span class="blank">_____</span> smells from one to ten.</div>
+            <input type="text" placeholder="Type the word" autocomplete="off">
+          </div>
+          <div class="feedback"></div>
+        </div>
+
+        <div class="task" data-answer="hygiene">
+          <div class="task-grid">
+            <div class="question"><span class="num">6.</span> Good <span class="blank">_____</span> is important for health.</div>
+            <input type="text" placeholder="Type the word" autocomplete="off">
+          </div>
+          <div class="feedback"></div>
+        </div>
+
+        <div class="task" data-answer="iceberg">
+          <div class="task-grid">
+            <div class="question"><span class="num">7.</span> A large piece of ice in the sea is an <span class="blank">_____</span>.</div>
+            <input type="text" placeholder="Type the word" autocomplete="off">
+          </div>
+          <div class="feedback"></div>
+        </div>
+
+        <div class="task" data-answer="deodorant">
+          <div class="task-grid">
+            <div class="question"><span class="num">8.</span> People use <span class="blank">_____</span> to smell fresh.</div>
+            <input type="text" placeholder="Type the word" autocomplete="off">
+          </div>
+          <div class="feedback"></div>
+        </div>
+
+        <div class="task" data-answer="necessary">
+          <div class="task-grid">
+            <div class="question"><span class="num">9.</span> If it is <span class="blank">_____</span>, the iceberg is moved.</div>
+            <input type="text" placeholder="Type the word" autocomplete="off">
+          </div>
+          <div class="feedback"></div>
+        </div>
+
+        <div class="task" data-answer="thousand">
+          <div class="task-grid">
+            <div class="question"><span class="num">10.</span> One <span class="blank">_____</span> dollars is a lot of money.</div>
+            <input type="text" placeholder="Type the word" autocomplete="off">
+          </div>
+          <div class="feedback"></div>
+        </div>
+      </div>
+      <div class="controls">
+        <button class="orange check" onclick="checkSection('fill')">Check answers</button>
+        <button class="ghost" onclick="resetSection('fill')">Reset</button>
+      </div>
+      <div class="result" id="result-fill"></div>
+    </section>
+
+    <section class="section" id="listen">
+      <div class="head">
+        <div>
+          <h2>Listen and choose</h2>
+          <p class="section-note">Press the speaker, listen to the word, then choose the correct English word.</p>
+        </div>
+        <div class="pill" id="score-listen">Not checked</div>
+      </div>
+      <div class="tasks">
+
+        <div class="task" data-answer="venom">
+          <div class="task-grid">
+            <div class="question"><span class="num">1.</span> <button class="orange small" type="button" onclick="speakText('venom')">Play word</button></div>
+            <select>
+              <option value="">Choose the word</option>
+              <option value="venom">venom</option><option value="odor">odor</option><option value="route">route</option><option value="judge">judge</option>
+            </select>
+          </div>
+          <div class="feedback"></div>
+        </div>
+
+        <div class="task" data-answer="antivenom">
+          <div class="task-grid">
+            <div class="question"><span class="num">2.</span> <button class="orange small" type="button" onclick="speakText('antivenom')">Play word</button></div>
+            <select>
+              <option value="">Choose the word</option>
+              <option value="antivenom">antivenom</option><option value="deodorant">deodorant</option><option value="thousand">thousand</option><option value="sinking">sinking</option>
+            </select>
+          </div>
+          <div class="feedback"></div>
+        </div>
+
+        <div class="task" data-answer="iceberg">
+          <div class="task-grid">
+            <div class="question"><span class="num">3.</span> <button class="orange small" type="button" onclick="speakText('iceberg')">Play word</button></div>
+            <select>
+              <option value="">Choose the word</option>
+              <option value="iceberg">iceberg</option><option value="hygiene">hygiene</option><option value="extract">extract</option><option value="necessary">necessary</option>
+            </select>
+          </div>
+          <div class="feedback"></div>
+        </div>
+
+        <div class="task" data-answer="route">
+          <div class="task-grid">
+            <div class="question"><span class="num">4.</span> <button class="orange small" type="button" onclick="speakText('route')">Play word</button></div>
+            <select>
+              <option value="">Choose the word</option>
+              <option value="route">route</option><option value="rate">rate</option><option value="odor">odor</option><option value="become">become</option>
+            </select>
+          </div>
+          <div class="feedback"></div>
+        </div>
+
+        <div class="task" data-answer="judge">
+          <div class="task-grid">
+            <div class="question"><span class="num">5.</span> <button class="orange small" type="button" onclick="speakText('judge')">Play word</button></div>
+            <select>
+              <option value="">Choose the word</option>
+              <option value="judge">judge</option><option value="venom">venom</option><option value="iceberg">iceberg</option><option value="route">route</option>
+            </select>
+          </div>
+          <div class="feedback"></div>
+        </div>
+
+        <div class="task" data-answer="odor">
+          <div class="task-grid">
+            <div class="question"><span class="num">6.</span> <button class="orange small" type="button" onclick="speakText('odor')">Play word</button></div>
+            <select>
+              <option value="">Choose the word</option>
+              <option value="odor">odor</option><option value="antivenom">antivenom</option><option value="hygiene">hygiene</option><option value="sinking">sinking</option>
+            </select>
+          </div>
+          <div class="feedback"></div>
+        </div>
+
+        <div class="task" data-answer="hygiene">
+          <div class="task-grid">
+            <div class="question"><span class="num">7.</span> <button class="orange small" type="button" onclick="speakText('hygiene')">Play word</button></div>
+            <select>
+              <option value="">Choose the word</option>
+              <option value="hygiene">hygiene</option><option value="deodorant">deodorant</option><option value="thousand">thousand</option><option value="extract">extract</option>
+            </select>
+          </div>
+          <div class="feedback"></div>
+        </div>
+
+        <div class="task" data-answer="rate">
+          <div class="task-grid">
+            <div class="question"><span class="num">8.</span> <button class="orange small" type="button" onclick="speakText('rate')">Play word</button></div>
+            <select>
+              <option value="">Choose the word</option>
+              <option value="rate">rate</option><option value="route">route</option><option value="judge">judge</option><option value="become">become</option>
+            </select>
+          </div>
+          <div class="feedback"></div>
+        </div>
+      </div>
+      <div class="controls">
+        <button class="orange check" onclick="checkSection('listen')">Check answers</button>
+        <button class="ghost" onclick="resetSection('listen')">Reset</button>
+      </div>
+      <div class="result" id="result-listen"></div>
+    </section>
+
+    <section class="section" id="type">
+      <div class="head">
+        <div>
+          <h2>Type the word</h2>
+          <p class="section-note">Read the clue and type the English word.</p>
+        </div>
+        <div class="pill" id="score-type">Not checked</div>
+      </div>
+      <div class="tasks">
+
+        <div class="task" data-answer="extract">
+          <div class="task-grid">
+            <div class="question"><span class="num">1.</span> to take something out of something</div>
+            <input type="text" placeholder="English word" autocomplete="off">
+          </div>
+          <div class="feedback"></div>
+        </div>
+
+        <div class="task" data-answer="venom">
+          <div class="task-grid">
+            <div class="question"><span class="num">2.</span> poison from a snake</div>
+            <input type="text" placeholder="English word" autocomplete="off">
+          </div>
+          <div class="feedback"></div>
+        </div>
+
+        <div class="task" data-answer="antivenom">
+          <div class="task-grid">
+            <div class="question"><span class="num">3.</span> medicine for snake venom</div>
+            <input type="text" placeholder="English word" autocomplete="off">
+          </div>
+          <div class="feedback"></div>
+        </div>
+
+        <div class="task" data-answer="thousand">
+          <div class="task-grid">
+            <div class="question"><span class="num">4.</span> 1,000</div>
+            <input type="text" placeholder="English word" autocomplete="off">
+          </div>
+          <div class="feedback"></div>
+        </div>
+
+        <div class="task" data-answer="become">
+          <div class="task-grid">
+            <div class="question"><span class="num">5.</span> to start to be something</div>
+            <input type="text" placeholder="English word" autocomplete="off">
+          </div>
+          <div class="feedback"></div>
+        </div>
+
+        <div class="task" data-answer="sinking">
+          <div class="task-grid">
+            <div class="question"><span class="num">6.</span> a disaster when a ship goes under water</div>
+            <input type="text" placeholder="English word" autocomplete="off">
+          </div>
+          <div class="feedback"></div>
+        </div>
+
+        <div class="task" data-answer="route">
+          <div class="task-grid">
+            <div class="question"><span class="num">7.</span> a safe way from one place to another</div>
+            <input type="text" placeholder="English word" autocomplete="off">
+          </div>
+          <div class="feedback"></div>
+        </div>
+
+        <div class="task" data-answer="rate">
+          <div class="task-grid">
+            <div class="question"><span class="num">8.</span> to give points from one to ten</div>
+            <input type="text" placeholder="English word" autocomplete="off">
+          </div>
+          <div class="feedback"></div>
+        </div>
+      </div>
+      <div class="controls">
+        <button class="orange check" onclick="checkSection('type')">Check answers</button>
+        <button class="ghost" onclick="resetSection('type')">Reset</button>
+      </div>
+      <div class="result" id="result-type"></div>
+    </section>
+
+    <section class="section" id="choose">
+      <div class="head">
+        <div>
+          <h2>Choose the word</h2>
+          <p class="section-note">Choose the best word for each short A2 sentence.</p>
+        </div>
+        <div class="pill" id="score-choose">Not checked</div>
+      </div>
+      <div class="tasks">
+
+        <div class="task" data-answer="venom">
+          <div class="task-grid">
+            <div class="question"><span class="num">1.</span> A snake milker works with snake <span class="blank">_____</span>.</div>
+            <select>
+              <option value="">Choose the word</option>
+              <option value="venom">venom</option><option value="route">route</option><option value="hygiene">hygiene</option><option value="judge">judge</option>
+            </select>
+          </div>
+          <div class="feedback"></div>
+        </div>
+
+        <div class="task" data-answer="route">
+          <div class="task-grid">
+            <div class="question"><span class="num">2.</span> The ship changed its <span class="blank">_____</span> because of ice.</div>
+            <select>
+              <option value="">Choose the word</option>
+              <option value="antivenom">antivenom</option><option value="route">route</option><option value="odor">odor</option><option value="thousand">thousand</option>
+            </select>
+          </div>
+          <div class="feedback"></div>
+        </div>
+
+        <div class="task" data-answer="odor">
+          <div class="task-grid">
+            <div class="question"><span class="num">3.</span> A hygiene product can have a strong <span class="blank">_____</span>.</div>
+            <select>
+              <option value="">Choose the word</option>
+              <option value="sinking">sinking</option><option value="odor">odor</option><option value="iceberg">iceberg</option><option value="become">become</option>
+            </select>
+          </div>
+          <div class="feedback"></div>
+        </div>
+
+        <div class="task" data-answer="rate">
+          <div class="task-grid">
+            <div class="question"><span class="num">4.</span> An odor judge can <span class="blank">_____</span> smells from 1 to 10.</div>
+            <select>
+              <option value="">Choose the word</option>
+              <option value="extract">extract</option><option value="necessary">necessary</option><option value="rate">rate</option><option value="hygiene">hygiene</option>
+            </select>
+          </div>
+          <div class="feedback"></div>
+        </div>
+
+        <div class="task" data-answer="iceberg">
+          <div class="task-grid">
+            <div class="question"><span class="num">5.</span> A big piece of ice in the sea is an <span class="blank">_____</span>.</div>
+            <select>
+              <option value="">Choose the word</option>
+              <option value="iceberg">iceberg</option><option value="deodorant">deodorant</option><option value="judge">judge</option><option value="venom">venom</option>
+            </select>
+          </div>
+          <div class="feedback"></div>
+        </div>
+
+        <div class="task" data-answer="antivenom">
+          <div class="task-grid">
+            <div class="question"><span class="num">6.</span> This medicine is called <span class="blank">_____</span>.</div>
+            <select>
+              <option value="">Choose the word</option>
+              <option value="antivenom">antivenom</option><option value="route">route</option><option value="odor">odor</option><option value="become">become</option>
+            </select>
+          </div>
+          <div class="feedback"></div>
+        </div>
+      </div>
+      <div class="controls">
+        <button class="orange check" onclick="checkSection('choose')">Check answers</button>
+        <button class="ghost" onclick="resetSection('choose')">Reset</button>
+      </div>
+      <div class="result" id="result-choose"></div>
+    </section>
+  </main>
+
+  <script>
+    const opened = new Set();
+    const completed = new Set();
+
+    function speakText(text) {
+      if (!("speechSynthesis" in window)) return alert("Speech is not supported in this browser.");
+      window.speechSynthesis.cancel();
+      const u = new SpeechSynthesisUtterance(text);
+      u.lang = "en-US";
+      u.rate = 0.82;
+      u.pitch = 1;
+      window.speechSynthesis.speak(u);
+    }
+
+    document.querySelectorAll("[data-card]").forEach((card, index) => {
+      card.addEventListener("click", () => {
+        card.classList.toggle("flipped");
+        opened.add(index);
+        document.getElementById("cardCounter").textContent = `${opened.size} / 14 opened`;
+        if (opened.size === 14) {
+          completed.add("cards");
+          updateProgress();
+        }
+      });
+    });
+
+    function updateProgress() {
+      document.getElementById("progress").style.width = `${Math.round(completed.size / 6 * 100)}%`;
+    }
+
+    function normalize(value) {
+      return (value || "").trim().toLowerCase();
+    }
+
+    function checkSection(id) {
+      const section = document.getElementById(id);
+      const tasks = Array.from(section.querySelectorAll(".task"));
+      let correct = 0;
+
+      tasks.forEach(task => {
+        const answer = normalize(task.dataset.answer);
+        const field = task.querySelector("select, input");
+        const value = normalize(field.value);
+        const feedback = task.querySelector(".feedback");
+        task.classList.remove("correct", "wrong");
+
+        if (value === answer) {
+          correct++;
+          task.classList.add("correct");
+          feedback.textContent = "Correct.";
+        } else {
+          task.classList.add("wrong");
+          feedback.textContent = `Correct answer: ${task.dataset.answer}`;
+        }
+      });
+
+      document.getElementById(`score-${id}`).textContent = `${correct} / ${tasks.length}`;
+      document.getElementById(`result-${id}`).textContent =
+        correct === tasks.length ? "Excellent." : "Check the highlighted answers and try again.";
+
+      if (correct >= Math.ceil(tasks.length * 0.75)) {
+        completed.add(id);
+        updateProgress();
+      }
+    }
+
+    function resetSection(id) {
+      const section = document.getElementById(id);
+      section.querySelectorAll(".task").forEach(task => {
+        task.classList.remove("correct", "wrong");
+        task.querySelector(".feedback").textContent = "";
+        const field = task.querySelector("select, input");
+        if (field) field.value = "";
+      });
+      document.getElementById(`score-${id}`).textContent = "Not checked";
+      document.getElementById(`result-${id}`).textContent = "";
+      completed.delete(id);
+      updateProgress();
+    }
+
+    updateProgress();
+  </script>
+</body>
+</html>
