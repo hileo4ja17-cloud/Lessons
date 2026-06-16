@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Travel · Unit 8C — English Practice</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Nunito+Sans:ital,wght@0,400;0,600;0,700;1,400&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg-1:#FDF3EC;          /* warm peach paper */
+    --bg-2:#EEF5F3;          /* misty sea       */
+    --card:#FFFFFF;
+    --ink:#332F29;
+    --muted:#8C857A;
+    --line:#EFE7DC;
+    --coral:#FB7967;         /* sunset – primary */
+    --coral-soft:#FFE6E0;
+    --teal:#13A493;          /* sea – correct    */
+    --teal-soft:#DBF3EF;
+    --amber:#F4A52A;         /* sun – highlight  */
+    --amber-soft:#FCEBCB;
+    --red:#E25444;           /* incorrect        */
+    --red-soft:#FBE2DE;
+    --sky:#5EAEDD;
+    --shadow:0 18px 40px -22px rgba(70,55,40,.45);
+    --shadow-sm:0 8px 22px -16px rgba(70,55,40,.55);
+    --radius:26px;
+  }
+
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;
+    font-family:"Nunito Sans",system-ui,sans-serif;
+    color:var(--ink);
+    line-height:1.55;
+    background:
+      radial-gradient(1100px 600px at 12% -8%, #FFE9DA 0%, transparent 55%),
+      radial-gradient(1000px 620px at 92% 4%, #DEF1EC 0%, transparent 55%),
+      linear-gradient(160deg, var(--bg-1), var(--bg-2));
+    background-attachment:fixed;
+    min-height:100vh;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  /* floating soft blobs */
+  .blob{position:fixed;border-radius:50%;filter:blur(40px);opacity:.35;z-index:0;pointer-events:none}
+  .blob.b1{width:280px;height:280px;background:#FFD9C4;top:30%;left:-90px;animation:float1 14s ease-in-out infinite}
+  .blob.b2{width:240px;height:240px;background:#C9EBE3;bottom:8%;right:-70px;animation:float2 17s ease-in-out infinite}
+  @keyframes float1{50%{transform:translateY(-26px)}}
+  @keyframes float2{50%{transform:translateY(24px)}}
+
+  /* sticky progress bar */
+  header.bar{
+    position:sticky;top:0;z-index:30;
+    backdrop-filter:saturate(1.4) blur(10px);
+    background:rgba(255,255,255,.72);
+    border-bottom:1px solid var(--line);
+  }
+  .bar-inner{
+    max-width:820px;margin:0 auto;padding:11px 22px;
+    display:flex;align-items:center;gap:14px;
+  }
+  .bar .tag{font-family:"Caveat",cursive;font-size:1.45rem;color:var(--coral);font-weight:700;letter-spacing:.2px;white-space:nowrap}
+  .track{flex:1;height:9px;border-radius:99px;background:var(--line);overflow:hidden}
+  .track > i{display:block;height:100%;width:0;border-radius:99px;background:linear-gradient(90deg,var(--amber),var(--coral),var(--teal));transition:width .7s cubic-bezier(.22,1,.36,1)}
+  .bar .score{font-weight:700;font-size:.92rem;color:var(--ink);white-space:nowrap;font-variant-numeric:tabular-nums}
+
+  /* hero */
+  .hero{position:relative;z-index:1;max-width:820px;margin:0 auto;padding:54px 22px 14px;text-align:center}
+  .eyebrow{font-family:"Caveat",cursive;font-size:1.6rem;color:var(--coral);font-weight:700}
+  .hero h1{
+    font-family:"Poppins",sans-serif;font-weight:700;
+    font-size:clamp(2.6rem,9vw,4.6rem);line-height:.98;margin:.05em 0 .12em;
+    letter-spacing:-.02em;
+    background:linear-gradient(120deg,#3a342c,#7a4a3d);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+  .hero p{max-width:520px;margin:0 auto;color:var(--muted);font-size:1.05rem}
+  .icons{display:flex;justify-content:center;gap:18px;margin:22px 0 4px}
+  .icons span{
+    width:54px;height:54px;display:grid;place-items:center;border-radius:18px;
+    background:var(--card);box-shadow:var(--shadow-sm);font-size:1.5rem;
+    animation:bob 4.5s ease-in-out infinite;
+  }
+  .icons span:nth-child(2){animation-delay:.6s}
+  .icons span:nth-child(3){animation-delay:1.2s}
+  .icons span:nth-child(4){animation-delay:1.8s}
+  @keyframes bob{50%{transform:translateY(-9px) rotate(-3deg)}}
+
+  /* layout */
+  main{position:relative;z-index:1;max-width:820px;margin:0 auto;padding:18px 22px 90px}
+  .sec-label{
+    display:flex;align-items:center;gap:12px;margin:34px 4px 6px;
+  }
+  .sec-label b{font-family:"Poppins",sans-serif;font-size:1.35rem;font-weight:700}
+  .sec-label .dot{width:11px;height:11px;border-radius:50%}
+  .sec-label small{color:var(--muted);font-weight:600}
+
+  /* cards */
+  .card{
+    position:relative;background:var(--card);border-radius:var(--radius);
+    padding:26px 24px 22px;margin:30px 0;box-shadow:var(--shadow);
+    border:1px solid rgba(255,255,255,.6);
+    opacity:0;transform:translateY(26px);
+    transition:opacity .7s ease, transform .7s cubic-bezier(.22,1,.36,1);
+  }
+  .card.in{opacity:1;transform:none}
+  .card:hover{transform:translateY(-3px)}
+  .card.in:hover{transform:translateY(-3px)}
+
+  .pin{
+    position:absolute;top:-15px;left:24px;
+    font-family:"Caveat",cursive;font-weight:700;font-size:1.18rem;
+    padding:4px 16px;border-radius:14px;color:#fff;
+    box-shadow:var(--shadow-sm);transform:rotate(-2.5deg);
+  }
+  .pin::before{content:"";position:absolute;top:-7px;left:50%;transform:translateX(-50%);
+    width:9px;height:9px;border-radius:50%;background:rgba(0,0,0,.25);box-shadow:0 1px 2px rgba(0,0,0,.3)}
+  .p-coral{background:var(--coral)} .p-amber{background:var(--amber)}
+  .p-teal{background:var(--teal)} .p-sky{background:var(--sky)} .p-plum{background:#A86BC4}
+
+  .card h3{font-family:"Poppins",sans-serif;font-size:1.12rem;margin:10px 0 4px;font-weight:600}
+  .card .hint{color:var(--muted);font-size:.92rem;margin:0 0 14px}
+
+  /* word bank */
+  .bank{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 18px;padding:14px;border-radius:18px;background:linear-gradient(135deg,var(--amber-soft),#fff)}
+  .chip{
+    font-family:"Nunito Sans",sans-serif;font-weight:700;font-size:.9rem;
+    padding:6px 14px;border-radius:99px;border:1.5px solid var(--amber);
+    background:#fff;color:#8a5a14;cursor:pointer;transition:.2s;
+  }
+  .chip:hover{background:var(--amber);color:#fff;transform:translateY(-2px)}
+  .chip.used{opacity:.4;text-decoration:line-through}
+
+  /* questions */
+  ol.q{list-style:none;counter-reset:q;margin:0;padding:0;display:flex;flex-direction:column;gap:13px}
+  ol.q > li{counter-increment:q;display:flex;gap:11px;align-items:flex-start;line-height:1.7}
+  ol.q > li::before{
+    content:counter(q);flex:0 0 auto;margin-top:2px;
+    width:24px;height:24px;border-radius:8px;background:var(--bg-1);
+    display:grid;place-items:center;font-weight:700;font-size:.8rem;color:var(--coral);
+  }
+  .qtext{flex:1}
+
+  input.fill{
+    font-family:inherit;font-size:1rem;font-weight:600;color:var(--ink);
+    border:none;border-bottom:2px dashed var(--line);background:#FBF8F4;
+    border-radius:8px 8px 0 0;padding:3px 9px;min-width:120px;width:150px;
+    transition:.2s;outline:none;
+  }
+  input.fill:focus{border-bottom-color:var(--coral);background:var(--coral-soft)}
+  input.wide{width:100%;display:block;margin-top:7px}
+  .brackets{color:var(--muted);font-style:italic;font-weight:600}
+
+  .src{color:var(--ink)}
+  .ex-given{color:var(--muted);font-style:italic}
+
+  /* choice pills */
+  .choices{display:inline-flex;gap:7px;flex-wrap:wrap;vertical-align:middle}
+  .opt{
+    font-family:inherit;font-weight:700;font-size:.95rem;cursor:pointer;
+    padding:5px 14px;border-radius:99px;border:1.8px solid var(--line);
+    background:#fff;color:var(--ink);transition:.18s;
+  }
+  .opt:hover{border-color:var(--coral);transform:translateY(-1px)}
+  .opt.sel{background:var(--coral);border-color:var(--coral);color:#fff}
+  .opt.ok{background:var(--teal);border-color:var(--teal);color:#fff}
+  .opt.bad{background:var(--red);border-color:var(--red);color:#fff;text-decoration:line-through}
+  .opt.reveal{outline:3px solid var(--teal);outline-offset:2px}
+
+  /* states for fill inputs */
+  input.fill.ok{border-bottom:2px solid var(--teal);background:var(--teal-soft);color:#0c6b5f}
+  input.fill.bad{border-bottom:2px solid var(--red);background:var(--red-soft);color:#9c2c20}
+  @keyframes pop{0%{transform:scale(1)}40%{transform:scale(1.09)}100%{transform:scale(1)}}
+  input.fill.ok, .opt.ok{animation:pop .35s ease}
+
+  .sol{display:none;margin-top:5px;font-size:.86rem;color:var(--teal);font-weight:700}
+  .sol.show{display:block}
+  .sol .x{color:var(--red)}
+
+  /* card footer */
+  .actions{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-top:20px;padding-top:16px;border-top:1px solid var(--line)}
+  button.btn{
+    font-family:"Poppins",sans-serif;font-weight:600;font-size:.92rem;cursor:pointer;
+    padding:9px 20px;border-radius:14px;border:none;transition:.2s;
+  }
+  .btn-check{background:var(--coral);color:#fff;box-shadow:var(--shadow-sm)}
+  .btn-check:hover{filter:brightness(1.05);transform:translateY(-2px)}
+  .btn-show{background:transparent;color:var(--muted);border:1.5px solid var(--line)}
+  .btn-show:hover{border-color:var(--ink);color:var(--ink)}
+  .result{margin-left:auto;font-weight:700;font-size:.92rem;color:var(--muted);font-variant-numeric:tabular-nums;opacity:0;transition:.3s}
+  .result.show{opacity:1}
+  .result.win{color:var(--teal)}
+
+  footer{position:relative;z-index:1;text-align:center;color:var(--muted);font-size:.86rem;padding:0 22px 50px}
+  footer .big{font-family:"Caveat",cursive;font-size:1.5rem;color:var(--coral);display:block;margin-bottom:4px}
+
+  :focus-visible{outline:3px solid var(--sky);outline-offset:2px;border-radius:6px}
+
+  @media (max-width:560px){
+    .bar .tag{display:none}
+    .hero{padding-top:38px}
+    input.fill{width:110px;min-width:90px}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{animation:none !important;scroll-behavior:auto}
+    .card{opacity:1;transform:none;transition:none}
+    .track > i{transition:none}
+  }
+</style>
+</head>
+<body>
+<div class="blob b1"></div>
+<div class="blob b2"></div>
+
+<header class="bar">
+  <div class="bar-inner">
+    <span class="tag">Unit 8C ✈</span>
+    <div class="track" aria-hidden="true"><i id="fill"></i></div>
+    <span class="score" id="score">0 / 32 correct</span>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="eyebrow">let&rsquo;s pack &amp; go</div>
+  <h1>Travel</h1>
+  <p>Vocabulary and verb patterns for talking about holidays. Answer each card, then tap <b>Check</b> to mark yourself &mdash; or <b>Show answers</b> if you get stuck.</p>
+  <div class="icons" aria-hidden="true">
+    <span>🧳</span><span>🗺️</span><span>📷</span><span>🛳️</span>
+  </div>
+</section>
+
+<main>
+
+  <!-- ===================== VOCABULARY ===================== -->
+  <div class="sec-label">
+    <span class="dot" style="background:var(--coral)"></span>
+    <b>Vocabulary</b><small>&mdash; Travel</small>
+  </div>
+
+  <!-- Exercise 1 -->
+  <article class="card" data-rev>
+    <span class="pin p-coral">Exercise 1</span>
+    <h3>Complete the sentences with the words in the box.</h3>
+    <p class="hint">Tap a word to drop it into the focused gap, or just type. Each word is used once.</p>
+
+    <div class="bank" id="bank1">
+      <button class="chip" data-w="alone">alone</button>
+      <button class="chip" data-w="book">book</button>
+      <button class="chip" data-w="cruise">cruise</button>
+      <button class="chip" data-w="pack">pack</button>
+      <button class="chip" data-w="plan">plan</button>
+      <button class="chip" data-w="shopping">shopping</button>
+      <button class="chip" data-w="sightseeing">sightseeing</button>
+      <button class="chip" data-w="tour">tour</button>
+      <button class="chip" data-w="trying">trying</button>
+    </div>
+
+    <ol class="q" id="ex1">
+      <li><span class="qtext">When I go on holiday I love <input class="fill" data-a="trying" aria-label="gap 1"> new things. Last year I went sailing!<span class="sol"></span></span></li>
+      <li><span class="qtext">We went <input class="fill" data-a="sightseeing" aria-label="gap 2"> in Paris. The first thing we saw was the Eiffel Tower of course!<span class="sol"></span></span></li>
+      <li><span class="qtext">My dad&rsquo;s going on an organised <input class="fill" data-a="tour" aria-label="gap 3"> of the city. It&rsquo;s good because he always gets lost by himself!<span class="sol"></span></span></li>
+      <li><span class="qtext">I really need to <input class="fill" data-a="plan" aria-label="gap 4"> my trip &mdash; I&rsquo;m leaving in two weeks!<span class="sol"></span></span></li>
+      <li><span class="qtext">I&rsquo;m only going away for two days, so I&rsquo;ll just <input class="fill" data-a="pack" aria-label="gap 5"> a small bag.<span class="sol"></span></span></li>
+      <li><span class="qtext">I need to <input class="fill" data-a="book" aria-label="gap 6"> a hotel in London. Can you recommend a good one?<span class="sol"></span></span></li>
+      <li><span class="qtext">I like travelling <input class="fill" data-a="alone" aria-label="gap 7"> so I can listen to music and read my book.<span class="sol"></span></span></li>
+      <li><span class="qtext">My parents went on a Mediterranean <input class="fill" data-a="cruise" aria-label="gap 8"> &mdash; they said there were five restaurants on the ship!<span class="sol"></span></span></li>
+      <li><span class="qtext">We went <input class="fill" data-a="shopping" aria-label="gap 9"> in Tokyo and spent too much money!<span class="sol"></span></span></li>
+    </ol>
+
+    <div class="actions">
+      <button class="btn btn-check" data-check="ex1">Check</button>
+      <button class="btn btn-show" data-show="ex1">Show answers</button>
+      <span class="result" data-res="ex1"></span>
+    </div>
+  </article>
+
+  <!-- Exercise 2 -->
+  <article class="card" data-rev>
+    <span class="pin p-amber">Exercise 2</span>
+    <h3>Choose the correct alternatives.</h3>
+    <p class="hint">A short conversation. Tap the word that fits.</p>
+
+    <ol class="q chooser" id="ex2">
+      <li><span class="qtext"><b>A:</b> I should <span class="choices" data-a="pack"><button class="opt" data-v="pack">pack</button><button class="opt" data-v="plan">plan</button></span> my bags. I have a flight tomorrow.<span class="sol"></span></span></li>
+      <li><span class="qtext"><b>A:</b> I&rsquo;m <span class="choices" data-a="going on"><button class="opt" data-v="going">going</button><button class="opt" data-v="going on">going on</button></span> holiday!<span class="sol"></span></span></li>
+      <li><span class="qtext"><b>A:</b> Sardinia, in Italy. I <span class="choices" data-a="booked"><button class="opt" data-v="booked">booked</button><button class="opt" data-v="planned">planned</button></span> my flight six months ago!<span class="sol"></span></span></li>
+      <li><span class="qtext"><b>A:</b> Yes, but I&rsquo;m <span class="choices" data-a="travelling"><button class="opt" data-v="travelling">travelling</button><button class="opt" data-v="trying">trying</button></span> alone, so I&rsquo;m a little bit worried.<span class="sol"></span></span></li>
+      <li><span class="qtext"><b>A:</b> Thanks. I&rsquo;m <span class="choices" data-a="going"><button class="opt" data-v="travelling">travelling</button><button class="opt" data-v="going">going</button></span> on an organised tour so I can see the best parts.<span class="sol"></span></span></li>
+      <li><span class="qtext"><b>A:</b> I&rsquo;m so excited! I want to relax, eat good food and <span class="choices" data-a="go"><button class="opt" data-v="go">go</button><button class="opt" data-v="go on">go on</button></span> shopping!<span class="sol"></span></span></li>
+    </ol>
+
+    <div class="actions">
+      <button class="btn btn-check" data-check="ex2">Check</button>
+      <button class="btn btn-show" data-show="ex2">Show answers</button>
+      <span class="result" data-res="ex2"></span>
+    </div>
+  </article>
+
+  <!-- ===================== GRAMMAR ===================== -->
+  <div class="sec-label">
+    <span class="dot" style="background:var(--teal)"></span>
+    <b>Grammar</b><small>&mdash; Verb patterns</small>
+  </div>
+
+  <!-- Exercise 3 -->
+  <article class="card" data-rev>
+    <span class="pin p-teal">Exercise 3</span>
+    <h3>Choose the correct alternatives.</h3>
+    <p class="hint">Which verb fits the pattern? Tap your choice.</p>
+
+    <ol class="q chooser" id="ex3">
+      <li><span class="qtext">I <span class="choices" data-a="don't mind"><button class="opt" data-v="don't mind">don&rsquo;t mind</button><button class="opt" data-v="want">want</button></span> travelling by coach.<span class="sol"></span></span></li>
+      <li><span class="qtext">He <span class="choices" data-a="loves|would like"><button class="opt" data-v="loves">loves</button><button class="opt" data-v="would like">would like</button></span> to visit the museum.<span class="sol"></span></span></li>
+      <li><span class="qtext">We <span class="choices" data-a="want"><button class="opt" data-v="want">want</button><button class="opt" data-v="don't mind">don&rsquo;t mind</button></span> to swim in the sea.<span class="sol"></span></span></li>
+      <li><span class="qtext">I <span class="choices" data-a="love"><button class="opt" data-v="love">love</button><button class="opt" data-v="would like">would like</button></span> going on city tours.<span class="sol"></span></span></li>
+      <li><span class="qtext">They <span class="choices" data-a="hate"><button class="opt" data-v="want">want</button><button class="opt" data-v="hate">hate</button></span> paying a lot for taxis.<span class="sol"></span></span></li>
+      <li><span class="qtext">What do you <span class="choices" data-a="want"><button class="opt" data-v="want">want</button><button class="opt" data-v="enjoy">enjoy</button></span> to do on holiday this summer?<span class="sol"></span></span></li>
+    </ol>
+
+    <div class="actions">
+      <button class="btn btn-check" data-check="ex3">Check</button>
+      <button class="btn btn-show" data-show="ex3">Show answers</button>
+      <span class="result" data-res="ex3"></span>
+    </div>
+  </article>
+
+  <!-- Exercise 4 -->
+  <article class="card" data-rev>
+    <span class="pin p-sky">Exercise 4</span>
+    <h3>Complete the questions with the correct form of the verbs in brackets.</h3>
+    <p class="hint">Use the -ing form or to + infinitive, as the verb pattern needs.</p>
+
+    <ol class="q" id="ex4">
+      <li><span class="qtext">Would you <input class="fill" data-a4="like to go|would like to go|to go" aria-label="gap 1"> <span class="brackets">(go)</span> on an organised tour?<span class="sol"></span></span></li>
+      <li><span class="qtext">Do you want <input class="fill" data-a4="to plan" aria-label="gap 2"> <span class="brackets">(plan)</span> a trip to Spain?<span class="sol"></span></span></li>
+      <li><span class="qtext">Do you enjoy <input class="fill" data-a4="travelling|traveling" aria-label="gap 3"> <span class="brackets">(travel)</span> alone?<span class="sol"></span></span></li>
+      <li><span class="qtext">Don&rsquo;t you hate <input class="fill" data-a4="packing" aria-label="gap 4"> <span class="brackets">(pack)</span> your suitcase before a holiday?<span class="sol"></span></span></li>
+      <li><span class="qtext">Do you love <input class="fill" data-a4="to try|trying" aria-label="gap 5"> <span class="brackets">(try)</span> new things on holiday?<span class="sol"></span></span></li>
+      <li><span class="qtext">Would you <input class="fill" data-a4="like to go|would like to go|to go" aria-label="gap 6"> <span class="brackets">(go)</span> into town for dinner?<span class="sol"></span></span></li>
+    </ol>
+
+    <div class="actions">
+      <button class="btn btn-check" data-check="ex4">Check</button>
+      <button class="btn btn-show" data-show="ex4">Show answers</button>
+      <span class="result" data-res="ex4"></span>
+    </div>
+  </article>
+
+  <!-- Exercise 5 -->
+  <article class="card" data-rev>
+    <span class="pin p-plum">Exercise 5</span>
+    <h3>Write the second sentence so it has a similar meaning to the first. Use the words in brackets.</h3>
+    <p class="hint">Mind the spelling and the verb pattern. Contractions like <i>I&rsquo;d</i> / <i>don&rsquo;t</i> are fine.</p>
+
+    <ol class="q" id="ex5">
+      <li><span class="qtext">I&rsquo;d like to try some local food. <span class="brackets">(want)</span><br>
+        <span class="ex-given">&rarr; I want to try some local food.</span></span></li>
+      <li><span class="qtext">I like renting a bike on holiday. <span class="brackets">(enjoy)</span>
+        <input class="fill wide" data-a5="i enjoy renting a bike on holiday" aria-label="rewrite 2"><span class="sol"></span></span></li>
+      <li><span class="qtext">I hate travelling by boat. It makes me feel sick. <span class="brackets">(don&rsquo;t want)</span>
+        <input class="fill wide" data-a5="i do not want to travel by boat" aria-label="rewrite 3"><span class="sol"></span></span></li>
+      <li><span class="qtext">Staying in a hostel is OK with me. <span class="brackets">(don&rsquo;t mind)</span>
+        <input class="fill wide" data-a5="i do not mind staying in a hostel" aria-label="rewrite 4"><span class="sol"></span></span></li>
+      <li><span class="qtext">I want to go to the beach tomorrow. <span class="brackets">(would like)</span>
+        <input class="fill wide" data-a5="i would like to go to the beach tomorrow" aria-label="rewrite 5"><span class="sol"></span></span></li>
+      <li><span class="qtext">I really like going on cruises. <span class="brackets">(love)</span>
+        <input class="fill wide" data-a5="i love going on cruises" aria-label="rewrite 6"><span class="sol"></span></span></li>
+    </ol>
+
+    <div class="actions">
+      <button class="btn btn-check" data-check="ex5">Check</button>
+      <button class="btn btn-show" data-show="ex5">Show answers</button>
+      <span class="result" data-res="ex5"></span>
+    </div>
+  </article>
+
+  <div class="actions" style="border:none;justify-content:center;margin-top:10px">
+    <button class="btn btn-check" id="checkAll" style="padding:12px 30px;font-size:1rem">Check everything</button>
+  </div>
+
+</main>
+
+<footer>
+  <span class="big">Have a great trip! 🌍</span>
+  Unit 8C · Travel — vocabulary &amp; verb patterns practice
+</footer>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ---------- helpers ---------- */
+  function normWord(s){
+    return (s||"").toString().toLowerCase()
+      .replace(/[\u2018\u2019]/g,"'")
+      .replace(/[.,!?;:]/g,"")
+      .replace(/\s+/g," ").trim();
+  }
+  var CONTR = {
+    "i'd":"i would","i'm":"i am","i've":"i have",
+    "don't":"do not","doesn't":"does not","didn't":"did not",
+    "won't":"will not","can't":"cannot","it's":"it is",
+    "you're":"you are","that's":"that is","let's":"let us",
+    "we're":"we are","they're":"they are","isn't":"is not","aren't":"are not"
+  };
+  function normSentence(s){
+    s = (s||"").toString().toLowerCase().replace(/[\u2018\u2019]/g,"'");
+    s = s.replace(/[a-z]+'[a-z]+/g, function(m){ return CONTR[m] || m; });
+    return s.replace(/[.,!?;:]/g,"").replace(/\s+/g," ").trim();
+  }
+
+  /* ---------- score tracking ---------- */
+  var TOTAL = 32;
+  var correct = Object.create(null); // key -> true
+  var fillEl = document.getElementById("fill");
+  var scoreEl = document.getElementById("score");
+  function refreshScore(){
+    var n = 0; for (var k in correct){ if(correct[k]) n++; }
+    fillEl.style.width = (n/TOTAL*100) + "%";
+    scoreEl.textContent = n + " / " + TOTAL + " correct";
+  }
+  function setRes(id, n, total){
+    var el = document.querySelector('[data-res="'+id+'"]');
+    el.textContent = n + " / " + total;
+    el.classList.add("show");
+    el.classList.toggle("win", n === total);
+    if(n === total) el.textContent += "  🎉";
+  }
+
+  /* ---------- word bank (Exercise 1) ---------- */
+  var lastFocused = null;
+  document.querySelectorAll('#ex1 input.fill').forEach(function(inp){
+    inp.addEventListener('focus', function(){ lastFocused = inp; });
+  });
+  document.querySelectorAll('#bank1 .chip').forEach(function(chip){
+    chip.addEventListener('click', function(){
+      var target = lastFocused && lastFocused.closest('#ex1') ? lastFocused
+                 : document.querySelector('#ex1 input.fill:not(.locked)');
+      if(target){ target.value = chip.dataset.w; target.focus(); }
+    });
+  });
+
+  /* ---------- choice selection (Ex2 & Ex3) ---------- */
+  document.querySelectorAll('.chooser .choices').forEach(function(group){
+    group.querySelectorAll('.opt').forEach(function(opt){
+      opt.addEventListener('click', function(){
+        if(opt.disabled) return;
+        group.querySelectorAll('.opt').forEach(function(o){ o.classList.remove('sel'); });
+        opt.classList.add('sel');
+      });
+    });
+  });
+
+  /* ---------- checking logic ---------- */
+  function checkFillWords(id){
+    var inputs = document.querySelectorAll('#'+id+' input.fill');
+    var n = 0;
+    inputs.forEach(function(inp, i){
+      var ok = normWord(inp.value) === normWord(inp.dataset.a);
+      inp.classList.remove('ok','bad');
+      inp.classList.add(ok ? 'ok' : 'bad');
+      correct[id+'_'+i] = ok; if(ok) n++;
+      var sol = inp.parentElement.querySelector('.sol');
+      sol.innerHTML = ok ? '' : '<span class="x">&times;</span> answer: <b>'+inp.dataset.a+'</b>';
+      sol.classList.toggle('show', !ok);
+    });
+    setRes(id, n, inputs.length); refreshScore();
+  }
+
+  function checkChoice(id){
+    var items = document.querySelectorAll('#'+id+' .choices');
+    var n = 0;
+    items.forEach(function(group, i){
+      var accepted = group.dataset.a.split('|');
+      var sel = group.querySelector('.opt.sel');
+      group.querySelectorAll('.opt').forEach(function(o){ o.classList.remove('ok','bad','reveal'); });
+      var ok = sel && accepted.indexOf(sel.dataset.v) !== -1;
+      if(sel) sel.classList.add(ok ? 'ok' : 'bad');
+      if(!ok){
+        group.querySelectorAll('.opt').forEach(function(o){
+          if(accepted.indexOf(o.dataset.v) !== -1) o.classList.add('reveal');
+        });
+      }
+      correct[id+'_'+i] = ok; if(ok) n++;
+    });
+    setRes(id, n, items.length); refreshScore();
+  }
+
+  function checkFill4(id){
+    var inputs = document.querySelectorAll('#'+id+' input.fill');
+    var n = 0;
+    inputs.forEach(function(inp, i){
+      var accepted = inp.dataset.a4.split('|').map(normWord);
+      var ok = accepted.indexOf(normWord(inp.value)) !== -1;
+      inp.classList.remove('ok','bad'); inp.classList.add(ok ? 'ok':'bad');
+      correct[id+'_'+i] = ok; if(ok) n++;
+      var sol = inp.parentElement.querySelector('.sol');
+      sol.innerHTML = ok ? '' : '<span class="x">&times;</span> answer: <b>'+inp.dataset.a4.split('|')[0]+'</b>';
+      sol.classList.toggle('show', !ok);
+    });
+    setRes(id, n, inputs.length); refreshScore();
+  }
+
+  var EX5_SHOW = {
+    1:"I enjoy renting a bike on holiday.",
+    2:"I don&rsquo;t want to travel by boat.",
+    3:"I don&rsquo;t mind staying in a hostel.",
+    4:"I&rsquo;d like to go to the beach tomorrow.",
+    5:"I love going on cruises."
+  };
+  function checkFill5(){
+    var inputs = document.querySelectorAll('#ex5 input.fill');
+    var n = 0;
+    inputs.forEach(function(inp, i){
+      var accepted = inp.dataset.a5.split('|').map(normSentence);
+      var ok = accepted.indexOf(normSentence(inp.value)) !== -1;
+      inp.classList.remove('ok','bad'); inp.classList.add(ok ? 'ok':'bad');
+      correct['ex5_'+i] = ok; if(ok) n++;
+      var sol = inp.parentElement.querySelector('.sol');
+      sol.innerHTML = ok ? '' : '<span class="x">&times;</span> answer: <b>'+EX5_SHOW[i+1]+'</b>';
+      sol.classList.toggle('show', !ok);
+    });
+    setRes('ex5', n, inputs.length); refreshScore();
+  }
+
+  function runCheck(id){
+    if(id==='ex1') checkFillWords('ex1');
+    else if(id==='ex2'||id==='ex3') checkChoice(id);
+    else if(id==='ex4') checkFill4('ex4');
+    else if(id==='ex5') checkFill5();
+  }
+
+  /* ---------- show answers ---------- */
+  function showAnswers(id){
+    if(id==='ex1'){
+      document.querySelectorAll('#ex1 input.fill').forEach(function(inp){
+        inp.value = inp.dataset.a; inp.classList.remove('bad'); inp.classList.add('ok');
+        inp.parentElement.querySelector('.sol').classList.remove('show');
+      });
+      runCheck('ex1');
+    } else if(id==='ex2'||id==='ex3'){
+      document.querySelectorAll('#'+id+' .choices').forEach(function(group){
+        var first = group.dataset.a.split('|')[0];
+        group.querySelectorAll('.opt').forEach(function(o){
+          o.classList.remove('sel','bad','ok','reveal');
+        });
+        var win = group.querySelector('.opt[data-v="'+first+'"]');
+        if(win) win.classList.add('sel');
+      });
+      runCheck(id);
+    } else if(id==='ex4'){
+      document.querySelectorAll('#ex4 input.fill').forEach(function(inp){
+        inp.value = inp.dataset.a4.split('|')[0]; inp.classList.remove('bad'); inp.classList.add('ok');
+        inp.parentElement.querySelector('.sol').classList.remove('show');
+      });
+      runCheck('ex4');
+    } else if(id==='ex5'){
+      document.querySelectorAll('#ex5 input.fill').forEach(function(inp, i){
+        inp.value = EX5_SHOW[i+1].replace(/&rsquo;/g,'\u2019');
+        inp.classList.remove('bad'); inp.classList.add('ok');
+        inp.parentElement.querySelector('.sol').classList.remove('show');
+      });
+      runCheck('ex5');
+    }
+  }
+
+  /* ---------- wire buttons ---------- */
+  document.querySelectorAll('[data-check]').forEach(function(b){
+    b.addEventListener('click', function(){ runCheck(b.dataset.check); });
+  });
+  document.querySelectorAll('[data-show]').forEach(function(b){
+    b.addEventListener('click', function(){ showAnswers(b.dataset.show); });
+  });
+  document.getElementById('checkAll').addEventListener('click', function(){
+    ['ex1','ex2','ex3','ex4','ex5'].forEach(runCheck);
+    document.querySelector('main').scrollIntoView({behavior:'smooth',block:'start'});
+  });
+
+  /* ---------- scroll reveal ---------- */
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  }, {threshold:.12});
+  document.querySelectorAll('[data-rev]').forEach(function(c){ io.observe(c); });
+
+  refreshScore();
+})();
+</script>
+</body>
+</html>
