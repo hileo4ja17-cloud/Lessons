@@ -1,0 +1,396 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mission 3 — Homework for Ivan</title>
+<style>
+  :root{
+    --ink:#20202b;
+    --paper:#fffdf8;
+    --paper2:#fff7e8;
+    --red:#ff5a55;
+    --orange:#ff9f43;
+    --blue:#3c78ff;
+    --mint:#32c48d;
+    --yellow:#ffd65a;
+    --line:#23232d;
+    --soft:#eef3ff;
+    --shadow:8px 8px 0 rgba(32,32,43,.12);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;
+    min-height:100vh;
+    color:var(--ink);
+    font-family:"Trebuchet MS",Verdana,Arial,sans-serif;
+    background:
+      radial-gradient(circle at 12px 12px, rgba(255,159,67,.18) 2px, transparent 2.5px) 0 0/24px 24px,
+      linear-gradient(135deg,#fffaf0 0%,#f4f8ff 55%,#fff6fb 100%);
+    overflow-x:hidden;
+  }
+  .blob{position:fixed;border-radius:999px;filter:blur(1px);opacity:.28;z-index:-1;animation:float 8s ease-in-out infinite}
+  .b1{width:240px;height:240px;background:#ffd65a;left:-70px;top:80px}
+  .b2{width:300px;height:300px;background:#80d8ff;right:-110px;top:180px;animation-delay:-2s}
+  .b3{width:220px;height:220px;background:#ff9eb5;left:18%;bottom:-80px;animation-delay:-4s}
+  @keyframes float{50%{transform:translateY(-18px) rotate(5deg)}}
+  @keyframes pop{0%{transform:scale(.88);opacity:0}100%{transform:scale(1);opacity:1}}
+  @keyframes shimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
+  @keyframes wiggle{0%,100%{transform:rotate(0)}25%{transform:rotate(-2deg)}75%{transform:rotate(2deg)}}
+  .wrap{width:min(1080px,94vw);margin:28px auto 70px}
+  .hero{
+    position:relative;
+    overflow:hidden;
+    background:rgba(255,255,255,.92);
+    border:3px solid var(--line);
+    border-radius:28px;
+    padding:28px 30px;
+    box-shadow:var(--shadow);
+    animation:pop .55s ease both;
+  }
+  .hero:after{
+    content:"";position:absolute;inset:auto -70px -110px auto;width:260px;height:260px;border-radius:50%;background:linear-gradient(135deg,#ffe383,#ff9f43);opacity:.26
+  }
+  .topline{display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap}
+  .tag{display:inline-flex;align-items:center;gap:8px;background:var(--red);color:#fff;border:2px solid var(--line);border-radius:999px;padding:8px 15px;font-weight:900;letter-spacing:.8px;box-shadow:4px 4px 0 var(--line)}
+  h1{font-size:clamp(32px,5vw,58px);line-height:1;margin:20px 0 10px;letter-spacing:-1.8px}
+  .subtitle{font-size:18px;max-width:790px;line-height:1.55;margin:0;color:#4b4b5a}
+  .student{display:flex;align-items:center;gap:12px;background:#f8fbff;border:2px solid var(--line);border-radius:18px;padding:10px 14px;font-weight:900;box-shadow:4px 4px 0 rgba(32,32,43,.1)}
+  .cat{font-size:42px;display:inline-block;animation:wiggle 2.8s ease-in-out infinite}
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:24px}
+  .step{border:2px solid var(--line);border-radius:17px;padding:13px 14px;background:#fff;font-weight:800;line-height:1.35}
+  .step b{color:var(--blue)}
+  .card{
+    margin-top:24px;
+    background:rgba(255,255,255,.94);
+    border:3px solid var(--line);
+    border-radius:26px;
+    padding:24px;
+    box-shadow:var(--shadow);
+    opacity:0;transform:translateY(18px);
+    transition:.55s ease;
+  }
+  .card.show{opacity:1;transform:none}
+  .cardhead{display:flex;align-items:center;gap:13px;flex-wrap:wrap;margin-bottom:8px}
+  .num{width:48px;height:48px;border-radius:16px;background:var(--yellow);border:2px solid var(--line);display:grid;place-items:center;font-size:25px;font-weight:1000;box-shadow:4px 4px 0 var(--line)}
+  h2{font-size:clamp(24px,3vw,34px);margin:0;letter-spacing:-.7px}
+  .lead{margin:8px 0 20px;color:#565665;line-height:1.5;font-size:17px}
+  .rows{display:grid;gap:12px}
+  .row{
+    display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:start;
+    background:var(--paper);border:2px solid #dfe2eb;border-radius:18px;padding:14px 16px;
+    transition:.25s ease;position:relative;
+  }
+  .row:hover{transform:translateY(-2px);border-color:#9fb8ff;box-shadow:0 8px 20px rgba(60,120,255,.1)}
+  .badge{width:34px;height:34px;border-radius:12px;display:grid;place-items:center;font-size:18px;font-weight:900;border:2px solid var(--line)}
+  .badge.aff{background:#d9f8ec}.badge.neg{background:#ffe0df}
+  .sentence{font-size:18px;line-height:1.65}
+  select{
+    appearance:none;
+    min-width:170px;
+    font:inherit;font-weight:900;color:var(--ink);
+    padding:8px 38px 8px 12px;
+    border:2px solid var(--line);border-radius:12px;
+    background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16'%3E%3Cpath d='M3 6l5 5 5-5' fill='none' stroke='%2320202b' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat right 11px center;
+    box-shadow:3px 3px 0 rgba(32,32,43,.12);
+    transition:.2s ease;
+  }
+  select:focus{outline:4px solid rgba(60,120,255,.18);border-color:var(--blue)}
+  select.ok{background-color:#e4faef;border-color:var(--mint)}
+  select.no{background-color:#ffe7e5;border-color:var(--red)}
+  .feedback{grid-column:2;color:#a12d29;font-weight:900;font-size:14px;display:none}
+  .row.checked .feedback{display:block}
+  .blog{
+    background:linear-gradient(#fffdf8,#fff8e8);
+    border:2px solid var(--line);border-radius:20px;padding:22px;
+    font-family:Georgia,serif;font-size:18px;line-height:2.05;
+    box-shadow:inset 0 0 0 5px rgba(255,214,90,.17)
+  }
+  .blogtitle{font-family:"Trebuchet MS",sans-serif;font-weight:1000;color:var(--red);margin-bottom:10px;font-size:17px}
+  .gapnum{display:inline-grid;place-items:center;width:25px;height:25px;border-radius:9px;background:#ffe0df;color:#a3221d;font-family:"Trebuchet MS",sans-serif;font-size:13px;font-weight:1000;margin:0 4px}
+  .blog select{min-width:125px;font-family:"Trebuchet MS",sans-serif;font-size:16px;margin:3px 2px}
+  .notebook{
+    position:relative;overflow:hidden;
+    background:repeating-linear-gradient(#fff 0 33px,#dce9ff 34px 35px);
+    border:3px solid var(--line);border-radius:22px;padding:26px 26px 26px 68px;
+    min-height:280px;
+  }
+  .notebook:before{content:"";position:absolute;left:42px;top:0;bottom:0;border-left:3px solid #ff9690}
+  .notebook:after{content:"";position:absolute;left:15px;top:0;bottom:0;width:14px;background:radial-gradient(circle,#30303b 4px,transparent 5px) center 18px/14px 34px repeat-y}
+  .big-note{
+    margin:0 0 20px;
+    font-size:clamp(30px,5vw,56px);
+    line-height:1.05;
+    text-align:center;
+    font-weight:1000;
+    color:#fff;
+    -webkit-text-stroke:2px var(--line);
+    text-shadow:4px 4px 0 var(--line);
+    background:linear-gradient(90deg,var(--red),var(--orange),var(--red));
+    background-size:200% 100%;
+    animation:shimmer 4s linear infinite;
+    border:3px solid var(--line);border-radius:20px;padding:18px 12px;
+  }
+  .questions{margin:0;padding-left:23px;font-size:17px;line-height:1.75;font-weight:800}
+  .donebox{margin-top:20px;display:flex;align-items:center;gap:12px;border:2px solid var(--line);border-radius:16px;padding:14px;background:#fff8da;font-weight:1000;cursor:pointer}
+  .donebox input{width:24px;height:24px;accent-color:var(--mint)}
+  .actions{
+    margin-top:25px;background:rgba(255,255,255,.95);border:3px solid var(--line);border-radius:26px;padding:22px;box-shadow:var(--shadow)
+  }
+  .action-title{font-size:24px;font-weight:1000;margin:0 0 10px}
+  .buttons{display:flex;flex-wrap:wrap;gap:12px;margin-top:16px}
+  button{
+    border:2px solid var(--line);border-radius:15px;padding:12px 18px;
+    font:inherit;font-weight:1000;cursor:pointer;color:var(--ink);
+    box-shadow:4px 4px 0 var(--line);transition:.18s ease;min-height:48px
+  }
+  button:hover:not(:disabled){transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--line)}
+  button:active:not(:disabled){transform:translate(2px,2px);box-shadow:2px 2px 0 var(--line)}
+  button:disabled{opacity:.45;cursor:not-allowed;filter:grayscale(.25)}
+  .save{background:var(--yellow)}
+  .check{background:var(--mint)}
+  .reset{background:#fff}
+  .status{min-height:30px;margin-top:14px;font-weight:900;line-height:1.45}
+  .scorebox{display:none;margin-top:18px;border:3px solid var(--line);border-radius:20px;padding:18px;background:linear-gradient(135deg,#effff8,#eaf2ff);animation:pop .4s ease both}
+  .scorebox.show{display:block}
+  .score{font-size:36px;font-weight:1000;color:var(--blue)}
+  .toast{position:fixed;left:50%;bottom:28px;transform:translateX(-50%) translateY(30px);background:var(--ink);color:#fff;padding:13px 18px;border-radius:14px;font-weight:900;opacity:0;pointer-events:none;transition:.25s;z-index:10;box-shadow:0 10px 30px rgba(0,0,0,.2)}
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+  .confetti{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:9}
+  .confetti i{position:absolute;top:-30px;width:11px;height:18px;border-radius:3px;animation:fall 1.2s linear forwards}
+  @keyframes fall{to{transform:translateY(110vh) rotate(720deg);opacity:.2}}
+  .small{font-size:14px;color:#666675}
+  .required-ring{animation:ring .65s ease 2}
+  @keyframes ring{0%,100%{box-shadow:0 0 0 0 rgba(255,90,85,0)}50%{box-shadow:0 0 0 8px rgba(255,90,85,.18)}}
+  @media(max-width:720px){
+    .steps{grid-template-columns:1fr}.hero{padding:22px}.card{padding:18px}.row{grid-template-columns:auto 1fr}.sentence{font-size:16px}.blog{font-size:16px;line-height:2.2}.notebook{padding-left:54px}.notebook:before{left:34px}.buttons button{width:100%}
+  }
+  @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div>
+<div class="wrap">
+  <header class="hero">
+    <div class="topline">
+      <span class="tag">MISSION 3 · HOMEWORK</span>
+      <div class="student"><span class="cat">🐱</span><span>Иван и помощник Оскар</span></div>
+    </div>
+    <h1>Health &amp; <i>have to</i></h1>
+    <p class="subtitle">Самостоятельная домашняя работа. Сначала выполни все задания, затем сохрани картинку с ответами и отправь её учителю. После сохранения откроется кнопка проверки.</p>
+    <div class="steps">
+      <div class="step"><b>1.</b> Выполни задания 6 и 7.</div>
+      <div class="step"><b>2.</b> Задание 8 сделай в тетради.</div>
+      <div class="step"><b>3.</b> Сохрани картинку и только потом проверь ответы.</div>
+    </div>
+  </header>
+
+  <section class="card" id="task6">
+    <div class="cardhead"><span class="num">6</span><h2>Choose the correct form of <i>have to</i></h2></div>
+    <p class="lead">Green ✅ means necessary. Red 🚫 means not necessary. Choose the correct form in every sentence.</p>
+    <div class="rows" id="ex6"></div>
+  </section>
+
+  <section class="card" id="task7">
+    <div class="cardhead"><span class="num">7</span><h2>Harry's blog — fill the gaps</h2></div>
+    <p class="lead">Use these words: <b>do · doesn't · don't · don't · has · have · have · to</b></p>
+    <div class="blog">
+      <div class="blogtitle">📝 What do you have to do? — by Harry</div>
+      <div id="ex7"></div>
+    </div>
+  </section>
+
+  <section class="card" id="task8">
+    <div class="cardhead"><span class="num">8</span><h2>All about YOU — ask &amp; answer</h2></div>
+    <div class="notebook">
+      <div class="big-note">ВЫПОЛНИТЬ ЗАДАНИЕ В ТЕТРАДИ</div>
+      <ol class="questions" id="questions8"></ol>
+      <label class="donebox" id="notebookBox"><input type="checkbox" id="notebookDone"> Я ответил на все 7 вопросов в тетради.</label>
+    </div>
+  </section>
+
+  <section class="actions">
+    <p class="action-title">Готово? Зафиксируй результат</p>
+    <p class="lead" style="margin-bottom:0">Картинка сохранит выбранные ответы без подсказок и отметок «правильно/неправильно». Отправь её учителю. После этого кнопка проверки станет доступна.</p>
+    <div class="buttons">
+      <button class="save" id="saveBtn">🖼️ Сохранить результаты картинкой</button>
+      <button class="check" id="checkBtn" disabled>✅ Проверить ответы</button>
+      <button class="reset" id="resetBtn">↻ Начать заново</button>
+    </div>
+    <div class="status" id="status" aria-live="polite"></div>
+    <div class="scorebox" id="scoreBox">
+      <div class="score" id="score"></div>
+      <div id="scoreText"></div>
+    </div>
+    <div class="small" style="margin-top:12px">Ответы автоматически сохраняются в браузере, чтобы работа не пропала при случайном обновлении страницы.</div>
+  </section>
+</div>
+<div class="toast" id="toast"></div>
+<div class="confetti" id="confetti"></div>
+<script>
+const EX6 = [
+  {type:'aff', pre:"Gran's got the flu. She ", ans:'has to', post:' see a doctor.', given:true},
+  {type:'aff', pre:'Emma ', ans:'has to', post:" do the shopping because Gran can't go out."},
+  {type:'neg', pre:'Poppy is well now. She ', ans:"doesn't have to", post:' stay in bed.'},
+  {type:'aff', pre:"George and Harry's mum is ill. They ", ans:'have to', post:' be quiet at home.'},
+  {type:'neg', pre:'Mum ', ans:"doesn't have to", post:' go outside to see the doctor — Dad can help her!'},
+  {type:'aff', pre:'George and Harry ', ans:'have to', post:' study for an important test this week.'}
+];
+const EX6_OPTS = ['have to','has to',"don't have to","doesn't have to"];
+const EX7_PARTS = [
+  {t:'What '},{g:'do'},{t:' you have to do?'},{br:1},
+  {t:'I '},{g:'have'},{t:' to practise tennis on Tuesdays, Thursdays and at the weekend. The sports centre is near, so I '},{g:"don't"},{t:" have to get up early. It's only a five-minute walk."},{br:1},
+  {t:"George doesn't play tennis, so he "},{g:"doesn't"},{t:' have to go to the practice. But he '},{g:'has'},{t:" to do a lot of other things. He's always very busy."},{br:1},
+  {t:'When we go out with our friends, we have '},{g:'to'},{t:' tell our parents where we are. We '},{g:"don't"},{t:' have to be back home early, but we '},{g:'have'},{t:' to answer the phone!'}
+];
+const EX7_BANK = ['do',"doesn't","don't",'has','have','to'];
+const EX8 = [
+  'What time do you have to be in bed on weekdays?',
+  'Do you have to get up early on Mondays?',
+  'Do you have to do homework before dinner?',
+  'Do you have to help your family with the housework?',
+  'What time do you have to be back home on Saturdays?',
+  'Do you have to tell your parents where you are after school?',
+  'Do you have to play basketball at school?'
+];
+const $ = s => document.querySelector(s);
+const $$ = s => [...document.querySelectorAll(s)];
+const stateKey = 'ivan-health-homework-v1';
+let savedBeforeCheck = false;
+
+function optionHTML(options){return '<option value="">— choose —</option>'+options.map(o=>`<option value="${o}">${o}</option>`).join('')}
+function build(){
+  const ex6 = $('#ex6');
+  EX6.forEach((it,idx)=>{
+    const row=document.createElement('div'); row.className='row'; row.dataset.idx=idx;
+    const control=it.given?`<b style="color:var(--mint)">${it.ans}</b>`:`<select data-task="6" data-answer="${it.ans}" aria-label="Exercise 6, gap ${idx}">${optionHTML(EX6_OPTS)}</select>`;
+    row.innerHTML=`<span class="badge ${it.type}">${it.type==='aff'?'✅':'🚫'}</span><div class="sentence"><b style="color:var(--red)">${idx+1}.</b> ${it.pre}${control}${it.post}</div><div class="feedback">Correct answer: ${it.ans}</div>`;
+    ex6.appendChild(row);
+  });
+  const ex7=$('#ex7'); let gap=0;
+  EX7_PARTS.forEach(p=>{
+    if(p.t) ex7.appendChild(document.createTextNode(p.t));
+    else if(p.br) ex7.appendChild(document.createElement('br'));
+    else {
+      const n=document.createElement('span'); n.className='gapnum'; n.textContent=++gap; ex7.appendChild(n);
+      const sel=document.createElement('select'); sel.dataset.task='7'; sel.dataset.answer=p.g; sel.dataset.gap=gap; sel.setAttribute('aria-label',`Exercise 7, gap ${gap}`); sel.innerHTML=optionHTML(EX7_BANK); ex7.appendChild(sel);
+    }
+  });
+  EX8.forEach(q=>{const li=document.createElement('li');li.textContent=q;$('#questions8').appendChild(li)});
+  restore();
+  $$('select').forEach(s=>s.addEventListener('change',saveLocal));
+  $('#notebookDone').addEventListener('change',saveLocal);
+  document.querySelectorAll('.card').forEach((c,i)=>setTimeout(()=>c.classList.add('show'),180+i*140));
+}
+function currentState(){
+  return {
+    ex6:$$('select[data-task="6"]').map(s=>s.value),
+    ex7:$$('select[data-task="7"]').map(s=>s.value),
+    notebook:$('#notebookDone').checked
+  };
+}
+function saveLocal(){try{localStorage.setItem(stateKey,JSON.stringify(currentState()))}catch(e){}}
+function restore(){
+  try{
+    const d=JSON.parse(localStorage.getItem(stateKey)||'null'); if(!d)return;
+    $$('select[data-task="6"]').forEach((s,i)=>s.value=d.ex6?.[i]||'');
+    $$('select[data-task="7"]').forEach((s,i)=>s.value=d.ex7?.[i]||'');
+    $('#notebookDone').checked=!!d.notebook;
+  }catch(e){}
+}
+function validate(){
+  const empty=$$('select').filter(s=>!s.value);
+  const notebook=$('#notebookDone').checked;
+  $$('select').forEach(s=>s.classList.remove('required-ring'));
+  $('#notebookBox').classList.remove('required-ring');
+  if(empty.length){empty.forEach(s=>s.classList.add('required-ring'));empty[0].scrollIntoView({behavior:'smooth',block:'center'});showStatus('Заполни все пропуски в заданиях 6 и 7.','bad');return false}
+  if(!notebook){$('#notebookBox').classList.add('required-ring');$('#task8').scrollIntoView({behavior:'smooth',block:'center'});showStatus('Сначала отметь, что задание 8 выполнено в тетради.','bad');return false}
+  return true;
+}
+function showStatus(text,type='ok'){$('#status').textContent=text;$('#status').style.color=type==='bad'?'#b52d27':'#187a58'}
+function toast(text){const t=$('#toast');t.textContent=text;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2300)}
+function fitText(ctx,text,maxWidth){
+  const words=text.split(' '), lines=[]; let line='';
+  for(const word of words){const test=line?line+' '+word:word;if(ctx.measureText(test).width>maxWidth&&line){lines.push(line);line=word}else line=test}
+  if(line)lines.push(line);return lines;
+}
+function drawRounded(ctx,x,y,w,h,r,fill,stroke){ctx.beginPath();ctx.roundRect(x,y,w,h,r);ctx.fillStyle=fill;ctx.fill();if(stroke){ctx.strokeStyle=stroke;ctx.lineWidth=3;ctx.stroke()}}
+function makeResultImage(){
+  const st=currentState();
+  const canvas=document.createElement('canvas'); canvas.width=1400; canvas.height=1900;
+  const ctx=canvas.getContext('2d');
+  const ink='#20202b', red='#ff5a55', blue='#3c78ff', mint='#32c48d', yellow='#ffd65a';
+  ctx.fillStyle='#fffdf8';ctx.fillRect(0,0,canvas.width,canvas.height);
+  ctx.fillStyle='#f4f8ff';ctx.fillRect(0,0,canvas.width,260);
+  drawRounded(ctx,70,55,1260,150,30,'#ffffff',ink);
+  ctx.fillStyle=red;ctx.font='900 30px Arial';ctx.fillText('MISSION 3 · HOMEWORK',105,108);
+  ctx.fillStyle=ink;ctx.font='900 58px Arial';ctx.fillText('Health & have to',105,176);
+  ctx.font='700 28px Arial';ctx.fillText('Student: Ivan',930,108);
+  const now=new Date();ctx.font='500 22px Arial';ctx.fillStyle='#555565';ctx.fillText(now.toLocaleString('ru-RU'),930,150);
+  let y=300;
+  function sectionTitle(num,title,color){drawRounded(ctx,70,y,1260,76,20,color,ink);ctx.fillStyle=ink;ctx.font='900 34px Arial';ctx.fillText(num+'  '+title,102,y+50);y+=104}
+  function answerLine(n,text){ctx.font='600 24px Arial';ctx.fillStyle=ink;const lines=fitText(ctx,n+'. '+text,1160);lines.forEach(line=>{ctx.fillText(line,110,y);y+=33});y+=9}
+  sectionTitle('6','Choose the correct form of have to',yellow);
+  const ex6Answers=['has to',...st.ex6];
+  EX6.forEach((it,i)=>answerLine(i+1,it.pre+ex6Answers[i]+it.post));
+  y+=15;
+  sectionTitle('7',"Harry's blog — answers",'#bfe4ff');
+  st.ex7.forEach((a,i)=>answerLine(i+1,a));
+  y+=15;
+  sectionTitle('8','All about YOU', '#ffd8e1');
+  drawRounded(ctx,90,y,1220,108,18,'#fff7d5',ink);
+  ctx.fillStyle=ink;ctx.font='900 30px Arial';ctx.fillText('ВЫПОЛНЕНО В ТЕТРАДИ: '+(st.notebook?'ДА':'НЕТ'),125,y+66);y+=145;
+  drawRounded(ctx,70,y,1260,120,22,'#effff8',ink);
+  ctx.fillStyle=mint;ctx.font='900 28px Arial';ctx.fillText('Ответы сохранены до проверки.',105,y+48);
+  ctx.fillStyle=ink;ctx.font='500 22px Arial';ctx.fillText('Проверь работу Ивана по выбранным вариантам выше.',105,y+85);
+  ctx.fillStyle='#777786';ctx.font='500 18px Arial';ctx.fillText('Generated by Ivan’s Health Homework',70,1850);
+  return canvas;
+}
+function downloadCanvas(canvas){
+  canvas.toBlob(blob=>{
+    const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='Ivan_Health_Homework_results.png';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),1000);
+  },'image/png');
+}
+function saveResults(){
+  if(!validate())return;
+  downloadCanvas(makeResultImage());
+  savedBeforeCheck=true;$('#checkBtn').disabled=false;
+  showStatus('Картинка сохранена. Отправь её учителю, затем можно нажать «Проверить ответы».');
+  toast('Результаты сохранены как PNG 🖼️');
+}
+function confetti(){
+  const box=$('#confetti');box.innerHTML='';const colors=['#ff5a55','#ffd65a','#3c78ff','#32c48d','#ff9f43'];
+  for(let i=0;i<55;i++){const p=document.createElement('i');p.style.left=Math.random()*100+'vw';p.style.background=colors[i%colors.length];p.style.animationDelay=Math.random()*.35+'s';p.style.transform=`rotate(${Math.random()*180}deg)`;box.appendChild(p)}
+  setTimeout(()=>box.innerHTML='',1700)
+}
+function checkAnswers(){
+  if(!savedBeforeCheck){showStatus('Сначала сохрани картинку с результатами и отправь её учителю.','bad');return}
+  let right=1,total=1; // task 6 example
+  $$('select').forEach(s=>{
+    total++; const ok=s.value===s.dataset.answer; if(ok)right++;
+    s.classList.toggle('ok',ok);s.classList.toggle('no',!ok);
+    if(s.dataset.task==='6')s.closest('.row').classList.toggle('checked',!ok);
+  });
+  $('#score').textContent=`${right} / ${total}`;
+  const pct=Math.round(right/total*100);
+  $('#scoreText').textContent=pct===100?'Perfect! Все ответы правильные. Оскар очень гордится Иваном! 🐱':pct>=75?'Хорошая работа! Посмотри на красные поля и исправь ошибки.':'Нужно ещё раз повторить have to / has to / don’t have to / doesn’t have to.';
+  $('#scoreBox').classList.add('show');
+  showStatus('Проверка завершена. Зелёные ответы правильные, красные нужно исправить.');
+  if(pct===100)confetti();
+  $('#scoreBox').scrollIntoView({behavior:'smooth',block:'center'});
+}
+function resetAll(){
+  if(!confirm('Удалить все выбранные ответы и начать заново?'))return;
+  $$('select').forEach(s=>{s.value='';s.classList.remove('ok','no','required-ring')});
+  $$('.row').forEach(r=>r.classList.remove('checked'));
+  $('#notebookDone').checked=false;$('#scoreBox').classList.remove('show');$('#status').textContent='';
+  savedBeforeCheck=false;$('#checkBtn').disabled=true;try{localStorage.removeItem(stateKey)}catch(e){}window.scrollTo({top:0,behavior:'smooth'});
+}
+$('#saveBtn').addEventListener('click',saveResults);
+$('#checkBtn').addEventListener('click',checkAnswers);
+$('#resetBtn').addEventListener('click',resetAll);
+build();
+</script>
+</body>
+</html>
