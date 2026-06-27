@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Like • Look Like • Be Like — Homework</title>
+<style>
+  :root{
+    --bg:#21130f;
+    --bg-2:#321c15;
+    --card:#f8f1e7;
+    --card-2:#fffaf3;
+    --text:#2d1a14;
+    --muted:#725c52;
+    --chocolate:#5b2f22;
+    --chocolate-2:#7a4935;
+    --gold:#e5b85c;
+    --gold-deep:#bd8428;
+    --blue:#9fd9e8;
+    --blue-deep:#367f96;
+    --correct:#2f7b57;
+    --wrong:#a4463d;
+    --line:rgba(91,47,34,.18);
+    --shadow:0 20px 55px rgba(8,4,2,.24);
+    --radius:24px;
+  }
+
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;
+    min-height:100vh;
+    color:var(--text);
+    font-family:Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background:
+      radial-gradient(circle at 10% 5%, rgba(229,184,92,.20), transparent 23rem),
+      radial-gradient(circle at 90% 20%, rgba(159,217,232,.15), transparent 25rem),
+      linear-gradient(145deg,var(--bg),var(--bg-2) 55%,#25140f);
+    overflow-x:hidden;
+  }
+
+  body::before, body::after{
+    content:"";
+    position:fixed;
+    width:320px;
+    height:320px;
+    border-radius:50%;
+    filter:blur(18px);
+    opacity:.16;
+    pointer-events:none;
+    z-index:-1;
+    animation:floatBlob 12s ease-in-out infinite alternate;
+  }
+  body::before{background:var(--gold); top:-100px; left:-100px}
+  body::after{background:var(--blue); right:-120px; bottom:-100px; animation-delay:-5s}
+  @keyframes floatBlob{
+    from{transform:translate3d(0,0,0) scale(1)}
+    to{transform:translate3d(35px,30px,0) scale(1.12)}
+  }
+
+  .wrap{width:min(1120px,calc(100% - 28px)); margin:0 auto; padding:34px 0 80px}
+
+  .hero{
+    position:relative;
+    padding:42px clamp(22px,5vw,58px);
+    border:1px solid rgba(255,255,255,.12);
+    border-radius:32px;
+    color:#fff8ee;
+    background:
+      linear-gradient(120deg,rgba(255,255,255,.09),rgba(255,255,255,.025)),
+      rgba(57,29,21,.78);
+    box-shadow:var(--shadow);
+    backdrop-filter:blur(10px);
+    overflow:hidden;
+    animation:rise .7s ease both;
+  }
+  .hero::after{
+    content:"";
+    position:absolute;
+    width:220px;height:220px;border-radius:50%;
+    right:-70px;top:-80px;
+    border:1px solid rgba(229,184,92,.3);
+    box-shadow:0 0 0 28px rgba(229,184,92,.06),0 0 0 58px rgba(159,217,232,.04);
+  }
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:8px;
+    margin-bottom:14px;
+    color:var(--gold);
+    text-transform:uppercase;
+    letter-spacing:.18em;
+    font-size:.78rem;
+    font-weight:800;
+  }
+  .eyebrow::before{content:"";width:34px;height:1px;background:currentColor}
+  h1{
+    margin:0;
+    max-width:830px;
+    font-family:Georgia,"Times New Roman",serif;
+    font-size:clamp(2.2rem,6vw,5rem);
+    line-height:.95;
+    font-weight:500;
+    letter-spacing:-.04em;
+  }
+  .hero p{max-width:700px;color:#eadbd2;font-size:1.04rem;line-height:1.65;margin:20px 0 0}
+  .hero-tags{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}
+  .hero-tag{padding:8px 12px;border-radius:999px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.1);font-size:.88rem;color:#f7eadf}
+
+  .sticky{
+    position:sticky;top:10px;z-index:20;
+    display:flex;align-items:center;gap:12px;
+    margin:18px 0;
+    padding:12px;
+    border-radius:18px;
+    background:rgba(248,241,231,.93);
+    border:1px solid rgba(255,255,255,.5);
+    box-shadow:0 12px 30px rgba(12,6,3,.18);
+    backdrop-filter:blur(12px);
+  }
+  .progress-shell{flex:1;height:10px;background:#e7d8c9;border-radius:999px;overflow:hidden}
+  .progress-bar{height:100%;width:0;background:linear-gradient(90deg,var(--gold-deep),var(--gold),var(--blue));border-radius:inherit;transition:width .35s ease}
+  .progress-text{min-width:82px;font-weight:800;color:var(--chocolate);font-size:.9rem}
+  .top-actions{display:flex;gap:8px}
+
+  button{font:inherit}
+  .btn{
+    appearance:none;border:0;border-radius:14px;padding:11px 15px;
+    cursor:pointer;font-weight:800;transition:transform .18s ease,box-shadow .18s ease,background .18s ease;
+  }
+  .btn:hover{transform:translateY(-2px)}
+  .btn:active{transform:translateY(0)}
+  .btn-primary{background:var(--chocolate);color:white;box-shadow:0 8px 18px rgba(91,47,34,.22)}
+  .btn-secondary{background:#efe2d2;color:var(--chocolate)}
+  .btn-ghost{background:transparent;border:1px solid var(--line);color:var(--chocolate)}
+  .btn-small{padding:8px 11px;border-radius:11px;font-size:.86rem}
+
+  .section{
+    margin-top:22px;
+    padding:clamp(22px,4vw,38px);
+    border-radius:var(--radius);
+    background:linear-gradient(145deg,var(--card),var(--card-2));
+    box-shadow:var(--shadow);
+    border:1px solid rgba(255,255,255,.58);
+    animation:rise .7s ease both;
+  }
+  .section:nth-of-type(2){animation-delay:.06s}
+  .section:nth-of-type(3){animation-delay:.12s}
+  .section:nth-of-type(4){animation-delay:.18s}
+  @keyframes rise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+
+  .section-head{display:flex;align-items:flex-start;justify-content:space-between;gap:18px;margin-bottom:22px}
+  .section-kicker{color:var(--blue-deep);font-weight:900;text-transform:uppercase;letter-spacing:.14em;font-size:.72rem;margin-bottom:7px}
+  h2{margin:0;font-family:Georgia,"Times New Roman",serif;font-size:clamp(1.55rem,3vw,2.35rem);font-weight:600;color:var(--chocolate)}
+  .section-note{margin:7px 0 0;color:var(--muted);line-height:1.5}
+  .score-badge{flex:0 0 auto;padding:8px 12px;border-radius:999px;background:#ead8c4;color:var(--chocolate);font-weight:900;font-size:.86rem}
+
+  .summary{
+    position:relative;
+    overflow:hidden;
+    background:
+      linear-gradient(135deg,rgba(229,184,92,.12),transparent 36%),
+      linear-gradient(145deg,var(--card),#fffaf2);
+  }
+  .summary::after{
+    content:"TO SUM UP";
+    position:absolute;right:-5px;bottom:-18px;
+    font-family:Georgia,serif;font-weight:900;font-size:clamp(3rem,9vw,7rem);
+    color:rgba(91,47,34,.045);white-space:nowrap;pointer-events:none;
+  }
+  .rules{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:22px 0}
+  .rule{
+    min-height:140px;padding:18px;border-radius:18px;
+    background:#fffaf5;border:1px solid var(--line);
+    transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease;
+  }
+  .rule:hover{transform:translateY(-4px);box-shadow:0 12px 22px rgba(91,47,34,.09);border-color:rgba(189,132,40,.5)}
+  .rule strong{display:block;font-size:1.15rem;color:var(--chocolate);margin-bottom:9px}
+  .rule p{margin:0;color:var(--muted);line-height:1.55}
+  .rule .mini{display:inline-block;margin-top:12px;padding:5px 9px;border-radius:999px;background:#efe2d2;color:var(--chocolate);font-size:.79rem;font-weight:800}
+
+  .examples{border-top:1px solid var(--line)}
+  .example-row{
+    display:grid;grid-template-columns:minmax(230px,.85fr) 1.4fr;gap:24px;
+    padding:18px 0;border-bottom:1px solid var(--line);align-items:start;
+  }
+  .example-q{font-weight:900;color:var(--chocolate);font-size:1.03rem}
+  .example-q em{font-family:Georgia,serif}
+  .example-hint{display:block;color:var(--muted);font-weight:500;margin-top:4px;font-size:.92rem}
+  .example-a{line-height:1.55}
+  .highlight{font-weight:900;color:var(--blue-deep)}
+
+  .question-list{display:grid;gap:15px}
+  .question{
+    padding:18px;border:1px solid var(--line);border-radius:18px;background:rgba(255,255,255,.66);
+    transition:border-color .25s ease,transform .25s ease,box-shadow .25s ease;
+  }
+  .question:hover{transform:translateY(-2px);box-shadow:0 9px 20px rgba(91,47,34,.07)}
+  .question.correct{border-color:rgba(47,123,87,.55);box-shadow:inset 4px 0 0 var(--correct)}
+  .question.wrong{border-color:rgba(164,70,61,.55);box-shadow:inset 4px 0 0 var(--wrong)}
+  .q-number{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:9px;background:var(--chocolate);color:white;font-size:.8rem;font-weight:900;margin-right:8px}
+  .prompt{font-size:1rem;line-height:1.5;font-weight:700}
+  .options{display:flex;flex-wrap:wrap;gap:9px;margin-top:14px}
+  .option{
+    border:1px solid #d8c4b3;background:white;color:var(--text);
+    border-radius:13px;padding:10px 13px;cursor:pointer;text-align:left;
+    transition:all .18s ease;line-height:1.35;
+  }
+  .option:hover{border-color:var(--gold-deep);background:#fff8e9;transform:translateY(-1px)}
+  .option.selected{background:var(--chocolate);border-color:var(--chocolate);color:white}
+  .option.answer{outline:3px solid rgba(47,123,87,.16);background:#eaf6ef;border-color:var(--correct);color:#1f5b3e}
+  .option.bad-selected{background:#f9e6e3;border-color:var(--wrong);color:#7d2923}
+  .feedback{min-height:22px;margin-top:11px;font-size:.91rem;font-weight:700;line-height:1.45}
+  .feedback.good{color:var(--correct)}
+  .feedback.bad{color:var(--wrong)}
+  .feedback.info{color:var(--blue-deep)}
+
+  .mini-profile-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+  .profile{
+    padding:20px;border-radius:20px;color:#fff8ed;
+    background:
+      radial-gradient(circle at 90% 10%,rgba(229,184,92,.22),transparent 9rem),
+      linear-gradient(145deg,var(--chocolate),#351a13);
+    box-shadow:0 14px 28px rgba(91,47,34,.18);
+  }
+  .profile h3{margin:0 0 10px;font-family:Georgia,serif;font-size:1.45rem;color:var(--gold)}
+  .profile p{margin:0;line-height:1.58;color:#f0dfd4}
+  .profile-tags{display:flex;flex-wrap:wrap;gap:7px;margin-top:14px}
+  .profile-tags span{padding:6px 9px;border-radius:999px;background:rgba(255,255,255,.09);font-size:.79rem}
+
+  .writing-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+  .writing-card{padding:18px;border:1px solid var(--line);border-radius:18px;background:rgba(255,255,255,.68)}
+  .writing-card label{display:block;font-weight:900;color:var(--chocolate);margin-bottom:10px;line-height:1.4}
+  .writing-card input{
+    width:100%;border:1px solid #d6c1af;border-radius:13px;padding:13px 14px;
+    background:white;color:var(--text);font:inherit;outline:none;
+    transition:border-color .18s ease,box-shadow .18s ease;
+  }
+  .writing-card input:focus{border-color:var(--blue-deep);box-shadow:0 0 0 4px rgba(159,217,232,.22)}
+  .writing-tools{display:flex;gap:8px;margin-top:10px}
+  .model-answer{display:none;margin-top:10px;padding:11px 12px;border-radius:12px;background:#eef7f9;color:#245d6e;line-height:1.45;font-size:.91rem}
+  .model-answer.show{display:block;animation:pop .25s ease}
+  @keyframes pop{from{opacity:0;transform:scale(.98)}to{opacity:1;transform:none}}
+
+  .section-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px;padding-top:18px;border-top:1px solid var(--line)}
+  .toast{
+    position:fixed;left:50%;bottom:24px;z-index:50;
+    transform:translate(-50%,130%);
+    min-width:min(420px,calc(100% - 30px));
+    padding:14px 18px;border-radius:16px;color:white;background:#20120e;
+    box-shadow:0 16px 36px rgba(0,0,0,.3);
+    text-align:center;font-weight:800;transition:transform .3s ease;
+  }
+  .toast.show{transform:translate(-50%,0)}
+
+  .footer{
+    text-align:center;color:#d9c8be;margin-top:24px;font-size:.88rem;
+  }
+
+  @media (max-width:800px){
+    .rules,.mini-profile-grid,.writing-grid{grid-template-columns:1fr}
+    .example-row{grid-template-columns:1fr;gap:8px}
+    .sticky{align-items:stretch;flex-wrap:wrap}
+    .progress-shell{order:3;flex-basis:100%}
+    .top-actions{margin-left:auto}
+  }
+  @media (max-width:520px){
+    .wrap{width:min(100% - 18px,1120px);padding-top:12px}
+    .hero{padding:30px 20px;border-radius:24px}
+    .section{padding:20px 16px}
+    .section-head{display:block}
+    .score-badge{display:inline-block;margin-top:12px}
+    .top-actions{width:100%}
+    .top-actions .btn{flex:1;padding:9px 10px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="hero">
+    <div class="eyebrow">Interactive homework</div>
+    <h1>Like, Look Like &amp; Be Like</h1>
+    <p>Learn to ask about preferences, appearance, resemblance and personality. Click the answers, check your work, read the comments and try again.</p>
+    <div class="hero-tags">
+      <span class="hero-tag">Clickable answers</span>
+      <span class="hero-tag">Instant feedback</span>
+      <span class="hero-tag">Show answers</span>
+      <span class="hero-tag">Reset anytime</span>
+    </div>
+  </header>
+
+  <div class="sticky">
+    <div class="progress-text"><span id="doneCount">0</span>/<span id="totalCount">0</span> done</div>
+    <div class="progress-shell"><div class="progress-bar" id="progressBar"></div></div>
+    <div class="top-actions">
+      <button class="btn btn-secondary btn-small" id="showAllTop">Show answers</button>
+      <button class="btn btn-ghost btn-small" id="resetAllTop">Reset all</button>
+    </div>
+  </div>
+
+  <section class="section summary">
+    <div class="section-head">
+      <div>
+        <div class="section-kicker">Support before homework</div>
+        <h2>To sum up</h2>
+        <p class="section-note">Use this quick guide whenever you are not sure which structure you need.</p>
+      </div>
+    </div>
+
+    <div class="rules">
+      <article class="rule">
+        <strong>LIKE</strong>
+        <p>We use <b>like</b> to talk about tastes and preferences.</p>
+        <span class="mini">What does Alex like?</span>
+      </article>
+      <article class="rule">
+        <strong>LOOK LIKE</strong>
+        <p>We use <b>look like</b> to describe appearance or physical resemblance.</p>
+        <span class="mini">What does Alex look like?</span>
+      </article>
+      <article class="rule">
+        <strong>BE LIKE</strong>
+        <p>We use <b>be like</b> to describe a person's character, personality or behaviour.</p>
+        <span class="mini">What is Alex like?</span>
+      </article>
+    </div>
+
+    <div class="examples">
+      <div class="example-row">
+        <div class="example-q">What <em>does</em> Alex <em>like</em>?<span class="example-hint">What are his preferences?</span></div>
+        <div class="example-a">Alex <span class="highlight">likes</span> football. He also likes Chinese food and, of course, he likes his car.</div>
+      </div>
+      <div class="example-row">
+        <div class="example-q">What <em>does</em> Alex <em>look like</em>?<span class="example-hint">Describe his appearance.</span></div>
+        <div class="example-a">He is tall and handsome, and he dresses well. He <span class="highlight">looks like</span> a rugby player.</div>
+      </div>
+      <div class="example-row">
+        <div class="example-q">Who <em>does</em> Alex <em>look like</em>?<span class="example-hint">Who is similar to him?</span></div>
+        <div class="example-a">He <span class="highlight">looks like</span> his father, but in some ways he also looks like a film star.</div>
+      </div>
+      <div class="example-row">
+        <div class="example-q">What <em>is</em> Alex <em>like</em>?<span class="example-hint">Describe his personality.</span></div>
+        <div class="example-a">He is nice, friendly and always willing to help — a great friend to have.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="exercise1">
+    <div class="section-head">
+      <div>
+        <div class="section-kicker">Exercise 1</div>
+        <h2>What are we asking about?</h2>
+        <p class="section-note">Click the meaning of each question.</p>
+      </div>
+      <span class="score-badge" id="score1">0 / 6</span>
+    </div>
+    <div class="question-list" id="list1"></div>
+    <div class="section-actions">
+      <button class="btn btn-primary" data-check="1">Check exercise</button>
+      <button class="btn btn-secondary" data-show="1">Show answers</button>
+      <button class="btn btn-ghost" data-reset="1">Reset</button>
+    </div>
+  </section>
+
+  <section class="section" id="exercise2">
+    <div class="section-head">
+      <div>
+        <div class="section-kicker">Exercise 2</div>
+        <h2>Choose the complete question</h2>
+        <p class="section-note">Read the answer, then click the question that matches it.</p>
+      </div>
+      <span class="score-badge" id="score2">0 / 6</span>
+    </div>
+    <div class="question-list" id="list2"></div>
+    <div class="section-actions">
+      <button class="btn btn-primary" data-check="2">Check exercise</button>
+      <button class="btn btn-secondary" data-show="2">Show answers</button>
+      <button class="btn btn-ghost" data-reset="2">Reset</button>
+    </div>
+  </section>
+
+  <section class="section" id="exercise3">
+    <div class="section-head">
+      <div>
+        <div class="section-kicker">Exercise 3</div>
+        <h2>Read the mini-profiles</h2>
+        <p class="section-note">Then choose the sentence that answers the question correctly.</p>
+      </div>
+      <span class="score-badge" id="score3">0 / 6</span>
+    </div>
+
+    <div class="mini-profile-grid">
+      <article class="profile">
+        <h3>Maya</h3>
+        <p>Maya is short, with curly dark hair and brown eyes. She is energetic, honest and sometimes impatient. She loves jazz, strong coffee and long walks.</p>
+        <div class="profile-tags"><span>curly hair</span><span>honest</span><span>jazz</span></div>
+      </article>
+      <article class="profile">
+        <h3>Daniel</h3>
+        <p>Daniel is tall and slim. He looks very similar to his older brother, Ben. He is calm, thoughtful and a good listener. He enjoys cooking and old films.</p>
+        <div class="profile-tags"><span>tall</span><span>calm</span><span>old films</span></div>
+      </article>
+    </div>
+
+    <div class="question-list" id="list3" style="margin-top:18px"></div>
+    <div class="section-actions">
+      <button class="btn btn-primary" data-check="3">Check exercise</button>
+      <button class="btn btn-secondary" data-show="3">Show answers</button>
+      <button class="btn btn-ghost" data-reset="3">Reset</button>
+    </div>
+  </section>
+
+  <section class="section" id="exercise4">
+    <div class="section-head">
+      <div>
+        <div class="section-kicker">Exercise 4</div>
+        <h2>Write your own answers</h2>
+        <p class="section-note">Write a full sentence. The checker looks for the correct structure and key information.</p>
+      </div>
+      <span class="score-badge" id="score4">0 / 4</span>
+    </div>
+    <div class="writing-grid" id="writingGrid"></div>
+    <div class="section-actions">
+      <button class="btn btn-primary" id="checkWriting">Check writing</button>
+      <button class="btn btn-secondary" id="showWriting">Show suggested answers</button>
+      <button class="btn btn-ghost" id="resetWriting">Reset</button>
+    </div>
+  </section>
+
+  <footer class="footer">Made for focused practice — you can check, correct and repeat as many times as you need.</footer>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+const exercises = {
+  1: [
+    {p:"What does Nina like?", o:["Her preferences","Her appearance","Her personality"], a:0,
+     ok:"Exactly. This asks about Nina's tastes and preferences.",
+     bad:"Look at the verb: “does ... like” asks about preferences."},
+    {p:"What does your new teacher look like?", o:["The teacher's character","The teacher's appearance","The teacher's hobbies"], a:1,
+     ok:"Correct. “What does ... look like?” asks for a physical description.",
+     bad:"This is about appearance: height, hair, eyes, clothes and so on."},
+    {p:"What is your neighbour like?", o:["The neighbour's personality","The neighbour's favourite things","A similar person"], a:0,
+     ok:"Yes. “What is ... like?” asks about personality or behaviour.",
+     bad:"Use “be like” for character and personality."},
+    {p:"Who does Emma look like?", o:["What Emma enjoys","Who resembles Emma","How Emma behaves"], a:1,
+     ok:"Right. “Who does ... look like?” asks about resemblance to another person.",
+     bad:"The key word is “Who”: choose the person Emma resembles."},
+    {p:"What do your parents like doing at weekends?", o:["Their weekend preferences","Their appearance","Their personalities"], a:0,
+     ok:"Correct. “Like doing” asks about activities they enjoy.",
+     bad:"This question asks which activities they enjoy."},
+    {p:"What are the twins like?", o:["What they look like","What they are interested in","What kind of people they are"], a:2,
+     ok:"Exactly. “What are ... like?” asks what kind of people they are.",
+     bad:"Because the verb is “are”, the question is about character or behaviour."}
+  ],
+  2: [
+    {p:"Answer: She loves spicy food and detective novels.", o:["What is she like?","What does she like?","What does she look like?"], a:1,
+     ok:"Correct. The answer gives preferences.",
+     bad:"Spicy food and detective novels are things she likes."},
+    {p:"Answer: He is medium-height, with glasses and a beard.", o:["What does he look like?","Who does he look like?","What is he like?"], a:0,
+     ok:"Correct. The answer describes his appearance.",
+     bad:"Height, glasses and a beard are physical features."},
+    {p:"Answer: She is warm, reliable and rather shy.", o:["What does she like?","What is she like?","What does she look like?"], a:1,
+     ok:"Correct. These adjectives describe personality.",
+     bad:"Warm, reliable and shy describe character, not appearance."},
+    {p:"Answer: He looks almost exactly like his grandfather.", o:["Who does he look like?","What does he like?","What is he like?"], a:0,
+     ok:"Correct. The answer names the person he resembles.",
+     bad:"The answer is about resemblance to another person."},
+    {p:"Answer: They enjoy cycling, travelling and live music.", o:["What are they like?","What do they look like?","What do they like?"], a:2,
+     ok:"Correct. The answer lists their interests.",
+     bad:"The activities tell us about their preferences."},
+    {p:"Answer: They are both very sociable, but one is more patient.", o:["What are they like?","Who do they look like?","What do they like?"], a:0,
+     ok:"Correct. Sociable and patient describe personality.",
+     bad:"This answer tells us what kind of people they are."}
+  ],
+  3: [
+    {p:"What does Maya look like?", o:["She is energetic and honest.","She is short, with curly dark hair and brown eyes.","She loves jazz and strong coffee."], a:1,
+     ok:"Correct. This is Maya's physical description.",
+     bad:"Choose the sentence about height, hair and eyes."},
+    {p:"What is Maya like?", o:["She is energetic, honest and sometimes impatient.","She likes long walks.","She has curly dark hair."], a:0,
+     ok:"Correct. These words describe Maya's personality.",
+     bad:"Personality is described with adjectives such as energetic and honest."},
+    {p:"What does Maya like?", o:["Jazz, strong coffee and long walks.","Curly hair and brown eyes.","Being short."], a:0,
+     ok:"Correct. These are Maya's preferences.",
+     bad:"Look for the things and activities she enjoys."},
+    {p:"What does Daniel look like?", o:["He is calm and thoughtful.","He is tall and slim.","He enjoys cooking."], a:1,
+     ok:"Correct. Tall and slim describe appearance.",
+     bad:"Choose the physical description."},
+    {p:"Who does Daniel look like?", o:["His older brother, Ben.","A good listener.","An old-film actor."], a:0,
+     ok:"Correct. He resembles his older brother.",
+     bad:"The profile says he looks very similar to Ben."},
+    {p:"What is Daniel like?", o:["He likes old films.","He is tall and slim.","He is calm, thoughtful and a good listener."], a:2,
+     ok:"Correct. This sentence describes his character.",
+     bad:"Choose the personality adjectives and behaviour."}
+  ]
+};
+
+const writing = [
+  {
+    q:"What does Maya like?",
+    placeholder:"Maya likes ...",
+    mustAny:[["jazz"],["coffee"],["walk"]],
+    structure:["maya","like"],
+    answer:"Maya likes jazz, strong coffee and long walks."
+  },
+  {
+    q:"What is Daniel like?",
+    placeholder:"Daniel is ...",
+    mustAny:[["calm"],["thoughtful"],["listener"]],
+    structure:["daniel","is"],
+    answer:"Daniel is calm, thoughtful and a good listener."
+  },
+  {
+    q:"What does Daniel look like?",
+    placeholder:"Daniel is ...",
+    mustAny:[["tall"],["slim"]],
+    structure:["daniel"],
+    answer:"Daniel is tall and slim."
+  },
+  {
+    q:"Who does Daniel look like?",
+    placeholder:"Daniel looks like ...",
+    mustAny:[["brother"],["ben"]],
+    structure:["daniel","look"],
+    answer:"Daniel looks like his older brother, Ben."
+  }
+];
+
+let state = {1:[],2:[],3:[],writing:[]};
+let checked = {1:false,2:false,3:false,writing:false};
+
+function renderExercise(id){
+  const list = document.getElementById("list"+id);
+  list.innerHTML = "";
+  exercises[id].forEach((item,i)=>{
+    const q = document.createElement("article");
+    q.className = "question";
+    q.dataset.index = i;
+    q.innerHTML = `
+      <div class="prompt"><span class="q-number">${i+1}</span>${item.p}</div>
+      <div class="options">
+        ${item.o.map((opt,j)=>`<button class="option" data-option="${j}">${opt}</button>`).join("")}
+      </div>
+      <div class="feedback"></div>`;
+    q.querySelectorAll(".option").forEach(btn=>{
+      btn.addEventListener("click",()=>{
+        state[id][i] = Number(btn.dataset.option);
+        q.querySelectorAll(".option").forEach(b=>b.classList.remove("selected","answer","bad-selected"));
+        btn.classList.add("selected");
+        q.classList.remove("correct","wrong");
+        q.querySelector(".feedback").textContent = "";
+        checked[id] = false;
+        updateProgress();
+      });
+    });
+    list.appendChild(q);
+  });
+}
+
+function checkExercise(id){
+  let score=0, answered=0;
+  const cards = document.querySelectorAll(`#list${id} .question`);
+  cards.forEach((card,i)=>{
+    const item = exercises[id][i];
+    const chosen = state[id][i];
+    const fb = card.querySelector(".feedback");
+    card.querySelectorAll(".option").forEach(b=>b.classList.remove("answer","bad-selected"));
+    if(chosen === undefined){
+      card.classList.remove("correct","wrong");
+      fb.className="feedback info";
+      fb.textContent="Choose an answer first.";
+      return;
+    }
+    answered++;
+    if(chosen === item.a){
+      score++;
+      card.classList.add("correct");
+      card.classList.remove("wrong");
+      fb.className="feedback good";
+      fb.textContent="✓ "+item.ok;
+    }else{
+      card.classList.add("wrong");
+      card.classList.remove("correct");
+      card.querySelector(`[data-option="${chosen}"]`).classList.add("bad-selected");
+      fb.className="feedback bad";
+      fb.textContent="✕ "+item.bad;
+    }
+  });
+  document.getElementById("score"+id).textContent=`${score} / ${exercises[id].length}`;
+  checked[id] = answered === exercises[id].length;
+  toast(answered < exercises[id].length ? "Some questions are still unanswered." : score === exercises[id].length ? "Perfect — every answer is correct!" : `You got ${score} out of ${exercises[id].length}. Read the comments and try again.`);
+  updateProgress();
+}
+
+function showExercise(id){
+  const cards = document.querySelectorAll(`#list${id} .question`);
+  cards.forEach((card,i)=>{
+    const item=exercises[id][i];
+    card.querySelectorAll(".option").forEach(b=>b.classList.remove("selected","bad-selected","answer"));
+    card.querySelector(`[data-option="${item.a}"]`).classList.add("answer");
+    card.classList.remove("wrong");
+    card.classList.add("correct");
+    const fb=card.querySelector(".feedback");
+    fb.className="feedback good";
+    fb.textContent="Suggested answer: "+item.o[item.a]+".";
+  });
+  document.getElementById("score"+id).textContent=`Answers shown`;
+  checked[id]=false;
+  updateProgress();
+}
+
+function resetExercise(id){
+  state[id]=[];
+  checked[id]=false;
+  document.querySelectorAll(`#list${id} .question`).forEach(card=>{
+    card.classList.remove("correct","wrong");
+    card.querySelectorAll(".option").forEach(b=>b.classList.remove("selected","answer","bad-selected"));
+    const fb=card.querySelector(".feedback");
+    fb.className="feedback";
+    fb.textContent="";
+  });
+  document.getElementById("score"+id).textContent=`0 / ${exercises[id].length}`;
+  updateProgress();
+}
+
+function renderWriting(){
+  const grid=document.getElementById("writingGrid");
+  grid.innerHTML="";
+  writing.forEach((item,i)=>{
+    const card=document.createElement("article");
+    card.className="writing-card";
+    card.innerHTML=`
+      <label for="write${i}">${i+1}. ${item.q}</label>
+      <input id="write${i}" type="text" autocomplete="off" placeholder="${item.placeholder}">
+      <div class="writing-tools">
+        <button class="btn btn-secondary btn-small reveal-one" type="button">Show answer</button>
+      </div>
+      <div class="feedback"></div>
+      <div class="model-answer">Suggested answer: <b>${item.answer}</b></div>`;
+    const input=card.querySelector("input");
+    input.addEventListener("input",()=>{
+      state.writing[i]=input.value;
+      checked.writing=false;
+      card.classList.remove("correct","wrong");
+      card.querySelector(".feedback").textContent="";
+      updateProgress();
+    });
+    card.querySelector(".reveal-one").addEventListener("click",()=>{
+      card.querySelector(".model-answer").classList.toggle("show");
+    });
+    grid.appendChild(card);
+  });
+}
+
+function normalize(s){return s.toLowerCase().replace(/[’']/g,"'").replace(/[^a-z\s]/g," ").replace(/\s+/g," ").trim()}
+
+function checkWriting(){
+  let score=0,answered=0;
+  document.querySelectorAll(".writing-card").forEach((card,i)=>{
+    const raw=card.querySelector("input").value.trim();
+    const text=normalize(raw);
+    const fb=card.querySelector(".feedback");
+    if(!raw){
+      card.classList.remove("correct","wrong");
+      fb.className="feedback info";
+      fb.textContent="Write a full sentence first.";
+      return;
+    }
+    answered++;
+    const item=writing[i];
+    const structureOk=item.structure.every(w=>text.includes(w));
+    const contentOk=item.mustAny.some(group=>group.every(w=>text.includes(w)));
+    const enoughWords=text.split(" ").filter(Boolean).length>=3;
+    if(structureOk && contentOk && enoughWords){
+      score++;
+      card.classList.add("correct");card.classList.remove("wrong");
+      fb.className="feedback good";
+      fb.textContent="✓ Good answer. The structure and key information are correct.";
+    }else{
+      card.classList.add("wrong");card.classList.remove("correct");
+      fb.className="feedback bad";
+      if(!structureOk){
+        fb.textContent="✕ Check the structure. Start with the person's name and use the correct form of like / look like / be.";
+      }else if(!contentOk){
+        fb.textContent="✕ The structure looks possible, but add information from the profile.";
+      }else{
+        fb.textContent="✕ Write a complete sentence, not only one or two words.";
+      }
+    }
+  });
+  document.getElementById("score4").textContent=`${score} / ${writing.length}`;
+  checked.writing=answered===writing.length;
+  toast(answered < writing.length ? "Complete all four sentences, then check again." : score===writing.length ? "Excellent writing — all four answers work!" : `You got ${score} out of ${writing.length}. Use the comments or open the suggested answers.`);
+  updateProgress();
+}
+
+function showWriting(){
+  document.querySelectorAll(".model-answer").forEach(x=>x.classList.add("show"));
+  document.getElementById("score4").textContent="Answers shown";
+  checked.writing=false;
+  updateProgress();
+}
+
+function resetWriting(){
+  state.writing=[];
+  checked.writing=false;
+  document.querySelectorAll(".writing-card").forEach(card=>{
+    card.classList.remove("correct","wrong");
+    card.querySelector("input").value="";
+    card.querySelector(".feedback").textContent="";
+    card.querySelector(".model-answer").classList.remove("show");
+  });
+  document.getElementById("score4").textContent=`0 / ${writing.length}`;
+  updateProgress();
+}
+
+function updateProgress(){
+  const total=exercises[1].length+exercises[2].length+exercises[3].length+writing.length;
+  let done=0;
+  [1,2,3].forEach(id=>{done+=state[id].filter(v=>v!==undefined).length});
+  done+=document.querySelectorAll(".writing-card input").length ? [...document.querySelectorAll(".writing-card input")].filter(i=>i.value.trim()).length : 0;
+  document.getElementById("doneCount").textContent=done;
+  document.getElementById("totalCount").textContent=total;
+  document.getElementById("progressBar").style.width=`${(done/total)*100}%`;
+}
+
+function showAll(){
+  [1,2,3].forEach(showExercise);
+  showWriting();
+  toast("All suggested answers are now visible.");
+}
+function resetAll(){
+  [1,2,3].forEach(resetExercise);
+  resetWriting();
+  toast("Everything has been reset. Start again when you are ready.");
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+let toastTimer;
+function toast(message){
+  const el=document.getElementById("toast");
+  el.textContent=message;
+  el.classList.add("show");
+  clearTimeout(toastTimer);
+  toastTimer=setTimeout(()=>el.classList.remove("show"),3200);
+}
+
+[1,2,3].forEach(renderExercise);
+renderWriting();
+updateProgress();
+
+document.querySelectorAll("[data-check]").forEach(b=>b.addEventListener("click",()=>checkExercise(Number(b.dataset.check))));
+document.querySelectorAll("[data-show]").forEach(b=>b.addEventListener("click",()=>showExercise(Number(b.dataset.show))));
+document.querySelectorAll("[data-reset]").forEach(b=>b.addEventListener("click",()=>resetExercise(Number(b.dataset.reset))));
+document.getElementById("checkWriting").addEventListener("click",checkWriting);
+document.getElementById("showWriting").addEventListener("click",showWriting);
+document.getElementById("resetWriting").addEventListener("click",resetWriting);
+document.getElementById("showAllTop").addEventListener("click",showAll);
+document.getElementById("resetAllTop").addEventListener("click",resetAll);
+</script>
+</body>
+</html>
