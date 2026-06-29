@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Check & Reflect — Travel English</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f3f0e9;
+  --paper:#fffdf8;
+  --paper-2:#f7f3eb;
+  --ink:#172228;
+  --muted:#617079;
+  --line:#d9d2c6;
+  --navy:#17384a;
+  --blue:#1f6f8b;
+  --orange:#f28c45;
+  --orange-soft:#fff0e4;
+  --mint:#dff3ea;
+  --green:#17795b;
+  --red:#b74338;
+  --red-soft:#fde8e5;
+  --yellow:#f7dc84;
+  --shadow:0 20px 60px rgba(28,37,41,.10);
+  --shadow-sm:0 10px 28px rgba(28,37,41,.08);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  color:var(--ink);
+  background:
+    radial-gradient(circle at 12% 0%, rgba(31,111,139,.10), transparent 36%),
+    radial-gradient(circle at 95% 20%, rgba(242,140,69,.11), transparent 32%),
+    var(--bg);
+  font-family:'Manrope',system-ui,-apple-system,Segoe UI,sans-serif;
+  font-size:16px;
+  line-height:1.55;
+}
+button{font:inherit}
+button,input{accent-color:var(--blue)}
+button:focus-visible,[role="button"]:focus-visible{outline:3px solid var(--yellow);outline-offset:3px}
+
+.topbar{
+  position:sticky;top:0;z-index:100;
+  background:rgba(23,34,40,.94);
+  backdrop-filter:blur(14px);
+  color:white;
+  border-bottom:1px solid rgba(255,255,255,.08);
+}
+.topbar-inner{
+  max-width:1120px;margin:auto;padding:10px 20px;
+  display:grid;grid-template-columns:auto 1fr auto;gap:18px;align-items:center;
+}
+.brand-mini{font-family:'DM Mono',monospace;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#dbe8ed;white-space:nowrap}
+.progress-track{height:8px;background:rgba(255,255,255,.12);border-radius:99px;overflow:hidden}
+.progress-fill{height:100%;width:0;background:linear-gradient(90deg,var(--orange),#ffd27a);border-radius:99px;transition:width .45s ease}
+.score-mini{font-family:'DM Mono',monospace;font-size:12px;white-space:nowrap;color:#f6e5d2}
+
+.hero{max-width:1120px;margin:0 auto;padding:70px 20px 34px}
+.hero-card{
+  position:relative;overflow:hidden;
+  min-height:430px;border-radius:34px;padding:54px;
+  background:linear-gradient(135deg,#163647 0%,#1f5266 60%,#274a55 100%);
+  color:white;box-shadow:var(--shadow);
+}
+.hero-card:before{
+  content:"";position:absolute;width:500px;height:500px;border-radius:50%;
+  right:-180px;top:-210px;border:1px solid rgba(255,255,255,.16);
+  box-shadow:0 0 0 40px rgba(255,255,255,.03),0 0 0 82px rgba(255,255,255,.025);
+}
+.hero-card:after{
+  content:"";position:absolute;left:0;right:0;bottom:0;height:105px;
+  background:linear-gradient(180deg,transparent,rgba(0,0,0,.16));
+}
+.eyebrow{font-family:'DM Mono',monospace;letter-spacing:.14em;text-transform:uppercase;font-size:12px;color:#c9e4ec;display:flex;align-items:center;gap:10px}
+.eyebrow i{width:9px;height:9px;border-radius:50%;background:var(--orange);box-shadow:0 0 0 6px rgba(242,140,69,.14)}
+h1{font-family:'Playfair Display',serif;font-size:clamp(58px,10vw,118px);line-height:.88;letter-spacing:-.04em;margin:30px 0 22px;font-weight:600;max-width:760px}
+h1 em{color:#ffd29b}
+.hero-copy{font-size:18px;color:#dbe7eb;max-width:620px;margin:0}
+.hero-meta{display:flex;gap:10px;flex-wrap:wrap;margin-top:30px;position:relative;z-index:2}
+.pill{border:1px solid rgba(255,255,255,.22);border-radius:99px;padding:8px 13px;font-size:13px;color:#e8f0f2;background:rgba(255,255,255,.05)}
+.plane-line{position:absolute;right:30px;bottom:30px;z-index:2;display:flex;align-items:center;gap:12px;color:#ffd29b;font-family:'DM Mono',monospace;font-size:12px;letter-spacing:.10em}
+.plane-line span{display:block;width:110px;height:1px;background:repeating-linear-gradient(90deg,#ffd29b 0 8px,transparent 8px 14px)}
+.plane{animation:float 2.8s ease-in-out infinite}
+@keyframes float{50%{transform:translateY(-7px) translateX(3px)}}
+
+.layout{max-width:1120px;margin:auto;padding:0 20px 100px;display:grid;grid-template-columns:220px minmax(0,1fr);gap:28px;align-items:start}
+.side{
+  position:sticky;top:66px;background:rgba(255,253,248,.78);backdrop-filter:blur(14px);
+  border:1px solid rgba(217,210,198,.85);border-radius:22px;padding:16px;box-shadow:var(--shadow-sm)
+}
+.side-title{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);letter-spacing:.12em;text-transform:uppercase;margin:2px 6px 10px}
+.side a{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink);padding:9px 10px;border-radius:12px;font-size:13px;font-weight:600;transition:.18s}
+.side a:hover{background:var(--orange-soft);transform:translateX(2px)}
+.side a.done .navnum{background:var(--green);color:white;border-color:var(--green)}
+.navnum{width:26px;height:26px;border-radius:8px;display:grid;place-items:center;border:1px solid var(--line);font-family:'DM Mono',monospace;font-size:11px;background:white}
+
+.content{min-width:0}
+.section-card{
+  scroll-margin-top:82px;
+  background:var(--paper);border:1px solid var(--line);border-radius:28px;
+  padding:28px;margin-bottom:24px;box-shadow:var(--shadow-sm);
+  opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease;
+}
+.section-card.in{opacity:1;transform:none}
+.section-top{display:grid;grid-template-columns:auto 1fr auto;gap:16px;align-items:start;margin-bottom:18px}
+.sec-no{width:48px;height:48px;border-radius:15px;background:var(--navy);color:white;display:grid;place-items:center;font-family:'DM Mono',monospace;font-weight:500}
+.section-card h2{font-family:'Playfair Display',serif;font-size:34px;line-height:1.05;margin:0 0 5px;font-weight:600}
+.section-card .sub{color:var(--muted);font-size:14px}
+.badge{font-family:'DM Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.10em;border-radius:99px;padding:7px 10px;background:var(--paper-2);border:1px solid var(--line);color:var(--muted);white-space:nowrap}
+.badge.scored{background:#e8f3f6;color:var(--blue);border-color:#c8e1e8}
+
+.instruction{display:flex;gap:10px;align-items:flex-start;background:var(--paper-2);border-radius:16px;padding:13px 15px;color:#4c5d64;font-size:14px;margin-bottom:18px}
+.instruction strong{color:var(--ink)}
+.icon-dot{width:24px;height:24px;min-width:24px;border-radius:8px;background:var(--orange-soft);display:grid;place-items:center;color:var(--orange);font-weight:800}
+
+.qitem{padding:15px 0;border-bottom:1px dashed var(--line)}
+.qitem:last-child{border-bottom:none}
+.qline{display:flex;gap:12px;align-items:flex-start}
+.qnum{font-family:'DM Mono',monospace;color:var(--blue);font-size:12px;font-weight:500;padding-top:5px;min-width:20px}
+.sentence{flex:1;line-height:2.05}
+.token{display:inline-block;padding:1px 4px;border-radius:7px;cursor:pointer;transition:.15s;border-bottom:2px solid transparent}
+.token:hover{background:#edf5f7;border-bottom-color:#7fb4c5}
+.token.selected{background:#d8edf3;border-bottom-color:var(--blue)}
+.token.correct{background:var(--mint);color:var(--green);border-bottom-color:var(--green);font-weight:700}
+.token.wrong{background:var(--red-soft);color:var(--red);border-bottom-color:var(--red);font-weight:700}
+.token.key{box-shadow:inset 0 -2px 0 var(--green);background:#f2fbf7;color:var(--green)}
+.correction{display:none;margin:8px 0 0 32px;font-size:13px;color:var(--green);font-weight:700}
+.correction.show{display:block;animation:fade .25s ease}
+@keyframes fade{from{opacity:0;transform:translateY(-3px)}to{opacity:1;transform:none}}
+
+.choice-grid{display:grid;gap:10px;margin-top:10px}
+.choice{display:flex;gap:11px;align-items:center;border:1.5px solid var(--line);background:white;border-radius:14px;padding:11px 13px;cursor:pointer;transition:.16s;font-size:14px}
+.choice:hover{border-color:#8fb8c5;background:#f5fafb;transform:translateY(-1px)}
+.choice .radio{width:18px;height:18px;border:2px solid var(--line);border-radius:50%;flex:none;position:relative}
+.choice.selected{border-color:var(--blue);background:#eaf5f7}
+.choice.selected .radio{border-color:var(--blue)}
+.choice.selected .radio:after{content:"";position:absolute;inset:3px;border-radius:50%;background:var(--blue)}
+.choice.correct{border-color:var(--green);background:var(--mint);color:var(--green);font-weight:700}
+.choice.correct .radio{border-color:var(--green)}
+.choice.correct .radio:after{content:"";position:absolute;inset:3px;border-radius:50%;background:var(--green)}
+.choice.wrong{border-color:var(--red);background:var(--red-soft);color:var(--red)}
+.choice.wrong .radio{border-color:var(--red)}
+.choice.key{box-shadow:inset 0 0 0 2px var(--green);background:#f6fcf9}
+
+.decode{font-family:'DM Mono',monospace;letter-spacing:.16em;text-transform:uppercase;font-size:13px;color:var(--orange);background:var(--orange-soft);display:inline-block;border-radius:10px;padding:6px 9px;margin-bottom:9px}
+
+.match-wrap{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.match-col{display:grid;gap:10px}
+.match-title{font-family:'DM Mono',monospace;text-transform:uppercase;letter-spacing:.10em;color:var(--muted);font-size:11px;margin-bottom:2px}
+.match-card{border:1.5px solid var(--line);border-radius:15px;padding:12px 13px;background:white;cursor:pointer;transition:.16s;font-size:14px;display:flex;gap:10px;align-items:flex-start;min-height:64px}
+.match-card:hover{border-color:#86afbb;background:#f5fafb;transform:translateY(-1px)}
+.match-card.sel{border-color:var(--orange);background:var(--orange-soft)}
+.match-card.used{opacity:.48}
+.match-card.correct{border-color:var(--green);background:var(--mint);color:var(--green)}
+.match-card.wrong{border-color:var(--red);background:var(--red-soft);color:var(--red)}
+.match-id{font-family:'DM Mono',monospace;font-size:11px;width:25px;height:25px;border-radius:8px;display:grid;place-items:center;background:var(--navy);color:white;flex:none}
+.linktag{margin-left:auto;color:var(--orange);font-family:'DM Mono',monospace;font-size:11px;white-space:nowrap}
+
+.note-card{
+  border-radius:20px;padding:20px;
+  background:linear-gradient(135deg,#fff2e8,#fff8ef);
+  border:1px solid #f3c8a9;position:relative;overflow:hidden;
+}
+.note-card:after{content:"✎";position:absolute;right:18px;top:8px;font-size:70px;color:rgba(242,140,69,.12);font-family:serif}
+.note-title{display:flex;align-items:center;gap:10px;font-weight:800;color:#9d4f1f;margin-bottom:8px}
+.note-title span{background:var(--orange);color:white;border-radius:9px;padding:5px 8px;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.08em}
+.prompt-list{display:grid;gap:9px;margin-top:14px}
+.prompt{display:flex;gap:10px;align-items:flex-start;background:rgba(255,255,255,.62);border:1px solid rgba(243,200,169,.75);border-radius:13px;padding:10px 12px;font-size:14px}
+.prompt:before{content:"";width:8px;height:8px;border-radius:50%;background:var(--orange);margin-top:7px;flex:none}
+
+.select-four{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+.pick-card{border:1.5px solid #e3c8b5;background:rgba(255,255,255,.75);border-radius:14px;padding:12px;cursor:pointer;transition:.16s;font-size:14px;display:flex;gap:9px;align-items:flex-start}
+.pick-card:hover{transform:translateY(-1px);border-color:var(--orange)}
+.pick-card.on{background:var(--orange-soft);border-color:var(--orange);box-shadow:0 0 0 3px rgba(242,140,69,.10)}
+.pick-card .box{width:18px;height:18px;border-radius:5px;border:2px solid #d5ab8d;flex:none;margin-top:1px;display:grid;place-items:center;color:white;font-size:11px}
+.pick-card.on .box{background:var(--orange);border-color:var(--orange)}
+.pick-card.on .box:after{content:"✓"}
+
+.actions{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:20px;padding-top:18px;border-top:1px solid var(--line)}
+.btn{border:none;border-radius:99px;padding:11px 18px;font-weight:800;cursor:pointer;transition:.18s;font-size:14px}
+.btn:hover{transform:translateY(-1px)}
+.btn.primary{background:var(--navy);color:white;box-shadow:0 8px 18px rgba(23,56,74,.18)}
+.btn.primary:hover{background:#214b61}
+.btn.secondary{background:var(--paper-2);color:var(--ink);border:1px solid var(--line)}
+.btn.orange{background:var(--orange);color:white}
+.btn:disabled{opacity:.45;cursor:not-allowed;transform:none}
+.result-chip{display:none;margin-left:auto;border-radius:99px;padding:9px 13px;font-family:'DM Mono',monospace;font-size:12px;font-weight:500}
+.result-chip.show{display:block;animation:fade .25s ease}
+.result-chip.good{background:var(--mint);color:var(--green)}
+.result-chip.mid{background:#fff4d8;color:#8d6515}
+.result-chip.low{background:var(--red-soft);color:var(--red)}
+
+.activity-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:14px}
+.activity{border:1.5px solid var(--line);background:white;border-radius:16px;padding:16px 12px;text-align:center;cursor:pointer;transition:.16s;font-weight:700;font-size:14px}
+.activity:hover{transform:translateY(-2px);border-color:var(--blue)}
+.activity.on{background:#eaf5f7;border-color:var(--blue);color:var(--blue)}
+.activity .emo{display:block;font-size:24px;margin-bottom:7px}
+.speaking-panel{display:none;margin-top:16px;background:#eef6f8;border:1px solid #c9e3e9;border-radius:18px;padding:16px}
+.speaking-panel.show{display:block;animation:fade .25s ease}
+.timer{display:flex;align-items:center;gap:12px;margin-top:13px}
+.timer-display{font-family:'DM Mono',monospace;font-size:28px;color:var(--navy);min-width:70px}
+
+.reflect-grid{display:grid;gap:14px}
+.reflect-row{display:grid;grid-template-columns:1fr auto;gap:20px;align-items:center;border-bottom:1px dashed var(--line);padding-bottom:14px}
+.reflect-row:last-child{border-bottom:none;padding-bottom:0}
+.scale{display:flex;gap:7px}
+.scale button{width:38px;height:38px;border-radius:11px;border:1px solid var(--line);background:white;cursor:pointer;font-family:'DM Mono',monospace;font-weight:500;color:var(--muted);transition:.15s}
+.scale button:hover{border-color:var(--orange)}
+.scale button.on{background:var(--orange);border-color:var(--orange);color:white;transform:translateY(-2px)}
+
+.results-card{background:linear-gradient(135deg,#132d3a,#1b4c5d);color:white;border:none}
+.results-card h2{color:white}
+.results-card .sub{color:#c8dce3}
+.big-score{display:flex;align-items:flex-end;gap:10px;margin:24px 0 10px}
+.big-score strong{font-family:'Playfair Display',serif;font-size:82px;line-height:.8;font-weight:600;color:#ffd29b}
+.big-score span{font-family:'DM Mono',monospace;color:#d8e7eb;font-size:14px;padding-bottom:8px}
+.breakdown{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:22px}
+.break-item{display:flex;justify-content:space-between;gap:12px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.11);border-radius:14px;padding:11px 13px;font-size:13px}
+.break-item b{font-family:'DM Mono',monospace;color:#ffd29b}
+.result-message{max-width:620px;color:#d9e6ea;margin-top:10px}
+
+.footer{text-align:center;color:var(--muted);font-size:12px;font-family:'DM Mono',monospace;padding:0 20px 70px;letter-spacing:.06em}
+
+@media(max-width:900px){
+  .layout{grid-template-columns:1fr}.side{display:none}.hero-card{padding:38px;min-height:390px}.activity-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:640px){
+  body{font-size:15px}.topbar-inner{grid-template-columns:1fr auto}.brand-mini{display:none}.hero{padding-top:28px}.hero-card{padding:28px;border-radius:24px;min-height:390px}.plane-line{display:none}
+  .section-card{padding:20px;border-radius:22px}.section-top{grid-template-columns:auto 1fr}.badge{grid-column:2}.section-card h2{font-size:29px}.match-wrap,.select-four,.breakdown{grid-template-columns:1fr}.activity-grid{grid-template-columns:1fr 1fr}.reflect-row{grid-template-columns:1fr}.scale{justify-content:flex-start}.result-chip{width:100%;margin-left:0}.big-score strong{font-size:68px}
+}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.section-card{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="brand-mini">Unit 8 · Travel English</div>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="score-mini"><span id="doneCount">0</span>/10 complete · <span id="topScore">0</span>/43</div>
+  </div>
+</div>
+
+<header class="hero">
+  <div class="hero-card">
+    <div class="eyebrow"><i></i> Review lesson</div>
+    <h1>Check <em>&amp;</em><br>Reflect</h1>
+    <p class="hero-copy">A modern review of past tenses, phrasal verbs and travel language. Choose, match, decode and speak — without filling the screen with long written answers.</p>
+    <div class="hero-meta">
+      <span class="pill">10 short stops</span>
+      <span class="pill">43 scored answers</span>
+      <span class="pill">Notebook tasks clearly marked</span>
+    </div>
+    <div class="plane-line"><span></span><b class="plane">✈</b> READY FOR TAKE-OFF</div>
+  </div>
+</header>
+
+<div class="layout">
+  <aside class="side" id="sideNav">
+    <div class="side-title">Lesson route</div>
+  </aside>
+
+  <main class="content">
+    <section class="section-card" id="ex1" data-section="1">
+      <div class="section-top"><div class="sec-no">01</div><div><h2>Spot the mistake</h2><div class="sub">Past simple vs past continuous</div></div><div class="badge scored">6 points</div></div>
+      <div class="instruction"><div class="icon-dot">↯</div><div>Tap the <strong>wrong word or phrase</strong> in each sentence. Then check the whole exercise.</div></div>
+      <div id="ex1Body"></div>
+      <div class="actions"><button class="btn primary" data-check="ex1">Check exercise</button><button class="btn secondary" data-reset="ex1">Try again</button><div class="result-chip" id="ex1Result"></div></div>
+    </section>
+
+    <section class="section-card" id="ex2" data-section="2">
+      <div class="section-top"><div class="sec-no">02</div><div><h2>What were you doing?</h2><div class="sub">Personal past continuous practice</div></div><div class="badge">Notebook</div></div>
+      <div class="note-card">
+        <div class="note-title"><span>WRITE IN YOUR NOTEBOOK</span> Five very short sentences</div>
+        <div>Use <strong>I was + verb-ing</strong>. One sentence for each time below.</div>
+        <div class="prompt-list">
+          <div class="prompt">10 p.m. last night</div><div class="prompt">8 a.m. this morning</div><div class="prompt">1 p.m. yesterday</div><div class="prompt">on Saturday night</div><div class="prompt">on Sunday morning</div>
+        </div>
+      </div>
+      <div class="actions"><button class="btn orange complete-btn" data-complete="ex2">Mark notebook task complete</button><div class="result-chip" id="ex2Result"></div></div>
+    </section>
+
+    <section class="section-card" id="ex3" data-section="3">
+      <div class="section-top"><div class="sec-no">03</div><div><h2>Decode the phrasal verb</h2><div class="sub">Choose the phrase hidden in the scrambled letters</div></div><div class="badge scored">6 points</div></div>
+      <div class="instruction"><div class="icon-dot">⌁</div><div>Read the sentence, decode the orange letters and choose the correct phrasal verb.</div></div>
+      <div id="ex3Body"></div>
+      <div class="actions"><button class="btn primary" data-check="ex3">Check exercise</button><button class="btn secondary" data-reset="ex3">Try again</button><div class="result-chip" id="ex3Result"></div></div>
+    </section>
+
+    <section class="section-card" id="ex4" data-section="4">
+      <div class="section-top"><div class="sec-no">04</div><div><h2>Build the zoo story</h2><div class="sub">Match each beginning with its ending</div></div><div class="badge scored">5 points</div></div>
+      <div class="instruction"><div class="icon-dot">↔</div><div>Tap a beginning, then tap its matching ending. Check all five together.</div></div>
+      <div id="ex4Body"></div>
+      <div class="actions"><button class="btn primary" data-check="ex4">Check exercise</button><button class="btn secondary" data-reset="ex4">Try again</button><div class="result-chip" id="ex4Result"></div></div>
+    </section>
+
+    <section class="section-card" id="ex5" data-section="5">
+      <div class="section-top"><div class="sec-no">05</div><div><h2>Travel word surgery</h2><div class="sub">Find one wrong word in every sentence</div></div><div class="badge scored">6 points</div></div>
+      <div class="instruction"><div class="icon-dot">✦</div><div>Tap the single word that does not belong. The correction appears after checking.</div></div>
+      <div id="ex5Body"></div>
+      <div class="actions"><button class="btn primary" data-check="ex5">Check exercise</button><button class="btn secondary" data-reset="ex5">Try again</button><div class="result-chip" id="ex5Result"></div></div>
+    </section>
+
+    <section class="section-card" id="ex6" data-section="6">
+      <div class="section-top"><div class="sec-no">06</div><div><h2>Holiday essentials</h2><div class="sub">Choose the natural travel phrase</div></div><div class="badge scored">4 points</div></div>
+      <div id="ex6Body"></div>
+      <div class="actions"><button class="btn primary" data-check="ex6">Check exercise</button><button class="btn secondary" data-reset="ex6">Try again</button><div class="result-chip" id="ex6Result"></div></div>
+    </section>
+
+    <section class="section-card" id="ex7" data-section="7">
+      <div class="section-top"><div class="sec-no">07</div><div><h2>Verb pattern radar</h2><div class="sub">to + infinitive or verb-ing?</div></div><div class="badge scored">8 points</div></div>
+      <div id="ex7Body"></div>
+      <div class="actions"><button class="btn primary" data-check="ex7">Check exercise</button><button class="btn secondary" data-reset="ex7">Try again</button><div class="result-chip" id="ex7Result"></div></div>
+    </section>
+
+    <section class="section-card" id="ex8" data-section="8">
+      <div class="section-top"><div class="sec-no">08</div><div><h2>Four sentences about you</h2><div class="sub">Choose prompts first, then write only four lines</div></div><div class="badge">Notebook</div></div>
+      <div class="note-card">
+        <div class="note-title"><span>WRITE IN YOUR NOTEBOOK</span> Choose exactly four prompts</div>
+        <div>Select four cards below. Write one short sentence for each selected card.</div>
+        <div class="select-four" id="ex8Picks"></div>
+      </div>
+      <div class="actions"><button class="btn orange" id="ex8Done" disabled>Mark 4 sentences complete</button><div class="result-chip" id="ex8Result"></div></div>
+    </section>
+
+    <section class="section-card" id="ex9" data-section="9">
+      <div class="section-top"><div class="sec-no">09</div><div><h2>Travel vocabulary check</h2><div class="sub">Pick the word that fits naturally</div></div><div class="badge scored">8 points</div></div>
+      <div id="ex9Body"></div>
+      <div class="actions"><button class="btn primary" data-check="ex9">Check exercise</button><button class="btn secondary" data-reset="ex9">Try again</button><div class="result-chip" id="ex9Result"></div></div>
+    </section>
+
+    <section class="section-card" id="ex10" data-section="10">
+      <div class="section-top"><div class="sec-no">10</div><div><h2>Two travel stories</h2><div class="sub">Prepare notes, then speak for one minute</div></div><div class="badge">Speaking</div></div>
+      <div class="note-card">
+        <div class="note-title"><span>WRITE IN YOUR NOTEBOOK</span> Notes only — not full sentences</div>
+        <div>Choose <strong>two</strong> activities. For each one, note: <strong>when · where · who with · how long · what happened</strong>.</div>
+        <div class="activity-grid" id="activityGrid"></div>
+      </div>
+      <div class="speaking-panel" id="speakingPanel">
+        <strong>Now tell both stories aloud.</strong> Use the timer if you want a one-minute challenge.
+        <div class="timer"><div class="timer-display" id="timerDisplay">01:00</div><button class="btn primary" id="timerBtn">Start timer</button><button class="btn secondary" id="timerReset">Reset</button></div>
+      </div>
+      <div class="actions"><button class="btn orange" id="ex10Done" disabled>Mark speaking task complete</button><div class="result-chip" id="ex10Result"></div></div>
+    </section>
+
+    <section class="section-card" id="reflect" data-section="11">
+      <div class="section-top"><div class="sec-no">✓</div><div><h2>Reflect</h2><div class="sub">Rate your confidence from 1 to 5</div></div><div class="badge">Self-check</div></div>
+      <div class="reflect-grid" id="reflectGrid"></div>
+      <div class="actions"><button class="btn orange" id="reflectDone" disabled>Save reflection</button><div class="result-chip" id="reflectResult"></div></div>
+    </section>
+
+    <section class="section-card results-card in" id="results">
+      <div class="section-top"><div class="sec-no">★</div><div><h2>Your result</h2><div class="sub">Scored exercises update automatically</div></div><div class="badge">Live total</div></div>
+      <div class="big-score"><strong id="bigScore">0</strong><span>/ 43 points</span></div>
+      <div class="result-message" id="resultMessage">Complete the scored exercises to see your final result.</div>
+      <div class="breakdown" id="breakdown"></div>
+      <div class="actions"><button class="btn orange" id="resetLesson">Reset whole lesson</button></div>
+    </section>
+  </main>
+</div>
+
+<div class="footer">CHECK & REFLECT · UNIT 8 · TRAVEL ENGLISH</div>
+
+<script>
+const state={scores:{},completed:new Set(),checked:new Set()};
+const scoredMeta={ex1:6,ex3:6,ex4:5,ex5:6,ex6:4,ex7:8,ex9:8};
+const sectionNames={ex1:'Spot the mistake',ex2:'Notebook: past continuous',ex3:'Decode phrasal verbs',ex4:'Zoo story matching',ex5:'Travel word surgery',ex6:'Holiday essentials',ex7:'Verb pattern radar',ex8:'Notebook: four sentences',ex9:'Travel vocabulary',ex10:'Two travel stories',reflect:'Reflection'};
+
+const ex1=[
+ {words:['I','fell','over','when','I','were','taking','this','photo'],tail:' — that’s why it’s so bad!',bad:5,fix:'were → was'},
+ {words:['After','I','got','up,','I','was going','downstairs','and','made','some','coffee.'],bad:5,fix:'was going → went'},
+ {words:['Janice','was meeting','her','husband','when','she','was','working','in','Toronto.'],bad:1,fix:'was meeting → met'},
+ {words:['When','we','heard','the','noise,','we','all','were stopping','talking.'],bad:7,fix:'were stopping → stopped'},
+ {words:['When','I','heard','my','name,','I','was turning','around.'],bad:6,fix:'was turning → turned'},
+ {words:['Billy','was','leaving','while','I','arrived','at','the','party.'],bad:3,fix:'while → when'}
+];
+const ex5=[
+ {words:['I','hate','flying,','so','I','always','get','in','the','plane','last.'],bad:7,fix:'in → on'},
+ {words:['I','often','make','a','taxi','to','work.'],bad:2,fix:'make → take'},
+ {words:['We','need','to','park','a','car','when','we','arrive','so','we','can','drive','around','Spain.'],bad:3,fix:'park → hire'},
+ {words:['Get','on','the','car,','we','need','to','leave','now!'],bad:1,fix:'on → in'},
+ {words:['I’m','always','the','last','person','to','get','on','the','car','—','I’m','never','in','a','hurry.'],bad:7,fix:'on → out'},
+ {words:['We','arrived','at','the','airport','late','and','lost','our','plane.'],bad:7,fix:'lost → missed'}
+];
+const ex3=[
+ {pre:'I ___ last month and hurt my leg.',scramble:'LLEF  VERO',opts:['fell over','feel over','fell around'],a:0},
+ {pre:'I always turn off the lights when I ___ of a room.',scramble:'OG  TUO',opts:['get out','go out','go off'],a:1},
+ {pre:'I fell asleep as soon as I ___ last night.',scramble:'YAL  NWOD',opts:['lie down','lay down','lay out'],a:1},
+ {pre:'When I wake up, I lie in bed before I ___.',scramble:'TEG  PU',opts:['go up','get up','wake up'],a:1},
+ {pre:'I always ___ before midnight when I go out.',scramble:'EMOC  KCAB',opts:['come back','come out','go back'],a:0},
+ {pre:'I missed your call because I ___ to buy bread.',scramble:'TNEW  TUO',opts:['came out','went back','went out'],a:2}
+];
+const ex6=[
+ {pre:'I love ',opts:['doing','going'],post:' sightseeing on holiday.',a:1},
+ {pre:'It takes me a really long time to ',opts:['make','pack'],post:' my bags before a holiday.',a:1},
+ {pre:'Roger is going ',opts:['on','for'],post:' a cruise in May.',a:0},
+ {pre:'Fiona has ',opts:['saved','booked'],post:' us a hotel in the city centre.',a:1}
+];
+const ex7=[
+ {pre:'I’d like ',opts:['to visit','visiting'],post:' Nepal one day.',a:0},
+ {pre:'I don’t mind ',opts:['to drive','driving'],post:'.',a:1},
+ {pre:'Do you want ',opts:['to come','coming'],post:' with me?',a:0},
+ {pre:'We both enjoy ',opts:['to see','seeing'],post:' new places.',a:1},
+ {pre:'Sarah hates ',opts:['to travel','travelling'],post:' on her own.',a:1},
+ {pre:'Would you like ',opts:['to stay','staying'],post:' in a hotel or go camping?',a:0},
+ {pre:'Do you like ',opts:['to work','working'],post:' here?',a:1},
+ {pre:'We don’t want ',opts:['to leave','leaving'],post:' too late.',a:0}
+];
+const ex9=[
+ {pre:'Have you planned the ',opts:['journey','flight'],post:' yet?',a:0},
+ {pre:'Last month I went on a lovely ',opts:['cruise','travel'],post:' around the Mediterranean.',a:0},
+ {pre:'I always ',opts:['pack','plan'],post:' my bags the day before I leave.',a:0},
+ {pre:'Let’s ',opts:['book','try'],post:' our flights early. They’ll be cheaper.',a:0},
+ {pre:'I’m going to ',opts:['plan','try'],post:' so many new things when I go to Mongolia.',a:1},
+ {pre:'I never travel ',opts:['light','small'],post:'. I like taking lots of things.',a:0},
+ {pre:'Did you ',opts:['see','go'],post:' sightseeing in Paris?',a:1},
+ {pre:'Martin likes travelling ',opts:['only','alone'],post:'.',a:1}
+];
+const left=[
+ 'We really enjoyed our trip to the zoo because the',
+ 'We liked all the animals but we went there to',
+ 'Farah took her camera',
+ 'Unfortunately, the lions stayed inside',
+ 'After the zoo we were hungry so'
+];
+const right=[
+ {id:'a',text:'to take some photos of the lions.'},
+ {id:'b',text:'we went for a pizza.'},
+ {id:'c',text:'see the lions especially.'},
+ {id:'d',text:'animals were amazing.'},
+ {id:'e',text:'because it was raining.'}
+];
+const matchAnswer=['d','c','a','e','b'];
+const ex8Prompts=[
+ 'something you would like to do this weekend',
+ 'something you hate doing in the morning',
+ 'something you want to do this year',
+ 'something you enjoy doing on holiday',
+ 'something you don’t mind doing',
+ 'a person you love travelling with'
+];
+const activities=[['✈️','book a flight'],['🏨','book a hotel'],['🛳️','a cruise'],['📍','sightseeing']];
+const reflectStatements=[
+ 'I can describe a special photo.',
+ 'I can give a description of events and activities.',
+ 'I can plan a special trip.',
+ 'I can give directions.'
+];
+
+function el(tag,cls,txt){const n=document.createElement(tag);if(cls)n.className=cls;if(txt!==undefined)n.textContent=txt;return n}
+function setResult(id,score,max){
+ const chip=document.getElementById(id+'Result');
+ chip.className='result-chip show '+(score===max?'good':score>=Math.ceil(max*.6)?'mid':'low');
+ chip.textContent=`${score}/${max} points`;
+ state.scores[id]=score;state.checked.add(id);state.completed.add(id);updateAll();
+}
+function markComplete(id,text='Completed ✓'){
+ state.completed.add(id);const chip=document.getElementById(id+'Result');chip.className='result-chip show good';chip.textContent=text;updateAll();
+}
+function updateAll(){
+ const score=Object.values(state.scores).reduce((a,b)=>a+b,0);
+ document.getElementById('topScore').textContent=score;
+ document.getElementById('bigScore').textContent=score;
+ const completedCore=[...state.completed].filter(x=>x!=='reflect').length;
+ document.getElementById('doneCount').textContent=Math.min(completedCore,10);
+ document.getElementById('progressFill').style.width=(Math.min(completedCore,10)/10*100)+'%';
+ Object.keys(sectionNames).forEach(id=>{const a=document.querySelector(`[data-nav="${id}"]`);if(a)a.classList.toggle('done',state.completed.has(id))});
+ const pct=Math.round(score/43*100);
+ const msg=document.getElementById('resultMessage');
+ if(!state.checked.size)msg.textContent='Complete the scored exercises to see your final result.';
+ else if(state.checked.size<7)msg.textContent=`Current score: ${score}/43. You have checked ${state.checked.size} of 7 scored exercises.`;
+ else if(pct>=90)msg.textContent='Excellent. Your grammar and travel vocabulary are confident and accurate.';
+ else if(pct>=75)msg.textContent='Strong result. Review the red answers once, then explain the rule aloud.';
+ else if(pct>=55)msg.textContent='Good working knowledge. Repeat the exercises with the lowest scores.';
+ else msg.textContent='This unit needs another pass. Start with the red answers and say the corrected sentences aloud.';
+ renderBreakdown();
+}
+function renderBreakdown(){
+ const wrap=document.getElementById('breakdown');wrap.innerHTML='';
+ Object.entries(scoredMeta).forEach(([id,max])=>{const d=el('div','break-item');d.innerHTML=`<span>${sectionNames[id]}</span><b>${state.scores[id] ?? '—'}/${max}</b>`;wrap.appendChild(d)});
+}
+
+function renderTokenExercise(id,data){
+ const wrap=document.getElementById(id+'Body');
+ data.forEach((q,qi)=>{
+  const item=el('div','qitem');item.dataset.selected='';
+  const line=el('div','qline');line.appendChild(el('div','qnum',String(qi+1).padStart(2,'0')));
+  const sent=el('div','sentence');
+  q.words.forEach((w,wi)=>{
+   const t=el('span','token',w);t.dataset.i=wi;t.tabIndex=0;t.setAttribute('role','button');
+   const select=()=>{if(item.dataset.locked==='1')return;sent.querySelectorAll('.token').forEach(x=>x.classList.remove('selected'));t.classList.add('selected');item.dataset.selected=wi};
+   t.onclick=select;t.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();select()}};
+   sent.append(t,document.createTextNode(' '));
+  });
+  if(q.tail)sent.appendChild(document.createTextNode(q.tail));
+  line.appendChild(sent);item.appendChild(line);
+  const corr=el('div','correction','Correction: '+q.fix);item.appendChild(corr);wrap.appendChild(item);
+ });
+ document.querySelector(`[data-check="${id}"]`).onclick=()=>{
+  let score=0;
+  [...wrap.children].forEach((item,qi)=>{
+   item.dataset.locked='1';const selected=Number(item.dataset.selected);const tokens=item.querySelectorAll('.token');
+   tokens.forEach(x=>x.classList.remove('selected','correct','wrong','key'));
+   if(item.dataset.selected!=='' && selected===data[qi].bad){tokens[selected].classList.add('correct');score++}
+   else{if(item.dataset.selected!=='')tokens[selected].classList.add('wrong');tokens[data[qi].bad].classList.add('key')}
+   item.querySelector('.correction').classList.add('show');
+  });
+  setResult(id,score,data.length);
+ };
+ document.querySelector(`[data-reset="${id}"]`).onclick=()=>{
+  [...wrap.children].forEach(item=>{item.dataset.locked='0';item.dataset.selected='';item.querySelectorAll('.token').forEach(x=>x.className='token');item.querySelector('.correction').classList.remove('show')});
+  delete state.scores[id];state.checked.delete(id);state.completed.delete(id);document.getElementById(id+'Result').className='result-chip';updateAll();
+ };
+}
+
+function renderChoices(id,data,decoder=false){
+ const wrap=document.getElementById(id+'Body');
+ data.forEach((q,qi)=>{
+  const item=el('div','qitem');item.dataset.selected='';
+  const line=el('div','qline');line.appendChild(el('div','qnum',String(qi+1).padStart(2,'0')));
+  const body=el('div','sentence');
+  if(decoder){body.appendChild(el('div','decode',q.scramble));body.appendChild(el('div','',q.pre))}
+  else body.appendChild(el('div','',q.pre+'___'+q.post));
+  const grid=el('div','choice-grid');
+  q.opts.forEach((opt,oi)=>{
+   const c=el('div','choice');c.innerHTML='<span class="radio"></span><span>'+opt+'</span>';c.dataset.i=oi;c.tabIndex=0;c.setAttribute('role','button');
+   const choose=()=>{if(item.dataset.locked==='1')return;grid.querySelectorAll('.choice').forEach(x=>x.classList.remove('selected'));c.classList.add('selected');item.dataset.selected=oi};
+   c.onclick=choose;c.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();choose()}};grid.appendChild(c);
+  });
+  body.appendChild(grid);line.appendChild(body);item.appendChild(line);wrap.appendChild(item);
+ });
+ document.querySelector(`[data-check="${id}"]`).onclick=()=>{
+  let score=0;
+  [...wrap.children].forEach((item,qi)=>{
+   item.dataset.locked='1';const sel=item.dataset.selected===''?null:Number(item.dataset.selected);const choices=item.querySelectorAll('.choice');
+   choices.forEach(x=>x.classList.remove('selected','correct','wrong','key'));
+   if(sel===data[qi].a){choices[sel].classList.add('correct');score++}
+   else{if(sel!==null)choices[sel].classList.add('wrong');choices[data[qi].a].classList.add('key')}
+  });
+  setResult(id,score,data.length);
+ };
+ document.querySelector(`[data-reset="${id}"]`).onclick=()=>{
+  [...wrap.children].forEach(item=>{item.dataset.locked='0';item.dataset.selected='';item.querySelectorAll('.choice').forEach(x=>x.className='choice')});
+  delete state.scores[id];state.checked.delete(id);state.completed.delete(id);document.getElementById(id+'Result').className='result-chip';updateAll();
+ };
+}
+
+function renderMatch(){
+ const wrap=document.getElementById('ex4Body');const box=el('div','match-wrap');const lc=el('div','match-col');const rc=el('div','match-col');
+ lc.appendChild(el('div','match-title','Beginnings'));rc.appendChild(el('div','match-title','Endings'));
+ const pairs={};let active=null;
+ left.forEach((txt,i)=>{const c=el('div','match-card');c.dataset.i=i;c.innerHTML=`<span class="match-id">${i+1}</span><span>${txt}</span><span class="linktag"></span>`;c.onclick=()=>{if(box.dataset.locked==='1')return;lc.querySelectorAll('.match-card').forEach(x=>x.classList.remove('sel'));c.classList.add('sel');active=i};lc.appendChild(c)});
+ right.forEach(r=>{const c=el('div','match-card');c.dataset.id=r.id;c.innerHTML=`<span class="match-id">${r.id}</span><span>${r.text}</span>`;c.onclick=()=>{if(box.dataset.locked==='1'||active===null)return;Object.keys(pairs).forEach(k=>{if(pairs[k]===r.id)delete pairs[k]});pairs[active]=r.id;updatePairs();active=null};rc.appendChild(c)});
+ function updatePairs(){
+  lc.querySelectorAll('.match-card').forEach((c,i)=>{c.classList.remove('sel');c.querySelector('.linktag').textContent=pairs[i]?'→ '+pairs[i].toUpperCase():''});
+  rc.querySelectorAll('.match-card').forEach(c=>c.classList.toggle('used',Object.values(pairs).includes(c.dataset.id)));
+ }
+ box.append(lc,rc);wrap.appendChild(box);
+ document.querySelector('[data-check="ex4"]').onclick=()=>{
+  box.dataset.locked='1';let score=0;
+  lc.querySelectorAll('.match-card').forEach((c,i)=>{c.classList.remove('sel');if(pairs[i]===matchAnswer[i]){c.classList.add('correct');score++}else c.classList.add('wrong');c.querySelector('.linktag').textContent='→ '+(pairs[i]||'?').toUpperCase()+' · '+matchAnswer[i].toUpperCase()});
+  rc.querySelectorAll('.match-card').forEach(c=>c.classList.remove('used'));
+  setResult('ex4',score,5);
+ };
+ document.querySelector('[data-reset="ex4"]').onclick=()=>{
+  box.dataset.locked='0';Object.keys(pairs).forEach(k=>delete pairs[k]);active=null;lc.querySelectorAll('.match-card').forEach(c=>{c.className='match-card';c.querySelector('.linktag').textContent=''});rc.querySelectorAll('.match-card').forEach(c=>c.className='match-card');
+  delete state.scores.ex4;state.checked.delete('ex4');state.completed.delete('ex4');document.getElementById('ex4Result').className='result-chip';updateAll();
+ };
+}
+
+function buildSideNav(){
+ const nav=document.getElementById('sideNav');const order=['ex1','ex2','ex3','ex4','ex5','ex6','ex7','ex8','ex9','ex10','reflect','results'];
+ order.forEach((id,i)=>{const a=document.createElement('a');a.href='#'+id;a.dataset.nav=id;a.innerHTML=`<span class="navnum">${id==='reflect'?'R':id==='results'?'★':String(i+1).padStart(2,'0')}</span><span>${id==='results'?'Results':sectionNames[id]}</span>`;nav.appendChild(a)});
+}
+
+function setupNotebookTasks(){
+ document.querySelector('[data-complete="ex2"]').onclick=e=>{markComplete('ex2','Notebook task complete ✓');e.currentTarget.textContent='Completed ✓';e.currentTarget.disabled=true};
+ const pickWrap=document.getElementById('ex8Picks');const selected=new Set();
+ ex8Prompts.forEach((p,i)=>{const c=el('div','pick-card');c.innerHTML='<span class="box"></span><span>'+p+'</span>';c.onclick=()=>{if(c.classList.contains('on')){c.classList.remove('on');selected.delete(i)}else if(selected.size<4){c.classList.add('on');selected.add(i)}document.getElementById('ex8Done').disabled=selected.size!==4};pickWrap.appendChild(c)});
+ document.getElementById('ex8Done').onclick=e=>{markComplete('ex8','4 notebook sentences ✓');e.currentTarget.textContent='Completed ✓';e.currentTarget.disabled=true};
+ const ag=document.getElementById('activityGrid');const chosen=new Set();
+ activities.forEach((a,i)=>{const c=el('div','activity');c.innerHTML=`<span class="emo">${a[0]}</span>${a[1]}`;c.onclick=()=>{if(c.classList.contains('on')){c.classList.remove('on');chosen.delete(i)}else if(chosen.size<2){c.classList.add('on');chosen.add(i)}const ready=chosen.size===2;document.getElementById('speakingPanel').classList.toggle('show',ready);document.getElementById('ex10Done').disabled=!ready};ag.appendChild(c)});
+ document.getElementById('ex10Done').onclick=e=>{markComplete('ex10','Speaking task complete ✓');e.currentTarget.textContent='Completed ✓';e.currentTarget.disabled=true};
+}
+
+function setupTimer(){
+ let left=60,timer=null;const display=document.getElementById('timerDisplay'),btn=document.getElementById('timerBtn');
+ function draw(){display.textContent='00:'+String(left).padStart(2,'0')}
+ btn.onclick=()=>{if(timer){clearInterval(timer);timer=null;btn.textContent='Continue';return}btn.textContent='Pause';timer=setInterval(()=>{left--;draw();if(left<=0){clearInterval(timer);timer=null;btn.textContent='Done ✓';btn.disabled=true;display.textContent='00:00'}},1000)};
+ document.getElementById('timerReset').onclick=()=>{if(timer)clearInterval(timer);timer=null;left=60;draw();btn.textContent='Start timer';btn.disabled=false};
+}
+
+function renderReflect(){
+ const wrap=document.getElementById('reflectGrid');const vals={};
+ reflectStatements.forEach((s,i)=>{const row=el('div','reflect-row');row.appendChild(el('div','',s));const scale=el('div','scale');for(let n=1;n<=5;n++){const b=el('button','',n);b.onclick=()=>{vals[i]=n;scale.querySelectorAll('button').forEach((x,j)=>x.classList.toggle('on',j<n));document.getElementById('reflectDone').disabled=Object.keys(vals).length<4};scale.appendChild(b)}row.appendChild(scale);wrap.appendChild(row)});
+ document.getElementById('reflectDone').onclick=e=>{markComplete('reflect','Reflection saved ✓');e.currentTarget.textContent='Saved ✓';e.currentTarget.disabled=true};
+}
+
+function resetWholeLesson(){location.reload()}
+
+renderTokenExercise('ex1',ex1);
+renderChoices('ex3',ex3,true);
+renderMatch();
+renderTokenExercise('ex5',ex5);
+renderChoices('ex6',ex6);
+renderChoices('ex7',ex7);
+renderChoices('ex9',ex9);
+buildSideNav();
+setupNotebookTasks();
+setupTimer();
+renderReflect();
+renderBreakdown();
+document.getElementById('resetLesson').onclick=resetWholeLesson;
+
+const io=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.08});
+document.querySelectorAll('.section-card:not(.results-card)').forEach(s=>io.observe(s));
+</script>
+</body>
+</html>
