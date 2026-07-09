@@ -1,0 +1,967 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Midnight Gold · A2+ · Roadmap Units 1–5</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --void:#050608;
+  --black:#090b0f;
+  --ink:#0f131a;
+  --graphite:#171c24;
+  --graphite-2:#202632;
+  --steel:#8b94a3;
+  --steel-soft:#b6bdc8;
+  --platinum:#eef1f5;
+  --muted:#9aa3af;
+  --gold:#c8a15a;
+  --gold-light:#e5c77c;
+  --gold-deep:#8f6a2d;
+  --bronze:#9b643a;
+  --burgundy:#6f2432;
+  --green:#4fa37f;
+  --red:#c45b55;
+  --panel:rgba(18,22,30,.82);
+  --panel-solid:#121720;
+  --panel-soft:rgba(28,34,45,.76);
+  --line:rgba(229,199,124,.22);
+  --line-soft:rgba(255,255,255,.09);
+  --shadow:rgba(0,0,0,.44);
+  --shadow-strong:rgba(0,0,0,.62);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Inter',system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  color:var(--platinum);
+  background:
+    radial-gradient(900px 520px at 16% -10%, rgba(200,161,90,.22) 0%, transparent 58%),
+    radial-gradient(900px 680px at 92% 4%, rgba(111,36,50,.22) 0%, transparent 54%),
+    radial-gradient(700px 500px at 50% 115%, rgba(81,93,117,.18) 0%, transparent 62%),
+    linear-gradient(140deg,#040507 0%,#0c1016 46%,#111722 100%);
+  min-height:100vh;
+  overflow-x:hidden;
+  line-height:1.55;
+}
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:0;
+  background:
+    linear-gradient(rgba(255,255,255,.018) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.018) 1px, transparent 1px);
+  background-size:44px 44px;
+  mask-image:linear-gradient(to bottom, rgba(0,0,0,.72), transparent 78%);
+}
+body::after{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:0;
+  background:radial-gradient(circle at 50% 0%, transparent 0%, rgba(0,0,0,.34) 76%, rgba(0,0,0,.7) 100%);
+}
+.bg-deco{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+.float{position:absolute;opacity:.45;animation:drift linear infinite;filter:drop-shadow(0 18px 36px rgba(0,0,0,.5))}
+@keyframes drift{
+  0%{transform:translateY(0) rotate(0deg)}
+  50%{transform:translateY(-30px) rotate(7deg)}
+  100%{transform:translateY(0) rotate(0deg)}
+}
+.lux-orb{width:160px;height:160px;border-radius:50%;border:1px solid rgba(229,199,124,.18);background:radial-gradient(circle at 35% 28%,rgba(229,199,124,.32),rgba(143,106,45,.06) 44%,transparent 70%)}
+.lux-diamond{width:70px;height:70px;transform:rotate(45deg);border:1px solid rgba(229,199,124,.34);background:linear-gradient(135deg,rgba(255,255,255,.05),rgba(200,161,90,.09));box-shadow:inset 0 0 0 1px rgba(255,255,255,.04)}
+.lux-line{width:210px;height:1px;background:linear-gradient(90deg,transparent,rgba(229,199,124,.55),transparent)}
+.leaf{display:none}
+.choc-sq{width:54px;height:54px;border-radius:14px;background:linear-gradient(135deg,rgba(229,199,124,.28),rgba(255,255,255,.03));border:1px solid rgba(229,199,124,.28);box-shadow:inset 0 0 0 1px rgba(255,255,255,.04),0 18px 34px var(--shadow)}
+.choc-sq::after{content:"";position:absolute;inset:10px;border-radius:8px;border:1px solid rgba(229,199,124,.25);background:linear-gradient(135deg,transparent,rgba(255,255,255,.06))}
+.wrap{position:relative;z-index:1;max-width:1050px;margin:0 auto;padding:0 22px 90px}
+header{text-align:center;padding:62px 18px 34px;position:relative;z-index:1}
+.kicker{
+  display:inline-flex;align-items:center;gap:10px;font-weight:800;letter-spacing:.24em;text-transform:uppercase;
+  font-size:.72rem;color:var(--gold-light);background:rgba(10,12,17,.62);
+  padding:9px 18px;border-radius:999px;margin-bottom:22px;
+  border:1px solid rgba(229,199,124,.32);box-shadow:0 16px 48px rgba(0,0,0,.34), inset 0 1px 0 rgba(255,255,255,.05);
+}
+.kicker::before,.kicker::after{content:"";width:32px;height:1px;background:linear-gradient(90deg,transparent,var(--gold-light))}
+.kicker::after{background:linear-gradient(90deg,var(--gold-light),transparent)}
+h1{
+  font-family:'Cormorant Garamond',Georgia,serif;font-weight:700;font-size:clamp(2.8rem,7vw,5rem);
+  line-height:.92;color:#fff;letter-spacing:.015em;text-transform:uppercase;text-shadow:0 18px 44px rgba(0,0,0,.62);
+}
+h1 .mint{color:var(--gold-light);font-style:normal;position:relative;text-shadow:0 0 30px rgba(229,199,124,.22)}
+h1 .mint::after{content:"";position:absolute;left:6%;right:6%;bottom:.04em;height:1px;background:linear-gradient(90deg,transparent,var(--gold-light),transparent);opacity:.9;border-radius:4px;z-index:-1}
+.subtitle{margin:18px auto 0;max-width:720px;font-size:1.02rem;color:var(--steel-soft);font-weight:500;letter-spacing:.02em}
+.scoop{display:none}
+.progress-shell{
+  margin:32px auto 8px;max-width:650px;background:linear-gradient(145deg,rgba(18,22,30,.88),rgba(10,12,17,.78));
+  border-radius:24px;padding:18px 22px;box-shadow:0 24px 70px var(--shadow-strong), inset 0 1px 0 rgba(255,255,255,.05);border:1px solid rgba(229,199,124,.2);backdrop-filter:blur(16px);
+}
+.progress-top{display:flex;justify-content:space-between;align-items:center;font-weight:800;margin-bottom:12px;letter-spacing:.02em}
+.progress-top .label{color:var(--steel-soft);font-size:.9rem;text-transform:uppercase;letter-spacing:.13em}
+.progress-top .count{color:var(--gold-light);font-size:1.02rem}
+.bar{height:12px;background:rgba(255,255,255,.08);border-radius:20px;overflow:hidden;box-shadow:inset 0 2px 9px rgba(0,0,0,.5);border:1px solid rgba(255,255,255,.06)}
+.bar-fill{
+  height:100%;width:0%;background:linear-gradient(90deg,var(--gold-deep),var(--gold-light),#fff0b8);
+  border-radius:20px;transition:width .7s cubic-bezier(.34,1.4,.5,1);position:relative;overflow:hidden;box-shadow:0 0 24px rgba(229,199,124,.24);
+}
+.bar-fill::after{content:"";position:absolute;inset:0;background:linear-gradient(100deg,transparent 30%,rgba(255,255,255,.55) 50%,transparent 70%);transform:translateX(-100%);animation:shimmer 2.6s infinite}
+@keyframes shimmer{100%{transform:translateX(120%)}}
+.tabs{
+  display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin:32px 0 28px;
+  position:sticky;top:0;z-index:20;padding:13px;border-radius:26px;
+  background:rgba(7,9,13,.72);backdrop-filter:blur(18px);box-shadow:0 18px 50px rgba(0,0,0,.38), inset 0 1px 0 rgba(255,255,255,.04);border:1px solid rgba(229,199,124,.14);
+}
+.tab{
+  font-family:'Inter',sans-serif;font-weight:800;font-size:.9rem;border:1px solid rgba(255,255,255,.08);cursor:pointer;
+  padding:12px 18px;border-radius:16px;background:linear-gradient(145deg,rgba(29,35,46,.85),rgba(14,17,24,.82));color:var(--steel-soft);
+  display:flex;flex-direction:column;align-items:center;gap:3px;line-height:1.1;
+  transition:transform .18s ease, box-shadow .2s ease, background .2s ease, color .2s ease,border-color .2s ease;
+}
+.tab small{font-weight:700;font-size:.64rem;opacity:.82;text-transform:uppercase;letter-spacing:.08em;color:var(--gold)}
+.tab:hover{transform:translateY(-3px);border-color:rgba(229,199,124,.32);box-shadow:0 14px 28px rgba(0,0,0,.32)}
+.tab.active{background:linear-gradient(135deg,#2c2417,#191c24 48%,#0d1016);color:#fff;border-color:rgba(229,199,124,.55);box-shadow:0 18px 38px rgba(0,0,0,.56),0 0 0 1px rgba(229,199,124,.08) inset;transform:translateY(-3px)}
+.tab .tick{display:none}
+.tab.done .tick{display:inline;color:var(--gold-light)}
+.unit{display:none;animation:fadeUp .5s ease both}
+.unit.active{display:block}
+@keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+.unit-head{display:flex;align-items:center;gap:18px;margin:8px 0 24px}
+.unit-num{
+  flex:none;width:66px;height:66px;border-radius:20px;background:linear-gradient(145deg,#2a2318,#131720);
+  color:var(--gold-light);display:grid;place-items:center;font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:700;
+  box-shadow:0 18px 38px rgba(0,0,0,.48),inset 0 0 0 1px rgba(229,199,124,.36),inset 0 1px 0 rgba(255,255,255,.06);
+}
+.unit-head h2{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:2.05rem;color:#fff;line-height:1.05;letter-spacing:.01em}
+.unit-head .tag{color:var(--steel);font-weight:600;font-size:.9rem;text-transform:uppercase;letter-spacing:.1em;margin-top:4px}
+.card{
+  background:linear-gradient(145deg,rgba(19,24,33,.92),rgba(11,14,20,.88));border-radius:24px;padding:25px 25px 23px;margin-bottom:24px;
+  box-shadow:0 24px 70px rgba(0,0,0,.42), inset 0 1px 0 rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.08);position:relative;border-left:5px solid var(--gold);
+  overflow:hidden;
+}
+.card::before{content:"";position:absolute;left:0;right:0;top:0;height:1px;background:linear-gradient(90deg,transparent,rgba(229,199,124,.55),transparent)}
+.card::after{content:"";position:absolute;right:-80px;top:-90px;width:220px;height:220px;border-radius:50%;background:radial-gradient(circle,rgba(229,199,124,.10),transparent 68%);pointer-events:none}
+.card.vocab{border-left-color:var(--burgundy)}
+.card.vocab::after{background:radial-gradient(circle,rgba(111,36,50,.18),transparent 68%)}
+.card-title{
+  display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-family:'Cormorant Garamond',serif;font-weight:700;
+  font-size:1.48rem;color:#fff;margin-bottom:4px;letter-spacing:.01em;position:relative;z-index:1;
+}
+.chip-type{font-family:'Inter';font-size:.62rem;font-weight:900;letter-spacing:.14em;text-transform:uppercase;padding:5px 11px;border-radius:999px;background:rgba(200,161,90,.13);color:var(--gold-light);border:1px solid rgba(229,199,124,.28)}
+.chip-type.voc{background:rgba(111,36,50,.22);color:#f0b0b9;border-color:rgba(240,176,185,.2)}
+.card-sub{color:var(--steel);font-weight:600;font-size:.92rem;margin-bottom:15px;position:relative;z-index:1}
+.btn-rule{
+  border:1px solid rgba(229,199,124,.38);background:rgba(8,10,14,.42);color:var(--gold-light);
+  font-family:'Inter';font-weight:800;font-size:.84rem;cursor:pointer;
+  padding:9px 15px;border-radius:14px;display:inline-flex;align-items:center;gap:7px;
+  transition:all .18s ease;margin-bottom:6px;box-shadow:inset 0 1px 0 rgba(255,255,255,.04);
+}
+.btn-rule:hover{background:linear-gradient(135deg,rgba(200,161,90,.22),rgba(10,12,17,.62));color:#fff;transform:translateY(-2px);box-shadow:0 12px 28px rgba(0,0,0,.35)}
+.rule{
+  max-height:0;overflow:hidden;opacity:0;
+  transition:max-height .5s ease, opacity .4s ease, margin .4s ease, padding .4s ease;
+  background:rgba(7,9,13,.5);border:1px dashed rgba(229,199,124,.32);border-radius:18px;padding:0 20px;margin-top:0;color:var(--steel-soft);
+}
+.rule.open{max-height:1000px;opacity:1;padding:18px 20px;margin-top:14px}
+.rule h4{font-family:'Cormorant Garamond';color:var(--gold-light);font-size:1.22rem;margin-bottom:8px}
+.rule p{margin:7px 0;font-size:.96rem}
+.rule ul{margin:6px 0 6px 4px;list-style:none}
+.rule li{margin:7px 0;padding-left:22px;position:relative;font-size:.95rem}
+.rule li::before{content:"◆";position:absolute;left:0;font-size:.58rem;top:5px;color:var(--gold)}
+.rule .ex{background:rgba(255,255,255,.055);border-radius:12px;padding:9px 12px;margin:8px 0;font-weight:600;color:#fff;border-left:3px solid var(--gold)}
+.rule .ru{color:var(--steel);font-style:italic;font-size:.9rem}
+.rule code{background:rgba(255,255,255,.07);padding:2px 7px;border-radius:7px;font-family:'Cormorant Garamond';color:var(--gold-light);font-weight:700;font-style:italic}
+.ex-block{margin-top:19px;position:relative;z-index:1}
+.ex-instr{font-weight:800;color:var(--platinum);margin-bottom:12px;display:flex;gap:9px;align-items:baseline;letter-spacing:.01em}
+.ex-instr .n{flex:none;width:25px;height:25px;border-radius:50%;background:linear-gradient(135deg,var(--gold-deep),var(--gold-light));color:#121212;font-size:.76rem;display:grid;place-items:center;font-weight:900;box-shadow:0 0 18px rgba(229,199,124,.2)}
+.q{margin:13px 0;padding:14px 15px;border-radius:16px;background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.08);transition:background .3s,border-color .3s, box-shadow .3s}
+.q.correct{background:rgba(79,163,127,.12);border-color:rgba(79,163,127,.45);box-shadow:0 0 0 1px rgba(79,163,127,.08)}
+.q.wrong{background:rgba(196,91,85,.12);border-color:rgba(196,91,85,.42);animation:shake .4s}
+@keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-7px)}40%{transform:translateX(7px)}60%{transform:translateX(-5px)}80%{transform:translateX(5px)}}
+.q .qtext{font-weight:650;margin-bottom:9px;font-size:1rem;color:#fff}
+.q .fb{font-weight:900;font-size:.84rem;margin-top:9px;display:none;align-items:center;gap:6px}
+.q.correct .fb.ok{display:flex;color:#8de0bd}
+.q.wrong .fb.no{display:flex;color:#ee9b97}
+.reveal{font-size:.85rem;color:var(--steel);margin-top:7px;display:none}
+.reveal.show{display:block}
+.reveal b{color:var(--gold-light)}
+.opts{display:flex;flex-direction:column;gap:8px}
+.opt{
+  border:1px solid rgba(255,255,255,.1);background:rgba(7,9,13,.56);border-radius:13px;padding:10px 14px;cursor:pointer;
+  font-weight:650;font-size:.97rem;transition:all .15s ease;text-align:left;font-family:'Inter';color:var(--platinum);
+}
+.opt:hover{border-color:rgba(229,199,124,.46);transform:translateX(3px);background:rgba(229,199,124,.08)}
+.opt.sel{border-color:var(--gold);background:rgba(200,161,90,.13)}
+.q.correct .opt.sel{border-color:rgba(79,163,127,.65);background:rgba(79,163,127,.18)}
+.q.wrong .opt.sel{border-color:rgba(196,91,85,.65);background:rgba(196,91,85,.18)}
+.q.correct .opt.right,.q.wrong .opt.right{border-color:rgba(79,163,127,.65);background:rgba(79,163,127,.18)}
+.opt.right::after{content:" ✓";color:#8de0bd;font-weight:900}
+.gapline{font-size:1.02rem;line-height:2.2;color:#fff}
+input.gap{
+  font-family:'Inter';font-weight:800;font-size:1rem;color:#fff;
+  border:1px solid rgba(229,199,124,.35);border-bottom:2px solid var(--gold);background:rgba(7,9,13,.62);
+  border-radius:10px;padding:6px 10px;min-width:90px;width:136px;text-align:center;
+  outline:none;transition:border-color .2s,background .2s,box-shadow .2s;
+}
+input.gap:focus{border-color:var(--gold-light);background:rgba(255,255,255,.08);box-shadow:0 0 0 3px rgba(229,199,124,.08)}
+.q.correct input.gap{border-color:rgba(79,163,127,.65);background:rgba(79,163,127,.16)}
+.q.wrong input.gap{border-color:rgba(196,91,85,.65);background:rgba(196,91,85,.16)}
+.hint{font-size:.79rem;color:var(--muted);font-style:italic}
+.bank,.answer{display:flex;flex-wrap:wrap;gap:8px;min-height:47px;align-items:center}
+.answer{background:rgba(7,9,13,.44);border:1px dashed rgba(229,199,124,.4);border-radius:14px;padding:9px 10px;margin:6px 0 10px}
+.answer:empty::before{content:"tap the words →";color:var(--muted);font-style:italic;font-size:.85rem}
+.word{
+  background:linear-gradient(135deg,#2d3543,#151a23);color:#fff;border:1px solid rgba(255,255,255,.08);
+  font-family:'Inter';font-weight:850;font-size:.93rem;padding:8px 13px;border-radius:12px;cursor:pointer;
+  box-shadow:0 8px 18px rgba(0,0,0,.28);transition:transform .12s ease,border-color .16s,background .16s;
+}
+.word:hover{transform:translateY(-2px) scale(1.04);border-color:rgba(229,199,124,.42);background:linear-gradient(135deg,#3a3020,#171b24)}
+.word:active{transform:scale(.94)}
+.answer .word{background:linear-gradient(135deg,var(--gold-deep),#3a2813);color:#fff4cf;border-color:rgba(229,199,124,.4)}
+.match-row{display:flex;align-items:center;gap:12px;margin:9px 0;flex-wrap:wrap}
+.match-key{flex:none;min-width:154px;font-weight:900;color:var(--gold-light);background:rgba(200,161,90,.1);border:1px solid rgba(229,199,124,.16);border-radius:12px;padding:10px 13px}
+select.match-sel{
+  flex:1;min-width:220px;font-family:'Inter';font-weight:650;font-size:.94rem;color:var(--platinum);
+  border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:10px 12px;background:#0d1118;cursor:pointer;outline:none;transition:border-color .2s,box-shadow .2s;
+}
+select.match-sel:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(229,199,124,.08)}
+.match-row.ok select.match-sel{border-color:rgba(79,163,127,.65);background:#11221c}
+.match-row.bad select.match-sel{border-color:rgba(196,91,85,.65);background:#241313}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px;align-items:center}
+.btn-check{
+  font-family:'Inter';font-weight:900;font-size:.92rem;border:none;cursor:pointer;
+  background:linear-gradient(135deg,var(--gold-deep),var(--gold-light));color:#111318;padding:11px 23px;border-radius:14px;
+  box-shadow:0 14px 28px rgba(0,0,0,.38),0 0 0 1px rgba(255,255,255,.06) inset;transition:transform .15s ease,box-shadow .2s;display:inline-flex;align-items:center;gap:8px;
+}
+.btn-check:hover{transform:translateY(-2px);box-shadow:0 18px 34px rgba(0,0,0,.46),0 0 22px rgba(229,199,124,.16)}
+.btn-ghost{
+  font-family:'Inter';font-weight:800;font-size:.86rem;cursor:pointer;background:rgba(255,255,255,.03);
+  border:1px solid rgba(255,255,255,.12);color:var(--steel-soft);padding:9px 16px;border-radius:14px;transition:all .15s;
+}
+.btn-ghost:hover{border-color:rgba(229,199,124,.44);color:var(--gold-light);background:rgba(229,199,124,.07)}
+.score-pill{margin-left:auto;font-weight:900;font-size:.83rem;color:var(--gold-light);background:rgba(200,161,90,.1);border:1px solid rgba(229,199,124,.18);padding:7px 14px;border-radius:999px;display:none}
+.score-pill.show{display:inline-block}
+.complete{
+  display:none;text-align:center;margin:8px 0 6px;background:linear-gradient(135deg,rgba(200,161,90,.16),rgba(15,18,25,.92));
+  border-radius:18px;padding:18px;font-weight:900;color:var(--gold-light);box-shadow:0 18px 40px rgba(0,0,0,.38);animation:pop .5s cubic-bezier(.34,1.56,.5,1);border:1px solid rgba(229,199,124,.25);
+}
+.complete.show{display:block}
+@keyframes pop{from{transform:scale(.85);opacity:0}to{transform:scale(1);opacity:1}}
+footer{text-align:center;color:var(--steel);font-size:.85rem;margin-top:42px;font-weight:600;letter-spacing:.02em}
+footer b{color:var(--gold-light)}
+.confetti{position:fixed;top:-12px;width:10px;height:14px;z-index:999;pointer-events:none;border-radius:2px;box-shadow:0 0 12px rgba(229,199,124,.18)}
+@keyframes fall{to{transform:translateY(110vh) rotate(640deg);opacity:.18}}
+@media(max-width:560px){
+  .wrap{padding:0 14px 80px}
+  header{padding-top:48px}
+  .card{padding:19px 16px}
+  .match-key{min-width:120px}
+  .tab{padding:10px 12px}
+  .unit-head{align-items:flex-start}
+  .unit-num{width:56px;height:56px;font-size:1.7rem}
+  h1{font-size:clamp(2.25rem,12vw,3.4rem)}
+  .progress-top{gap:16px}
+}
+
+</style>
+</head>
+<body>
+<div class="bg-deco" id="deco"></div>
+
+<header>
+  <span class="kicker">Roadmap · English revision</span>
+  <h1>Midnight&nbsp;<span class="mint">Gold</span><br>Revision Lesson</h1>
+  <p class="subtitle">Units 1–5 · Level A2+ · grammar &amp; vocabulary · premium dark edition</p>
+
+  <div class="progress-shell">
+    <div class="progress-top">
+      <span class="label">Progress</span>
+      <span class="count"><span id="done">0</span> / <span id="total">0</span> ✓</span>
+    </div>
+    <div class="bar"><div class="bar-fill" id="barFill"></div></div>
+  </div>
+</header>
+
+<div class="wrap">
+  <nav class="tabs" id="tabs"></nav>
+  <main id="units"></main>
+  <footer>
+    Premium dark edition · tap <b>Rule</b> if you need support, then <b>Check</b> your result.
+  </footer>
+</div>
+
+<script>
+/* =========================================================
+   LESSON DATA  (Roadmap A2+ · Units 1–5)
+   ========================================================= */
+const LESSON = [
+{
+  num:1, title:"Getting to know you", tag:"Questions · habits",
+  sections:[
+    {
+      kind:"grammar", title:"Word order in questions", sub:"How to build questions",
+      rule:`<h4>How to make questions</h4>
+        <p>With most verbs (Present Simple):</p>
+        <p><code>(Question word) + do/does + subject + verb</code></p>
+        <div class="ex">Where <b>do</b> you live? · What <b>does</b> she do?</div>
+        <p>With the verb <b>be</b>:</p>
+        <p><code>(Question word) + am/is/are + subject</code></p>
+        <div class="ex">Where <b>are</b> you from? · What <b>is</b> your name?</div>
+        <p class="ru">⚠ When you ask about the subject (who/what does the action), don't use <i>do</i>: <b>Who lives</b> here?</p>`,
+      exercises:[
+        { type:"order", instr:"Put the words in order to make a question.",
+          items:[
+            {words:["where","do","you","live","?"], answer:"where do you live ?"},
+            {words:["does","what","she","do","?"], answer:"what does she do ?"},
+            {words:["are","where","you","from","?"], answer:"where are you from ?"},
+            {words:["how","often","do","you","travel","?"], answer:"how often do you travel ?"}
+          ]},
+        { type:"mcq", instr:"Choose the correct question.",
+          items:[
+            {q:"___ your favourite kind of music?",opts:["What is","What does","What do"],correct:0},
+            {q:"Where ___ your parents live?",opts:["is","do","does"],correct:1},
+            {q:"___ work in this area?",opts:["Does you","Do you","Are you do"],correct:1}
+          ]}
+      ]
+    },
+    {
+      kind:"grammar", title:"Adverbs of frequency", sub:"always, usually, sometimes, never…",
+      rule:`<h4>How often?</h4>
+        <ul><li><b>always</b> (100%) → usually → often → sometimes → hardly ever → <b>never</b> (0%)</li></ul>
+        <p>Position in the sentence:</p>
+        <div class="ex"><b>before</b> the main verb: I <b>always</b> drink coffee.</div>
+        <div class="ex"><b>after</b> the verb be: She is <b>never</b> late.</div>`,
+      exercises:[
+        { type:"mcq", instr:"Where does the adverb go? Choose the correct sentence.",
+          items:[
+            {q:"I get up at 7. (usually)",opts:["I usually get up at 7.","I get usually up at 7.","I get up usually at 7."],correct:0},
+            {q:"She is late. (never)",opts:["She never is late.","She is never late.","She is late never."],correct:1},
+            {q:"We play tennis. (sometimes)",opts:["We play sometimes tennis.","Sometimes play we tennis.","We sometimes play tennis."],correct:2}
+          ]}
+      ]
+    },
+    {
+      kind:"grammar", title:"Present Simple vs Present Continuous", sub:"routines vs. happening now",
+      rule:`<h4>Two presents</h4>
+        <p><b>Present Simple</b> — habits, facts, routines. Signal words: <i>every day, usually, often, on Mondays</i>.</p>
+        <p><code>I/you/we/they + verb · he/she/it + verb-s</code></p>
+        <div class="ex">She <b>works</b> in a bank. I <b>play</b> tennis on Sundays.</div>
+        <p><b>Present Continuous</b> — happening now / temporary. Signal words: <i>now, at the moment, today, look!</i></p>
+        <p><code>am/is/are + verb-ing</code></p>
+        <div class="ex">Look! It <b>is raining</b>. They <b>are watching</b> TV now.</div>`,
+      exercises:[
+        { type:"gap", instr:"Put the verb in Present Simple or Present Continuous.",
+          items:[
+            {q:"I ___ TV every evening. (watch)",answers:["watch"],hint:"watch"},
+            {q:"Look! It ___ . (rain)",answers:["is raining","'s raining"],hint:"rain — now"},
+            {q:"My brother ___ in a hospital. (work)",answers:["works"],hint:"work"},
+            {q:"Be quiet, the baby ___ . (sleep)",answers:["is sleeping","'s sleeping"],hint:"sleep — now"},
+            {q:"We usually ___ dinner at 8. (have)",answers:["have"],hint:"have"}
+          ]}
+      ]
+    },
+    {
+      kind:"vocab", title:"Vocabulary · Question words & Success", sub:"useful everyday words",
+      rule:`<h4>Useful words</h4>
+        <p><b>Question words:</b> what, where, when, who, why, whose, which, how, how much, how many, how often, how long.</p>
+        <p><b>Success:</b> succeed, achieve a goal, win, do well, make progress, fail, give up.</p>`,
+      exercises:[
+        { type:"match", instr:"Match the question word with what it asks about.",
+          pairs:[
+            {l:"How often…?",r:"asks about frequency"},
+            {l:"Whose…?",r:"asks who something belongs to"},
+            {l:"How long…?",r:"asks about duration"},
+            {l:"Why…?",r:"asks for a reason"},
+            {l:"How much…?",r:"asks about an uncountable amount"}
+          ]},
+        { type:"gap", instr:"Complete with a success word (succeed / achieve / give up / win / fail).",
+          items:[
+            {q:"Don't ___ ! Keep trying.",answers:["give up"],hint:"give …"},
+            {q:"She worked hard to ___ her goal.",answers:["achieve"],hint:"… a goal"},
+            {q:"I hope our team will ___ the match.",answers:["win"],hint:"opposite of lose"}
+          ]}
+      ]
+    }
+  ]
+},
+{
+  num:2, title:"Memorable days", tag:"The past · food",
+  sections:[
+    {
+      kind:"grammar", title:"Past Simple", sub:"finished actions in the past",
+      rule:`<h4>Past Simple</h4>
+        <p>Finished actions in the past.</p>
+        <p><b>Regular verbs:</b> <code>+ -ed</code> → worked, played, lived.</p>
+        <ul>
+          <li>verb ending in -e → +d: live → liv<b>ed</b></li>
+          <li>consonant + y → -ied: study → stud<b>ied</b></li>
+          <li>double the consonant: stop → sto<b>pped</b></li>
+        </ul>
+        <p><b>Irregular:</b> go→went, have→had, see→saw, make→made, get→got, buy→bought.</p>`,
+      exercises:[
+        { type:"gap", instr:"Put the verb in the Past Simple.",
+          items:[
+            {q:"Yesterday we ___ to the beach. (go)",answers:["went"],hint:"go (irregular)"},
+            {q:"She ___ a delicious cake. (make)",answers:["made"],hint:"make (irregular)"},
+            {q:"They ___ football in the park. (play)",answers:["played"],hint:"play"},
+            {q:"I ___ a new phone last week. (buy)",answers:["bought"],hint:"buy (irregular)"},
+            {q:"We ___ in London for two years. (live)",answers:["lived"],hint:"live"}
+          ]}
+      ]
+    },
+    {
+      kind:"grammar", title:"Past Simple: negatives & questions", sub:"didn't · Did…? · was/were",
+      rule:`<h4>didn't / Did…? / was-were</h4>
+        <p><b>Negative:</b> <code>didn't + infinitive</code> → I <b>didn't go</b>.</p>
+        <p><b>Question:</b> <code>Did + subject + infinitive?</code> → <b>Did</b> you <b>go</b>?</p>
+        <p class="ru">⚠ After <i>didn't / Did</i> use the verb WITHOUT -ed!</p>
+        <p><b>be:</b> was / wasn't (I/he/she/it), were / weren't (you/we/they). <i>Were you happy?</i></p>`,
+      exercises:[
+        { type:"mcq", instr:"Choose the correct form.",
+          items:[
+            {q:"I ___ to the party. (negative)",opts:["didn't went","didn't go","not went"],correct:1},
+            {q:"___ you enjoy the film?",opts:["Did","Was","Do"],correct:0},
+            {q:"They ___ at home yesterday. (negative)",opts:["wasn't","weren't","didn't"],correct:1},
+            {q:"___ she happy with the news?",opts:["Did","Was","Were"],correct:1}
+          ]}
+      ]
+    },
+    {
+      kind:"grammar", title:"Quantifiers", sub:"much, many, some, any…",
+      rule:`<h4>much / many / some / any…</h4>
+        <ul>
+          <li><b>countable</b> nouns: many, a few → many apples, a few friends</li>
+          <li><b>uncountable</b> nouns: much, a little → much time, a little milk</li>
+          <li><b>some</b> — in positive sentences · <b>any</b> — in questions &amp; negatives</li>
+          <li><b>a lot of</b> — with both</li>
+        </ul>`,
+      exercises:[
+        { type:"mcq", instr:"Choose the correct quantifier.",
+          items:[
+            {q:"How ___ sugar do you take?",opts:["many","much"],correct:1},
+            {q:"There aren't ___ eggs in the fridge.",opts:["some","any"],correct:1},
+            {q:"I have ___ friends in Italy. (a small number)",opts:["a little","a few"],correct:1},
+            {q:"Would you like ___ coffee?",opts:["some","any"],correct:0}
+          ]}
+      ]
+    },
+    {
+      kind:"vocab", title:"Vocabulary · Feelings & Food", sub:"adjectives for feelings and food",
+      rule:`<h4>Words</h4>
+        <p><b>Feelings:</b> excited, nervous, scared, bored, proud, surprised, disappointed, relaxed.</p>
+        <p><b>Food adjectives:</b> delicious, fresh, spicy, sweet, salty, sour, tasty, healthy.</p>
+        <p><b>Past time:</b> yesterday, last week, two days ago, in 2015, when I was a child.</p>`,
+      exercises:[
+        { type:"match", instr:"Match the word with its meaning.",
+          pairs:[
+            {l:"spicy",r:"with a lot of pepper / hot taste"},
+            {l:"sour",r:"a sharp taste, like a lemon"},
+            {l:"nervous",r:"worried before something happens"},
+            {l:"proud",r:"very pleased with what you did"},
+            {l:"bored",r:"not interested, nothing to do"}
+          ]},
+        { type:"gap", instr:"Complete with a past time expression (ago / last / yesterday).",
+          items:[
+            {q:"I saw her two days ___ .",answers:["ago"],hint:"two days …"},
+            {q:"We went to Spain ___ summer.",answers:["last"],hint:"… summer"},
+            {q:"It rained all day ___ .",answers:["yesterday"],hint:"the day before today"}
+          ]}
+      ]
+    }
+  ]
+},
+{
+  num:3, title:"Amazing places", tag:"Comparisons · experiences",
+  sections:[
+    {
+      kind:"grammar", title:"Comparatives", sub:"comparing two things",
+      rule:`<h4>…-er than / more … than</h4>
+        <ul>
+          <li>short adjectives: <code>+ -er + than</code> → cheap<b>er</b> than, big<b>ger</b> than</li>
+          <li>long adjectives (2+ syllables): <code>more … than</code> → <b>more</b> expensive <b>than</b></li>
+          <li>irregular: good→<b>better</b>, bad→<b>worse</b>, far→<b>further</b></li>
+        </ul>`,
+      exercises:[
+        { type:"gap", instr:"Make the comparative (remember + than).",
+          items:[
+            {q:"This hotel is ___ the other one. (cheap)",answers:["cheaper than"],hint:"cheap + …"},
+            {q:"Tokyo is ___ my town. (big)",answers:["bigger than"],hint:"double the g"},
+            {q:"A plane is ___ a train. (expensive)",answers:["more expensive than"],hint:"long adjective"},
+            {q:"Her English is ___ mine. (good)",answers:["better than"],hint:"good (irregular)"}
+          ]}
+      ]
+    },
+    {
+      kind:"grammar", title:"Superlatives", sub:"the most / the …-est",
+      rule:`<h4>the …-est / the most …</h4>
+        <ul>
+          <li>short: <code>the + adj-est</code> → the cheap<b>est</b>, the big<b>gest</b></li>
+          <li>long: <code>the most + adj</code> → the <b>most</b> beautiful</li>
+          <li>irregular: the <b>best</b>, the <b>worst</b></li>
+        </ul>`,
+      exercises:[
+        { type:"gap", instr:"Make the superlative (start with 'the').",
+          items:[
+            {q:"It's ___ city in the country. (big)",answers:["the biggest"],hint:"the … -est"},
+            {q:"This is ___ restaurant in town. (good)",answers:["the best"],hint:"good (irregular)"},
+            {q:"That was ___ day of my life. (beautiful)",answers:["the most beautiful"],hint:"long adjective"}
+          ]}
+      ]
+    },
+    {
+      kind:"grammar", title:"Present Perfect with ever / never", sub:"life experiences",
+      rule:`<h4>have/has + past participle (V3)</h4>
+        <p>Life experiences, with no specific time.</p>
+        <div class="ex">Have you <b>ever</b> been to Japan?</div>
+        <div class="ex">I have <b>never</b> eaten sushi.</div>
+        <p><b>ever</b> — in questions · <b>never</b> — in negatives (it already means "not").</p>
+        <p class="ru">be→been, see→seen, eat→eaten, do→done, try→tried.</p>`,
+      exercises:[
+        { type:"mcq", instr:"Choose the correct option (Present Perfect).",
+          items:[
+            {q:"___ you ever ___ to Paris?",opts:["Did / be","Have / been","Have / be"],correct:1},
+            {q:"I have ___ eaten octopus.",opts:["never","ever","not never"],correct:0},
+            {q:"She ___ tried surfing.",opts:["have never","has never","never has"],correct:1}
+          ]}
+      ]
+    },
+    {
+      kind:"vocab", title:"Vocabulary · Places & Staying", sub:"describing places and accommodation",
+      rule:`<h4>Words</h4>
+        <p><b>Describe places:</b> crowded, quiet, lively, modern, historic, peaceful, busy, polluted.</p>
+        <p><b>Places to stay:</b> hotel, hostel, campsite, guesthouse, apartment, resort, B&amp;B, book a room.</p>`,
+      exercises:[
+        { type:"match", instr:"Match the word with its meaning.",
+          pairs:[
+            {l:"crowded",r:"full of people"},
+            {l:"peaceful",r:"calm and quiet"},
+            {l:"campsite",r:"a place where you put up a tent"},
+            {l:"guesthouse",r:"a small, friendly place to stay"},
+            {l:"lively",r:"busy and full of energy"}
+          ]}
+      ]
+    }
+  ]
+},
+{
+  num:4, title:"Plans & celebrations", tag:"The future · events",
+  sections:[
+    {
+      kind:"grammar", title:"be going to · want · would like", sub:"plans and wishes",
+      rule:`<h4>Future plans</h4>
+        <p><b>be going to</b> + infinitive — plans/intentions.</p>
+        <div class="ex">I'm <b>going to visit</b> my grandma.</div>
+        <p><b>want to</b> + infinitive — what you want.</p>
+        <div class="ex">I <b>want to learn</b> Spanish.</div>
+        <p><b>would like to</b> ('d like to) + infinitive — a polite "want".</p>
+        <div class="ex">I'<b>d like to see</b> the show.</div>`,
+      exercises:[
+        { type:"mcq", instr:"Choose the correct option.",
+          items:[
+            {q:"Tonight I'm ___ watch a film. (a plan)",opts:["going to","want","would"],correct:0},
+            {q:"I'd ___ a cup of tea, please. (polite)",opts:["like to have","want have","going have"],correct:0},
+            {q:"They ___ travel to Japan next year.",opts:["wants to","want to","are want"],correct:1}
+          ]}
+      ]
+    },
+    {
+      kind:"grammar", title:"will / won't", sub:"decisions and offers",
+      rule:`<h4>will for "right-now" decisions</h4>
+        <p>Spontaneous decisions, promises, offers to help.</p>
+        <div class="ex">It's heavy — I'<b>ll help</b> you.</div>
+        <div class="ex">I <b>won't be</b> late, I promise.</div>
+        <p class="ru">'ll = will · won't = will not. Use the verb without "to".</p>`,
+      exercises:[
+        { type:"order", instr:"Make a sentence with will / won't.",
+          items:[
+            {words:["I","'ll","carry","that","bag"], answer:"i 'll carry that bag"},
+            {words:["we","won't","forget","you"], answer:"we won't forget you"}
+          ]},
+        { type:"mcq", instr:"Choose the correct option.",
+          items:[
+            {q:"The phone is ringing — I ___ answer it.",opts:["am going to","will","would"],correct:1},
+            {q:"Don't worry, I ___ tell anyone.",opts:["won't","willn't","don't will"],correct:0}
+          ]}
+      ]
+    },
+    {
+      kind:"grammar", title:"can / have to", sub:"ability and obligation",
+      rule:`<h4>can and have to</h4>
+        <p><b>can / can't</b> — ability, possibility, permission.</p>
+        <div class="ex">I <b>can</b> swim. You <b>can't</b> park here.</div>
+        <p><b>have to / has to</b> — necessity, obligation.</p>
+        <div class="ex">She <b>has to</b> work on Saturday.</div>
+        <p class="ru">don't have to = "it isn't necessary" (NOT a prohibition!).</p>`,
+      exercises:[
+        { type:"mcq", instr:"Choose the correct option.",
+          items:[
+            {q:"You ___ wear a uniform at this school. (obligation)",opts:["can","have to","would like"],correct:1},
+            {q:"___ you speak French?",opts:["Can","Have to","Do can"],correct:0},
+            {q:"He ___ get up early at the weekend. (not necessary)",opts:["doesn't have to","can't","hasn't to"],correct:0}
+          ]}
+      ]
+    },
+    {
+      kind:"vocab", title:"Vocabulary · -ed / -ing adjectives & Events", sub:"feelings vs. things",
+      rule:`<h4>-ed or -ing?</h4>
+        <p><b>-ed</b> — how I feel: I am <b>bored</b>.</p>
+        <p><b>-ing</b> — what a thing is like: The film is <b>boring</b>.</p>
+        <p><b>Organising events:</b> book a venue, send invitations, plan, decorate, hire.</p>`,
+      exercises:[
+        { type:"mcq", instr:"Choose -ed or -ing.",
+          items:[
+            {q:"The lesson was really ___ . (describing the lesson)",opts:["interested","interesting"],correct:1},
+            {q:"I'm so ___ about the trip! (how I feel)",opts:["excited","exciting"],correct:0},
+            {q:"After work I always feel ___ . (how I feel)",opts:["tired","tiring"],correct:0}
+          ]}
+      ]
+    }
+  ]
+},
+{
+  num:5, title:"The world of work", tag:"Jobs · descriptions",
+  sections:[
+    {
+      kind:"grammar", title:"Relative clauses: who · which · that", sub:"defining people and things",
+      rule:`<h4>who / which / that</h4>
+        <ul>
+          <li><b>who</b> → for people: A nurse is a person <b>who</b> helps patients.</li>
+          <li><b>which</b> → for things: A laptop is a thing <b>which</b> you use for work.</li>
+          <li><b>that</b> → for people and things (works for both).</li>
+        </ul>`,
+      exercises:[
+        { type:"mcq", instr:"Choose who / which / that.",
+          items:[
+            {q:"A teacher is a person ___ helps students.",opts:["which","who","what"],correct:1},
+            {q:"A dictionary is a book ___ explains words.",opts:["who","which","whose"],correct:1},
+            {q:"That's the man ___ car was stolen.",opts:["who","which","that"],correct:2}
+          ]},
+        { type:"order", instr:"Build a job definition.",
+          items:[
+            {words:["a","doctor","is","someone","who","helps","sick","people"], answer:"a doctor is someone who helps sick people"}
+          ]}
+      ]
+    },
+    {
+      kind:"vocab", title:"Vocabulary · Job skills", sub:"skills and preferences at work",
+      rule:`<h4>Job skills &amp; preferences</h4>
+        <p>work well in a team, meet deadlines, solve problems, be organised, work under pressure, be creative, be good with people.</p>`,
+      exercises:[
+        { type:"match", instr:"Match the skill with its meaning.",
+          pairs:[
+            {l:"meet deadlines",r:"finish your work on time"},
+            {l:"work in a team",r:"work well with other people"},
+            {l:"solve problems",r:"find answers to difficult situations"},
+            {l:"be organised",r:"keep things tidy and planned"},
+            {l:"work under pressure",r:"stay calm when it's busy and stressful"}
+          ]}
+      ]
+    }
+  ]
+}
+];
+
+/* =========================================================
+   ENGINE
+   ========================================================= */
+const norm = s => s.toLowerCase().replace(/[.]/g,"").replace(/\s+/g," ").replace(/\u2019/g,"'").trim();
+const shuffle = a => a.map(x=>[Math.random(),x]).sort((p,q)=>p[0]-q[0]).map(p=>p[1]);
+
+let TOTAL=0, results={};
+const tabsEl=document.getElementById('tabs');
+const unitsEl=document.getElementById('units');
+
+function exId(u,s,i){return `u${u}s${s}e${i}`;}
+
+LESSON.forEach((u,ui)=>u.sections.forEach((sec,si)=>sec.exercises.forEach(()=>TOTAL++)));
+document.getElementById('total').textContent=TOTAL;
+
+/* feedback nodes built with createElement so existing click handlers survive */
+function addFB(q, noText, answerHTML){
+  const ok=document.createElement('div');ok.className='fb ok';ok.textContent='Correct';
+  const no=document.createElement('div');no.className='fb no';no.textContent=noText;
+  const rev=document.createElement('div');rev.className='reveal';
+  rev.innerHTML='Answer: <b>'+answerHTML+'</b>';
+  q.appendChild(ok);q.appendChild(no);q.appendChild(rev);
+  return rev;
+}
+
+/* ---- tabs ---- */
+LESSON.forEach((u,ui)=>{
+  const b=document.createElement('button');
+  b.className='tab'+(ui===0?' active':'');
+  b.dataset.unit=ui;
+  b.innerHTML=`<small>Unit ${u.num} <span class="tick">✓</span></small>${u.title}`;
+  b.onclick=()=>switchUnit(ui);
+  tabsEl.appendChild(b);
+});
+
+/* ---- units ---- */
+LESSON.forEach((u,ui)=>{
+  const sec=document.createElement('section');
+  sec.className='unit'+(ui===0?' active':'');
+  sec.dataset.unit=ui;
+  const head=document.createElement('div');
+  head.innerHTML=`<div class="unit-head">
+      <div class="unit-num">${u.num}</div>
+      <div><h2>${u.title}</h2><div class="tag">${u.tag}</div></div>
+    </div>
+    <div class="complete" id="comp${ui}">Well done. Unit ${u.num} complete — all answers correct.</div>`;
+  sec.appendChild(head);
+  u.sections.forEach((s,si)=>sec.appendChild(buildCard(u,ui,s,si)));
+  unitsEl.appendChild(sec);
+});
+
+function buildCard(unit,ui,s,si){
+  const card=document.createElement('div');
+  card.className='card'+(s.kind==='vocab'?' vocab':'');
+  const typeLabel = s.kind==='vocab' ? '<span class="chip-type voc">Vocabulary</span>' : '<span class="chip-type">Grammar</span>';
+  const head=document.createElement('div');
+  head.innerHTML=`<div class="card-title">${typeLabel}${s.title}</div><div class="card-sub">${s.sub}</div>`;
+  card.appendChild(head);
+
+  if(s.rule){
+    const btn=document.createElement('button');
+    btn.className='btn-rule';
+    btn.innerHTML='Rule';
+    const rule=document.createElement('div');
+    rule.className='rule';
+    rule.innerHTML=s.rule;
+    btn.onclick=()=>{
+      rule.classList.toggle('open');
+      btn.innerHTML=rule.classList.contains('open')?'Hide rule':'Rule';
+    };
+    card.appendChild(btn);
+    card.appendChild(rule);
+  }
+
+  s.exercises.forEach((ex,ei)=>card.appendChild(buildExercise(ui,si,ex,ei)));
+  return card;
+}
+
+function buildExercise(ui,si,ex,ei){
+  const id=exId(ui,si,ei);
+  const wrap=document.createElement('div');
+  wrap.className='ex-block';
+  const instr=document.createElement('div');
+  instr.className='ex-instr';
+  instr.innerHTML=`<span class="n">${ei+1}</span><span>${ex.instr}</span>`;
+  wrap.appendChild(instr);
+  const body=document.createElement('div');
+  wrap.appendChild(body);
+
+  let checkFn;
+  if(ex.type==='mcq') checkFn=renderMCQ(body,ex);
+  else if(ex.type==='gap') checkFn=renderGap(body,ex);
+  else if(ex.type==='order') checkFn=renderOrder(body,ex);
+  else if(ex.type==='match') checkFn=renderMatch(body,ex);
+
+  const act=document.createElement('div');act.className='actions';
+  const chk=document.createElement('button');chk.className='btn-check';chk.innerHTML='Check';
+  const rev=document.createElement('button');rev.className='btn-ghost';rev.textContent='Show answers';
+  const pill=document.createElement('span');pill.className='score-pill';
+  act.appendChild(chk);act.appendChild(rev);act.appendChild(pill);
+  wrap.appendChild(act);
+
+  chk.onclick=()=>{
+    const res=checkFn(false);
+    pill.classList.add('show');
+    pill.textContent=`${res.ok}/${res.total} correct`;
+    const allOK=res.ok===res.total;
+    results[id]=allOK;
+    updateProgress();
+    if(allOK){chk.innerHTML='Done';}
+  };
+  rev.onclick=()=>checkFn(true);
+
+  return wrap;
+}
+
+/* ---------- MCQ ---------- */
+function renderMCQ(body,ex){
+  const blocks=[];
+  ex.items.forEach(it=>{
+    const q=document.createElement('div');q.className='q';
+    const qt=document.createElement('div');qt.className='qtext';qt.textContent=it.q;
+    q.appendChild(qt);
+    const opts=document.createElement('div');opts.className='opts';
+    let sel=-1;const obtns=[];
+    it.opts.forEach((o,oi)=>{
+      const ob=document.createElement('button');ob.className='opt';ob.textContent=o;
+      ob.onclick=()=>{sel=oi;obtns.forEach(b=>b.classList.remove('sel'));ob.classList.add('sel');};
+      obtns.push(ob);opts.appendChild(ob);
+    });
+    q.appendChild(opts);
+    const rev=addFB(q,'Try again',it.opts[it.correct]);
+    body.appendChild(q);
+    blocks.push({q,get sel(){return sel},correct:it.correct,obtns,rev});
+  });
+  return (reveal)=>{
+    let ok=0;
+    blocks.forEach(b=>{
+      b.q.classList.remove('correct','wrong');
+      b.obtns.forEach(x=>x.classList.remove('right'));
+      if(reveal){b.obtns[b.correct].classList.add('right');b.rev.classList.add('show');return;}
+      if(b.sel===-1)return;
+      if(b.sel===b.correct){b.q.classList.add('correct');ok++;}
+      else{b.q.classList.add('wrong');b.obtns[b.correct].classList.add('right');b.rev.classList.add('show');}
+    });
+    return {ok,total:blocks.length};
+  };
+}
+
+/* ---------- GAP ---------- */
+function renderGap(body,ex){
+  const blocks=[];
+  ex.items.forEach(it=>{
+    const q=document.createElement('div');q.className='q';
+    const parts=it.q.split('___');
+    const line=document.createElement('div');line.className='gapline qtext';
+    line.appendChild(document.createTextNode(parts[0]));
+    const inp=document.createElement('input');inp.className='gap';inp.type='text';inp.autocomplete='off';
+    line.appendChild(inp);
+    if(parts[1]!==undefined)line.appendChild(document.createTextNode(parts[1]));
+    q.appendChild(line);
+    if(it.hint){const h=document.createElement('div');h.className='hint';h.textContent='hint: '+it.hint;q.appendChild(h);}
+    const rev=addFB(q,'Not quite…',it.answers[0]);
+    body.appendChild(q);
+    blocks.push({q,inp,rev,answers:it.answers.map(norm)});
+  });
+  return (reveal)=>{
+    let ok=0;
+    blocks.forEach(b=>{
+      b.q.classList.remove('correct','wrong');
+      if(reveal){b.rev.classList.add('show');return;}
+      if(!b.inp.value.trim())return;
+      if(b.answers.includes(norm(b.inp.value))){b.q.classList.add('correct');ok++;}
+      else{b.q.classList.add('wrong');b.rev.classList.add('show');}
+    });
+    return {ok,total:blocks.length};
+  };
+}
+
+/* ---------- WORD ORDER ---------- */
+function renderOrder(body,ex){
+  const blocks=[];
+  ex.items.forEach(it=>{
+    const q=document.createElement('div');q.className='q';
+    const ans=document.createElement('div');ans.className='answer';
+    const bank=document.createElement('div');bank.className='bank';
+    shuffle([...it.words]).forEach(w=>{
+      const chip=document.createElement('button');chip.className='word';chip.textContent=w;
+      chip.onclick=()=>{ (chip.parentElement===bank? ans : bank).appendChild(chip); };
+      bank.appendChild(chip);
+    });
+    q.appendChild(ans);q.appendChild(bank);
+    const reset=document.createElement('button');reset.className='btn-ghost';reset.style.marginTop='8px';reset.textContent='↺ Reset';
+    reset.onclick=()=>{[...ans.querySelectorAll('.word')].forEach(c=>bank.appendChild(c));};
+    q.appendChild(reset);
+    const rev=addFB(q,'Wrong order',it.answer.replace(/\bi\b/g,'I'));
+    body.appendChild(q);
+    blocks.push({q,ans,rev,answer:norm(it.answer)});
+  });
+  return (reveal)=>{
+    let ok=0;
+    blocks.forEach(b=>{
+      b.q.classList.remove('correct','wrong');
+      if(reveal){b.rev.classList.add('show');return;}
+      const built=[...b.ans.querySelectorAll('.word')].map(c=>c.textContent).join(' ');
+      if(!built)return;
+      if(norm(built)===b.answer){b.q.classList.add('correct');ok++;}
+      else{b.q.classList.add('wrong');b.rev.classList.add('show');}
+    });
+    return {ok,total:blocks.length};
+  };
+}
+
+/* ---------- MATCH ---------- */
+function renderMatch(body,ex){
+  const rights=shuffle(ex.pairs.map(p=>p.r));
+  const rows=[];
+  ex.pairs.forEach(p=>{
+    const row=document.createElement('div');row.className='match-row';
+    const key=document.createElement('div');key.className='match-key';key.textContent=p.l;
+    const sel=document.createElement('select');sel.className='match-sel';
+    const o0=document.createElement('option');o0.value='';o0.textContent='— choose —';sel.appendChild(o0);
+    rights.forEach(r=>{const o=document.createElement('option');o.value=r;o.textContent=r;sel.appendChild(o);});
+    row.appendChild(key);row.appendChild(sel);
+    body.appendChild(row);
+    rows.push({row,sel,correct:p.r});
+  });
+  return (reveal)=>{
+    let ok=0;
+    rows.forEach(r=>{
+      r.row.classList.remove('ok','bad');
+      if(reveal){r.sel.value=r.correct;r.row.classList.add('ok');ok++;return;}
+      if(!r.sel.value)return;
+      if(r.sel.value===r.correct){r.row.classList.add('ok');ok++;}
+      else r.row.classList.add('bad');
+    });
+    return {ok,total:rows.length};
+  };
+}
+
+/* ---------- progress + nav ---------- */
+function updateProgress(){
+  const done=Object.values(results).filter(Boolean).length;
+  document.getElementById('done').textContent=done;
+  document.getElementById('barFill').style.width=(done/TOTAL*100)+'%';
+  LESSON.forEach((u,ui)=>{
+    let all=true,any=false;
+    u.sections.forEach((s,si)=>s.exercises.forEach((ex,ei)=>{
+      any=true;
+      if(!results[exId(ui,si,ei)])all=false;
+    }));
+    const tab=document.querySelector(`.tab[data-unit="${ui}"]`);
+    const comp=document.getElementById('comp'+ui);
+    if(all&&any){tab.classList.add('done');if(!comp.classList.contains('show')){comp.classList.add('show');confetti();}}
+    else{tab.classList.remove('done');comp.classList.remove('show');}
+  });
+}
+
+function switchUnit(ui){
+  document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('active',+t.dataset.unit===ui));
+  document.querySelectorAll('.unit').forEach(s=>s.classList.toggle('active',+s.dataset.unit===ui));
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+/* ---------- confetti ---------- */
+function confetti(){
+  const cols=['#c8a15a','#e5c77c','#6f2432','#8b94a3','#eef1f5'];
+  for(let i=0;i<60;i++){
+    const c=document.createElement('div');c.className='confetti';
+    c.style.left=Math.random()*100+'vw';
+    c.style.background=cols[i%cols.length];
+    c.style.animation=`fall ${1.6+Math.random()*1.4}s ease-in ${Math.random()*0.3}s forwards`;
+    c.style.transform=`rotate(${Math.random()*360}deg)`;
+    document.body.appendChild(c);
+    setTimeout(()=>c.remove(),3400);
+  }
+}
+
+/* ---------- background decorations ---------- */
+(function(){
+  const deco=document.getElementById('deco');
+  const shapes=['<div class="lux-orb"></div>','<div class="lux-diamond"></div>','<div class="lux-line"></div>'];
+  for(let i=0;i<10;i++){
+    const el=document.createElement('div');
+    el.className='float';
+    el.innerHTML=shapes[i%shapes.length];
+    el.style.left=Math.random()*96+'vw';
+    el.style.top=Math.random()*92+'vh';
+    el.style.animationDuration=(10+Math.random()*10)+'s';
+    el.style.animationDelay=(-Math.random()*8)+'s';
+    el.style.opacity=.18+Math.random()*.24;
+    deco.appendChild(el);
+  }
+})();
+
+updateProgress();
+</script>
+</body>
+</html>
