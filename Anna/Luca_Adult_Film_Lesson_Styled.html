@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LUCA · Film Lesson · Adult English A2+–B1</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat+Brush&family=Nunito:ital,wght@0,400;0,600;0,700;0,800;0,900;1,600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#FBF5E6;
+  --paper-deep:#F6EDD8;
+  --ink:#1F4E79;
+  --ink-soft:#3E6285;
+  --coral:#E8655C;
+  --coral-deep:#D8514B;
+  --teal:#2E959B;
+  --teal-deep:#20787E;
+  --blue:#3D7FC1;
+  --blue-deep:#2F6AA6;
+  --gold:#E0A63C;
+  --gold-deep:#C98F26;
+  --line:#8FBBD9;
+  --water:#CBE9EF;
+  --water-deep:#A6D8E3;
+  --stamp:#E77A86;
+  --lemon:#F2CE3E;
+  --olive:#7C8C3E;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{background:#E9E2CF;}
+body{
+  font-family:'Nunito',sans-serif;
+  color:var(--ink);
+  display:flex;flex-direction:column;align-items:center;
+  padding:28px 10px 60px;gap:34px;
+}
+/* ---------- PAGE SHELL ---------- */
+.page{
+  position:relative;
+  width:794px;min-height:1123px;
+  background:
+    radial-gradient(circle at 12% 6%, rgba(255,255,255,.55), transparent 32%),
+    radial-gradient(circle at 88% 90%, rgba(230,214,170,.35), transparent 40%),
+    var(--paper);
+  box-shadow:0 10px 34px rgba(70,60,30,.25);
+  border-radius:6px;
+  padding:40px 46px 150px;
+  overflow:hidden;
+  display:flex;flex-direction:column;
+}
+/* ---------- TITLE ---------- */
+.brand{position:relative;text-align:center;margin-bottom:4px;}
+.brand h1{
+  font-family:'Caveat Brush',cursive;
+  font-size:96px;line-height:.9;letter-spacing:6px;
+  background:linear-gradient(100deg,#2A7FB5 5%,#1E9AA6 45%,#2CB0A5 75%,#2A7FB5 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  text-shadow:none;
+  filter:drop-shadow(1px 2px 0 rgba(30,110,140,.18));
+}
+.brand .waves{display:block;margin:-6px auto 0;}
+.subtitle{
+  text-align:center;font-weight:900;font-size:21px;color:var(--ink);
+  margin-top:6px;letter-spacing:.3px;
+}
+.subtitle .dot{color:var(--coral);padding:0 6px;}
+.note{
+  display:flex;align-items:flex-start;gap:8px;justify-content:center;
+  margin-top:8px;font-size:13.5px;color:var(--ink-soft);font-weight:600;
+}
+.note b{color:var(--coral);font-weight:800;font-style:italic;}
+.note svg{flex:none;margin-top:1px;}
+/* ---------- SECTION PILLS ---------- */
+.pill{
+  display:inline-flex;align-items:center;gap:12px;
+  color:#fff;font-weight:900;font-size:21px;letter-spacing:.3px;
+  padding:9px 20px 10px 22px;border-radius:16px 16px 16px 4px;
+  box-shadow:0 3px 0 rgba(0,0,0,.10);
+  margin-bottom:0;position:relative;z-index:2;
+}
+.pill .icon{
+  width:30px;height:30px;border-radius:50%;
+  background:rgba(255,255,255,.92);
+  display:flex;align-items:center;justify-content:center;flex:none;
+}
+.pill.coral{background:linear-gradient(135deg,var(--coral),var(--coral-deep));}
+.pill.teal{background:linear-gradient(135deg,var(--teal),var(--teal-deep));}
+.pill.blue{background:linear-gradient(135deg,var(--blue),var(--blue-deep));}
+.pill.gold{background:linear-gradient(135deg,var(--gold),var(--gold-deep));}
+.pill small{font-size:15px;font-weight:800;opacity:.95;}
+/* ---------- FRAMES ---------- */
+.frame{
+  border:2.5px solid;border-radius:0 18px 18px 18px;
+  background:rgba(255,255,255,.55);
+  padding:18px 22px 16px;margin-top:-4px;
+}
+.frame.coral{border-color:var(--coral);}
+.frame.teal{border-color:var(--teal);}
+.frame.blue{border-color:var(--blue);}
+.frame.gold{border-color:var(--gold);}
+.section{margin-top:22px;}
+.lead{font-weight:900;font-size:15.5px;margin-bottom:10px;color:var(--ink);}
+/* ---------- QUESTIONS ---------- */
+.q{display:flex;gap:10px;margin-bottom:6px;}
+.q .num{font-weight:900;font-size:16px;flex:none;width:24px;}
+.q.coral .num{color:var(--coral);}
+.q.blue .num{color:var(--blue);}
+.q.teal .num{color:var(--teal-deep);}
+.q .text{font-weight:700;font-size:15.5px;line-height:1.35;}
+.ans{
+  border-bottom:1.6px solid var(--line);
+  height:26px;margin:0 0 8px 34px;
+}
+.ans.short{margin-left:0;}
+.ans:last-child{margin-bottom:2px;}
+/* ---------- SIDE CARDS ---------- */
+.side{
+  border:2.5px dashed;border-radius:16px;
+  background:rgba(255,255,255,.7);
+  padding:0 0 14px;overflow:hidden;
+}
+.side .tab{
+  display:inline-flex;align-items:center;gap:8px;
+  color:#fff;font-weight:900;font-size:16.5px;
+  padding:6px 16px 7px;border-radius:0 0 14px 0;
+  margin-bottom:10px;
+}
+.side.coral{border-color:var(--coral);} .side.coral .tab{background:var(--coral);}
+.side.teal{border-color:var(--teal);}   .side.teal .tab{background:var(--teal);}
+.side.blue{border-color:var(--blue);}   .side.blue .tab{background:var(--blue);}
+.side.gold{border-color:var(--gold);}   .side.gold .tab{background:var(--gold);}
+.side .body{padding:0 16px;font-size:14.5px;font-weight:700;line-height:1.45;}
+.two-col{display:grid;grid-template-columns:1fr 300px;gap:18px;align-items:start;}
+.two-col.rev{grid-template-columns:300px 1fr;}
+/* ---------- CHECKS / OPTIONS ---------- */
+.opt{display:flex;gap:8px;margin-bottom:7px;font-weight:700;font-size:14.5px;line-height:1.35;}
+.opt .letter{color:var(--blue);font-weight:900;flex:none;}
+.tickrow{display:flex;flex-wrap:wrap;gap:14px 22px;margin-top:4px;}
+.tick{display:flex;align-items:center;gap:7px;font-weight:800;font-size:14.5px;}
+.box{
+  width:20px;height:20px;border:2.5px solid var(--teal);
+  border-radius:6px;background:#fff;flex:none;
+}
+.box.coralbx{border-color:var(--coral);}
+.tf{display:flex;gap:8px;align-items:center;flex:none;}
+.tf span{
+  width:26px;height:26px;border:2.5px solid var(--coral);border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-weight:900;color:var(--coral);font-size:13.5px;background:#fff;
+}
+.tfrow{display:flex;gap:12px;align-items:flex-start;padding:7px 0;border-bottom:2px dotted rgba(232,101,92,.4);}
+.tfrow:last-child{border-bottom:none;}
+.tfrow .num{color:var(--coral);font-weight:900;flex:none;width:22px;}
+.tfrow .text{font-weight:700;font-size:14.5px;flex:1;line-height:1.35;}
+/* ---------- MATCH TABLE ---------- */
+.match{display:grid;grid-template-columns:250px 1fr;gap:6px 24px;}
+.mword{display:flex;align-items:center;gap:8px;font-weight:800;font-size:14.5px;padding:2.5px 0;}
+.mword .n{color:var(--teal-deep);font-weight:900;width:26px;flex:none;}
+.mword .slot{
+  width:34px;height:24px;border:2px dashed var(--teal);border-radius:8px;
+  background:#fff;flex:none;margin-left:auto;
+}
+.mdef{display:flex;gap:8px;font-weight:600;font-size:13.8px;line-height:1.3;padding:2.5px 0;}
+.mdef .l{color:var(--coral);font-weight:900;width:20px;flex:none;}
+/* ---------- WORD CARDS ---------- */
+.wordgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:12px;}
+.wcard{
+  border:2.5px dashed var(--water-deep);border-radius:14px;background:rgba(255,255,255,.75);
+  padding:12px 10px 10px;text-align:center;
+}
+.wcard .w{font-weight:900;font-size:15.5px;color:var(--ink);}
+.wcard .l{border-bottom:1.6px solid var(--line);height:22px;margin-top:8px;}
+/* ---------- SPEAKING CARDS ---------- */
+.speakgrid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.scard{
+  border:2.5px dashed;border-radius:16px;background:rgba(255,255,255,.72);
+  padding:14px 16px;
+}
+.scard h4{font-size:14px;letter-spacing:1px;font-weight:900;margin-bottom:6px;display:flex;align-items:center;gap:8px;}
+.scard p{font-size:14px;font-weight:700;line-height:1.4;}
+.scard .hint{margin-top:7px;font-size:12.5px;font-weight:800;font-style:italic;color:var(--ink-soft);}
+.scard.c1{border-color:var(--coral);} .scard.c1 h4{color:var(--coral-deep);}
+.scard.c2{border-color:var(--teal);}  .scard.c2 h4{color:var(--teal-deep);}
+.scard.c3{border-color:var(--blue);}  .scard.c3 h4{color:var(--blue-deep);}
+.scard.c4{border-color:var(--gold);}  .scard.c4 h4{color:var(--gold-deep);}
+/* ---------- BUBBLES ---------- */
+.bubbles{display:flex;flex-wrap:wrap;gap:9px;margin-top:10px;}
+.bubble{
+  color:#fff;font-weight:800;font-size:13px;padding:6px 14px;
+  border-radius:16px 16px 16px 3px;box-shadow:0 2px 0 rgba(0,0,0,.10);
+}
+.bubble.b1{background:var(--coral);} .bubble.b2{background:var(--olive);}
+.bubble.b3{background:var(--gold);}  .bubble.b4{background:var(--teal);}
+.bubble.b5{background:#8B6BB0;}      .bubble.b6{background:var(--blue);}
+/* ---------- FOOT NOTE ---------- */
+.footnote{
+  margin-top:auto;padding-top:14px;
+  font-size:13px;font-weight:700;font-style:italic;color:var(--ink-soft);
+  display:flex;gap:8px;align-items:center;
+}
+/* ---------- WATER FOOTER ---------- */
+.water{
+  position:absolute;left:0;right:0;bottom:0;height:110px;
+  pointer-events:none;
+}
+.stamp{
+  position:absolute;right:34px;bottom:30px;
+  background:rgba(255,241,235,.95);
+  border:2.5px dashed var(--stamp);border-radius:10px;
+  color:var(--stamp);font-weight:900;font-size:15.5px;
+  padding:7px 16px;transform:rotate(-1.5deg);z-index:3;
+}
+.corner{position:absolute;z-index:1;opacity:.95;}
+.corner.tl{top:14px;left:16px;}
+.corner.tr{top:14px;right:16px;}
+/* ---------- PRINT ---------- */
+@page{size:A4;margin:0;}
+@media print{
+  html,body{background:#fff;padding:0;gap:0;}
+  .page{
+    width:210mm;min-height:297mm;box-shadow:none;border-radius:0;
+    page-break-after:always;padding:11mm 12mm 38mm;
+  }
+  .page:last-child{page-break-after:auto;}
+}
+@media (max-width:830px){
+  .page{width:100%;min-height:auto;padding:24px 18px 130px;}
+  .two-col,.two-col.rev{grid-template-columns:1fr;}
+  .wordgrid{grid-template-columns:1fr 1fr;}
+  .speakgrid{grid-template-columns:1fr;}
+  .match{grid-template-columns:1fr;}
+  .brand h1{font-size:64px;}
+}
+</style>
+</head>
+<body>
+
+<!-- ======= SVG SYMBOLS ======= -->
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <symbol id="ico-shell" viewBox="0 0 24 24">
+      <path d="M12 3C7 3 3.5 8 3.5 13.5c0 3 1.5 5.5 3 6.5h11c1.5-1 3-3.5 3-6.5C20.5 8 17 3 12 3z" fill="none" stroke="#E8655C" stroke-width="1.8"/>
+      <path d="M12 3v17M7.2 4.8 9 20M16.8 4.8 15 20M4.4 9.5 6.6 20M19.6 9.5 17.4 20" stroke="#E8655C" stroke-width="1.4" fill="none"/>
+    </symbol>
+    <symbol id="ico-fish" viewBox="0 0 28 18">
+      <path d="M2 9c4-5 9-7 13-7 5 0 9 3 11 7-2 4-6 7-11 7-4 0-9-2-13-7z" fill="none" stroke="#2E959B" stroke-width="1.8"/>
+      <path d="M2 9 6 4M2 9l4 5" stroke="#2E959B" stroke-width="1.8" fill="none"/>
+      <circle cx="20" cy="8" r="1.4" fill="#2E959B"/>
+    </symbol>
+    <symbol id="ico-wave" viewBox="0 0 30 14">
+      <path d="M2 7c3-5 6-5 9 0s6 5 9 0 6-5 8 0" fill="none" stroke="#3D7FC1" stroke-width="2.2" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="ico-olive" viewBox="0 0 24 24">
+      <ellipse cx="9" cy="15" rx="4.5" ry="5.5" fill="#7C8C3E"/>
+      <ellipse cx="16" cy="16" rx="4" ry="5" fill="#3E4A22"/>
+      <path d="M12 10C13 5 17 3 21 3c-1 4-4 7-8 8z" fill="#9CAF57"/>
+    </symbol>
+    <symbol id="ico-star" viewBox="0 0 30 30">
+      <path d="M15 2c1.5 5 3 7.5 6 9 3.2 1.6 6 1.5 7 4-2.5 1-5.2 1.4-7 4-1.7 2.4-1.5 5.5-3.5 8-1.6-2.7-2.1-5.5-4.5-7.2C10.5 18 7.5 18 4 17c2-2.3 5-2.6 7-5 1.9-2.3 2.5-5.8 4-10z" fill="#E8756A" transform="rotate(8 15 15)"/>
+    </symbol>
+    <symbol id="lemon-sprig" viewBox="0 0 120 120">
+      <path d="M20 10 C40 40 60 60 95 95" stroke="#7C8C3E" stroke-width="3" fill="none"/>
+      <path d="M38 32c10-8 22-8 26 2 3 9-6 18-16 15-9-2-15-10-10-17z" fill="#8DA24C"/>
+      <path d="M60 18c8-10 20-11 25-2 4 8-3 18-13 17-9-1-16-8-12-15z" fill="#7C8C3E"/>
+      <ellipse cx="88" cy="92" rx="17" ry="22" fill="#F2CE3E" transform="rotate(-30 88 92)"/>
+      <ellipse cx="60" cy="100" rx="14" ry="18" fill="#EFC22F" transform="rotate(20 60 100)"/>
+      <ellipse cx="83" cy="86" rx="5" ry="8" fill="#F8E081" transform="rotate(-30 83 86)"/>
+    </symbol>
+    <symbol id="olive-sprig" viewBox="0 0 120 120">
+      <path d="M100 12 C75 40 50 62 18 96" stroke="#6C7C36" stroke-width="3" fill="none"/>
+      <path d="M78 30c-12-6-24-2-25 8-1 9 10 15 19 10 8-4 12-13 6-18z" fill="#8DA24C"/>
+      <path d="M58 52c-12-4-23 1-22 11 1 9 12 13 20 7 7-5 9-14 2-18z" fill="#7C8C3E"/>
+      <ellipse cx="86" cy="60" rx="9" ry="12" fill="#556B2F" transform="rotate(20 86 60)"/>
+      <ellipse cx="66" cy="80" rx="8" ry="11" fill="#3E4A22" transform="rotate(-15 66 80)"/>
+    </symbol>
+    <symbol id="water-strip" viewBox="0 0 794 110" preserveAspectRatio="none">
+      <path d="M0 30 C60 10 120 44 180 30 S300 10 360 28 480 46 540 28 660 10 720 30 780 44 794 32 V110 H0 Z" fill="#CBE9EF"/>
+      <path d="M0 48 C70 30 140 62 210 48 S350 30 420 48 560 64 630 46 740 32 794 50 V110 H0 Z" fill="#A6D8E3" opacity=".8"/>
+      <g stroke="none">
+        <g transform="translate(150 72)"><path d="M0 6c5-6 12-8 17-6 5 2 8 5 9 6-1 1-4 4-9 6-5 2-12 0-17-6z" fill="#E8655C"/><path d="M0 6 5 1M0 6l5 5" stroke="#E8655C" stroke-width="2"/><circle cx="21" cy="5" r="1.2" fill="#fff"/></g>
+        <g transform="translate(320 84)"><path d="M0 5c4-5 10-7 14-5 4 2 7 4 8 5-1 1-4 3-8 5-4 2-10 0-14-5z" fill="#3D7FC1"/><circle cx="17" cy="4" r="1" fill="#fff"/></g>
+        <g transform="translate(470 70)"><path d="M0 6c5-6 12-8 17-6 5 2 8 5 9 6-1 1-4 4-9 6-5 2-12 0-17-6z" fill="#2E959B"/><circle cx="21" cy="5" r="1.2" fill="#fff"/></g>
+        <g transform="translate(600 86)"><path d="M0 5c4-5 10-7 14-5 4 2 7 4 8 5-1 1-4 3-8 5-4 2-10 0-14-5z" fill="#E0A63C"/><circle cx="17" cy="4" r="1" fill="#fff"/></g>
+      </g>
+      <g transform="translate(48 40)">
+        <path d="M0 22 C4 32 60 34 66 22 L60 10 H8 Z" fill="#F5F0E2" stroke="#B7503F" stroke-width="2.5"/>
+        <path d="M8 10 H60 L57 16 H11 Z" fill="#B7503F" opacity=".85"/>
+        <rect x="30" y="-8" width="3" height="18" fill="#6B4A2B"/>
+        <path d="M33 -8 L52 2 33 6 Z" fill="#E8655C" opacity=".9"/>
+      </g>
+      <path d="M710 60c4-9 12-14 20-12-2 8-9 13-20 12z" fill="#4E9B84" opacity=".7"/>
+      <path d="M726 66c3-7 10-11 16-9-2 6-8 10-16 9z" fill="#66B097" opacity=".7"/>
+    </symbol>
+    <symbol id="title-waves" viewBox="0 0 220 26">
+      <path d="M6 12c9-12 18-12 27 0s18 12 27 0 18-12 27 0 18 12 27 0 18-12 27 0 18 12 27 0" fill="none" stroke="#2E9BB0" stroke-width="4.5" stroke-linecap="round"/>
+      <circle cx="196" cy="6" r="3" fill="#2E9BB0"/><circle cx="207" cy="14" r="2.4" fill="#2E9BB0"/>
+    </symbol>
+  </defs>
+</svg>
+
+<!-- ==================== PAGE 1 ==================== -->
+<div class="page">
+  <svg class="corner tl" width="104" height="104"><use href="#olive-sprig"/></svg>
+  <svg class="corner tr" width="104" height="104"><use href="#lemon-sprig"/></svg>
+
+  <div class="brand">
+    <h1>LUCA</h1>
+    <svg class="waves" width="190" height="24"><use href="#title-waves"/></svg>
+  </div>
+  <div class="subtitle">Film Lesson <span class="dot">•</span> Adult English A2+–B1 <span class="dot">•</span> Watch · Notice · Discuss</div>
+  <div class="note">
+    <svg width="18" height="18"><use href="#ico-star"/></svg>
+    <span><b>Tip:</b>&nbsp;do not pause for every unknown word. Listen for actions, feelings and relationships.</span>
+  </div>
+
+  <div class="section">
+    <div class="pill coral"><span class="icon"><svg width="18" height="18"><use href="#ico-shell"/></svg></span>1. Before We Watch</div>
+    <div class="frame coral">
+      <div class="lead">Talk about the questions.</div>
+      <div class="q coral"><span class="num">1)</span><span class="text">When is taking a risk a good idea?</span></div>
+      <div class="ans"></div>
+      <div class="q coral"><span class="num">2)</span><span class="text">Which is stronger in your life: curiosity or fear?</span></div>
+      <div class="ans"></div>
+      <div class="q coral"><span class="num">3)</span><span class="text">Would you leave home for a dream? What would make you stay?</span></div>
+      <div class="ans"></div>
+      <div class="ans"></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="pill teal"><span class="icon"><svg width="20" height="14"><use href="#ico-fish"/></svg></span>2. Language for the Film</div>
+    <div class="frame teal">
+      <div class="lead">Match 1–10 with A–J. Then choose <u>three</u> words you expect to hear or need.</div>
+      <div class="match">
+        <div>
+          <div class="mword"><span class="n">1.</span>fit in<span class="slot"></span></div>
+          <div class="mword"><span class="n">2.</span>trust<span class="slot"></span></div>
+          <div class="mword"><span class="n">3.</span>keep a secret<span class="slot"></span></div>
+          <div class="mword"><span class="n">4.</span>take a risk<span class="slot"></span></div>
+          <div class="mword"><span class="n">5.</span>disappoint<span class="slot"></span></div>
+          <div class="mword"><span class="n">6.</span>belong<span class="slot"></span></div>
+          <div class="mword"><span class="n">7.</span>brave<span class="slot"></span></div>
+          <div class="mword"><span class="n">8.</span>jealous<span class="slot"></span></div>
+          <div class="mword"><span class="n">9.</span>freedom<span class="slot"></span></div>
+          <div class="mword"><span class="n">10.</span>explore<span class="slot"></span></div>
+        </div>
+        <div>
+          <div class="mdef"><span class="l">A.</span>feel accepted in a place or group</div>
+          <div class="mdef"><span class="l">B.</span>believe someone is honest or reliable</div>
+          <div class="mdef"><span class="l">C.</span>travel around to discover a place</div>
+          <div class="mdef"><span class="l">D.</span>make someone unhappy by failing their hopes</div>
+          <div class="mdef"><span class="l">E.</span>be accepted and similar to people around you</div>
+          <div class="mdef"><span class="l">F.</span>be free to choose how to live or act</div>
+          <div class="mdef"><span class="l">G.</span>do something that may fail or be dangerous</div>
+          <div class="mdef"><span class="l">H.</span>not tell anyone private information</div>
+          <div class="mdef"><span class="l">I.</span>able to face fear</div>
+          <div class="mdef"><span class="l">J.</span>upset because someone has what you want</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="pill blue"><span class="icon"><svg width="20" height="11"><use href="#ico-wave"/></svg></span>3. Prediction</div>
+    <div class="frame blue">
+      <div class="q blue"><span class="num">1)</span><span class="text">I think the film will be about…</span></div>
+      <div class="ans"></div>
+      <div class="q blue"><span class="num">2)</span><span class="text">The biggest conflict may be…</span></div>
+      <div class="ans"></div>
+    </div>
+  </div>
+
+  <svg class="water" viewBox="0 0 794 110" preserveAspectRatio="none"><use href="#water-strip"/></svg>
+  <div class="stamp">Page 1 of 6</div>
+</div>
+
+<!-- ==================== PAGE 2 ==================== -->
+<div class="page">
+  <svg class="corner tl" width="104" height="104"><use href="#lemon-sprig"/></svg>
+
+  <div class="brand">
+    <h1>LUCA</h1>
+    <svg class="waves" width="190" height="24"><use href="#title-waves"/></svg>
+  </div>
+  <div class="subtitle">While Watching <span class="dot">•</span> Part 1 · The Unknown World</div>
+  <div class="note">
+    <svg width="18" height="18"><use href="#ico-star"/></svg>
+    <span>Use the pause times as a guide — they may differ by 1–2 minutes on different platforms.</span>
+  </div>
+
+  <div class="section two-col">
+    <div>
+      <div class="pill coral"><span class="icon"><svg width="18" height="18"><use href="#ico-shell"/></svg></span>Pause 1 <small>— about 00:00–14:00</small></div>
+      <div class="frame coral">
+        <div class="lead">Ask and answer.</div>
+        <div class="q coral"><span class="num">1)</span><span class="text">Where does Luca live, and what is his daily routine?</span></div>
+        <div class="ans"></div>
+        <div class="q coral"><span class="num">2)</span><span class="text">What does his family believe about the surface?</span></div>
+        <div class="ans"></div>
+        <div class="q coral"><span class="num">3)</span><span class="text">What exactly attracts Luca to the human world?</span></div>
+        <div class="ans"></div>
+        <div class="ans"></div>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:14px;">
+      <div class="side teal">
+        <span class="tab"><svg width="18" height="12"><use href="#ico-fish"/></svg>Best summary</span>
+        <div class="body">
+          <div class="opt"><span class="letter">a)</span>Luca wants to become a better sea shepherd.</div>
+          <div class="opt"><span class="letter">b)</span>Luca is curious about a forbidden world and questions the rules.</div>
+          <div class="opt"><span class="letter">c)</span>Luca leaves because he is angry with his family.</div>
+        </div>
+      </div>
+      <div class="side gold">
+        <span class="tab">Character scan</span>
+        <div class="body">
+          Luca is <span style="display:inline-block;width:90px;border-bottom:1.6px solid var(--line);"></span><br><br>
+          because <span style="display:inline-block;width:96px;border-bottom:1.6px solid var(--line);"></span> .
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section two-col">
+    <div>
+      <div class="pill blue"><span class="icon"><svg width="20" height="11"><use href="#ico-wave"/></svg></span>Pause 2 <small>— about 14:00–30:00</small></div>
+      <div class="frame blue">
+        <div class="lead">Alberto, the Vespa and “Bruno”.</div>
+        <div class="q blue"><span class="num">1)</span><span class="text">Why does Alberto's home feel different from Luca's home?</span></div>
+        <div class="ans"></div>
+        <div class="q blue"><span class="num">2)</span><span class="text">What do the boys dream of buying, and what does it represent for them?</span></div>
+        <div class="ans"></div>
+        <div class="q blue"><span class="num">3)</span><span class="text">In your own words, what does <b>“Silenzio, Bruno!”</b> mean?</span></div>
+        <div class="ans"></div>
+        <div class="ans"></div>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:14px;">
+      <div class="side coral">
+        <span class="tab">Vocabulary in context</span>
+        <div class="body">
+          <div style="margin-bottom:9px;">1. forbidden = <span style="display:inline-block;width:88px;border-bottom:1.6px solid var(--line);"></span></div>
+          <div style="margin-bottom:9px;">2. surface = <span style="display:inline-block;width:96px;border-bottom:1.6px solid var(--line);"></span></div>
+          <div style="margin-bottom:9px;">3. curious = <span style="display:inline-block;width:98px;border-bottom:1.6px solid var(--line);"></span></div>
+          <div>4. escape = <span style="display:inline-block;width:100px;border-bottom:1.6px solid var(--line);"></span></div>
+        </div>
+      </div>
+      <div class="side blue">
+        <span class="tab">Quick speaking</span>
+        <div class="body">Do you have a “Bruno” voice in your head? What does it usually say? When is it useful to ignore it?</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footnote">
+    <svg width="18" height="18"><use href="#ico-olive"/></svg>
+    Language target: present simple for character description + past simple for events.
+  </div>
+
+  <svg class="water" viewBox="0 0 794 110" preserveAspectRatio="none"><use href="#water-strip"/></svg>
+  <div class="stamp">Page 2 of 6</div>
+</div>
+
+<!-- ==================== PAGE 3 ==================== -->
+<div class="page">
+  <svg class="corner tr" width="104" height="104"><use href="#olive-sprig"/></svg>
+
+  <div class="brand">
+    <h1>LUCA</h1>
+    <svg class="waves" width="190" height="24"><use href="#title-waves"/></svg>
+  </div>
+  <div class="subtitle">While Watching <span class="dot">•</span> Part 2 · Portorosso</div>
+  <div class="note">
+    <svg width="18" height="18"><use href="#ico-star"/></svg>
+    <span>Use the pause times as a guide.</span>
+  </div>
+
+  <div class="section">
+    <div class="pill teal"><span class="icon"><svg width="20" height="14"><use href="#ico-fish"/></svg></span>Pause 3 <small>— about 30:00–45:00</small></div>
+    <div class="frame teal">
+      <div class="two-col" style="grid-template-columns:1fr 270px;">
+        <div>
+          <div class="lead">A. Put the events in order (1–5).</div>
+          <div class="q teal"><span class="num" style="width:34px;"><span class="box" style="display:inline-block;vertical-align:-4px;"></span></span><span class="text">Giulia helps Luca and Alberto.</span></div>
+          <div class="q teal"><span class="num" style="width:34px;"><span class="box" style="display:inline-block;vertical-align:-4px;"></span></span><span class="text">The boys arrive in Portorosso.</span></div>
+          <div class="q teal"><span class="num" style="width:34px;"><span class="box" style="display:inline-block;vertical-align:-4px;"></span></span><span class="text">They learn about the town race.</span></div>
+          <div class="q teal"><span class="num" style="width:34px;"><span class="box" style="display:inline-block;vertical-align:-4px;"></span></span><span class="text">Ercole notices and threatens them.</span></div>
+          <div class="q teal"><span class="num" style="width:34px;"><span class="box" style="display:inline-block;vertical-align:-4px;"></span></span><span class="text">The three young people decide to become a team.</span></div>
+        </div>
+        <div class="side gold">
+          <span class="tab">Plan language</span>
+          <div class="body" style="font-style:italic;">We could…<br><br>What if…?<br><br>It might be…</div>
+        </div>
+      </div>
+      <div class="lead" style="margin-top:14px;">B. Who wants what?</div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;">
+        <div class="wcard"><div class="w">Luca</div><div class="l"></div><div class="l"></div></div>
+        <div class="wcard"><div class="w">Alberto</div><div class="l"></div><div class="l"></div></div>
+        <div class="wcard"><div class="w">Giulia</div><div class="l"></div><div class="l"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section two-col" style="grid-template-columns:1fr 280px;">
+    <div>
+      <div class="pill coral"><span class="icon"><svg width="18" height="18"><use href="#ico-shell"/></svg></span>Pause 4 <small>— about 45:00–60:00</small></div>
+      <div class="frame coral">
+        <div class="lead">School, books and jealousy. True or false? Correct the false sentences.</div>
+        <div class="tfrow"><span class="num">1)</span><span class="text">Luca becomes interested in school, books and the wider world.</span><span class="tf"><span>T</span><span>F</span></span></div>
+        <div class="tfrow"><span class="num">2)</span><span class="text">Alberto feels completely relaxed about Luca and Giulia becoming closer.</span><span class="tf"><span>T</span><span>F</span></span></div>
+        <div class="tfrow"><span class="num">3)</span><span class="text">Giulia's father immediately trusts the boys.</span><span class="tf"><span>T</span><span>F</span></span></div>
+        <div class="tfrow"><span class="num">4)</span><span class="text">Ercole competes fairly and treats everyone with respect.</span><span class="tf"><span>T</span><span>F</span></span></div>
+        <div class="ans short" style="margin-top:10px;"></div>
+        <div class="ans short"></div>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:14px;">
+      <div class="side teal">
+        <span class="tab">Relationship</span>
+        <div class="body">
+          At the start: <span style="display:inline-block;width:82px;border-bottom:1.6px solid var(--line);"></span><br><br>
+          At the end: <span style="display:inline-block;width:90px;border-bottom:1.6px solid var(--line);"></span><br><br>
+          Why? <span style="display:inline-block;width:130px;border-bottom:1.6px solid var(--line);"></span>
+        </div>
+      </div>
+      <div class="side blue">
+        <span class="tab">Past contrast</span>
+        <div class="body" style="font-style:italic;">While Luca was learning about the world, Alberto was feeling…</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footnote">
+    <svg width="18" height="18"><use href="#ico-olive"/></svg>
+    Notice: jealousy often hides fear of losing a person — or a place in their life.
+  </div>
+
+  <svg class="water" viewBox="0 0 794 110" preserveAspectRatio="none"><use href="#water-strip"/></svg>
+  <div class="stamp">Page 3 of 6</div>
+</div>
+
+<!-- ==================== PAGE 4 ==================== -->
+<div class="page">
+  <svg class="corner tl" width="104" height="104"><use href="#olive-sprig"/></svg>
+
+  <div class="brand">
+    <h1>LUCA</h1>
+    <svg class="waves" width="190" height="24"><use href="#title-waves"/></svg>
+  </div>
+  <div class="subtitle">While Watching <span class="dot">•</span> Part 3 · Truth, Choice and Change</div>
+  <div class="note">
+    <svg width="18" height="18"><use href="#ico-star"/></svg>
+    <span>Use the pause times as a guide.</span>
+  </div>
+
+  <div class="section two-col">
+    <div>
+      <div class="pill coral"><span class="icon"><svg width="18" height="18"><use href="#ico-shell"/></svg></span>Pause 5 <small>— about 60:00–75:00</small></div>
+      <div class="frame coral">
+        <div class="lead">The secret comes out.</div>
+        <div class="q coral"><span class="num">1)</span><span class="text">Why does Alberto reveal Luca's secret?</span></div>
+        <div class="ans"></div>
+        <div class="q coral"><span class="num">2)</span><span class="text">What does Luca do immediately afterwards?</span></div>
+        <div class="ans"></div>
+        <div class="q coral"><span class="num">3)</span><span class="text">Who is hurt most in this moment? Explain your answer.</span></div>
+        <div class="ans"></div>
+        <div class="ans"></div>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:14px;">
+      <div class="side coral">
+        <span class="tab">Choose + prove it</span>
+        <div class="body">
+          <div class="tickrow" style="margin-bottom:10px;">
+            <span class="tick"><span class="box coralbx"></span>betrayed</span>
+            <span class="tick"><span class="box coralbx"></span>jealous</span>
+            <span class="tick"><span class="box coralbx"></span>afraid</span>
+            <span class="tick"><span class="box coralbx"></span>guilty</span>
+          </div>
+          Evidence from the scene:
+          <div class="ans short" style="margin-top:6px;"></div>
+        </div>
+      </div>
+      <div class="side gold">
+        <span class="tab">Finish the sentence</span>
+        <div class="body">
+          Luca wants freedom, but in this scene he chooses
+          <span style="display:inline-block;width:110px;border-bottom:1.6px solid var(--line);"></span><br><br>
+          because <span style="display:inline-block;width:130px;border-bottom:1.6px solid var(--line);"></span> .
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section two-col" style="grid-template-columns:1fr 300px;">
+    <div>
+      <div class="pill teal"><span class="icon"><svg width="20" height="14"><use href="#ico-fish"/></svg></span>Pause 6 <small>— about 75:00–end</small></div>
+      <div class="frame teal">
+        <div class="lead">Race and ending.</div>
+        <div class="q teal"><span class="num">1)</span><span class="text">What changes when it starts to rain?</span></div>
+        <div class="ans"></div>
+        <div class="q teal"><span class="num">2)</span><span class="text">Who protects whom during the final part of the race?</span></div>
+        <div class="ans"></div>
+        <div class="q teal"><span class="num">3)</span><span class="text">How do the people of Portorosso react to the truth?</span></div>
+        <div class="ans"></div>
+        <div class="q teal"><span class="num">4)</span><span class="text">Where do Luca, Alberto and Giulia go at the end?</span></div>
+        <div class="ans"></div>
+      </div>
+    </div>
+    <div class="side coral">
+      <span class="tab">True or false? Correct it.</span>
+      <div class="body">
+        <div class="tfrow"><span class="num">1)</span><span class="text">The town changes because fear disappears immediately.</span><span class="tf"><span>T</span><span>F</span></span></div>
+        <div class="tfrow"><span class="num">2)</span><span class="text">Alberto goes to school with Luca.</span><span class="tf"><span>T</span><span>F</span></span></div>
+        <div class="tfrow"><span class="num">3)</span><span class="text">Luca's parents finally support his journey.</span><span class="tf"><span>T</span><span>F</span></span></div>
+        <div class="tfrow"><span class="num">4)</span><span class="text">Alberto stays in Portorosso with Massimo.</span><span class="tf"><span>T</span><span>F</span></span></div>
+        <div class="ans short" style="margin-top:8px;"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="pill gold"><span class="icon"><svg width="18" height="18"><use href="#ico-olive"/></svg></span>The Ending in Your Words</div>
+    <div class="frame gold">
+      <div class="q blue"><span class="num">✎</span><span class="text">Six-word summary:</span></div>
+      <div class="ans"></div>
+      <div class="q blue"><span class="num">✎</span><span class="text">Most important decision:</span></div>
+      <div class="ans"></div>
+    </div>
+  </div>
+
+  <div class="footnote">
+    <svg width="18" height="18"><use href="#ico-olive"/></svg>
+    Think beyond the plot: what changes inside the characters, not only around them?
+  </div>
+
+  <svg class="water" viewBox="0 0 794 110" preserveAspectRatio="none"><use href="#water-strip"/></svg>
+  <div class="stamp">Page 4 of 6</div>
+</div>
+
+<!-- ==================== PAGE 5 ==================== -->
+<div class="page">
+  <svg class="corner tr" width="104" height="104"><use href="#lemon-sprig"/></svg>
+
+  <div class="brand">
+    <h1>LUCA</h1>
+    <svg class="waves" width="190" height="24"><use href="#title-waves"/></svg>
+  </div>
+  <div class="subtitle">After Watching <span class="dot">•</span> Speaking</div>
+  <div class="note">
+    <svg width="18" height="18"><use href="#ico-star"/></svg>
+    <span>Choose the questions that create the best conversation.</span>
+  </div>
+
+  <div class="section">
+    <div class="speakgrid">
+      <div class="scard c1"><h4><svg width="16" height="16"><use href="#ico-shell"/></svg>IDENTITY &amp; FITTING IN</h4>
+        <p>When do people hide part of themselves? Is it ever necessary?</p>
+        <div class="hint">Give one reason and one example.</div></div>
+      <div class="scard c2"><h4><svg width="18" height="12"><use href="#ico-fish"/></svg>PARENTS &amp; CONTROL</h4>
+        <p>Were Luca's parents protecting him or controlling him? Where is the line?</p>
+        <div class="hint">Give one reason and one example.</div></div>
+      <div class="scard c3"><h4><svg width="18" height="10"><use href="#ico-wave"/></svg>FRIENDSHIP &amp; JEALOUSY</h4>
+        <p>Can jealousy exist inside a good friendship? What should a friend do with it?</p>
+        <div class="hint">Give one reason and one example.</div></div>
+      <div class="scard c4"><h4><svg width="16" height="16"><use href="#ico-olive"/></svg>RISK &amp; FREEDOM</h4>
+        <p>Which risk in the film was worth taking? Which one was careless?</p>
+        <div class="hint">Give one reason and one example.</div></div>
+      <div class="scard c3"><h4><svg width="18" height="10"><use href="#ico-wave"/></svg>PREJUDICE &amp; FEAR</h4>
+        <p>Why do people fear groups they do not know? What helps that fear change?</p>
+        <div class="hint">Give one reason and one example.</div></div>
+      <div class="scard c1"><h4><svg width="16" height="16"><use href="#ico-shell"/></svg>HOME &amp; BELONGING</h4>
+        <p>Is home a place, a person, a routine, or a feeling? What is it for you?</p>
+        <div class="hint">Give one reason and one example.</div></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="pill gold"><span class="icon"><svg width="18" height="18"><use href="#ico-olive"/></svg></span>Agree, Disagree or “It Depends”</div>
+    <div class="frame gold">
+      <div class="q blue"><span class="num">1)</span><span class="text">Protecting someone can become controlling.</span></div>
+      <div class="q blue"><span class="num">2)</span><span class="text">A good friend should support your dream even if they feel left behind.</span></div>
+      <div class="q blue"><span class="num">3)</span><span class="text">People usually fear what they do not understand.</span></div>
+      <div class="q blue"><span class="num">4)</span><span class="text">It is better to fail than never to try.</span></div>
+      <div class="q blue"><span class="num">5)</span><span class="text">Home can be a person, not a place.</span></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="pill blue" style="font-size:17px;padding:7px 16px 8px;"><span class="icon" style="width:24px;height:24px;"><svg width="16" height="9"><use href="#ico-wave"/></svg></span>Useful language</div>
+    <div class="bubbles">
+      <span class="bubble b1">In my view…</span>
+      <span class="bubble b2">I partly agree because…</span>
+      <span class="bubble b3">I see it differently…</span>
+      <span class="bubble b4">The scene suggests that…</span>
+      <span class="bubble b5">One example is…</span>
+      <span class="bubble b6">It depends on…</span>
+      <span class="bubble b2">Compared with…, this character…</span>
+    </div>
+  </div>
+
+  <svg class="water" viewBox="0 0 794 110" preserveAspectRatio="none"><use href="#water-strip"/></svg>
+  <div class="stamp">Page 5 of 6</div>
+</div>
+
+<!-- ==================== PAGE 6 ==================== -->
+<div class="page">
+  <svg class="corner tl" width="104" height="104"><use href="#lemon-sprig"/></svg>
+
+  <div class="brand">
+    <h1>LUCA</h1>
+    <svg class="waves" width="190" height="24"><use href="#title-waves"/></svg>
+  </div>
+  <div class="subtitle">Homework <span class="dot">•</span> Choose One Main Task</div>
+  <div class="note">
+    <svg width="18" height="18"><use href="#ico-star"/></svg>
+    <span>Write naturally. Use the prompts only as support.</span>
+  </div>
+
+  <div class="section">
+    <div class="pill coral"><span class="icon"><svg width="18" height="18"><use href="#ico-shell"/></svg></span>Option A <small>— Film review (120–160 words)</small></div>
+    <div class="frame coral">
+      <div class="q coral"><span class="num">¶1</span><span class="text">Introduce the film and give your general opinion.</span></div>
+      <div class="q coral"><span class="num">¶2</span><span class="text">Describe one strong character, relationship or scene.</span></div>
+      <div class="q coral"><span class="num">¶3</span><span class="text">Explain the main message and say who would enjoy it.</span></div>
+      <div style="margin-top:8px;font-size:13.5px;font-weight:800;font-style:italic;color:var(--ink-soft);">
+        Try to use: although • because • while • however • in the end
+      </div>
+      <div class="ans short" style="margin-top:10px;"></div>
+      <div class="ans short"></div>
+      <div class="ans short"></div>
+    </div>
+  </div>
+
+  <div class="section two-col" style="grid-template-columns:1fr 1fr;">
+    <div class="side teal">
+      <span class="tab"><svg width="18" height="12"><use href="#ico-fish"/></svg>Option B — Message</span>
+      <div class="body">
+        Write a message from Alberto to Luca six months later. What has changed in Portorosso? What does Alberto miss? What is he proud of?
+        <div style="margin-top:8px;font-weight:900;color:var(--teal-deep);">100–140 words</div>
+      </div>
+    </div>
+    <div class="side blue">
+      <span class="tab">Option C — Compare</span>
+      <div class="body">
+        Compare two characters. Use at least two similarities, two differences and one final opinion.
+        <div style="margin-top:8px;font-weight:900;color:var(--blue-deep);">8–10 sentences</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="pill teal"><span class="icon"><svg width="20" height="14"><use href="#ico-fish"/></svg></span>Vocabulary Recycling</div>
+    <div class="frame teal">
+      <div class="bubbles" style="margin:0 0 12px;">
+        <span class="bubble b4">belong</span><span class="bubble b1">brave</span><span class="bubble b3">disappoint</span>
+        <span class="bubble b6">explore</span><span class="bubble b2">fit in</span><span class="bubble b5">freedom</span>
+        <span class="bubble b1">jealous</span><span class="bubble b4">keep a secret</span><span class="bubble b3">take a risk</span>
+        <span class="bubble b6">trust</span>
+      </div>
+      <div class="q teal"><span class="num">1)</span><span class="text">Luca wants the ______________ to choose his own future.</span></div>
+      <div class="q teal"><span class="num">2)</span><span class="text">Alberto is afraid Luca will ______________ him and leave.</span></div>
+      <div class="q teal"><span class="num">3)</span><span class="text">Giulia is ______________ enough to protect her friends.</span></div>
+      <div class="q teal"><span class="num">4)</span><span class="text">At first, the boys try to ______________ in Portorosso.</span></div>
+      <div class="q teal"><span class="num">5)</span><span class="text">Good friends need to ______________ each other.</span></div>
+      <div class="q teal"><span class="num">6)</span><span class="text">Luca wants to ______________ the world beyond the sea.</span></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="pill gold"><span class="icon"><svg width="18" height="18"><use href="#ico-olive"/></svg></span>Self-Check</div>
+    <div class="frame gold">
+      <div class="tickrow" style="flex-direction:column;gap:9px;">
+        <span class="tick"><span class="box"></span>I can retell the main plot in the past tense.</span>
+        <span class="tick"><span class="box"></span>I can describe feelings and give evidence.</span>
+        <span class="tick"><span class="box"></span>I can express an opinion and disagree politely.</span>
+        <span class="tick"><span class="box"></span>I used at least five words from this pack.</span>
+      </div>
+    </div>
+  </div>
+
+  <svg class="water" viewBox="0 0 794 110" preserveAspectRatio="none"><use href="#water-strip"/></svg>
+  <div class="stamp">Page 6 of 6</div>
+</div>
+
+</body>
+</html>
