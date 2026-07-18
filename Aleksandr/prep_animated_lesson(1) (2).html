@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <title>PREP Speaking Method</title>
+  <style>
+    :root {
+      --paper:#fffaf2;
+      --grid:rgba(73,84,92,.14);
+      --ink:#25303a;
+      --mint:#9edfc6;
+      --blue:#a9d8f5;
+      --yellow:#ffe28b;
+      --pink:#f4b9d4;
+      --shadow:0 14px 30px rgba(45,49,58,.14);
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      min-height:100vh;
+      color:var(--ink);
+      font-family:"Trebuchet MS",Arial,sans-serif;
+      background-color:var(--paper);
+      background-image:
+        linear-gradient(var(--grid) 1px,transparent 1px),
+        linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+      background-size:34px 34px;
+      overflow-x:hidden;
+    }
+
+    body::before,
+    body::after{
+      content:"";
+      position:fixed;
+      z-index:-1;
+      width:360px;
+      height:220px;
+      border-radius:48% 52% 61% 39% / 42% 39% 61% 58%;
+      opacity:.78;
+      filter:drop-shadow(0 16px 20px rgba(0,0,0,.08));
+    }
+    body::before{
+      right:-120px; top:-70px;
+      background:
+        repeating-linear-gradient(12deg,rgba(106,59,72,.22) 0 1px,transparent 1px 11px),
+        #efb4cc;
+      transform:rotate(8deg);
+    }
+    body::after{
+      left:-115px; bottom:-80px;
+      background:radial-gradient(circle,rgba(255,255,255,.7) 0 4px,transparent 5px) 0 0/28px 28px,#b9d785;
+      transform:rotate(-10deg);
+    }
+
+    .sparkles{position:fixed;inset:0;pointer-events:none;z-index:20;overflow:hidden}
+    .spark{
+      position:absolute;
+      width:8px;height:8px;
+      border-radius:50%;
+      background:white;
+      box-shadow:0 0 12px rgba(255,255,255,.95);
+      animation:float 5s linear infinite;
+      opacity:0;
+    }
+    @keyframes float{
+      0%{transform:translateY(40px) scale(.2) rotate(0deg);opacity:0}
+      15%{opacity:.9}
+      80%{opacity:.4}
+      100%{transform:translateY(-110vh) scale(1.2) rotate(270deg);opacity:0}
+    }
+
+    .app{width:min(100%,920px);margin:0 auto;padding:26px 18px 80px}
+    .hero{text-align:center;padding:22px 6px 12px}
+    .eyebrow{
+      display:inline-block;
+      padding:8px 14px;
+      background:rgba(255,255,255,.78);
+      border:2px solid rgba(37,48,58,.12);
+      border-radius:999px;
+      font-size:.78rem;
+      letter-spacing:.12em;
+      font-weight:900;
+      text-transform:uppercase;
+      box-shadow:0 8px 18px rgba(37,48,58,.08);
+    }
+    h1{margin:14px 0 7px;font-size:clamp(2.2rem,8vw,4.9rem);line-height:.95;letter-spacing:.04em}
+    .subtitle{margin:0 auto;max-width:620px;font-size:clamp(1rem,2.5vw,1.2rem);line-height:1.5;color:#5c6871}
+
+    .prep-row{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:12px;
+      margin:34px 0 18px;
+    }
+    .letter-card{
+      position:relative;
+      min-height:150px;
+      padding:18px 10px 14px;
+      border:0;
+      border-radius:26px;
+      background:rgba(255,255,255,.72);
+      box-shadow:var(--shadow);
+      cursor:pointer;
+      transform:translateY(34px) rotate(var(--tilt));
+      opacity:0;
+      animation:dropIn .72s cubic-bezier(.2,.95,.25,1.2) forwards;
+      animation-delay:var(--delay);
+      overflow:hidden;
+    }
+    .letter-card::after{
+      content:"";
+      position:absolute;
+      inset:-60% -110%;
+      background:linear-gradient(100deg,transparent 36%,rgba(255,255,255,.9) 48%,transparent 62%);
+      transform:translateX(-35%);
+      animation:shine 4.4s ease-in-out infinite;
+      animation-delay:calc(var(--delay) + .8s);
+    }
+    @keyframes shine{0%,58%{transform:translateX(-40%)}86%,100%{transform:translateX(52%)}}
+    @keyframes dropIn{to{transform:translateY(0) rotate(var(--tilt));opacity:1}}
+    .letter-card:hover,.letter-card:focus-visible{transform:translateY(-7px) rotate(0deg) scale(1.025);outline:none}
+    .big-letter{
+      position:relative;
+      z-index:1;
+      display:block;
+      font-weight:1000;
+      font-size:clamp(3.8rem,11vw,7rem);
+      line-height:.86;
+      color:var(--c);
+      -webkit-text-stroke:2px var(--ink);
+      text-shadow:5px 7px 0 rgba(37,48,58,.11);
+    }
+    .word{position:relative;z-index:1;display:block;margin-top:16px;font-size:clamp(.78rem,2.5vw,1.08rem);font-weight:900;text-transform:uppercase;letter-spacing:.08em}
+
+    .panel{
+      margin-top:22px;
+      padding:24px;
+      border-radius:30px;
+      background:rgba(255,255,255,.84);
+      box-shadow:var(--shadow);
+      border:2px solid rgba(37,48,58,.08);
+      backdrop-filter:blur(8px);
+    }
+    .explain-box{min-height:130px;display:flex;align-items:center;gap:18px}
+    .mini-letter{
+      flex:0 0 auto;
+      width:76px;height:76px;
+      display:grid;place-items:center;
+      border-radius:22px;
+      background:var(--activeColor,var(--mint));
+      font-size:3.2rem;font-weight:1000;
+      -webkit-text-stroke:1.5px var(--ink);
+      box-shadow:inset 0 0 0 2px rgba(37,48,58,.12),0 12px 20px rgba(37,48,58,.11);
+      animation:pop .35s ease-out;
+    }
+    @keyframes pop{from{transform:scale(.7) rotate(-8deg);opacity:0}to{transform:scale(1);opacity:1}}
+    .explain-text h2{margin:0 0 7px;font-size:1.35rem}
+    .explain-text p{margin:0;color:#5a6670;line-height:1.5}
+
+    .controls{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin:22px 0 4px}
+    button.action{
+      appearance:none;border:0;border-radius:999px;padding:13px 20px;
+      font:inherit;font-weight:900;cursor:pointer;
+      color:var(--ink);background:white;
+      box-shadow:0 10px 20px rgba(37,48,58,.12);
+      transition:.2s ease;
+    }
+    button.action.primary{background:linear-gradient(135deg,#ffd969,#ffefae)}
+    button.action:hover{transform:translateY(-3px)}
+    button.action:active{transform:translateY(0) scale(.98)}
+
+    .example-title{text-align:center;margin:2px 0 18px;font-size:clamp(1.55rem,4vw,2.2rem)}
+    .example-list{display:grid;gap:13px}
+    .example-line{
+      display:grid;
+      grid-template-columns:64px 1fr;
+      align-items:center;
+      gap:15px;
+      padding:16px 17px;
+      border-radius:22px;
+      background:rgba(255,255,255,.82);
+      border:2px dashed rgba(37,48,58,.13);
+      opacity:.25;
+      transform:translateX(-20px) scale(.985);
+      transition:.45s cubic-bezier(.2,.8,.2,1);
+      filter:grayscale(.7);
+    }
+    .example-line.visible{opacity:1;transform:none;filter:none;box-shadow:0 9px 20px rgba(37,48,58,.08)}
+    .tag{
+      width:58px;height:58px;border-radius:17px;
+      display:grid;place-items:center;
+      background:var(--c);
+      font-size:2.35rem;font-weight:1000;
+      -webkit-text-stroke:1.3px var(--ink);
+      box-shadow:4px 5px 0 rgba(37,48,58,.09);
+    }
+    .example-line p{margin:0;font-size:clamp(1rem,2.6vw,1.22rem);line-height:1.42}
+
+    .practice{margin-top:24px}
+    .practice h2{margin:0 0 5px;text-align:center}
+    .practice-note{text-align:center;color:#68737b;margin:0 0 18px}
+    .prompt-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+    .prompt-card{
+      position:relative;
+      padding:15px;
+      border-radius:20px;
+      background:rgba(255,255,255,.82);
+      border:2px solid rgba(37,48,58,.08);
+    }
+    .prompt-card label{display:block;font-weight:900;margin-bottom:8px}
+    .prompt-card textarea{
+      width:100%;min-height:88px;resize:vertical;
+      border:2px solid rgba(37,48,58,.12);border-radius:14px;
+      padding:11px 12px;font:inherit;color:var(--ink);background:#fffdf8;
+      outline:none;
+    }
+    .prompt-card textarea:focus{border-color:var(--c);box-shadow:0 0 0 4px color-mix(in srgb,var(--c) 26%,transparent)}
+    .speech-output{
+      margin-top:14px;padding:18px;border-radius:20px;background:#fffdf7;
+      border:2px dashed rgba(37,48,58,.18);line-height:1.6;min-height:80px;
+    }
+    .speech-output.empty{color:#8a939a;font-style:italic}
+
+
+
+    .question-bank{margin-top:24px;overflow:hidden}
+    .question-bank h2{margin:0 0 6px;text-align:center}
+    .question-bank-note{text-align:center;color:#68737b;margin:0 auto 18px;max-width:620px;line-height:1.45}
+    .audience-tabs{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-bottom:18px}
+    .audience-tab{
+      appearance:none;border:2px solid rgba(37,48,58,.10);border-radius:999px;
+      padding:11px 18px;background:rgba(255,255,255,.82);color:var(--ink);
+      font:inherit;font-weight:900;cursor:pointer;box-shadow:0 8px 18px rgba(37,48,58,.08);
+      transition:.22s ease;
+    }
+    .audience-tab:hover{transform:translateY(-2px)}
+    .audience-tab.active{background:linear-gradient(135deg,#ffd969,#fff2b9);border-color:rgba(37,48,58,.18);transform:translateY(-2px)}
+    .question-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+    .question-card{
+      position:relative;min-height:108px;padding:16px 50px 16px 16px;
+      border:2px solid rgba(37,48,58,.09);border-radius:21px;
+      background:rgba(255,255,255,.86);color:var(--ink);font:inherit;text-align:left;
+      cursor:pointer;box-shadow:0 9px 20px rgba(37,48,58,.08);
+      opacity:0;transform:translateY(18px) scale(.98);
+      animation:questionIn .48s cubic-bezier(.2,.8,.2,1) forwards;
+      animation-delay:var(--qdelay,0s);transition:.2s ease;overflow:hidden;
+    }
+    .question-card::after{
+      content:'→';position:absolute;right:16px;top:50%;transform:translateY(-50%);
+      width:30px;height:30px;display:grid;place-items:center;border-radius:50%;
+      background:var(--qc,var(--mint));font-weight:1000;box-shadow:3px 4px 0 rgba(37,48,58,.09);
+    }
+    .question-card::before{
+      content:'';position:absolute;inset:auto -20px -28px auto;width:75px;height:75px;
+      border-radius:50%;background:var(--qc,var(--mint));opacity:.18;
+    }
+    .question-card:hover,.question-card:focus-visible{transform:translateY(-4px) scale(1.01);outline:none;border-color:var(--qc,var(--mint))}
+    .question-card.selected{border-color:var(--qc,var(--mint));box-shadow:0 0 0 4px color-mix(in srgb,var(--qc,var(--mint)) 25%,transparent),0 12px 24px rgba(37,48,58,.12)}
+    .question-level{display:block;margin-bottom:7px;font-size:.72rem;letter-spacing:.09em;text-transform:uppercase;font-weight:1000;color:#79838a}
+    .question-text{display:block;font-weight:900;line-height:1.35}
+    @keyframes questionIn{to{opacity:1;transform:none}}
+    .question-actions{display:flex;justify-content:center;margin-top:16px}
+    .topic-flash{animation:topicFlash .65s ease}
+    @keyframes topicFlash{0%{transform:scale(.96);background:#fff0a7}100%{transform:scale(1);background:transparent}}
+
+    .celebrate{animation:celebrate .6s ease}
+    @keyframes celebrate{0%{transform:scale(.95)}50%{transform:scale(1.02)}100%{transform:scale(1)}}
+
+    @media (max-width:650px){
+      .app{padding:18px 12px 68px}
+      .prep-row{gap:7px;margin-top:26px}
+      .letter-card{min-height:126px;border-radius:20px;padding:14px 6px 11px}
+      .word{font-size:.69rem;letter-spacing:.04em}
+      .panel{padding:17px;border-radius:23px}
+      .explain-box{align-items:flex-start}
+      .mini-letter{width:62px;height:62px;font-size:2.5rem;border-radius:18px}
+      .prompt-grid{grid-template-columns:1fr}
+      .question-grid{grid-template-columns:1fr}
+      .example-line{grid-template-columns:54px 1fr;padding:13px 12px;gap:11px}
+      .tag{width:50px;height:50px;font-size:2rem}
+    }
+
+    @media (prefers-reduced-motion:reduce){
+      *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.001ms!important}
+    }
+  </style>
+</head>
+<body>
+  <div class="sparkles" id="sparkles" aria-hidden="true"></div>
+
+  <main class="app">
+    <section class="hero">
+      <span class="eyebrow">Speaking structure</span>
+      <h1>Meet the PREP method</h1>
+      <p class="subtitle">A simple four-step formula that helps you give clear, confident and well-organised answers.</p>
+    </section>
+
+    <section class="prep-row" aria-label="PREP steps">
+      <button class="letter-card" style="--c:var(--mint);--delay:.05s;--tilt:-3deg" data-step="0">
+        <span class="big-letter">P</span><span class="word">Point</span>
+      </button>
+      <button class="letter-card" style="--c:var(--blue);--delay:.18s;--tilt:2deg" data-step="1">
+        <span class="big-letter">R</span><span class="word">Reason</span>
+      </button>
+      <button class="letter-card" style="--c:var(--yellow);--delay:.31s;--tilt:-2deg" data-step="2">
+        <span class="big-letter">E</span><span class="word">Example</span>
+      </button>
+      <button class="letter-card" style="--c:var(--pink);--delay:.44s;--tilt:3deg" data-step="3">
+        <span class="big-letter">P</span><span class="word">Point</span>
+      </button>
+    </section>
+
+    <section class="panel explain-box" aria-live="polite">
+      <div class="mini-letter" id="miniLetter">P</div>
+      <div class="explain-text">
+        <h2 id="stepTitle">Point</h2>
+        <p id="stepText">Say your opinion or main answer clearly.</p>
+      </div>
+    </section>
+
+    <div class="controls">
+      <button class="action" id="prevBtn">← Previous</button>
+      <button class="action primary" id="nextBtn">Next step →</button>
+    </div>
+
+    <section class="panel" id="exampleSection">
+      <h2 class="example-title">Example: Do you like coffee?</h2>
+      <div class="example-list">
+        <div class="example-line" style="--c:var(--mint)"><div class="tag">P</div><p><strong>Yes, I love it.</strong></p></div>
+        <div class="example-line" style="--c:var(--blue)"><div class="tag">R</div><p>It helps me focus, especially in the morning.</p></div>
+        <div class="example-line" style="--c:var(--yellow)"><div class="tag">E</div><p>I usually have a cup before work, and I feel much more productive afterwards.</p></div>
+        <div class="example-line" style="--c:var(--pink)"><div class="tag">P</div><p>So coffee is definitely part of my daily routine.</p></div>
+      </div>
+      <div class="controls">
+        <button class="action primary" id="playExample">▶ Play the answer</button>
+        <button class="action" id="resetExample">↻ Replay animation</button>
+      </div>
+    </section>
+
+    <section class="panel question-bank" id="questionBank">
+      <h2>Choose a practice question</h2>
+      <p class="question-bank-note">Pick a question, answer it with PREP, then choose another one. The selected question will appear in the answer builder below.</p>
+      <div class="audience-tabs" role="tablist" aria-label="Choose question set">
+        <button class="audience-tab active" id="adultTab" role="tab" aria-selected="true" data-audience="adults">For adults</button>
+        <button class="audience-tab" id="kidsTab" role="tab" aria-selected="false" data-audience="kids">For children</button>
+      </div>
+      <div class="question-grid" id="questionGrid" aria-live="polite"></div>
+      <div class="question-actions">
+        <button class="action" id="randomQuestion">🎲 Surprise me</button>
+      </div>
+    </section>
+
+    <section class="panel practice" id="answerBuilder">
+      <h2>Build your own PREP answer</h2>
+      <p class="practice-note" id="practiceTopic">Topic: <strong>Do you enjoy studying English?</strong></p>
+      <div class="prompt-grid">
+        <div class="prompt-card" style="--c:var(--mint)">
+          <label for="p1">P — Point</label>
+          <textarea id="p1" placeholder="Yes, I do. / No, I don't."></textarea>
+        </div>
+        <div class="prompt-card" style="--c:var(--blue)">
+          <label for="r">R — Reason</label>
+          <textarea id="r" placeholder="It is useful because..."></textarea>
+        </div>
+        <div class="prompt-card" style="--c:var(--yellow)">
+          <label for="e">E — Example</label>
+          <textarea id="e" placeholder="For example, last week..."></textarea>
+        </div>
+        <div class="prompt-card" style="--c:var(--pink)">
+          <label for="p2">P — Final point</label>
+          <textarea id="p2" placeholder="So, I think..."></textarea>
+        </div>
+      </div>
+      <div class="controls">
+        <button class="action primary" id="buildBtn">✨ Build my answer</button>
+        <button class="action" id="clearBtn">Clear</button>
+      </div>
+      <div class="speech-output empty" id="speechOutput">Your complete answer will appear here.</div>
+    </section>
+  </main>
+
+  <script>
+    const steps = [
+      {letter:'P', title:'Point', text:'Say your opinion or main answer clearly.', color:'var(--mint)'},
+      {letter:'R', title:'Reason', text:'Explain why you think or feel that way.', color:'var(--blue)'},
+      {letter:'E', title:'Example', text:'Give a real or imagined example to support your reason.', color:'var(--yellow)'},
+      {letter:'P', title:'Point again', text:'Finish by repeating your main idea in a strong final sentence.', color:'var(--pink)'}
+    ];
+
+    let current = 0;
+    const cards = [...document.querySelectorAll('.letter-card')];
+    const miniLetter = document.getElementById('miniLetter');
+    const stepTitle = document.getElementById('stepTitle');
+    const stepText = document.getElementById('stepText');
+
+    function showStep(index){
+      current = (index + steps.length) % steps.length;
+      const s = steps[current];
+      miniLetter.textContent = s.letter;
+      miniLetter.style.setProperty('--activeColor', s.color);
+      miniLetter.style.animation = 'none';
+      miniLetter.offsetHeight;
+      miniLetter.style.animation = '';
+      stepTitle.textContent = s.title;
+      stepText.textContent = s.text;
+      cards.forEach((card,i)=>{
+        card.style.outline = i===current ? `4px solid ${s.color}` : 'none';
+        card.setAttribute('aria-pressed', i===current ? 'true':'false');
+      });
+    }
+
+    cards.forEach(card=>card.addEventListener('click',()=>showStep(Number(card.dataset.step))));
+    document.getElementById('prevBtn').addEventListener('click',()=>showStep(current-1));
+    document.getElementById('nextBtn').addEventListener('click',()=>showStep(current+1));
+    showStep(0);
+
+    const exampleLines = [...document.querySelectorAll('.example-line')];
+    let exampleTimers = [];
+    function animateExample(){
+      exampleTimers.forEach(clearTimeout);
+      exampleLines.forEach(line=>line.classList.remove('visible'));
+      exampleLines.forEach((line,i)=>{
+        exampleTimers.push(setTimeout(()=>line.classList.add('visible'), 180 + i*520));
+      });
+    }
+    document.getElementById('resetExample').addEventListener('click',animateExample);
+    setTimeout(animateExample,850);
+
+    const exampleText = 'Yes, I love it. It helps me focus, especially in the morning. I usually have a cup before work, and I feel much more productive afterwards. So coffee is definitely part of my daily routine.';
+    document.getElementById('playExample').addEventListener('click',()=>{
+      if(!('speechSynthesis' in window)) return;
+      speechSynthesis.cancel();
+      const utterance = new SpeechSynthesisUtterance(exampleText);
+      utterance.lang = 'en-US';
+      utterance.rate = .88;
+      speechSynthesis.speak(utterance);
+    });
+
+
+
+    const questionSets = {
+      adults: [
+        {level:'Everyday life', text:'Is it better to work from home or from an office?'},
+        {level:'Habits', text:'Should people exercise every day?'},
+        {level:'Technology', text:'Has technology made our lives easier?'},
+        {level:'Travel', text:'Is travelling worth the money?'},
+        {level:'Work', text:'What makes a good boss?'},
+        {level:'Lifestyle', text:'Is it important to have a daily routine?'},
+        {level:'Money', text:'Should people save money or enjoy it now?'},
+        {level:'Education', text:'Is learning English still important today?'},
+        {level:'Free time', text:'Is watching films a good way to relax?'},
+        {level:'Society', text:'Should shops be open twenty-four hours a day?'}
+      ],
+      kids: [
+        {level:'School', text:'Should students have homework every day?'},
+        {level:'Animals', text:'Are cats better pets than dogs?'},
+        {level:'Games', text:'Are video games good for children?'},
+        {level:'Food', text:'Should children be allowed to eat sweets every day?'},
+        {level:'Superpowers', text:'Would flying be the best superpower?'},
+        {level:'School', text:'Should school start later in the morning?'},
+        {level:'Free time', text:'Is playing outside better than staying at home?'},
+        {level:'Books', text:'Are books better than films?'},
+        {level:'Holidays', text:'Is summer the best season?'},
+        {level:'Friends', text:'Is it better to have one best friend or many friends?'}
+      ]
+    };
+
+    let activeAudience = 'adults';
+    let selectedQuestion = 'Do you enjoy studying English?';
+    const questionGrid = document.getElementById('questionGrid');
+    const practiceTopic = document.getElementById('practiceTopic');
+    const answerBuilder = document.getElementById('answerBuilder');
+    const palette = ['var(--mint)','var(--blue)','var(--yellow)','var(--pink)'];
+
+    function renderQuestions(audience){
+      activeAudience = audience;
+      questionGrid.innerHTML = '';
+      questionSets[audience].forEach((item,index)=>{
+        const button = document.createElement('button');
+        button.className = 'question-card';
+        button.type = 'button';
+        button.style.setProperty('--qc', palette[index % palette.length]);
+        button.style.setProperty('--qdelay', `${index * .055}s`);
+        button.innerHTML = `<span class="question-level">${item.level}</span><span class="question-text">${item.text}</span>`;
+        button.addEventListener('click',()=>selectQuestion(item.text,button));
+        questionGrid.appendChild(button);
+      });
+    }
+
+    function selectQuestion(text,button){
+      selectedQuestion = text;
+      document.querySelectorAll('.question-card').forEach(card=>card.classList.remove('selected'));
+      if(button) button.classList.add('selected');
+      practiceTopic.innerHTML = `Topic: <strong>${text}</strong>`;
+      practiceTopic.classList.remove('topic-flash');
+      practiceTopic.offsetHeight;
+      practiceTopic.classList.add('topic-flash');
+      answerBuilder.scrollIntoView({behavior:'smooth',block:'start'});
+    }
+
+    document.querySelectorAll('.audience-tab').forEach(tab=>{
+      tab.addEventListener('click',()=>{
+        document.querySelectorAll('.audience-tab').forEach(t=>{
+          const active = t === tab;
+          t.classList.toggle('active',active);
+          t.setAttribute('aria-selected',active ? 'true':'false');
+        });
+        renderQuestions(tab.dataset.audience);
+      });
+    });
+
+    document.getElementById('randomQuestion').addEventListener('click',()=>{
+      const cards = [...questionGrid.querySelectorAll('.question-card')];
+      if(!cards.length) return;
+      const choice = cards[Math.floor(Math.random()*cards.length)];
+      choice.click();
+      burstSparkles(12);
+    });
+
+    renderQuestions('adults');
+
+
+    const fields = ['p1','r','e','p2'].map(id=>document.getElementById(id));
+    const output = document.getElementById('speechOutput');
+    document.getElementById('buildBtn').addEventListener('click',()=>{
+      const values = fields.map(f=>f.value.trim()).filter(Boolean);
+      if(!values.length){
+        output.textContent = 'Write at least one sentence first.';
+        output.classList.add('empty');
+        return;
+      }
+      output.textContent = values.join(' ');
+      output.classList.remove('empty');
+      output.classList.remove('celebrate');
+      output.offsetHeight;
+      output.classList.add('celebrate');
+      burstSparkles(18);
+    });
+    document.getElementById('clearBtn').addEventListener('click',()=>{
+      fields.forEach(f=>f.value='');
+      output.textContent='Your complete answer will appear here.';
+      output.classList.add('empty');
+    });
+
+    const sparkleWrap = document.getElementById('sparkles');
+    function makeSpark(x=Math.random()*100, delay=Math.random()*5){
+      const s=document.createElement('span');
+      s.className='spark';
+      s.style.left=x+'%';
+      s.style.bottom=(-10-Math.random()*20)+'px';
+      s.style.animationDelay=delay+'s';
+      s.style.animationDuration=(4+Math.random()*3)+'s';
+      s.style.width=s.style.height=(4+Math.random()*7)+'px';
+      sparkleWrap.appendChild(s);
+      setTimeout(()=>s.remove(),9000);
+    }
+    for(let i=0;i<18;i++) makeSpark(Math.random()*100,Math.random()*7);
+    setInterval(()=>makeSpark(),900);
+    function burstSparkles(count){
+      for(let i=0;i<count;i++) setTimeout(()=>makeSpark(30+Math.random()*40,0),i*35);
+    }
+  </script>
+</body>
+</html>
