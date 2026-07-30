@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Клавирис · тренажёр для фортепиано</title>
+<style>
+  :root{
+    --bg:#0d1220;--bg2:#141c2e;
+    --panel:rgba(28,38,58,0.62);--panel-line:rgba(125,155,205,0.16);
+    --cream:#e8eefb;--muted:#8d9ab7;
+    --right:#4d90ff;--right-2:#a3c5ff;   /* правая рука — синий */
+    --left:#f77e63;--left-2:#ffb59d;     /* левая рука — коралловый */
+    --gold:#f7896b;--rec:#f2607a;
+    --radius:16px;--shadow:0 18px 44px -18px rgba(0,0,0,.7);
+    font-synthesis:none;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%}
+  body{
+    font-family:"Segoe UI",system-ui,-apple-system,Roboto,sans-serif;color:var(--cream);
+    background:
+      radial-gradient(1200px 620px at 78% -8%, rgba(77,144,255,.15), transparent 60%),
+      radial-gradient(1000px 560px at 8% 108%, rgba(247,126,99,.12), transparent 60%),
+      linear-gradient(160deg,var(--bg),var(--bg2));
+    background-attachment:fixed;min-height:100%;-webkit-tap-highlight-color:transparent;
+  }
+  .wrap{max-width:1160px;margin:0 auto;padding:22px 18px 44px}
+  header{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin-bottom:6px}
+  .brand{font-weight:800;font-size:26px;letter-spacing:.3px;
+    background:linear-gradient(92deg,var(--right-2),var(--gold));
+    -webkit-background-clip:text;background-clip:text;color:transparent}
+  .brand small{display:block;font-size:12.5px;font-weight:500;letter-spacing:.4px;
+    color:var(--muted);-webkit-text-fill-color:var(--muted)}
+  .tag{margin-left:auto;font-size:12.5px;color:var(--muted)}
+
+  .libhead{display:flex;align-items:center;gap:10px;margin:16px 0 8px}
+  .libhead .glabel{margin:0}
+  .songs{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:14px}
+  .song{border:1px solid var(--panel-line);background:var(--panel);color:var(--cream);
+    border-radius:999px;padding:9px 15px;cursor:pointer;font-size:13.5px;font-weight:600;
+    transition:.16s;backdrop-filter:blur(6px);display:flex;flex-direction:column;line-height:1.25;
+    text-align:left;position:relative}
+  .song span{font-weight:500;font-size:11px;color:var(--muted)}
+  .song:hover{border-color:rgba(178,150,214,.4);transform:translateY(-1px)}
+  .song.on{border-color:transparent;color:#0f0b14;background:linear-gradient(100deg,var(--right-2),var(--gold))}
+  .song.on span{color:rgba(15,11,20,.62)}
+  .song.mine{border-style:dashed}
+  .badge{position:absolute;top:-7px;right:-4px;font-size:9px;font-weight:700;letter-spacing:.4px;
+    background:var(--gold);color:#1a1220;border-radius:6px;padding:1px 5px}
+
+  .frame{border:1px solid var(--panel-line);border-radius:var(--radius);background:var(--panel);
+    box-shadow:var(--shadow);overflow:hidden;backdrop-filter:blur(8px)}
+  .scroll{overflow-x:auto;overflow-y:hidden}
+  .stage{position:relative;margin:0 auto}
+  canvas{display:block;width:100%}
+  .hitline{position:absolute;left:0;right:0;height:2px;
+    background:linear-gradient(90deg,transparent,rgba(255,255,255,.4),transparent);pointer-events:none}
+
+  .keys{position:relative;user-select:none;touch-action:none}
+  .wkey{position:absolute;bottom:0;top:0;border-radius:0 0 7px 7px;cursor:pointer;
+    background:linear-gradient(180deg,#fbf7ff,#e5dcf0 78%,#d3c6e4);
+    border:1px solid #b9abcf;border-top:none;transition:background .05s,box-shadow .08s,transform .05s}
+  .bkey{position:absolute;top:0;border-radius:0 0 5px 5px;cursor:pointer;z-index:3;
+    background:linear-gradient(180deg,#3a3145,#211a2c 70%,#171021);
+    border:1px solid #0c0910;box-shadow:0 3px 5px rgba(0,0,0,.5);transition:background .05s,box-shadow .08s}
+  .wkey.lit-r,.bkey.lit-r{background:linear-gradient(180deg,var(--right-2),var(--right));box-shadow:0 0 18px rgba(56,198,180,.7)}
+  .wkey.lit-l,.bkey.lit-l{background:linear-gradient(180deg,var(--left-2),var(--left));box-shadow:0 0 18px rgba(224,160,90,.7)}
+  .wkey.held{background:linear-gradient(180deg,#fff,#bcd2ff);box-shadow:0 0 26px 4px rgba(110,160,255,.92) inset,0 0 20px rgba(110,160,255,.7);transform:translateY(1px)}
+  .bkey.held{background:linear-gradient(180deg,#a9c4ff,#5f86d0);box-shadow:0 0 22px 3px rgba(110,160,255,.9)}
+  .wkey.target,.bkey.target{outline:2px dashed rgba(255,255,255,.75);outline-offset:-3px;animation:pulse 1s ease-in-out infinite}
+  @keyframes pulse{50%{outline-color:rgba(255,255,255,.25)}}
+  .klabel{position:absolute;bottom:6px;left:0;right:0;text-align:center;font-size:10px;font-weight:600;color:#6a5c80;pointer-events:none}
+  .bkey .klabel{bottom:5px;color:#c9bce0}
+
+  .hint{font-size:12.5px;color:var(--muted);margin:10px 2px 0}
+  .hint b{color:var(--right-2);font-weight:600}
+
+  .deck{display:flex;flex-direction:column;gap:13px;margin-top:15px}
+  .row{display:flex;gap:11px;flex-wrap:wrap;align-items:stretch}
+  .group{border:1px solid var(--panel-line);background:var(--panel);border-radius:14px;
+    padding:11px 13px;display:flex;gap:12px;align-items:center;flex-wrap:wrap;backdrop-filter:blur(6px)}
+  .glabel{font-size:11px;letter-spacing:.6px;text-transform:uppercase;color:var(--muted)}
+  button.ctrl{border:1px solid var(--panel-line);background:rgba(255,255,255,.04);color:var(--cream);
+    border-radius:11px;padding:10px 14px;font-size:14px;font-weight:600;cursor:pointer;transition:.15s;
+    display:inline-flex;align-items:center;gap:7px}
+  button.ctrl:hover{border-color:rgba(178,150,214,.45);background:rgba(255,255,255,.08)}
+  button.ctrl:disabled{opacity:.4;cursor:not-allowed}
+  button.ctrl.primary{border-color:transparent;color:#0d0a12;background:linear-gradient(100deg,var(--right-2),var(--right));min-width:118px;justify-content:center}
+  button.ctrl.recbtn.on{background:linear-gradient(100deg,#f2607a,#e0435f);border-color:transparent;color:#fff;animation:blink 1s steps(2) infinite}
+  @keyframes blink{50%{opacity:.55}}
+  .seg{display:inline-flex;border:1px solid var(--panel-line);border-radius:11px;overflow:hidden}
+  .seg button{border:none;background:transparent;color:var(--muted);padding:9px 13px;font-size:13px;font-weight:600;cursor:pointer;transition:.14s}
+  .seg button.on{background:rgba(178,150,214,.16);color:var(--cream)}
+  .seg button+button{border-left:1px solid var(--panel-line)}
+
+  .toggle{display:inline-flex;align-items:center;gap:9px;font-size:13.5px;font-weight:600;cursor:pointer}
+  .switch{width:42px;height:24px;border-radius:999px;background:rgba(255,255,255,.12);border:1px solid var(--panel-line);position:relative;transition:.16s;flex:none}
+  .switch::after{content:"";position:absolute;top:2px;left:2px;width:18px;height:18px;border-radius:50%;background:#ccbfe0;transition:.16s}
+  .toggle.on .switch{background:linear-gradient(100deg,var(--right),var(--gold))}
+  .toggle.on .switch::after{left:21px;background:#fff}
+
+  input[type=range]{-webkit-appearance:none;appearance:none;height:5px;border-radius:5px;background:rgba(255,255,255,.16);outline:none;width:130px}
+  input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;border-radius:50%;background:var(--right-2);cursor:pointer;box-shadow:0 0 10px rgba(77,144,255,.6)}
+  input[type=range]::-moz-range-thumb{width:16px;height:16px;border:none;border-radius:50%;background:var(--right-2);cursor:pointer}
+  .val{font-variant-numeric:tabular-nums;font-size:13px;color:var(--muted)}
+  .txt{background:rgba(255,255,255,.05);border:1px solid var(--panel-line);border-radius:10px;color:var(--cream);padding:9px 11px;font-size:13.5px;font-family:inherit;width:170px}
+  .txt::placeholder{color:var(--muted)}
+
+  .progress{height:8px;border-radius:8px;background:rgba(255,255,255,.10);cursor:pointer;overflow:hidden;position:relative;flex:1;min-width:160px}
+  .fill{height:100%;width:0;background:linear-gradient(90deg,var(--right),var(--gold));border-radius:8px}
+
+  /* метроном визуал */
+  .metroDots{display:flex;gap:9px;align-items:center;padding:0 2px}
+  .mdot{width:15px;height:15px;border-radius:50%;background:rgba(255,255,255,.14);transition:transform .05s;transform-origin:center}
+  .mdot.accent{background:rgba(255,255,255,.22)}
+  .mdot.active{background:var(--right-2);box-shadow:0 0 14px var(--right-2)}
+  .mdot.accent.active{background:var(--gold);box-shadow:0 0 16px var(--gold)}
+  .bpmV b{color:var(--cream);font-size:16px;font-variant-numeric:tabular-nums}
+
+  .mine{display:flex;flex-direction:column;gap:8px}
+  .mine .mitem{display:flex;gap:8px;align-items:center;flex-wrap:wrap;border:1px solid var(--panel-line);background:var(--panel);border-radius:12px;padding:8px 11px}
+  .mine .mitem .mtitle{font-weight:600;font-size:13.5px;flex:1;min-width:120px}
+  .mine .mitem button{border:1px solid var(--panel-line);background:rgba(255,255,255,.04);color:var(--cream);border-radius:9px;padding:6px 10px;font-size:12.5px;cursor:pointer}
+  .mine .mitem button:hover{border-color:rgba(178,150,214,.45)}
+  .mine .mitem button.del:hover{border-color:var(--rec);color:var(--rec)}
+  .codebox{width:100%;min-height:88px;background:#0e0a14;border:1px solid var(--panel-line);border-radius:10px;color:var(--right-2);font-family:ui-monospace,Consolas,monospace;font-size:12px;padding:10px;margin-top:6px;display:none}
+
+  .foot{display:flex;gap:18px;flex-wrap:wrap;align-items:center;margin-top:16px;font-size:12.5px;color:var(--muted)}
+  .dot{display:inline-flex;align-items:center;gap:7px}
+  .chip{width:13px;height:13px;border-radius:4px}
+  .chip.r{background:linear-gradient(180deg,var(--right-2),var(--right))}
+  .chip.l{background:linear-gradient(180deg,var(--left-2),var(--left))}
+  kbd{font-family:inherit;background:rgba(255,255,255,.08);border:1px solid var(--panel-line);border-radius:6px;padding:1px 6px;font-size:11.5px;color:var(--cream)}
+  #midi{color:var(--muted)} #midi.live{color:var(--right-2)}
+  @media (max-width:560px){.brand{font-size:22px}.tag{display:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="brand">Клавирис<small>тренажёр для фортепиано · падающие ноты · свободная игра · запись</small></div>
+    <div class="tag">клик · компьютерная клавиатура · MIDI</div>
+  </header>
+
+  <div class="libhead"><span class="glabel">Библиотека</span></div>
+  <div class="songs" id="songs"></div>
+
+  <div class="frame">
+    <div class="scroll">
+      <div class="stage" id="stage">
+        <canvas id="cv"></canvas>
+        <div class="hitline" id="hit"></div>
+        <div class="keys" id="keys"></div>
+      </div>
+    </div>
+  </div>
+  <div class="hint" id="hint"></div>
+
+  <div class="deck">
+    <div class="row" id="transport">
+      <div class="group" style="flex:1">
+        <button class="ctrl primary" id="play">▶ Играть</button>
+        <button class="ctrl" id="stop">◼ Сброс</button>
+        <div class="progress" id="prog"><div class="fill" id="fill"></div></div>
+        <span class="val" id="time">0.0 / 0.0 c</span>
+      </div>
+      <div class="group">
+        <label class="toggle" id="loopT" title="Когда включено — песня начинается заново, как только доиграла"><span>⟳ Повторять</span><span class="switch"></span></label>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="group">
+        <span class="glabel">Режим</span>
+        <div class="seg" id="mode">
+          <button data-v="listen" class="on">Урок</button>
+          <button data-v="wait">Учить</button>
+          <button data-v="free">Свободно</button>
+        </div>
+      </div>
+      <div class="group">
+        <span class="glabel">Рука</span>
+        <div class="seg" id="hand">
+          <button data-v="both" class="on">Обе</button>
+          <button data-v="right">Правая</button>
+          <button data-v="left">Левая</button>
+        </div>
+      </div>
+      <div class="group">
+        <span class="glabel">Подписи</span>
+        <div class="seg" id="labels">
+          <button data-v="solfege" class="on">До-Ре-Ми</button>
+          <button data-v="letters">C-D-E</button>
+          <button data-v="none">Нет</button>
+        </div>
+      </div>
+      <div class="group">
+        <span class="glabel">Показ</span>
+        <div class="seg" id="viz">
+          <button data-v="notes" class="on">Падающие ноты</button>
+          <button data-v="keys">Подсветка клавиш</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="group" style="flex:1">
+        <span class="glabel">Метроном</span>
+        <label class="toggle" id="metroT"><span class="switch"></span></label>
+        <div class="metroDots" id="metroDots"></div>
+        <span class="bpmV"><b id="bpmV">90</b> уд/мин</span>
+        <input type="range" id="bpm" min="40" max="200" value="90" step="1">
+        <div class="seg" id="bpb">
+          <button data-v="2">2/4</button><button data-v="3">3/4</button><button data-v="4" class="on">4/4</button>
+        </div>
+        <span class="glabel">громк.</span>
+        <input type="range" id="metroVol" min="0" max="100" value="70" style="width:96px">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="group">
+        <span class="glabel">Темп песни</span>
+        <input type="range" id="tempo" min="40" max="140" value="100" step="5">
+        <span class="val" id="tempoV">100% · —</span>
+      </div>
+      <div class="group">
+        <span class="glabel">Громкость</span>
+        <input type="range" id="vol" min="0" max="100" value="72">
+      </div>
+      <div class="group">
+        <label class="toggle" id="pedalT" title="Как правая педаль рояля: нота звучит долго и не глохнет"><span>🎵 Педаль (долгий звук)</span><span class="switch"></span></label>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="group" style="flex:1">
+        <span class="glabel">Запись</span>
+        <button class="ctrl recbtn" id="recBtn">● Запись</button>
+        <span class="val" id="recInfo">сыграй мелодию — она запишется</span>
+        <input id="recName" class="txt" placeholder="Название мелодии">
+        <label class="toggle" id="quantT"><span>Ровный ритм</span><span class="switch"></span></label>
+        <button class="ctrl" id="recSave" disabled>Сохранить</button>
+        <button class="ctrl" id="recClear">Очистить</button>
+      </div>
+    </div>
+
+    <div class="mine" id="mine"></div>
+    <textarea class="codebox" id="codeBox" readonly></textarea>
+  </div>
+
+  <div class="foot">
+    <span class="dot"><span class="chip r"></span>правая рука / высокие ноты</span>
+    <span class="dot"><span class="chip l"></span>левая рука / бас</span>
+    <span>Клавиатура: <kbd>Z</kbd>…<kbd>M</kbd> бас · <kbd>A</kbd>…<kbd>J</kbd> центр · <kbd>Q</kbd>…<kbd>U</kbd> верх · <kbd>Пробел</kbd> старт</span>
+    <span id="midi">MIDI: поиск…</span>
+  </div>
+</div>
+
+<script>
+"use strict";
+
+/* ====== ВАШИ ПЕСНИ ======
+   Записанные мелодии можно вставлять сюда (кнопка «код» под записью
+   даёт готовый объект). Тогда они будут у всех, кто откроет страницу. */
+const USER_SONGS = [
+  // {title:"Моя песня", bpm:90, bpb:4, notes:[["R",60,0,1],["L",48,0,2]]},
+];
+
+/* ————— встроенные песни (мини-нотация) ————— */
+const SONGS=[
+ {title:"Ода к радости",sub:"Бетховен",bpm:100,bpb:4,
+  r:"E4 E4 F4 G4 G4 F4 E4 D4 C4 C4 D4 E4 E4:1.5 D4:0.5 D4:2 E4 E4 F4 G4 G4 F4 E4 D4 C4 C4 D4 E4 D4:1.5 C4:0.5 C4:2",
+  l:"C3:2 C3:2 G3:2 G3:2 C3:2 C3:2 G3:2 G3:2 C3:2 C3:2 G3:2 G3:2 C3:2 C3:2 G3:2 C3:2"},
+ {title:"Мерцай, звёздочка",sub:"Twinkle · Ах вы сени",bpm:108,bpb:4,
+  r:"C4 C4 G4 G4 A4 A4 G4:2 F4 F4 E4 E4 D4 D4 C4:2 G4 G4 F4 F4 E4 E4 D4:2 G4 G4 F4 F4 E4 E4 D4:2 C4 C4 G4 G4 A4 A4 G4:2 F4 F4 E4 E4 D4 D4 C4:2",
+  l:"C3:2 C3:2 F3:2 C3:2 F3:2 C3:2 G3:2 C3:2 C3:2 F3:2 C3:2 G3:2 C3:2 F3:2 G3:2 C3:2 C3:2 C3:2 F3:2 C3:2 F3:2 C3:2 G3:2 C3:2"},
+ {title:"Братец Яков",sub:"Frère Jacques · канон",bpm:120,bpb:4,
+  r:"C4 D4 E4 C4 C4 D4 E4 C4 E4 F4 G4:2 E4 F4 G4:2 G4:0.5 A4:0.5 G4:0.5 F4:0.5 E4 C4 G4:0.5 A4:0.5 G4:0.5 F4:0.5 E4 C4 C4 G3 C4:2 C4 G3 C4:2",
+  l:"C3:2 C3:2 C3:2 C3:2 C3:2 C3:2 C3:2 C3:2 C3:2 G3:2 C3:2 G3:2 G3:2 C3:2 G3:2 C3:2"},
+ {title:"Весёлый Новый год",sub:"Jingle Bells · припев",bpm:120,bpb:4,
+  r:"E4 E4 E4:2 E4 E4 E4:2 E4 G4 C4:1.5 D4:0.5 E4:4 F4 F4 F4:1.5 F4:0.5 F4 E4 E4 E4:0.5 E4:0.5 E4 D4 D4 E4 D4:2 G4:2",
+  l:"C3:2 C3:2 C3:2 C3:2 C3:2 G3:2 C3:2 C3:2 F3:2 F3:2 C3:2 C3:2 G3:2 G3:2 G3:2 C3:2"},
+ {title:"С днём рождения",sub:"Happy Birthday · 3/4",bpm:104,bpb:3,
+  r:"G4:0.5 G4:0.5 A4 G4 C5 B4:2 G4:0.5 G4:0.5 A4 G4 D5 C5:2 G4:0.5 G4:0.5 G5 E5 C5 B4:2 F5:0.5 F5:0.5 E5 C5 D5 C5:2",
+  l:"C3:3 G3:3 C3:3 C3:3 C3:3 G3:3 F3:3 G3:1.5 C3:1.5"},
+ {title:"У Мэри был барашек",sub:"Mary Had a Little Lamb",bpm:100,bpb:4,
+  r:"E4 D4 C4 D4 E4 E4 E4:2 D4 D4 D4:2 E4 G4 G4:2 E4 D4 C4 D4 E4 E4 E4 E4 D4 D4 E4 D4 C4:4",
+  l:"C3:2 C3:2 C3:2 C3:2 G3:2 G3:2 C3:2 C3:2 C3:2 C3:2 C3:2 C3:2 G3:2 G3:2 C3:4"}
+];
+
+/* ————— ноты / имена ————— */
+const PC={C:0,D:2,E:4,F:5,G:7,A:9,B:11};
+const NAMES=["C","C#","D","D#","E","F","F#","G","G#","A","A#","B"];
+const SOLF=["До","До#","Ре","Ре#","Ми","Фа","Фа#","Соль","Соль#","Ля","Ля#","Си"];
+const SPLIT=60; // до первой октавы (C4): ниже — левая рука, выше — правая
+function parseTrack(str,hand){
+  if(!str)return[];const out=[];let t=0;
+  for(const tok of str.trim().split(/\s+/)){
+    const [nm,d]=tok.split(":");const dur=d?parseFloat(d):1;
+    if(nm[0]==="R"||nm[0]==="r"){t+=dur;continue;}
+    const L=nm[0].toUpperCase();let i=1,acc=0;
+    if(nm[i]==="#"){acc=1;i++;}else if(nm[i]==="b"){acc=-1;i++;}
+    const oct=parseInt(nm.slice(i));out.push({hand,midi:(oct+1)*12+PC[L]+acc,start:t,dur});t+=dur;
+  }
+  return out;
+}
+function normalize(s,source,id){
+  let notes;
+  if(s.r!==undefined||s.l!==undefined)
+    notes=[...parseTrack(s.r,"R"),...parseTrack(s.l,"L")];
+  else
+    notes=(s.notes||[]).map(n=>Array.isArray(n)?{hand:n[0],midi:n[1],start:n[2],dur:n[3]}:{...n});
+  notes.sort((a,b)=>a.start-b.start);
+  const end=notes.reduce((m,n)=>Math.max(m,n.start+n.dur),0);
+  return {title:s.title,sub:s.sub||(source==="builtin"?"":"моя запись"),
+    bpm:s.bpm||90,bpb:s.bpb||4,notes,end,source,id:id||s.id};
+}
+
+const LO=48,HI=84;
+const isWhite=m=>[0,2,4,5,7,9,11].includes(((m%12)+12)%12);
+
+/* ————— аудио: синтез фортепиано ————— */
+let AC=null,master=null,comp=null,reverb=null,reverbGain=null;
+function audioInit(){
+  if(AC)return;
+  AC=new (window.AudioContext||window.webkitAudioContext)();
+  master=AC.createGain();master.gain.value=state.vol;
+  comp=AC.createDynamicsCompressor();
+  comp.threshold.value=-16;comp.knee.value=26;comp.ratio.value=3;comp.attack.value=0.003;comp.release.value=0.22;
+  master.connect(comp);comp.connect(AC.destination);
+  // мягкая реверберация (генерируемый импульс)
+  const len=Math.floor(AC.sampleRate*2.2),buf=AC.createBuffer(2,len,AC.sampleRate);
+  for(let ch=0;ch<2;ch++){const d=buf.getChannelData(ch);for(let i=0;i<len;i++){const t=i/len;d[i]=(Math.random()*2-1)*Math.pow(1-t,2.5);}}
+  reverb=AC.createConvolver();reverb.buffer=buf;
+  reverbGain=AC.createGain();reverbGain.gain.value=0.20;
+  reverb.connect(reverbGain);reverbGain.connect(master);
+}
+const f=m=>440*Math.pow(2,(m-69)/12);
+const PARTIALS=[{mul:1,amp:1.0},{mul:2,amp:0.5},{mul:3,amp:0.3},{mul:4,amp:0.17},{mul:5,amp:0.09},{mul:6,amp:0.05}];
+function noteOn(midi,vel){
+  if(!AC)return null;
+  const now=AC.currentTime,freq=f(midi);
+  const out=AC.createGain();
+  const filt=AC.createBiquadFilter();filt.type="lowpass";filt.Q.value=0.5;
+  const bright=Math.min(15000,freq*7+1400);
+  filt.frequency.setValueAtTime(bright,now);
+  filt.frequency.exponentialRampToValueAtTime(Math.max(700,freq*2.2+500),now+0.7);
+  out.connect(filt);filt.connect(master);filt.connect(reverb);
+  const oscs=[];
+  for(const p of PARTIALS){
+    const o=AC.createOscillator();o.type="sine";
+    const inh=1+0.0007*p.mul*p.mul;          // лёгкая негармоничность струны
+    o.frequency.value=freq*p.mul*inh;
+    const g=AC.createGain();g.gain.value=p.amp;
+    o.connect(g);g.connect(out);o.start(now);o.stop(now+9);oscs.push(o);
+  }
+  // «молоточек» — короткий шумовой призвук атаки
+  const nlen=Math.floor(AC.sampleRate*0.03),nb=AC.createBuffer(1,nlen,AC.sampleRate),nd=nb.getChannelData(0);
+  for(let i=0;i<nlen;i++)nd[i]=(Math.random()*2-1)*(1-i/nlen);
+  const noise=AC.createBufferSource();noise.buffer=nb;
+  const nf=AC.createBiquadFilter();nf.type="bandpass";nf.frequency.value=Math.min(6000,freq*4);
+  const ng=AC.createGain();ng.gain.value=0.05*vel;
+  noise.connect(nf);nf.connect(ng);ng.connect(out);noise.start(now);noise.stop(now+0.03);
+  // громкость по регистру + огибающая (быстрая атака, естественный спад струны)
+  const reg=Math.max(0.6,1.15-(midi-48)/72*0.45),peak=0.22*vel*reg;
+  out.gain.setValueAtTime(0.0001,now);
+  out.gain.exponentialRampToValueAtTime(peak,now+0.005);
+  out.gain.exponentialRampToValueAtTime(peak*0.55,now+0.28);
+  out.gain.setTargetAtTime(0.0001,now+0.28,3.2);   // долгое затухание, пока клавиша держится
+  return {out,oscs,released:false};
+}
+function noteRelease(v){
+  if(!v||v.released||!AC)return;v.released=true;
+  const now=AC.currentTime,rel=0.34;
+  v.out.gain.cancelScheduledValues(now);
+  v.out.gain.setTargetAtTime(0.0001,now,rel/3.5);
+  v.oscs.forEach(o=>{try{o.stop(now+rel+0.3)}catch(e){}});
+}
+const voices=new Map(),sustained=new Set();
+function startNote(m,vel){if(voices.has(m))endNote(m,true);const v=noteOn(m,vel||1);if(v)voices.set(m,v);}
+function endNote(m,force){const v=voices.get(m);if(!v)return;voices.delete(m);
+  if(state.pedal&&!force)sustained.add(v);else noteRelease(v);}
+function pedalUp(){sustained.forEach(noteRelease);sustained.clear();}
+function allNotesOff(){voices.forEach(noteRelease);voices.clear();sustained.forEach(noteRelease);sustained.clear();}
+function scheduleNote(m,durSec){const v=noteOn(m,0.85);if(v)setTimeout(()=>noteRelease(v),Math.max(120,durSec*1000));}
+function click(acc){
+  if(!AC)return;const now=AC.currentTime;const o=AC.createOscillator(),g=AC.createGain();
+  o.type="square";o.frequency.value=acc?1760:1180;
+  const peak=Math.max(0.0002,(acc?0.14:0.07)*state.metroVol);
+  g.gain.setValueAtTime(0.0001,now);g.gain.exponentialRampToValueAtTime(peak,now+0.004);
+  g.gain.exponentialRampToValueAtTime(0.0001,now+0.06);o.connect(g);g.connect(master);o.start(now);o.stop(now+0.08);
+}
+
+/* ————— состояние ————— */
+const state={
+  song:null,notes:[],groups:[],end:0,
+  playing:false,head:0,tempo:1,hand:"both",labels:"solfege",wait:false,free:false,loop:false,vol:0.72,
+  metro:false,metroBpm:90,metroBpb:4,metroBeat:0,pedal:false,viz:"notes",metroVol:0.7,
+  gIndex:0,pressed:new Set(),held:new Set(),triggered:new Set()
+};
+const bps=()=>state.song.bpm*state.tempo/60;
+const showFor=n=>state.hand==="both"||(state.hand==="right"&&n.hand==="R")||(state.hand==="left"&&n.hand==="L");
+
+/* ————— геометрия клавиатуры ————— */
+const keysEl=document.getElementById("keys"),stageEl=document.getElementById("stage");
+const cv=document.getElementById("cv"),ctx=cv.getContext("2d"),hit=document.getElementById("hit");
+let geom={},whiteW=42,whiteH=150,blackW=26,blackH=94,canvasH=300,stageW=0;
+const keyEls={};
+function buildKeyboard(){
+  keysEl.innerHTML="";for(const k in keyEls)delete keyEls[k];
+  const whites=[];for(let m=LO;m<=HI;m++)if(isWhite(m))whites.push(m);
+  const nW=whites.length,avail=Math.min(window.innerWidth-40,1124);
+  whiteW=Math.max(34,Math.floor(avail/nW));blackW=Math.round(whiteW*0.62);stageW=nW*whiteW;
+  whiteH=Math.round(whiteW*3.5);blackH=Math.round(whiteH*0.62);
+  canvasH=Math.round(Math.max(240,Math.min(360,window.innerHeight*0.42)));
+  geom={};let wi=0;
+  for(let m=LO;m<=HI;m++)if(isWhite(m)){geom[m]={x:wi*whiteW,w:whiteW,black:false};wi++;}
+  for(let m=LO;m<=HI;m++){if(isWhite(m))continue;const b=geom[m-1];geom[m]={x:(b?b.x+b.w:0)-blackW/2,w:blackW,black:true};}
+  stageEl.style.width=stageW+"px";keysEl.style.height=whiteH+"px";
+  for(let m=LO;m<=HI;m++){if(!isWhite(m))continue;
+    const el=document.createElement("div");el.className="wkey";el.style.left=geom[m].x+"px";el.style.width=(whiteW-1)+"px";el.dataset.m=m;
+    const lab=document.createElement("div");lab.className="klabel";el.appendChild(lab);keysEl.appendChild(el);keyEls[m]=el;}
+  for(let m=LO;m<=HI;m++){if(isWhite(m))continue;
+    const el=document.createElement("div");el.className="bkey";el.style.left=geom[m].x+"px";el.style.width=blackW+"px";el.style.height=blackH+"px";el.dataset.m=m;
+    const lab=document.createElement("div");lab.className="klabel";el.appendChild(lab);keysEl.appendChild(el);keyEls[m]=el;}
+  const dpr=window.devicePixelRatio||1;cv.style.height=canvasH+"px";cv.width=stageW*dpr;cv.height=canvasH*dpr;
+  ctx.setTransform(dpr,0,0,dpr,0,0);hit.style.top=canvasH+"px";updateLabels();
+}
+const labelFor=m=>state.labels==="none"?"":(state.labels==="solfege"?SOLF:NAMES)[((m%12)+12)%12];
+function updateLabels(){for(const m in keyEls)keyEls[m].querySelector(".klabel").textContent=isWhite(+m)?labelFor(+m):"";}
+
+/* ————— библиотека ————— */
+const LS="klaviris.songs.v1";let _mem=[];
+function loadLocal(){try{return JSON.parse(localStorage.getItem(LS))||[]}catch(e){return _mem}}
+function saveLocal(a){_mem=a;try{localStorage.setItem(LS,JSON.stringify(a))}catch(e){}}
+let library=[];
+function buildLibrary(keep){
+  library=[];
+  SONGS.forEach(s=>library.push(normalize(s,"builtin")));
+  USER_SONGS.forEach(s=>library.push(normalize(s,"embed")));
+  loadLocal().forEach(s=>library.push(normalize(s,"local",s.id)));
+  renderPills();renderMine();
+  if(keep){const again=library.find(e=>e.id&&e.id===keep);if(again){loadSongObj(again);return;}}
+}
+function renderPills(){
+  const el=document.getElementById("songs");el.innerHTML="";
+  library.forEach(entry=>{
+    const b=document.createElement("button");b.className="song"+(state.song===entry?" on":"")+(entry.source!=="builtin"?" mine":"");
+    b.innerHTML=entry.title+"<span>"+entry.sub+"</span>"+(entry.source==="local"?'<span class="badge">моя</span>':entry.source==="embed"?'<span class="badge">своя</span>':"");
+    b.onclick=()=>{audioInit();loadSongObj(entry);};
+    el.appendChild(b);
+  });
+}
+function loadSongObj(entry){
+  state.song=entry;state.notes=entry.notes;state.end=entry.end;
+  const map=new Map();
+  for(const n of entry.notes){const k=n.start.toFixed(3);if(!map.has(k))map.set(k,{start:n.start,notes:[]});map.get(k).notes.push(n);}
+  state.groups=[...map.values()].sort((a,b)=>a.start-b.start);
+  setViz(entry.source==="builtin"?"notes":"keys");
+  resetPlay();renderPills();updateTempoLabel();
+}
+function resetPlay(){state.head=0;state.gIndex=0;state.triggered.clear();state.pressed.clear();}
+
+function requiredFor(g){const s=new Set();for(const n of g.notes)if(showFor(n))s.add(n.midi);return s;}
+function playGroup(g){for(const n of g.notes)if(showFor(n))scheduleNote(n.midi,Math.max(0.2,n.dur/bps()));}
+function triggerDue(){for(let i=0;i<state.notes.length;i++){const n=state.notes[i];
+  if(state.triggered.has(i)||!showFor(n))continue;
+  if(n.start<=state.head+0.0005){scheduleNote(n.midi,Math.max(0.2,n.dur/bps()));state.triggered.add(i);
+    if(state.viz==="keys")spawnFx(n.midi,n.hand);}}}
+
+/* ————— свечение от нажатий ————— */
+const fx=[];
+function spawnFx(m,hand){fx.push({midi:m,born:performance.now(),hand:hand||(m<SPLIT?"L":"R")});if(fx.length>48)fx.shift();}
+
+/* ————— игрок нажимает ————— */
+function press(m){
+  if(m<LO||m>HI)return;audioInit();AC.resume&&AC.resume();
+  if(!state.held.has(m)){state.held.add(m);startNote(m,1);spawnFx(m);
+    if(rec.on){rec.active.set(m,performance.now());}}
+  state.pressed.add(m);
+}
+function release(m){
+  if(rec.on&&rec.active.has(m)){const tOn=rec.active.get(m);rec.active.delete(m);
+    rec.buffer.push({midi:m,start:(tOn-rec.t0)/1000,dur:Math.max(0.12,(performance.now()-tOn)/1000)});
+    recInfo();}
+  if(state.held.has(m)){state.held.delete(m);endNote(m,false);}
+}
+
+/* ————— запись ————— */
+const rec={on:false,t0:0,buffer:[],active:new Map()};
+function recInfo(){
+  const info=document.getElementById("recInfo");
+  if(rec.on)info.textContent="● идёт запись · нот: "+(rec.buffer.length+rec.active.size);
+  else if(rec.buffer.length)info.textContent="записано нот: "+rec.buffer.length+" — сохрани или очисти";
+  else info.textContent="сыграй мелодию — она запишется";
+  document.getElementById("recSave").disabled=rec.on||rec.buffer.length===0;
+}
+function toggleRec(){
+  audioInit();AC.resume&&AC.resume();
+  if(!rec.on){rec.on=true;rec.t0=performance.now();rec.buffer=[];rec.active.clear();
+    document.getElementById("recBtn").classList.add("on");document.getElementById("recBtn").textContent="■ Стоп";}
+  else{ // финализируем зажатые
+    const now=performance.now();rec.active.forEach((tOn,m)=>rec.buffer.push({midi:m,start:(tOn-rec.t0)/1000,dur:Math.max(0.12,(now-tOn)/1000)}));
+    rec.active.clear();rec.buffer.sort((a,b)=>a.start-b.start);rec.on=false;
+    document.getElementById("recBtn").classList.remove("on");document.getElementById("recBtn").textContent="● Запись";}
+  recInfo();
+}
+function quantize(v){return Math.round(v*4)/4;}
+function bufferToSong(name){
+  const bpm=state.metroBpm,q=state.quant;
+  const notes=rec.buffer.map(n=>{
+    let s=n.start*bpm/60, d=n.dur*bpm/60;
+    if(q){s=quantize(s);d=Math.max(0.25,quantize(d));}
+    return [n.midi<SPLIT?"L":"R", n.midi, +s.toFixed(3), +d.toFixed(3)];
+  });
+  return {title:name,bpm,bpb:state.metroBpb,notes,id:Date.now().toString(36)};
+}
+function saveRec(){
+  if(!rec.buffer.length)return;
+  const name=(document.getElementById("recName").value||"").trim()||("Моя мелодия "+(loadLocal().length+1));
+  const song=bufferToSong(name);
+  const arr=loadLocal();arr.push(song);saveLocal(arr);
+  rec.buffer=[];document.getElementById("recName").value="";recInfo();
+  buildLibrary(song.id);
+}
+
+/* ————— основной цикл ————— */
+let lastFrame=null,metroPhase=0,metroLastBeat=-1,lastBeatTime=0;
+function endReached(){if(state.loop)resetPlay();else{state.playing=false;state.head=0;state.gIndex=0;setPlayBtn();}}
+function frame(now){
+  requestAnimationFrame(frame);
+  if(lastFrame===null)lastFrame=now;let rdt=(now-lastFrame)/1000;lastFrame=now;if(rdt>0.1)rdt=0.1;
+
+  // метроном — независимые часы
+  if(state.metro){
+    metroPhase+=rdt*(state.metroBpm/60);
+    const bi=Math.floor(metroPhase+1e-6);
+    if(bi>metroLastBeat){metroLastBeat=bi;const acc=(bi%state.metroBpb)===0;click(acc);lastBeatTime=now;}
+    state.metroBeat=((bi%state.metroBpb)+state.metroBpb)%state.metroBpb;
+  }
+
+  // проигрывание песни
+  if(state.playing&&!state.free){
+    const b=bps();
+    if(state.wait){
+      const g=state.groups[state.gIndex];
+      if(!g)endReached();
+      else if(state.head<g.start-0.0002){state.head=Math.min(state.head+rdt*b,g.start);}
+      else{const req=requiredFor(g);
+        if(req.size===0){state.gIndex++;state.pressed.clear();}
+        else{let ok=true;req.forEach(m=>{if(!state.pressed.has(m))ok=false;});
+          if(ok){playGroup(g);state.gIndex++;state.pressed.clear();}}}
+    }else{state.head+=rdt*b;triggerDue();if(state.head>=state.end+0.02)endReached();}
+  }
+  draw(now);
+  updateMetroVisual(now);
+}
+
+/* ————— отрисовка ————— */
+function roundRect(x,y,w,h,r){r=Math.min(r,w/2,h/2);ctx.beginPath();ctx.moveTo(x+r,y);
+  ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r);ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);ctx.closePath();}
+const LA=2.6;
+function draw(now){
+  ctx.clearRect(0,0,stageW,canvasH);
+  ctx.strokeStyle="rgba(255,255,255,.04)";ctx.lineWidth=1;
+  for(let m=LO;m<=HI;m++)if(isWhite(m)){ctx.beginPath();ctx.moveTo(geom[m].x+.5,0);ctx.lineTo(geom[m].x+.5,canvasH);ctx.stroke();}
+
+  const sounding=new Set();
+  if(!state.free&&state.song){
+    const b=bps(),laB=LA*b,drawNotes=state.viz==="notes";
+    for(const n of state.notes){
+      if(!showFor(n))continue;
+      const rel=n.start-state.head,relEnd=n.start+n.dur-state.head;
+      if(n.start<=state.head&&state.head<n.start+n.dur)sounding.add(n.midi+":"+n.hand);
+      if(!drawNotes)continue;
+      if(relEnd<-0.06||rel>laB)continue;
+      const g=geom[n.midi];if(!g)continue;
+      let topY=Math.max(0,canvasH-(relEnd/laB)*canvasH),botY=Math.min(canvasH,canvasH-(rel/laB)*canvasH);
+      const h=Math.max(6,botY-topY),x=g.x+2,w=g.w-4,right=n.hand==="R";
+      const grd=ctx.createLinearGradient(0,topY,0,topY+h);
+      if(right){grd.addColorStop(0,"#a3c5ff");grd.addColorStop(1,"#3f7ce6");}else{grd.addColorStop(0,"#ffb59d");grd.addColorStop(1,"#e05a3c");}
+      ctx.save();ctx.shadowColor=right?"rgba(77,144,255,.55)":"rgba(247,126,99,.5)";ctx.shadowBlur=14;
+      ctx.fillStyle=grd;roundRect(x,topY,w,h,6);ctx.fill();ctx.restore();
+      ctx.strokeStyle="rgba(255,255,255,.28)";ctx.lineWidth=1;roundRect(x,topY,w,h,6);ctx.stroke();
+      if(state.labels!=="none"&&h>17&&w>16){ctx.fillStyle="rgba(20,14,22,.82)";ctx.font="600 11px Segoe UI, sans-serif";
+        ctx.textAlign="center";ctx.textBaseline="middle";ctx.fillText(labelFor(n.midi),x+w/2,botY-9);}
+    }
+    if(!drawNotes){ctx.fillStyle="rgba(141,154,183,.28)";ctx.font="600 14px Segoe UI, sans-serif";
+      ctx.textAlign="center";ctx.textBaseline="middle";ctx.fillText("подсветка клавиш — смотри на клавиатуру",stageW/2,canvasH/2);}
+  }else if(state.free){
+    ctx.fillStyle="rgba(141,154,183,.30)";ctx.font="600 14px Segoe UI, sans-serif";ctx.textAlign="center";ctx.textBaseline="middle";
+    ctx.fillText("свободная игра — нажимай клавиши, включи метроном, жми «Запись»",stageW/2,canvasH/2);
+  }
+
+  // свечение нажатий (во всех режимах)
+  for(let i=fx.length-1;i>=0;i--){
+    const e=fx[i],age=(now-e.born)/1000;if(age>0.95){fx.splice(i,1);continue;}
+    const g=geom[e.midi];if(!g)continue;const cx=g.x+g.w/2,a=1-age/0.95;
+    const col=e.hand==="R"?"77,144,255":"247,126,99";
+    const topY=canvasH*(1-Math.min(1,age*1.25));
+    const grd=ctx.createLinearGradient(0,canvasH,0,topY);
+    grd.addColorStop(0,"rgba("+col+","+(0.34*a)+")");grd.addColorStop(1,"rgba("+col+",0)");
+    ctx.fillStyle=grd;ctx.fillRect(cx-g.w*0.44,topY,g.w*0.88,canvasH-topY);
+    ctx.strokeStyle="rgba("+col+","+(0.55*a)+")";ctx.lineWidth=2;ctx.beginPath();ctx.arc(cx,canvasH,8+age*48,0,7);ctx.stroke();
+    if(state.labels!=="none"){ctx.fillStyle="rgba(255,255,255,"+a+")";ctx.font="700 14px Segoe UI, sans-serif";
+      ctx.textAlign="center";ctx.textBaseline="alphabetic";ctx.fillText(labelFor(e.midi),cx,canvasH-16-age*46);}
+  }
+
+  // клавиши
+  const target=new Set();
+  if(state.wait&&state.playing&&!state.free){const g=state.groups[state.gIndex];
+    if(g&&Math.abs(state.head-g.start)<0.25)requiredFor(g).forEach(m=>{if(!state.pressed.has(m))target.add(m);});}
+  for(const m in keyEls){const el=keyEls[m];el.classList.remove("lit-r","lit-l","held","target");
+    if(sounding.has(m+":R"))el.classList.add("lit-r");else if(sounding.has(m+":L"))el.classList.add("lit-l");
+    if(state.held.has(+m))el.classList.add("held");if(target.has(+m))el.classList.add("target");}
+
+  // прогресс
+  const b=bps(),frac=state.end?Math.min(1,state.head/state.end):0;
+  document.getElementById("fill").style.width=(frac*100)+"%";
+  document.getElementById("time").textContent=(state.head/b).toFixed(1)+" / "+(state.end/b).toFixed(1)+" c";
+}
+
+/* ————— визуал метронома ————— */
+let curBpb=0;
+function updateMetroVisual(now){
+  const cont=document.getElementById("metroDots");
+  if(curBpb!==state.metroBpb){curBpb=state.metroBpb;cont.innerHTML="";
+    for(let i=0;i<state.metroBpb;i++){const d=document.createElement("div");d.className="mdot"+(i===0?" accent":"");cont.appendChild(d);}}
+  const since=now-lastBeatTime;
+  [...cont.children].forEach((d,i)=>{
+    const active=state.metro&&i===state.metroBeat;d.classList.toggle("active",active);
+    d.style.transform=active?("scale("+(1+Math.max(0,0.7*(1-since/170)))+")"):"scale(1)";
+  });
+}
+
+/* ————— UI ————— */
+const playBtn=document.getElementById("play");
+function setPlayBtn(){playBtn.textContent=state.playing?"❚❚ Пауза":"▶ Играть";}
+playBtn.onclick=()=>{if(state.free)return;audioInit();AC.resume&&AC.resume();
+  if(!state.playing&&state.head>=state.end-0.001)resetPlay();
+  state.playing=!state.playing;setPlayBtn();};
+document.getElementById("stop").onclick=()=>{state.playing=false;resetPlay();if(AC)allNotesOff();setPlayBtn();};
+
+function seg(id,key,after){document.querySelectorAll("#"+id+" button").forEach(btn=>{btn.onclick=()=>{
+  document.querySelectorAll("#"+id+" button").forEach(x=>x.classList.remove("on"));btn.classList.add("on");
+  state[key]=btn.dataset.v;after&&after();};});}
+
+const hintEl=document.getElementById("hint");const transportEl=document.getElementById("transport");
+const HINTS={listen:"<b>Урок:</b> нажми «Играть» — ноты поедут вниз, клавиши подсветятся. Ученик смотрит и повторяет.",
+  wait:"<b>Учить:</b> ноты замирают и ждут, пока ученик нажмёт нужные клавиши, затем едут дальше.",
+  free:"<b>Свободно:</b> играй сам — каждая клавиша даёт вспышку. Включи метроном для ритма и жми «Запись», чтобы наиграть мелодию."};
+function applyMode(v){state.wait=v==="wait";state.free=v==="free";
+  if(state.free){state.playing=false;setPlayBtn();}
+  transportEl.style.display=state.free?"none":"flex";
+  hintEl.innerHTML=HINTS[v];state.pressed.clear();}
+document.querySelectorAll("#mode button").forEach(btn=>btn.onclick=()=>{
+  document.querySelectorAll("#mode button").forEach(x=>x.classList.remove("on"));btn.classList.add("on");applyMode(btn.dataset.v);});
+seg("hand","hand",()=>{state.triggered.clear();state.pressed.clear();});
+seg("labels","labels",updateLabels);
+function setViz(v){state.viz=v;document.querySelectorAll("#viz button").forEach(b=>b.classList.toggle("on",b.dataset.v===v));}
+document.querySelectorAll("#viz button").forEach(btn=>btn.onclick=()=>setViz(btn.dataset.v));
+
+function updateTempoLabel(){document.getElementById("tempoV").textContent=Math.round(state.tempo*100)+"% · "+(state.song?Math.round(state.song.bpm*state.tempo):"—")+" уд/мин";}
+document.getElementById("tempo").oninput=e=>{state.tempo=(+e.target.value)/100;updateTempoLabel();};
+document.getElementById("vol").oninput=e=>{state.vol=(+e.target.value)/100;if(master)master.gain.value=state.vol;};
+
+// метроном
+const metroT=document.getElementById("metroT");
+metroT.onclick=()=>{state.metro=!state.metro;metroT.classList.toggle("on",state.metro);
+  audioInit();AC.resume&&AC.resume();metroPhase=0;metroLastBeat=-1;state.metroBeat=0;};
+document.getElementById("bpm").oninput=e=>{state.metroBpm=+e.target.value;document.getElementById("bpmV").textContent=state.metroBpm;};
+document.getElementById("metroVol").oninput=e=>{state.metroVol=(+e.target.value)/100;};
+seg("bpb","metroBpbStr",()=>{state.metroBpb=+state.metroBpbStr;metroLastBeat=-1;});
+// bpb seg stores string → convert; ensure default
+state.metroBpbStr="4";
+
+// повтор / ровный ритм
+const loopT=document.getElementById("loopT");
+loopT.onclick=()=>{state.loop=!state.loop;loopT.classList.toggle("on",state.loop);};
+const quantT=document.getElementById("quantT");state.quant=false;
+quantT.onclick=()=>{state.quant=!state.quant;quantT.classList.toggle("on",state.quant);};
+const pedalT=document.getElementById("pedalT");
+pedalT.onclick=()=>{state.pedal=!state.pedal;pedalT.classList.toggle("on",state.pedal);if(!state.pedal)pedalUp();};
+
+// прогресс — перемотка
+const prog=document.getElementById("prog");
+prog.onclick=e=>{if(state.free)return;const r=prog.getBoundingClientRect();
+  const frac=Math.max(0,Math.min(1,(e.clientX-r.left)/r.width));state.head=frac*state.end;state.triggered.clear();
+  state.gIndex=0;while(state.gIndex<state.groups.length&&state.groups[state.gIndex].start<state.head-0.001)state.gIndex++;state.pressed.clear();};
+
+// запись
+document.getElementById("recBtn").onclick=toggleRec;
+document.getElementById("recSave").onclick=saveRec;
+document.getElementById("recClear").onclick=()=>{rec.buffer=[];rec.active.clear();if(rec.on)toggleRec();recInfo();};
+
+// «Мои записи» — управление
+function renderMine(){
+  const el=document.getElementById("mine");el.innerHTML="";
+  const locals=library.filter(e=>e.source==="local");
+  if(!locals.length){document.getElementById("codeBox").style.display="none";return;}
+  locals.forEach(entry=>{
+    const row=document.createElement("div");row.className="mitem";
+    row.innerHTML='<span class="mtitle">🎵 '+entry.title+'</span>';
+    const bPlay=btn("▶ играть",()=>{audioInit();loadSongObj(entry);document.querySelector('#mode button[data-v="listen"]').click();});
+    const bCode=btn("📋 код",()=>showCode(entry));
+    const bFile=btn("⬇ файл",()=>downloadSong(entry));
+    const bDel=btn("🗑",()=>{const arr=loadLocal().filter(s=>s.id!==entry.id);saveLocal(arr);buildLibrary();});bDel.className="del";
+    row.append(bPlay,bCode,bFile,bDel);el.appendChild(row);
+  });
+}
+function btn(txt,fn){const b=document.createElement("button");b.textContent=txt;b.onclick=fn;return b;}
+function songObject(entry){return {title:entry.title,bpm:entry.bpm,bpb:entry.bpb,
+  notes:entry.notes.map(n=>[n.hand,n.midi,+n.start.toFixed(3),+n.dur.toFixed(3)])};}
+function showCode(entry){
+  const box=document.getElementById("codeBox");
+  box.value=JSON.stringify(songObject(entry))+",";
+  box.style.display="block";box.focus();box.select();
+  if(navigator.clipboard)navigator.clipboard.writeText(box.value).catch(()=>{});
+}
+function downloadSong(entry){
+  const blob=new Blob([JSON.stringify(songObject(entry),null,2)],{type:"application/json"});
+  const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=entry.title.replace(/\s+/g,"_")+".json";a.click();
+}
+
+// мышь/тач
+let mouseDown=false;const midiFromEvent=t=>{const el=t.closest&&t.closest("[data-m]");return el?+el.dataset.m:null;};
+keysEl.addEventListener("mousedown",e=>{mouseDown=true;const m=midiFromEvent(e.target);if(m!=null)press(m);});
+keysEl.addEventListener("mouseover",e=>{if(!mouseDown)return;const m=midiFromEvent(e.target);if(m!=null)press(m);});
+keysEl.addEventListener("mouseup",e=>{const m=midiFromEvent(e.target);if(m!=null)release(m);});
+document.addEventListener("mouseup",()=>{mouseDown=false;[...state.held].forEach(m=>release(m));});
+keysEl.addEventListener("touchstart",e=>{e.preventDefault();for(const t of e.changedTouches){const el=document.elementFromPoint(t.clientX,t.clientY);const m=el&&midiFromEvent(el);if(m!=null)press(m);}},{passive:false});
+keysEl.addEventListener("touchend",e=>{for(const t of e.changedTouches){const el=document.elementFromPoint(t.clientX,t.clientY);const m=el&&midiFromEvent(el);if(m!=null)release(m);}});
+
+// компьютерная клавиатура
+const KEYMAP={z:48,x:50,c:52,v:53,b:55,n:57,m:59,a:60,s:62,d:64,f:65,g:67,h:69,j:71,q:72,w:74,e:76,r:77,t:79,y:81,u:83};
+const downKeys=new Set();
+document.addEventListener("keydown",e=>{if(e.repeat)return;const tgt=e.target.tagName;if(tgt==="INPUT"||tgt==="TEXTAREA")return;
+  const k=e.key.toLowerCase();if(k===" "){e.preventDefault();playBtn.click();return;}
+  if(KEYMAP[k]!=null&&!downKeys.has(k)){downKeys.add(k);press(KEYMAP[k]);}});
+document.addEventListener("keyup",e=>{const k=e.key.toLowerCase();if(KEYMAP[k]!=null){downKeys.delete(k);release(KEYMAP[k]);}});
+
+// Web MIDI
+const midiEl=document.getElementById("midi");
+if(navigator.requestMIDIAccess){navigator.requestMIDIAccess().then(acc=>{
+  const bind=()=>{let c=0;for(const inp of acc.inputs.values()){inp.onmidimessage=onMIDI;c++;}
+    midiEl.textContent=c?("MIDI: подключено ("+c+")"):"MIDI: не найдено";midiEl.classList.toggle("live",c>0);};
+  bind();acc.onstatechange=bind;}).catch(()=>{midiEl.textContent="MIDI: нет доступа";});}
+else midiEl.textContent="MIDI: не поддерживается браузером";
+function onMIDI(e){const [st,note,vel]=e.data,cmd=st&0xf0;if(cmd===144&&vel>0)press(note);else if(cmd===128||(cmd===144&&vel===0))release(note);}
+
+// старт
+let rsz;window.addEventListener("resize",()=>{clearTimeout(rsz);rsz=setTimeout(buildKeyboard,150);});
+buildKeyboard();buildLibrary();loadSongObj(library[0]);applyMode("listen");recInfo();
+requestAnimationFrame(frame);
+</script>
+</body>
+</html>
