@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Neon Survival English — Translation Challenge</title>
+<style>
+  :root{
+    --bg:#050508;
+    --panel:#0b0c12;
+    --text:#f4f4f7;
+    --muted:#9da1b3;
+    --cyan:#42f5ff;
+    --pink:#ff4fd8;
+    --lime:#9cff57;
+    --violet:#9d6cff;
+    --orange:#ff9a3d;
+    --red:#ff5468;
+  }
+
+  *{box-sizing:border-box}
+  html,body{margin:0;min-height:100%;background:
+    radial-gradient(circle at 15% 20%, rgba(66,245,255,.10), transparent 25%),
+    radial-gradient(circle at 85% 15%, rgba(255,79,216,.10), transparent 25%),
+    radial-gradient(circle at 50% 100%, rgba(157,108,255,.10), transparent 35%),
+    var(--bg);
+    color:var(--text);
+    font-family:Inter,Segoe UI,Arial,sans-serif;
+  }
+
+  body{min-height:100vh;overflow-x:hidden}
+
+  .stars,.stars:before,.stars:after{
+    position:fixed;inset:0;pointer-events:none;content:"";
+    background-image:
+      radial-gradient(circle, rgba(255,255,255,.6) 1px, transparent 1px),
+      radial-gradient(circle, rgba(66,245,255,.45) 1px, transparent 1px);
+    background-size:73px 73px, 127px 127px;
+    background-position:0 0, 23px 41px;
+    opacity:.18;
+    animation:drift 35s linear infinite;
+  }
+  .stars:before{transform:scale(1.2);opacity:.12;animation-duration:55s}
+  .stars:after{transform:scale(.8);opacity:.08;animation-duration:70s}
+  @keyframes drift{to{background-position:300px 220px, -260px 300px}}
+
+  .wrap{width:min(980px,94vw);margin:0 auto;padding:28px 0 40px;position:relative;z-index:2}
+
+  .topbar{
+    display:flex;gap:14px;align-items:center;justify-content:space-between;
+    margin-bottom:18px;flex-wrap:wrap
+  }
+
+  .brand{
+    letter-spacing:.16em;text-transform:uppercase;font-size:14px;color:var(--cyan);
+    text-shadow:0 0 10px rgba(66,245,255,.7)
+  }
+
+  .stats{display:flex;gap:10px;flex-wrap:wrap}
+  .pill{
+    border:1px solid rgba(255,255,255,.12);border-radius:999px;padding:8px 12px;
+    background:rgba(255,255,255,.035);font-size:13px;color:#d9dae4;
+    box-shadow:inset 0 0 18px rgba(255,255,255,.02)
+  }
+  .pill b{color:white}
+
+  .progress-shell{
+    height:8px;border-radius:999px;background:#161822;overflow:hidden;
+    border:1px solid rgba(255,255,255,.08);margin-bottom:22px
+  }
+  .progress{
+    height:100%;width:0;background:linear-gradient(90deg,var(--cyan),var(--violet),var(--pink));
+    box-shadow:0 0 18px rgba(66,245,255,.7);transition:width .35s ease
+  }
+
+  .card{
+    border:1px solid rgba(255,255,255,.12);border-radius:26px;
+    background:linear-gradient(180deg,rgba(17,18,27,.95),rgba(8,9,15,.96));
+    padding:28px;box-shadow:
+      0 0 0 1px rgba(255,255,255,.02),
+      0 22px 60px rgba(0,0,0,.55),
+      0 0 45px rgba(157,108,255,.08);
+    position:relative;overflow:hidden;
+  }
+  .card:before{
+    content:"";position:absolute;width:280px;height:280px;border-radius:50%;
+    background:rgba(66,245,255,.07);filter:blur(70px);right:-120px;top:-150px
+  }
+
+  .row{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+  .tense{
+    display:inline-flex;align-items:center;gap:8px;font-size:12px;letter-spacing:.08em;
+    text-transform:uppercase;border:1px solid currentColor;border-radius:999px;padding:6px 10px;
+    color:var(--violet);box-shadow:0 0 18px rgba(157,108,255,.16)
+  }
+
+  .mode-label{
+    color:var(--muted);font-size:13px
+  }
+
+  .ru{
+    margin:24px 0 8px;font-size:clamp(24px,4vw,40px);line-height:1.2;
+    font-weight:650;max-width:850px;letter-spacing:-.02em
+  }
+
+  .instruction{
+    color:var(--muted);font-size:14px;margin-bottom:22px
+  }
+
+  .answers{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .answer{
+    appearance:none;border:1px solid rgba(255,255,255,.13);border-radius:18px;
+    background:#11131c;color:#f2f3f8;padding:17px 18px;min-height:68px;text-align:left;
+    cursor:pointer;font-size:16px;line-height:1.35;transition:.18s ease;
+    box-shadow:0 10px 26px rgba(0,0,0,.20)
+  }
+  .answer:hover{
+    transform:translateY(-2px);border-color:var(--cyan);
+    box-shadow:0 0 0 1px rgba(66,245,255,.12),0 0 25px rgba(66,245,255,.13)
+  }
+  .answer:disabled{cursor:default;transform:none}
+  .answer.correct{
+    border-color:var(--lime);background:rgba(156,255,87,.09);
+    box-shadow:0 0 26px rgba(156,255,87,.18)
+  }
+  .answer.wrong{
+    border-color:var(--red);background:rgba(255,84,104,.10);
+    box-shadow:0 0 25px rgba(255,84,104,.18)
+  }
+
+  .feedback{
+    min-height:76px;margin-top:18px;padding:14px 16px;border-radius:16px;
+    border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.025);
+    color:#d8d9e2;display:none
+  }
+  .feedback.show{display:block}
+  .feedback strong{color:white}
+  .feedback .mini{display:block;color:var(--muted);font-size:13px;margin-top:5px}
+
+  .controls{
+    display:flex;gap:10px;justify-content:flex-end;margin-top:16px;flex-wrap:wrap
+  }
+  .btn{
+    border:1px solid rgba(255,255,255,.15);background:transparent;color:white;
+    border-radius:14px;padding:11px 16px;cursor:pointer;font-size:14px
+  }
+  .btn.primary{
+    border-color:var(--cyan);color:var(--cyan);
+    box-shadow:0 0 20px rgba(66,245,255,.12)
+  }
+  .btn:hover{background:rgba(255,255,255,.05)}
+
+  .hidden{display:none!important}
+
+  .start{
+    text-align:center;padding:48px 26px
+  }
+  .start h1{
+    margin:0 0 12px;font-size:clamp(34px,7vw,68px);line-height:.98;
+    letter-spacing:-.04em
+  }
+  .glow1{color:var(--cyan);text-shadow:0 0 18px rgba(66,245,255,.5)}
+  .glow2{color:var(--pink);text-shadow:0 0 18px rgba(255,79,216,.45)}
+  .start p{max-width:700px;margin:18px auto;color:var(--muted);line-height:1.6}
+  .start .phrase-cloud{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin:24px auto 30px}
+  .tag{
+    border:1px solid rgba(255,255,255,.12);padding:8px 11px;border-radius:999px;
+    background:#10121a;font-size:13px
+  }
+  .big{
+    font-size:17px;padding:14px 24px;border-radius:16px;border-color:var(--pink);
+    color:white;background:rgba(255,79,216,.08);
+    box-shadow:0 0 28px rgba(255,79,216,.18)
+  }
+
+  .end{text-align:center;padding:40px 20px}
+  .end h2{font-size:clamp(32px,6vw,58px);margin:0 0 12px}
+  .score-big{
+    font-size:72px;font-weight:800;color:var(--lime);
+    text-shadow:0 0 25px rgba(156,255,87,.35);margin:10px 0
+  }
+  .end p{color:var(--muted);line-height:1.55}
+  .mistakes-box{
+    max-width:700px;margin:22px auto;text-align:left;border:1px solid rgba(255,255,255,.1);
+    border-radius:18px;padding:16px;background:rgba(255,255,255,.025)
+  }
+  .mistake-item{padding:10px 0;border-bottom:1px solid rgba(255,255,255,.06)}
+  .mistake-item:last-child{border-bottom:none}
+  .mistake-item small{color:var(--muted)}
+
+  @media(max-width:700px){
+    .answers{grid-template-columns:1fr}
+    .card{padding:20px;border-radius:20px}
+    .ru{font-size:28px}
+  }
+</style>
+</head>
+<body>
+<div class="stars"></div>
+
+<div class="wrap">
+  <div class="topbar">
+    <div class="brand">NEON SURVIVAL ENGLISH</div>
+    <div class="stats">
+      <div class="pill">Question <b id="qNum">0</b>/<b id="qTotal">24</b></div>
+      <div class="pill">Score <b id="score">0</b></div>
+      <div class="pill">Streak <b id="streak">0</b> ⚡</div>
+    </div>
+  </div>
+  <div class="progress-shell"><div class="progress" id="progress"></div></div>
+
+  <section class="card start" id="startScreen">
+    <h1><span class="glow1">Running on Coffee.</span><br><span class="glow2">Still Functioning.</span></h1>
+    <p>Переводи короткие русские предложения на английский. В каждом задании использована одна из шести живых фраз и один из четырёх временных контекстов: Present Simple, Present Continuous, Past Simple или Present Perfect.</p>
+    <div class="phrase-cloud">
+      <span class="tag">running on coffee</span>
+      <span class="tag">one minor inconvenience away from crying</span>
+      <span class="tag">have my life together</span>
+      <span class="tag">delulu but hopeful</span>
+      <span class="tag">working hard / hardly working</span>
+      <span class="tag">do not perceive me</span>
+    </div>
+    <button class="btn big" id="startBtn">START THE CHAOS →</button>
+  </section>
+
+  <section class="card hidden" id="quizScreen">
+    <div class="row">
+      <div class="tense" id="tenseBadge">Present Simple</div>
+      <div class="mode-label" id="modeLabel">Choose the best translation</div>
+    </div>
+
+    <div class="ru" id="ruText"></div>
+    <div class="instruction">Выбери лучший английский вариант.</div>
+
+    <div class="answers" id="answers"></div>
+
+    <div class="feedback" id="feedback"></div>
+
+    <div class="controls">
+      <button class="btn hidden" id="explainBtn">Показать смысл фразы</button>
+      <button class="btn primary hidden" id="nextBtn">NEXT →</button>
+    </div>
+  </section>
+
+  <section class="card end hidden" id="endScreen">
+    <h2 id="endTitle">You survived.</h2>
+    <div class="score-big" id="finalScore">24/24</div>
+    <p id="endText"></p>
+    <div class="mistakes-box hidden" id="mistakesBox"></div>
+    <button class="btn big" id="retryBtn">PLAY AGAIN ↻</button>
+  </section>
+</div>
+
+<script>
+const questions = [
+  // RUN ON COFFEE
+  {
+    tense:"Present Simple",
+    ru:"Я обычно держусь только на кофе по понедельникам.",
+    correct:"I usually run on coffee on Mondays.",
+    options:[
+      "I usually run on coffee on Mondays.",
+      "I am usually running with coffee on Mondays.",
+      "I usually work by coffee on Mondays.",
+      "I have usually run with coffee on Mondays."
+    ],
+    phrase:"run on coffee",
+    note:"To run on something = функционировать за счёт чего-то, как машина на топливе."
+  },
+  {
+    tense:"Present Continuous",
+    ru:"Сегодня я функционирую буквально на одном кофе.",
+    correct:"Today, I'm literally running on coffee.",
+    options:[
+      "Today, I literally run at coffee.",
+      "Today, I'm literally running on coffee.",
+      "Today, I have literally ran on coffee.",
+      "Today, I was literally running by coffee."
+    ],
+    phrase:"running on coffee",
+    note:"Running on coffee — шутливое «сейчас функционирую только благодаря кофе»."
+  },
+  {
+    tense:"Past Simple",
+    ru:"Вчера я весь день держалась только на кофе.",
+    correct:"Yesterday, I ran on coffee all day.",
+    options:[
+      "Yesterday, I run on coffee all day.",
+      "Yesterday, I have run on coffee all day.",
+      "Yesterday, I ran on coffee all day.",
+      "Yesterday, I was run on coffee all day."
+    ],
+    phrase:"ran on coffee",
+    note:"Past Simple от run — ran."
+  },
+  {
+    tense:"Present Perfect",
+    ru:"На этой неделе я уже несколько раз держалась только на кофе.",
+    correct:"I've already run on coffee several times this week.",
+    options:[
+      "I already ran on coffee several times this week.",
+      "I've already run on coffee several times this week.",
+      "I've already ran on coffee several times this week.",
+      "I'm already running on coffee several times this week."
+    ],
+    phrase:"have run on coffee",
+    note:"Present Perfect: have/has + past participle. У run форма participle тоже run."
+  },
+
+  // ONE MINOR INCONVENIENCE...
+  {
+    tense:"Present Simple",
+    ru:"По понедельникам я обычно в одном мелком неудобстве от слёз.",
+    correct:"On Mondays, I'm usually one minor inconvenience away from crying.",
+    options:[
+      "On Mondays, I'm usually one minor inconvenience away from crying.",
+      "On Mondays, I usually have one small problem before cry.",
+      "On Mondays, I'm usually one inconvenience far from crying.",
+      "On Mondays, I usually one minor inconvenience away from cry."
+    ],
+    phrase:"one minor inconvenience away from crying",
+    note:"One … away from = «в одном шаге от…». После from здесь нужна форма crying."
+  },
+  {
+    tense:"Present Continuous",
+    ru:"Сегодня всё идёт ужасно, и я всё ближе к состоянию «ещё одна мелкая неприятность — и я заплачу».",
+    correct:"Today, everything is going badly, and I'm getting closer to being one minor inconvenience away from crying.",
+    options:[
+      "Today, everything goes badly, and I get close to one minor inconvenience from cry.",
+      "Today, everything is going badly, and I'm getting closer to being one minor inconvenience away from crying.",
+      "Today, everything has gone badly, and I'm one inconvenience near crying.",
+      "Today, everything was going badly, and I am getting one inconvenience away to cry."
+    ],
+    phrase:"one minor inconvenience away from crying",
+    note:"Фраза сама по себе описывает состояние; Present Continuous здесь даёт контекст изменения: I'm getting closer..."
+  },
+  {
+    tense:"Past Simple",
+    ru:"Вчера после третьей проблемы я была в одном шаге от слёз.",
+    correct:"Yesterday, after the third problem, I was one minor inconvenience away from crying.",
+    options:[
+      "Yesterday, after the third problem, I am one minor inconvenience away from crying.",
+      "Yesterday, after the third problem, I was one minor inconvenience away from crying.",
+      "Yesterday, after the third problem, I have been one minor inconvenience away from crying.",
+      "Yesterday, after the third problem, I was one minor inconvenience away to cry."
+    ],
+    phrase:"one minor inconvenience away from crying",
+    note:"Для прошлого состояния нужен was/were."
+  },
+  {
+    tense:"Present Perfect",
+    ru:"Сегодня у меня уже было три проблемы. Ещё одна мелочь — и я заплачу.",
+    correct:"I've already had three problems today. I'm one minor inconvenience away from crying.",
+    options:[
+      "I already have three problems today. I'm one minor inconvenience from crying.",
+      "I've already had three problems today. I'm one minor inconvenience away from crying.",
+      "I've already have three problems today. I'm one small problem away to cry.",
+      "I had already three problems today. I'm one inconvenience away from cry."
+    ],
+    phrase:"one minor inconvenience away from crying",
+    note:"I've had = Present Perfect. Вторая часть — устойчивый мемный шаблон."
+  },
+
+  // HAVE MY LIFE TOGETHER
+  {
+    tense:"Present Simple",
+    ru:"На работе я делаю вид, что у меня вся жизнь под контролем.",
+    correct:"At work, I pretend I have my life together.",
+    options:[
+      "At work, I pretend I have my life together.",
+      "At work, I pretend my life is collected.",
+      "At work, I am pretend that I have life together.",
+      "At work, I pretend I have together my life."
+    ],
+    phrase:"have my life together",
+    note:"Have your life together = быть организованным, собранным, держать взрослую жизнь под контролем."
+  },
+  {
+    tense:"Present Continuous",
+    ru:"Сейчас я делаю вид, что у меня всё в жизни под контролем.",
+    correct:"Right now, I'm pretending I have my life together.",
+    options:[
+      "Right now, I pretend I have my life together.",
+      "Right now, I'm pretending I have my life together.",
+      "Right now, I'm pretending I am having my life together.",
+      "Right now, I have pretended my life together."
+    ],
+    phrase:"pretending I have my life together",
+    note:"Pretend — действие, поэтому сейчас естественно I'm pretending. Внутри фразы have остаётся обычным have."
+  },
+  {
+    tense:"Past Simple",
+    ru:"Вчера я весь вечер делала вид, что у меня всё под контролем.",
+    correct:"Yesterday, I pretended I had my life together all evening.",
+    options:[
+      "Yesterday, I pretended I had my life together all evening.",
+      "Yesterday, I pretend I have my life together all evening.",
+      "Yesterday, I have pretended I had my life together all evening.",
+      "Yesterday, I pretended I have together my life all evening."
+    ],
+    phrase:"pretended I had my life together",
+    note:"После pretended в прошлом естественно had my life together."
+  },
+  {
+    tense:"Present Perfect",
+    ru:"Я часто делала вид, что у меня всё в жизни под контролем.",
+    correct:"I've often pretended that I have my life together.",
+    options:[
+      "I often pretended that I have my life together.",
+      "I've often pretend that I have my life together.",
+      "I've often pretended that I have my life together.",
+      "I'm often pretended that I have my life together."
+    ],
+    phrase:"have my life together",
+    note:"Present Perfect: have + pretended. Само выражение остаётся have my life together."
+  },
+
+  // DELULU BUT HOPEFUL
+  {
+    tense:"Present Simple",
+    ru:"Я понимаю, что план странный, но я немного delulu, зато всё ещё надеюсь.",
+    correct:"I know the plan is strange, but I'm delulu but hopeful.",
+    options:[
+      "I know the plan is strange, but I'm delulu but hopeful.",
+      "I know the plan is strange, but I delulu and hope.",
+      "I know the plan strange, but I'm delusional and hoping it.",
+      "I am knowing the plan is strange, but I am delulu hopeful."
+    ],
+    phrase:"delulu but hopeful",
+    note:"Delulu — интернет-сленг от delusional: человек верит в малореалистичное, но всё ещё надеется."
+  },
+  {
+    tense:"Present Continuous",
+    ru:"Я сейчас строю совершенно нереалистичные планы, но всё ещё надеюсь.",
+    correct:"I'm making completely unrealistic plans right now, but I'm still delulu but hopeful.",
+    options:[
+      "I make completely unrealistic plans right now, but I'm still delulu but hopeful.",
+      "I'm making completely unrealistic plans right now, but I'm still delulu but hopeful.",
+      "I've made completely unrealistic plans right now, but I still delulu hopeful.",
+      "I'm make unrealistic plans now, but I'm hopeful delulu."
+    ],
+    phrase:"delulu but hopeful",
+    note:"Delulu but hopeful — не время, а описание состояния; Present Continuous здесь в действии making plans."
+  },
+  {
+    tense:"Past Simple",
+    ru:"В прошлом году я была слишком delulu, но всё равно надеялась.",
+    correct:"Last year, I was very delulu but still hopeful.",
+    options:[
+      "Last year, I am very delulu but still hopeful.",
+      "Last year, I've been very delulu but still hopeful.",
+      "Last year, I was very delulu but still hopeful.",
+      "Last year, I did very delulu but still hope."
+    ],
+    phrase:"delulu but hopeful",
+    note:"Состояние в прошлом: was + adjective/slang adjective."
+  },
+  {
+    tense:"Present Perfect",
+    ru:"В последнее время я была немного delulu, но всё ещё не потеряла надежду.",
+    correct:"I've been a little delulu but hopeful lately.",
+    options:[
+      "I was a little delulu but hopeful lately.",
+      "I've been a little delulu but hopeful lately.",
+      "I've be a little delulu but hopeful lately.",
+      "I'm been a little delulu but hopeful lately."
+    ],
+    phrase:"have been delulu but hopeful",
+    note:"I've been = Present Perfect от be. Lately хорошо сочетается с Present Perfect."
+  },
+
+  // WORKING HARD / HARDLY WORKING
+  {
+    tense:"Present Simple",
+    ru:"Ты усердно работаешь или почти не работаешь?",
+    correct:"Do you work hard or hardly work?",
+    options:[
+      "Do you work hard or hardly work?",
+      "Are you work hard or hard working?",
+      "Do you hardly working or work hardly?",
+      "Have you work hard or hardly work?"
+    ],
+    phrase:"work hard / hardly work",
+    note:"Hard = усердно. Hardly = почти не. Значения резко отличаются."
+  },
+  {
+    tense:"Present Continuous",
+    ru:"Ты сейчас усердно работаешь или почти не работаешь?",
+    correct:"Are you working hard or hardly working right now?",
+    options:[
+      "Do you work hard or hardly work right now?",
+      "Are you working hard or hardly working right now?",
+      "Are you hardly work or working hardly right now?",
+      "Have you worked hard or hardly working right now?"
+    ],
+    phrase:"working hard / hardly working",
+    note:"Классическая игра слов: working hard = усердно работаешь; hardly working = почти не работаешь."
+  },
+  {
+    tense:"Past Simple",
+    ru:"Вчера он усердно работал или почти не работал?",
+    correct:"Did he work hard or hardly work yesterday?",
+    options:[
+      "Did he worked hard or hardly worked yesterday?",
+      "Was he work hard or hardly work yesterday?",
+      "Did he work hard or hardly work yesterday?",
+      "Has he worked hard or hardly work yesterday?"
+    ],
+    phrase:"work hard / hardly work",
+    note:"После did используется базовая форма work."
+  },
+  {
+    tense:"Present Perfect",
+    ru:"На этой неделе ты усердно работал или почти не работал?",
+    correct:"Have you worked hard or hardly worked this week?",
+    options:[
+      "Did you work hard or hardly worked this week?",
+      "Have you worked hard or hardly worked this week?",
+      "Have you work hard or hardly work this week?",
+      "Are you worked hard or hardly worked this week?"
+    ],
+    phrase:"worked hard / hardly worked",
+    note:"Present Perfect: have + worked. This week ещё не закончилась — хороший контекст."
+  },
+
+  // DO NOT PERCEIVE ME
+  {
+    tense:"Present Simple",
+    ru:"По утрам я иногда думаю: «Не смотрите на меня. Меня не существует».",
+    correct:"In the mornings, I sometimes think, “Do not perceive me.”",
+    options:[
+      "In the mornings, I sometimes think, “Do not perceive me.”",
+      "In the mornings, I sometimes think, “Do not see at me.”",
+      "In the mornings, I sometimes think, “Don't perceive to me.”",
+      "In the mornings, I'm sometimes thinking, “Do not looking me.”"
+    ],
+    phrase:"Do not perceive me",
+    note:"Мемное Do not perceive me сильнее обычного Don't bother me: «не замечайте моего существования»."
+  },
+  {
+    tense:"Present Continuous",
+    ru:"Я сейчас прячусь от всех. Не замечайте моего существования.",
+    correct:"I'm hiding from everyone right now. Do not perceive me.",
+    options:[
+      "I hide from everyone right now. Don't perceive to me.",
+      "I'm hiding from everyone right now. Do not perceive me.",
+      "I've hidden from everyone right now. Do not look my existence.",
+      "I'm hide from everyone now. Do not perceive at me."
+    ],
+    phrase:"Do not perceive me",
+    note:"Первая часть — Present Continuous. Вторая — мемный императив."
+  },
+  {
+    tense:"Past Simple",
+    ru:"Вчера я выключила камеру и написала друзьям: «Не замечайте меня».",
+    correct:"Yesterday, I turned off my camera and texted my friends, “Do not perceive me.”",
+    options:[
+      "Yesterday, I turn off my camera and text my friends, “Do not perceive me.”",
+      "Yesterday, I have turned off my camera and texted my friends, “Don't see me.”",
+      "Yesterday, I turned off my camera and texted my friends, “Do not perceive me.”",
+      "Yesterday, I was turn off my camera and text my friends, “Do not perceive at me.”"
+    ],
+    phrase:"Do not perceive me",
+    note:"Turned off + texted — Past Simple. Мемная фраза остаётся без изменений."
+  },
+  {
+    tense:"Present Perfect",
+    ru:"Сегодня у меня уже было четыре звонка. Всё, не замечайте моего существования.",
+    correct:"I've already had four calls today. That's it — do not perceive me.",
+    options:[
+      "I already had four calls today. That's it — don't perceive to me.",
+      "I've already have four calls today. That's it — do not perceive me.",
+      "I've already had four calls today. That's it — do not perceive me.",
+      "I'm already having four calls today. That's it — do not look me."
+    ],
+    phrase:"Do not perceive me",
+    note:"I've had — Present Perfect. Do not perceive me здесь звучит как усталый интернет-мем."
+  }
+];
+
+let order = [];
+let currentIndex = 0;
+let score = 0;
+let streak = 0;
+let initialWrong = [];
+let reviewQueue = [];
+let inReview = false;
+let locked = false;
+
+const $ = id => document.getElementById(id);
+const startScreen = $("startScreen");
+const quizScreen = $("quizScreen");
+const endScreen = $("endScreen");
+const answersEl = $("answers");
+const feedback = $("feedback");
+const nextBtn = $("nextBtn");
+const explainBtn = $("explainBtn");
+
+function shuffle(arr){
+  const a=[...arr];
+  for(let i=a.length-1;i>0;i--){
+    const j=Math.floor(Math.random()*(i+1));
+    [a[i],a[j]]=[a[j],a[i]];
+  }
+  return a;
+}
+
+function tone(freq=520,duration=.08,type="sine",volume=.04){
+  try{
+    const ctx = tone.ctx || (tone.ctx = new (window.AudioContext||window.webkitAudioContext)());
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.type=type; osc.frequency.value=freq;
+    gain.gain.value=volume;
+    osc.connect(gain); gain.connect(ctx.destination);
+    osc.start();
+    gain.gain.exponentialRampToValueAtTime(.0001,ctx.currentTime+duration);
+    osc.stop(ctx.currentTime+duration);
+  }catch(e){}
+}
+function correctSound(){tone(620,.09,"sine",.045);setTimeout(()=>tone(820,.12,"sine",.035),70)}
+function wrongSound(){tone(160,.16,"sawtooth",.025)}
+
+function startGame(){
+  order = shuffle(questions.map((_,i)=>i));
+  currentIndex=0; score=0; streak=0; initialWrong=[]; reviewQueue=[]; inReview=false; locked=false;
+  $("qTotal").textContent = questions.length;
+  $("score").textContent = score;
+  $("streak").textContent = streak;
+  startScreen.classList.add("hidden");
+  endScreen.classList.add("hidden");
+  quizScreen.classList.remove("hidden");
+  renderQuestion();
+}
+
+function activeQuestionIndex(){
+  return inReview ? reviewQueue[0] : order[currentIndex];
+}
+
+function renderQuestion(){
+  locked=false;
+  feedback.className="feedback";
+  feedback.innerHTML="";
+  nextBtn.classList.add("hidden");
+  explainBtn.classList.add("hidden");
+  answersEl.innerHTML="";
+
+  const qi = activeQuestionIndex();
+  const q = questions[qi];
+
+  $("tenseBadge").textContent = inReview ? "ERROR REVIEW • " + q.tense : q.tense;
+  $("tenseBadge").style.color = inReview ? "var(--orange)" : "var(--violet)";
+  $("modeLabel").textContent = inReview ? "Repeat until correct" : "Choose the best translation";
+  $("ruText").textContent = q.ru;
+
+  if(inReview){
+    $("qNum").textContent = questions.length - reviewQueue.length + 1;
+    $("qTotal").textContent = questions.length;
+  }else{
+    $("qNum").textContent = currentIndex + 1;
+    $("qTotal").textContent = questions.length;
+  }
+
+  const done = inReview ? (questions.length - reviewQueue.length) : currentIndex;
+  $("progress").style.width = Math.min(100,(done/questions.length)*100) + "%";
+
+  shuffle(q.options).forEach(text=>{
+    const b=document.createElement("button");
+    b.className="answer";
+    b.textContent=text;
+    b.onclick=()=>checkAnswer(b,text,q,qi);
+    answersEl.appendChild(b);
+  });
+}
+
+function checkAnswer(button,text,q,qi){
+  if(locked) return;
+  locked=true;
+  const buttons=[...answersEl.querySelectorAll(".answer")];
+  const isCorrect = text===q.correct;
+
+  buttons.forEach(b=>{
+    b.disabled=true;
+    if(b.textContent===q.correct) b.classList.add("correct");
+  });
+
+  if(isCorrect){
+    correctSound();
+    score++;
+    streak++;
+    $("score").textContent=score;
+    $("streak").textContent=streak;
+    feedback.innerHTML = `<strong>Correct.</strong> <span class="mini">${q.correct}</span>`;
+    feedback.classList.add("show");
+    if(inReview){
+      reviewQueue.shift();
+    }
+  }else{
+    wrongSound();
+    button.classList.add("wrong");
+    streak=0;
+    $("streak").textContent=streak;
+    feedback.innerHTML = `<strong>Not quite.</strong> <span class="mini">Correct: ${q.correct}</span>`;
+    feedback.classList.add("show");
+
+    if(!inReview && !initialWrong.includes(qi)) initialWrong.push(qi);
+    if(inReview){
+      // wrong review item stays at front and will repeat later; move it to the back
+      const failed = reviewQueue.shift();
+      reviewQueue.push(failed);
+    }
+  }
+
+  explainBtn.classList.remove("hidden");
+  nextBtn.classList.remove("hidden");
+}
+
+explainBtn.onclick=()=>{
+  const q=questions[activeQuestionIndex()];
+  const existing=feedback.querySelector(".meaning");
+  if(existing){existing.remove();return;}
+  const span=document.createElement("span");
+  span.className="mini meaning";
+  span.style.marginTop="9px";
+  span.innerHTML=`<b>${q.phrase}</b> — ${q.note}`;
+  feedback.appendChild(span);
+};
+
+nextBtn.onclick=()=>{
+  if(!inReview){
+    currentIndex++;
+    if(currentIndex>=order.length){
+      if(initialWrong.length){
+        inReview=true;
+        reviewQueue=shuffle([...initialWrong]);
+        renderQuestion();
+      }else{
+        finishGame();
+      }
+    }else{
+      renderQuestion();
+    }
+  }else{
+    if(reviewQueue.length===0) finishGame();
+    else renderQuestion();
+  }
+};
+
+function finishGame(){
+  quizScreen.classList.add("hidden");
+  endScreen.classList.remove("hidden");
+  $("progress").style.width="100%";
+
+  const clean = questions.length - initialWrong.length;
+  $("finalScore").textContent = `${clean}/${questions.length}`;
+  $("endTitle").textContent = initialWrong.length===0 ? "Flawless. Suspiciously functional." : "All mistakes defeated.";
+  $("endText").textContent = initialWrong.length===0
+    ? "Ты закрыла все вопросы с первого раза. Возможно, кофе действительно работает."
+    : `С первого раза было правильно: ${clean} из ${questions.length}. Ошибки уже были повторены до правильного ответа.`;
+
+  const box=$("mistakesBox");
+  if(initialWrong.length){
+    box.classList.remove("hidden");
+    box.innerHTML="<strong>Фразы, которые пришлось повторить:</strong>" +
+      initialWrong.map(i=>`<div class="mistake-item">${questions[i].correct}<br><small>${questions[i].tense}</small></div>`).join("");
+  }else{
+    box.classList.add("hidden");
+    box.innerHTML="";
+  }
+}
+
+$("startBtn").onclick=startGame;
+$("retryBtn").onclick=startGame;
+</script>
+</body>
+</html>
