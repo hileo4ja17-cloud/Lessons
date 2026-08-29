@@ -1,0 +1,419 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" />
+<title>Passive Maze Chase — Present & Past Simple</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Manrope:wght@500;600;700;800&display=swap');
+  :root{
+    --ink:#f7f6ff; --muted:#aaa9c4; --bg:#090816; --panel:#111126e8;
+    --cyan:#49f4ff; --pink:#ff4fa3; --violet:#8f6bff; --gold:#ffd75a;
+    --good:#70ffbe; --bad:#ff6b7d;
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%;margin:0;background:
+    radial-gradient(circle at 10% 15%,#24245b 0,transparent 25%),
+    radial-gradient(circle at 90% 5%,#3c1444 0,transparent 27%),
+    linear-gradient(145deg,#090816,#0b1023 55%,#090816);color:var(--ink);font-family:Manrope,system-ui,sans-serif;overflow:hidden}
+  body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.28;background-image:linear-gradient(#ffffff05 1px,transparent 1px),linear-gradient(90deg,#ffffff05 1px,transparent 1px);background-size:34px 34px;mask-image:linear-gradient(to bottom,#000,transparent 90%)}
+  .app{height:100%;display:grid;grid-template-rows:auto 1fr auto;gap:12px;padding:16px;max-width:1400px;margin:auto}
+  header{display:flex;align-items:center;justify-content:space-between;gap:18px}
+  .brand{display:flex;align-items:end;gap:14px}
+  .brand h1{margin:0;font-family:"DM Serif Display",serif;font-size:clamp(30px,3vw,52px);font-weight:400;letter-spacing:.2px;text-shadow:0 0 24px #8f6bff66}
+  .tag{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--cyan);padding-bottom:8px}
+  .hud{display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end}
+  .pill{background:#111126d9;border:1px solid #ffffff14;border-radius:999px;padding:9px 13px;box-shadow:inset 0 0 22px #ffffff05,0 8px 28px #0005;font-size:13px;white-space:nowrap}
+  .pill b{color:white}
+  .main{min-height:0;display:grid;grid-template-columns:minmax(310px,390px) 1fr;gap:14px}
+  .panel{min-height:0;background:linear-gradient(180deg,#15152be8,#0e0e20e8);border:1px solid #ffffff16;border-radius:26px;box-shadow:0 22px 70px #0008,inset 0 0 40px #ffffff03;backdrop-filter:blur(14px)}
+  .quest{padding:22px;display:flex;flex-direction:column;position:relative;overflow:hidden}
+  .quest:after{content:"";position:absolute;width:240px;height:240px;border-radius:50%;right:-100px;top:-80px;background:radial-gradient(circle,#ff4fa322,transparent 68%);pointer-events:none}
+  .eyebrow{color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.16em}
+  .word{margin:10px 0 4px;font-family:"DM Serif Display",serif;font-size:clamp(25px,2.8vw,40px);line-height:1.08;font-weight:400;max-width:100%}
+  .type{color:var(--cyan);font-size:12px;text-transform:uppercase;letter-spacing:.15em;font-weight:800}
+  .mission{margin:20px 0 10px;padding:14px 15px;border-radius:18px;background:#ffffff08;border:1px solid #ffffff0d;color:#d7d5e8;line-height:1.45;font-size:14px}
+  .legend{margin-top:8px;display:grid;gap:9px}
+  .legend div{display:flex;align-items:center;gap:10px;color:#b9b8ce;font-size:13px}
+  .dot{width:11px;height:11px;border-radius:50%;box-shadow:0 0 14px currentColor}
+  .dot.good{background:var(--good);color:var(--good)} .dot.wrong{background:var(--pink);color:var(--pink)} .dot.bot{background:var(--gold);color:var(--gold)}
+  .controls-note{margin-top:auto;padding-top:14px;color:#777791;font-size:12px;line-height:1.5}
+  .btnrow{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}
+  .keyboard-pad{display:grid;grid-template-columns:46px 46px 46px;grid-template-rows:42px 42px;gap:6px;margin-top:10px;width:max-content;user-select:none}
+  .keyboard-pad button{font-size:18px;padding:0;background:#16162f;border-color:#49f4ff33;box-shadow:0 0 18px #49f4ff12}
+  .keyboard-pad .up{grid-column:2;grid-row:1}.keyboard-pad .left{grid-column:1;grid-row:2}.keyboard-pad .down{grid-column:2;grid-row:2}.keyboard-pad .right{grid-column:3;grid-row:2}
+  .keyboard-status{margin-top:8px;font-size:11px;color:#70ffbe;letter-spacing:.04em}
+  button{appearance:none;border:none;color:white;background:#ffffff0d;border:1px solid #ffffff16;border-radius:14px;padding:10px 13px;font:700 12px Manrope;cursor:pointer;transition:.2s;box-shadow:0 7px 18px #0004}
+  button:hover{transform:translateY(-1px);background:#ffffff17}
+  button.primary{background:linear-gradient(135deg,#7a5cff,#ff4fa3);border-color:transparent;box-shadow:0 0 22px #8f6bff44}
+  .gamewrap{padding:12px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+  canvas{display:block;max-width:100%;max-height:100%;border-radius:20px;background:#080817;box-shadow:inset 0 0 50px #000,0 0 34px #49f4ff12;touch-action:none}
+  .toast{position:absolute;left:50%;top:18px;transform:translateX(-50%) translateY(-10px);opacity:0;pointer-events:none;padding:10px 16px;border-radius:999px;background:#080817e8;border:1px solid #ffffff18;font-weight:800;font-size:13px;letter-spacing:.02em;box-shadow:0 10px 30px #0008;transition:.25s;z-index:10}
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+  .toast.good{color:var(--good);border-color:#70ffbe55}.toast.bad{color:#ff8c9a;border-color:#ff6b7d55}
+  .overlay{position:absolute;inset:12px;display:none;align-items:center;justify-content:center;background:#070714bf;backdrop-filter:blur(8px);border-radius:20px;z-index:12;text-align:center;padding:24px}
+  .overlay.show{display:flex}.overlay-card{max-width:520px}
+  .overlay h2{font-family:"DM Serif Display",serif;font-size:46px;margin:0 0 8px;font-weight:400}.overlay p{color:#c2c1d1;line-height:1.5}
+  footer{display:none;justify-content:center;gap:8px}
+  .dpad{display:grid;grid-template-columns:54px 54px 54px;grid-template-rows:46px 46px;gap:7px;user-select:none}
+  .dpad button{font-size:19px;padding:0;background:#16162f}
+  .up{grid-column:2}.left{grid-column:1;grid-row:2}.down{grid-column:2;grid-row:2}.right{grid-column:3;grid-row:2}
+  .flash{animation:flash .38s}@keyframes flash{0%,100%{filter:none}50%{filter:brightness(1.7) saturate(1.5)}}
+  @media(max-width:860px){
+    html,body{overflow:auto}.app{min-height:100%;height:auto}.main{grid-template-columns:1fr}.quest{min-height:280px}.gamewrap{min-height:520px}footer{display:flex}.tag{display:none}
+  }
+</style>
+</head>
+<body>
+<div class="app">
+  <header>
+    <div class="brand"><h1>Passive Maze Chase</h1><div class="tag">A2+ / B1 • Passive Voice • Easy</div></div>
+    <div class="hud">
+      <div class="pill">Score <b id="score">0</b></div>
+      <div class="pill">Streak <b id="streak">0</b> 🔥</div>
+      <div class="pill">Lives <b id="lives">❤ ❤ ❤</b></div>
+      <div class="pill">Round <b id="progress">1 / 12</b></div>
+      <div class="pill">Bots <b id="botCount">1</b> 👻</div>
+    </div>
+  </header>
+
+  <section class="main">
+    <aside class="panel quest">
+      <div class="eyebrow">Current mission</div>
+      <div id="word" class="word">This room ___ every day.</div>
+      <div id="type" class="type">PRESENT SIMPLE PASSIVE</div>
+      <div class="mission">Use the arrow keys. Read the sentence and eat the <b>correct passive form</b>. Practise very easy <b>Present Simple Passive</b> and <b>Past Simple Passive</b>. There is always a safe route. <b>Patrol bots never increase beyond 3.</b></div>
+      <div class="legend">
+        <div><span class="dot good"></span> correct answer = +100</div>
+        <div><span class="dot wrong"></span> wrong answer = −1 life</div>
+        <div><span class="dot bot"></span> patrol bot = −1 life</div>
+      </div>
+      <div class="btnrow">
+        <button class="primary" id="startBtn">Start / Restart</button>
+        <button id="soundBtn">Sound: ON</button>
+        <button id="pauseBtn">Pause</button>
+      </div>
+      <div style="margin-top:28px;color:#777791;font-size:11px;letter-spacing:.12em;text-transform:uppercase">Movement</div>
+      <div class="keyboard-pad" aria-label="Movement controls">
+        <button class="up" data-dir="up" aria-label="Move up">↑</button>
+        <button class="left" data-dir="left" aria-label="Move left">←</button>
+        <button class="down" data-dir="down" aria-label="Move down">↓</button>
+        <button class="right" data-dir="right" aria-label="Move right">→</button>
+      </div>
+      <div class="keyboard-status" id="keyboardStatus">Keyboard ready • arrows / WASD</div>
+      <div class="controls-note">Keyboard: ↑ ↓ ← → or WASD. Press SPACE to pause.<br>Tip: read the whole sentence — the answer depends on meaning, not only grammar.</div>
+    </aside>
+
+    <div class="panel gamewrap" id="gamewrap">
+      <canvas id="game" width="900" height="620" tabindex="0" aria-label="Neon maze vocabulary game"></canvas>
+      <div id="toast" class="toast"></div>
+      <div id="overlay" class="overlay show"><div class="overlay-card"><h2>Ready?</h2><p>Guide Glowbit through the neon maze and eat the correct passive form for each sentence. You have three lives. Patrol bots increase only up to 3.</p><button class="primary" id="overlayStart">Start game</button></div></div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="dpad">
+      <button class="up" data-dir="up">↑</button><button class="left" data-dir="left">←</button><button class="down" data-dir="down">↓</button><button class="right" data-dir="right">→</button>
+    </div>
+  </footer>
+</div>
+<script>
+(() => {
+const vocab = [
+  {prompt:'This room ___ every day.', type:'PRESENT SIMPLE PASSIVE', answer:'is cleaned', wrong:['cleans','was cleaned','is cleaning']},
+  {prompt:'The sandwiches ___ by Dad yesterday.', type:'PAST SIMPLE PASSIVE', answer:'were made', wrong:['are made','made','were making']},
+  {prompt:'English ___ in many countries.', type:'PRESENT SIMPLE PASSIVE', answer:'is spoken', wrong:['speaks','was spoken','is speaking']},
+  {prompt:'The window ___ last night.', type:'PAST SIMPLE PASSIVE', answer:'was broken', wrong:['is broken','broke','was breaking']},
+  {prompt:'School uniforms ___ at this school.', type:'PRESENT SIMPLE PASSIVE', answer:'are worn', wrong:['wear','were worn','are wearing']},
+  {prompt:'My bike ___ yesterday.', type:'PAST SIMPLE PASSIVE', answer:'was fixed', wrong:['is fixed','fixed','was fixing']},
+  {prompt:'Pizza ___ on Fridays in our house.', type:'PRESENT SIMPLE PASSIVE', answer:'is made', wrong:['makes','was made','is making']},
+  {prompt:'The books ___ last week.', type:'PAST SIMPLE PASSIVE', answer:'were bought', wrong:['are bought','bought','were buying']},
+  {prompt:'Milk ___ in the fridge.', type:'PRESENT SIMPLE PASSIVE', answer:'is kept', wrong:['keeps','was kept','is keeping']},
+  {prompt:'We ___ to the party yesterday.', type:'PAST SIMPLE PASSIVE', answer:'were invited', wrong:['are invited','invited','were inviting']},
+  {prompt:'These emails ___ every morning.', type:'PRESENT SIMPLE PASSIVE', answer:'are checked', wrong:['check','were checked','are checking']},
+  {prompt:'The lights ___ off at 10 p.m. last night.', type:'PAST SIMPLE PASSIVE', answer:'were turned', wrong:['are turned','turned','were turning']}
+];
+
+const canvas = document.getElementById('game'), ctx = canvas.getContext('2d');
+const scoreEl = document.getElementById('score'), streakEl=document.getElementById('streak'), livesEl=document.getElementById('lives'), progressEl=document.getElementById('progress'), botCountEl=document.getElementById('botCount'), wordEl=document.getElementById('word'), typeEl=document.getElementById('type');
+const toast=document.getElementById('toast'), overlay=document.getElementById('overlay'), wrap=document.getElementById('gamewrap');
+let score=0, streak=0, lives=3, idx=0, running=false, paused=false, sound=true, last=0, invincible=0, roundLocked=false;
+let items=[], bots=[], particles=[];
+let rafId=0;
+
+// Grid: 15 x 11. 0 path, 1 wall
+const grid=[
+[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+[1,0,0,0,0,0,1,0,0,0,0,0,0,0,1],
+[1,0,1,1,1,0,1,0,1,1,1,1,1,0,1],
+[1,0,0,0,1,0,0,0,0,0,0,0,1,0,1],
+[1,1,1,0,1,1,1,0,1,1,1,0,1,0,1],
+[1,0,0,0,0,0,0,0,0,0,1,0,0,0,1],
+[1,0,1,1,1,0,1,1,1,0,1,1,1,0,1],
+[1,0,0,0,1,0,0,0,1,0,0,0,0,0,1],
+[1,0,1,0,1,1,1,0,1,1,1,0,1,0,1],
+[1,0,1,0,0,0,0,0,0,0,0,0,1,0,1],
+[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
+];
+const COLS=15, ROWS=11, cw=canvas.width/COLS, ch=canvas.height/ROWS;
+const paths=[]; for(let r=0;r<ROWS;r++)for(let c=0;c<COLS;c++)if(grid[r][c]===0)paths.push({c,r});
+const player={c:1,r:1,x:0,y:0,dir:'right',next:'right',targetC:null,targetR:null,speed:205,mouth:0};
+function cellXY(c,r){return {x:(c+.5)*cw,y:(r+.5)*ch}}
+function setPlayer(c=1,r=1){player.c=c;player.r=r;const p=cellXY(c,r);player.x=p.x;player.y=p.y;player.dir='right';player.next='right';player.targetC=null;player.targetR=null}
+const dirs={left:{dc:-1,dr:0,a:Math.PI},right:{dc:1,dr:0,a:0},up:{dc:0,dr:-1,a:-Math.PI/2},down:{dc:0,dr:1,a:Math.PI/2}};
+function canMove(c,r,d){const q=dirs[d];return grid[r+q.dr] && grid[r+q.dr][c+q.dc]===0}
+function nearestCell(x,y){return {c:Math.floor(x/cw),r:Math.floor(y/ch)}}
+function centerDist(x,y,c,r){const p=cellXY(c,r);return Math.hypot(x-p.x,y-p.y)}
+
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+function keyOf(p){return p.c+','+p.r}
+function chooseCells(n, excluded=[]){
+  const ex=new Set(excluded.map(keyOf));
+  return shuffle(paths.filter(p=>!ex.has(keyOf(p)) && !(p.c<3&&p.r<3)).slice()).slice(0,n);
+}
+
+// Breadth-first search on the maze. Used to guarantee a genuinely fair round:
+// there is always at least one route from the player to the correct answer
+// that does NOT cross a wrong-answer cell.
+function findPath(start, goal){
+  const q=[start], prev=new Map(), seen=new Set([keyOf(start)]);
+  while(q.length){
+    const cur=q.shift();
+    if(cur.c===goal.c && cur.r===goal.r){
+      const path=[]; let k=keyOf(cur), node=cur;
+      while(node){path.push(node);const pk=prev.get(k);if(!pk)break;node=pk;k=keyOf(node)}
+      return path.reverse();
+    }
+    for(const d of Object.values(dirs)){
+      const nc=cur.c+d.dc,nr=cur.r+d.dr;
+      if(!grid[nr] || grid[nr][nc]!==0)continue;
+      const nxt={c:nc,r:nr}, k=keyOf(nxt);
+      if(seen.has(k))continue;
+      seen.add(k);prev.set(k,cur);q.push(nxt);
+    }
+  }
+  return [];
+}
+
+function setupRound(){
+  roundLocked=false;
+  const v=vocab[idx]; wordEl.textContent=v.prompt; typeEl.textContent=v.type; progressEl.textContent=`${idx+1} / ${vocab.length}`;
+  setPlayer();
+
+  const start={c:1,r:1};
+  // Pick the correct answer first, preferably not right next to the spawn.
+  let correctCandidates=paths.filter(p=>keyOf(p)!==keyOf(start) && !(p.c<3&&p.r<3));
+  correctCandidates=shuffle(correctCandidates.slice());
+  let correctSpot=correctCandidates.find(p=>findPath(start,p).length>=6) || correctCandidates[0];
+  const safePath=findPath(start,correctSpot);
+  const safeKeys=new Set(safePath.map(keyOf));
+
+  // Wrong answers may be tempting, but never sit on the guaranteed safe route.
+  // Also keep them away from the spawn and from the correct answer itself.
+  let wrongPool=paths.filter(p=>
+    !safeKeys.has(keyOf(p)) &&
+    keyOf(p)!==keyOf(correctSpot) &&
+    !(p.c<3&&p.r<3)
+  );
+  wrongPool=shuffle(wrongPool.slice());
+
+  // The maze has plenty of spare cells, but keep a defensive fallback just in case.
+  if(wrongPool.length<3){
+    wrongPool=shuffle(paths.filter(p=>keyOf(p)!==keyOf(start) && keyOf(p)!==keyOf(correctSpot) && !safeKeys.has(keyOf(p))).slice());
+  }
+  const wrongSpots=wrongPool.slice(0,3);
+  const wrongLabels=shuffle(v.wrong.slice()).slice(0,3);
+
+  items=[
+    {...correctSpot,...cellXY(correctSpot.c,correctSpot.r),text:v.answer,correct:true,phase:Math.random()*6},
+    ...wrongSpots.map((s,i)=>({...s,...cellXY(s.c,s.r),text:wrongLabels[i],correct:false,phase:Math.random()*6}))
+  ];
+
+  // Difficulty ramps up naturally: round 1 has 1 bot, round 2 has 2, then it stops at 3.
+  // Bots still spawn away from the guaranteed safe route so every round begins fairly.
+  const botCount=Math.min(idx+1,3);
+  if(botCountEl)botCountEl.textContent=botCount;
+  const used=[start,correctSpot,...wrongSpots,...safePath];
+  let bspots=chooseCells(botCount,used);
+  if(bspots.length<botCount)bspots=chooseCells(botCount,[start,correctSpot,...wrongSpots]);
+  bots=bspots.map((s,i)=>{
+    const p=cellXY(s.c,s.r);
+    // More bots make later rounds harder, so individual bots stay slower than Glowbit.
+    const botSpeed=88+Math.min(idx,8)*2+(i%3)*4;
+    return {c:s.c,r:s.r,x:p.x,y:p.y,dir:shuffle(['left','right','up','down'].filter(d=>canMove(s.c,s.r,d)))[0]||'right',targetC:null,targetR:null,speed:botSpeed,phase:Math.random()*6};
+  });
+}
+function resetGame(){
+  score=0;streak=0;lives=3;idx=0;running=true;paused=false;invincible=0;roundLocked=false;particles=[];
+  updateHUD();setupRound();overlay.classList.remove('show');
+  canvas.focus({preventScroll:true});
+  last=performance.now();if(rafId)cancelAnimationFrame(rafId);rafId=requestAnimationFrame(loop);beep(440,.05,'sine',.05)
+}
+function updateHUD(){scoreEl.textContent=score;streakEl.textContent=streak;livesEl.textContent='❤ '.repeat(lives).trim()||'—'}
+function showToast(text,good=true){toast.textContent=text;toast.className='toast show '+(good?'good':'bad');clearTimeout(showToast.t);showToast.t=setTimeout(()=>toast.className='toast',1000)}
+function beep(freq,dur=.08,type='sine',vol=.04){if(!sound)return;try{const A=beep.ctx||(beep.ctx=new (window.AudioContext||window.webkitAudioContext)());const o=A.createOscillator(),g=A.createGain();o.type=type;o.frequency.value=freq;g.gain.value=vol;o.connect(g);g.connect(A.destination);o.start();g.gain.exponentialRampToValueAtTime(.001,A.currentTime+dur);o.stop(A.currentTime+dur)}catch(e){}}
+function burst(x,y,color){for(let i=0;i<18;i++){const a=Math.random()*Math.PI*2,s=40+Math.random()*130;particles.push({x,y,vx:Math.cos(a)*s,vy:Math.sin(a)*s,life:.65,color})}}
+function loseLife(msg){if(invincible>0)return;lives--;streak=0;invincible=1.15;updateHUD();showToast(msg,false);wrap.classList.remove('flash');void wrap.offsetWidth;wrap.classList.add('flash');beep(150,.16,'sawtooth',.06);setPlayer();if(lives<=0)end(false)}
+function eat(item){
+  if(roundLocked)return;
+  if(item.correct){roundLocked=true;score+=100+streak*20;streak++;updateHUD();burst(item.x,item.y,'#70ffbe');showToast(streak>1?`Correct! ${streak}× streak`:'Correct!',true);beep(720,.08,'triangle',.05);beep(920,.12,'sine',.035);idx++;if(idx>=vocab.length){setTimeout(()=>end(true),550)}else{setTimeout(setupRound,430)}}
+  else{roundLocked=true;burst(item.x,item.y,'#ff4fa3');loseLife('Wrong meaning! Try again.');setTimeout(()=>{roundLocked=false},520)}
+}
+function end(win){running=false;overlay.classList.add('show');overlay.innerHTML=`<div class="overlay-card"><h2>${win?'Passive mission cleared!':'Game over'}</h2><p>${win?`Final score: <b>${score}</b>. You completed all ${vocab.length} passive rounds.`:`Score: <b>${score}</b>. The maze wins this round — go again.`}</p><button class="primary" id="again">Play again</button></div>`;document.getElementById('again').onclick=resetGame;beep(win?1040:180,.3,'triangle',.07)}
+
+function beginPlayerSegment(){
+  // At a cell centre: use the buffered direction if possible; otherwise keep going.
+  let d=null;
+  if(player.next && canMove(player.c,player.r,player.next)) d=player.next;
+  else if(player.dir && canMove(player.c,player.r,player.dir)) d=player.dir;
+  if(!d){player.targetC=null;player.targetR=null;return false}
+  player.dir=d;
+  const q=dirs[d];
+  player.targetC=player.c+q.dc;
+  player.targetR=player.r+q.dr;
+  return true;
+}
+function advancePlayer(dt){
+  let remaining=player.speed*dt;
+  let guard=0;
+  while(remaining>0.0001 && guard++<8){
+    if(player.targetC===null || player.targetR===null){
+      if(!beginPlayerSegment()) break;
+    }
+    const tp=cellXY(player.targetC,player.targetR);
+    const dx=tp.x-player.x, dy=tp.y-player.y;
+    const dist=Math.hypot(dx,dy);
+    if(dist<0.001){
+      player.x=tp.x;player.y=tp.y;player.c=player.targetC;player.r=player.targetR;
+      player.targetC=null;player.targetR=null;
+      continue;
+    }
+    if(remaining>=dist){
+      player.x=tp.x;player.y=tp.y;
+      remaining-=dist;
+      player.c=player.targetC;player.r=player.targetR;
+      player.targetC=null;player.targetR=null;
+    }else{
+      player.x+=dx/dist*remaining;
+      player.y+=dy/dist*remaining;
+      remaining=0;
+    }
+  }
+}
+function chooseBotDirection(b){
+  let options=['left','right','up','down'].filter(d=>canMove(b.c,b.r,d));
+  if(!options.length){b.targetC=null;b.targetR=null;return false}
+  const opp={left:'right',right:'left',up:'down',down:'up'}[b.dir];
+  if(options.length>1){const forward=options.filter(d=>d!==opp);if(forward.length)options=forward}
+  if(Math.random()<.58){
+    options.sort((a,z)=>{
+      const da=dirs[a], dz=dirs[z];
+      const pa=cellXY(b.c+da.dc,b.r+da.dr), pz=cellXY(b.c+dz.dc,b.r+dz.dr);
+      return Math.hypot(player.x-pa.x,player.y-pa.y)-Math.hypot(player.x-pz.x,player.y-pz.y);
+    });
+    b.dir=options[0];
+  }else b.dir=options[Math.floor(Math.random()*options.length)];
+  const q=dirs[b.dir];b.targetC=b.c+q.dc;b.targetR=b.r+q.dr;return true;
+}
+function advanceBot(b,dt){
+  let remaining=b.speed*dt, guard=0;
+  while(remaining>0.0001 && guard++<8){
+    if(b.targetC===null || b.targetR===null){if(!chooseBotDirection(b))break}
+    const tp=cellXY(b.targetC,b.targetR), dx=tp.x-b.x, dy=tp.y-b.y, dist=Math.hypot(dx,dy);
+    if(dist<0.001){b.x=tp.x;b.y=tp.y;b.c=b.targetC;b.r=b.targetR;b.targetC=null;b.targetR=null;continue}
+    if(remaining>=dist){b.x=tp.x;b.y=tp.y;remaining-=dist;b.c=b.targetC;b.r=b.targetR;b.targetC=null;b.targetR=null}
+    else{b.x+=dx/dist*remaining;b.y+=dy/dist*remaining;remaining=0}
+  }
+}
+function update(dt){
+  if(!running||paused)return;if(invincible>0)invincible-=dt;
+  advancePlayer(dt);
+  player.mouth+=dt*12;
+  // item collision
+  for(const it of items){if(Math.hypot(player.x-it.x,player.y-it.y)<23){eat(it);break}}
+  // bots
+  for(const b of bots){
+    advanceBot(b,dt);b.phase+=dt*5;
+    if(Math.hypot(player.x-b.x,player.y-b.y)<28)loseLife('Patrol bot!')
+  }
+  particles=particles.filter(p=>{p.x+=p.vx*dt;p.y+=p.vy*dt;p.vx*=.98;p.vy*=.98;p.life-=dt;return p.life>0})
+}
+
+function roundRect(ctx,x,y,w,h,r){ctx.beginPath();ctx.roundRect(x,y,w,h,r)}
+function draw(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  const grad=ctx.createRadialGradient(canvas.width*.5,canvas.height*.45,40,canvas.width*.5,canvas.height*.5,520);grad.addColorStop(0,'#141438');grad.addColorStop(1,'#070714');ctx.fillStyle=grad;ctx.fillRect(0,0,canvas.width,canvas.height);
+  // tiny stars
+  ctx.globalAlpha=.6;for(let i=0;i<40;i++){const x=(i*173)%canvas.width,y=(i*97)%canvas.height;ctx.fillStyle=i%3?'#4af4ff':'#ff4fa3';ctx.fillRect(x,y,1.2,1.2)}ctx.globalAlpha=1;
+  // walls
+  for(let r=0;r<ROWS;r++)for(let c=0;c<COLS;c++)if(grid[r][c]){
+    const x=c*cw+4,y=r*ch+4,w=cw-8,h=ch-8;
+    ctx.shadowColor='#634cff';ctx.shadowBlur=10;ctx.fillStyle='#151535';roundRect(ctx,x,y,w,h,12);ctx.fill();ctx.shadowBlur=0;
+    const g=ctx.createLinearGradient(x,y,x+w,y+h);g.addColorStop(0,'#49f4ff55');g.addColorStop(.5,'#8f6bff40');g.addColorStop(1,'#ff4fa350');ctx.strokeStyle=g;ctx.lineWidth=1.7;roundRect(ctx,x,y,w,h,12);ctx.stroke();
+  }
+  // items as glowing capsules
+  for(const it of items){it.phase+=.02;const pulse=1+Math.sin(it.phase)*.04;ctx.save();ctx.translate(it.x,it.y);ctx.scale(pulse,pulse);const fs=it.text.length>24?10.5:it.text.length>17?11.5:12.5;ctx.font=`800 ${fs}px Manrope`;const tw=Math.min(ctx.measureText(it.text).width+24,cw*3.2), h=31;ctx.shadowColor='#8f6bff';ctx.shadowBlur=15;ctx.fillStyle='#0d0d22';roundRect(ctx,-tw/2,-h/2,tw,h,16);ctx.fill();ctx.shadowBlur=0;ctx.strokeStyle='#ffffff2b';ctx.stroke();ctx.fillStyle='#f6f5ff';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(it.text,0,1,tw-14);ctx.restore()}
+  // bots
+  for(const b of bots){ctx.save();ctx.translate(b.x,b.y);const bob=Math.sin(b.phase)*2;ctx.translate(0,bob);ctx.shadowColor='#ffd75a';ctx.shadowBlur=18;ctx.fillStyle='#ffd75a';ctx.beginPath();ctx.arc(0,0,15,Math.PI,0);ctx.lineTo(15,13);for(let i=0;i<3;i++){ctx.quadraticCurveTo(10-i*10,7,5-i*10,13)}ctx.lineTo(-15,13);ctx.closePath();ctx.fill();ctx.shadowBlur=0;ctx.fillStyle='#111126';ctx.beginPath();ctx.arc(-5,-2,3,0,Math.PI*2);ctx.arc(5,-2,3,0,Math.PI*2);ctx.fill();ctx.restore()}
+  // player Glowbit
+  ctx.save();ctx.translate(player.x,player.y);if(invincible>0)ctx.globalAlpha=.4+.5*Math.abs(Math.sin(invincible*15));ctx.shadowColor='#49f4ff';ctx.shadowBlur=22;ctx.fillStyle='#49f4ff';const a=dirs[player.dir].a,m=.22+.14*Math.abs(Math.sin(player.mouth));ctx.beginPath();ctx.moveTo(0,0);ctx.arc(0,0,18,a+m,a+Math.PI*2-m);ctx.closePath();ctx.fill();ctx.shadowBlur=0;ctx.fillStyle='#0b1023';const ex=Math.cos(a-Math.PI/2)*6,ey=Math.sin(a-Math.PI/2)*6;ctx.beginPath();ctx.arc(ex,ey-4,2.2,0,Math.PI*2);ctx.fill();ctx.restore();
+  // particles
+  for(const p of particles){ctx.globalAlpha=Math.max(0,p.life/.65);ctx.fillStyle=p.color;ctx.shadowColor=p.color;ctx.shadowBlur=8;ctx.beginPath();ctx.arc(p.x,p.y,2.5,0,Math.PI*2);ctx.fill()}ctx.globalAlpha=1;ctx.shadowBlur=0;
+  if(paused){ctx.fillStyle='#060612b8';ctx.fillRect(0,0,canvas.width,canvas.height);ctx.fillStyle='white';ctx.font='400 48px DM Serif Display';ctx.textAlign='center';ctx.fillText('Paused',canvas.width/2,canvas.height/2)}
+}
+function loop(t){if(!running){draw();rafId=0;return}const dt=Math.min(.028,(t-last)/1000||0);last=t;update(dt);draw();rafId=requestAnimationFrame(loop)}
+function setDir(d){
+  if(!dirs[d])return;
+  player.next=d;
+  const opposite={left:'right',right:'left',up:'down',down:'up'};
+  // If we are between two cells, an opposite key reverses the current segment immediately.
+  if(player.targetC!==null && player.targetR!==null && opposite[player.dir]===d){
+    const oldC=player.c, oldR=player.r;
+    player.c=player.targetC;player.r=player.targetR;
+    player.targetC=oldC;player.targetR=oldR;
+    player.dir=d;
+  }else if(player.targetC===null && player.targetR===null && canMove(player.c,player.r,d)){
+    player.dir=d;
+    beginPlayerSegment();
+  }
+  const status=document.getElementById('keyboardStatus');
+  if(status) status.textContent='Moving • '+({left:'←',right:'→',up:'↑',down:'↓'}[d]);
+  beep(220,.015,'square',.008);
+}
+function handleGameKey(e){
+  const byCode={ArrowLeft:'left',KeyA:'left',ArrowRight:'right',KeyD:'right',ArrowUp:'up',KeyW:'up',ArrowDown:'down',KeyS:'down'};
+  const byKey={ArrowLeft:'left',a:'left',A:'left',ArrowRight:'right',d:'right',D:'right',ArrowUp:'up',w:'up',W:'up',ArrowDown:'down',s:'down',S:'down'};
+  const dir=byCode[e.code]||byKey[e.key];
+  if(dir){
+    e.preventDefault();
+    e.stopPropagation();
+    if(!running) resetGame();
+    setDir(dir);
+    return false;
+  }
+  if(e.code==='Space'||e.key===' '){
+    e.preventDefault();
+    e.stopPropagation();
+    togglePause();
+    return false;
+  }
+}
+// Capture phase prevents the browser / embedded preview from stealing arrow keys.
+document.addEventListener('keydown',handleGameKey,true);
+canvas.addEventListener('pointerdown',()=>canvas.focus({preventScroll:true}));
+document.querySelectorAll('[data-dir]').forEach(b=>{
+  b.addEventListener('pointerdown',e=>{e.preventDefault();canvas.focus({preventScroll:true});if(!running)resetGame();setDir(b.dataset.dir)});
+})
+function togglePause(){if(!running)return;paused=!paused;document.getElementById('pauseBtn').textContent=paused?'Resume':'Pause';if(!paused){last=performance.now()}draw()}
+document.getElementById('pauseBtn').onclick=togglePause;
+document.getElementById('soundBtn').onclick=()=>{sound=!sound;document.getElementById('soundBtn').textContent='Sound: '+(sound?'ON':'OFF');if(sound)beep(520,.07)};
+document.getElementById('startBtn').onclick=resetGame;document.getElementById('overlayStart').onclick=resetGame;
+setupRound();updateHUD();draw();
+
+// Resize canvas visually while preserving pixel coordinate system
+function fit(){const box=wrap.getBoundingClientRect();const maxW=box.width-24,maxH=box.height-24,ratio=canvas.width/canvas.height;let w=maxW,h=w/ratio;if(h>maxH){h=maxH;w=h*ratio}canvas.style.width=w+'px';canvas.style.height=h+'px'}
+window.addEventListener('resize',fit);setTimeout(fit,0);
+})();
+</script>
+</body>
+</html>
