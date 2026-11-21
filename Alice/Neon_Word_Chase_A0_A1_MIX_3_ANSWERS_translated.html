@@ -1,0 +1,580 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" />
+<title>Neon Word Chase — Mixed A0–A1</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Manrope:wght@500;600;700;800&display=swap');
+  :root{
+    --ink:#f7f6ff; --muted:#aaa9c4; --bg:#090816; --panel:#111126e8;
+    --cyan:#49f4ff; --pink:#ff4fa3; --violet:#8f6bff; --gold:#ffd75a;
+    --good:#70ffbe; --bad:#ff6b7d;
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%;margin:0;background:
+    radial-gradient(circle at 10% 15%,#24245b 0,transparent 25%),
+    radial-gradient(circle at 90% 5%,#3c1444 0,transparent 27%),
+    linear-gradient(145deg,#090816,#0b1023 55%,#090816);color:var(--ink);font-family:Manrope,system-ui,sans-serif;overflow:hidden}
+  body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.28;background-image:linear-gradient(#ffffff05 1px,transparent 1px),linear-gradient(90deg,#ffffff05 1px,transparent 1px);background-size:34px 34px;mask-image:linear-gradient(to bottom,#000,transparent 90%)}
+  .app{height:100%;display:grid;grid-template-rows:auto 1fr auto;gap:12px;padding:16px;max-width:1400px;margin:auto}
+  header{display:flex;align-items:center;justify-content:space-between;gap:18px}
+  .brand{display:flex;align-items:end;gap:14px}
+  .brand h1{margin:0;font-family:"DM Serif Display",serif;font-size:clamp(30px,3vw,52px);font-weight:400;letter-spacing:.2px;text-shadow:0 0 24px #8f6bff66}
+  .tag{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--cyan);padding-bottom:8px}
+  .hud{display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end}
+  .pill{background:#111126d9;border:1px solid #ffffff14;border-radius:999px;padding:9px 13px;box-shadow:inset 0 0 22px #ffffff05,0 8px 28px #0005;font-size:13px;white-space:nowrap}
+  .pill b{color:white}
+  .main{min-height:0;display:grid;grid-template-columns:minmax(250px,315px) 1fr;gap:14px}
+  .panel{min-height:0;background:linear-gradient(180deg,#15152be8,#0e0e20e8);border:1px solid #ffffff16;border-radius:26px;box-shadow:0 22px 70px #0008,inset 0 0 40px #ffffff03;backdrop-filter:blur(14px)}
+  .quest{padding:22px;display:flex;flex-direction:column;position:relative;overflow:hidden}
+  .quest:after{content:"";position:absolute;width:240px;height:240px;border-radius:50%;right:-100px;top:-80px;background:radial-gradient(circle,#ff4fa322,transparent 68%);pointer-events:none}
+  .eyebrow{color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.16em}
+  .word{margin:18px 0 10px;font-family:"DM Serif Display",serif;font-size:clamp(28px,2.7vw,42px);line-height:1.19;font-weight:400;overflow-wrap:break-word}
+  .type{color:var(--cyan);font-size:12px;text-transform:uppercase;letter-spacing:.15em;font-weight:800}
+  .mission{display:none}
+  .legend{display:none}
+  .legend div{display:flex;align-items:center;gap:10px;color:#b9b8ce;font-size:13px}
+  .dot{width:11px;height:11px;border-radius:50%;box-shadow:0 0 14px currentColor}
+  .dot.good{background:var(--good);color:var(--good)} .dot.wrong{background:var(--pink);color:var(--pink)} .dot.bot{background:var(--gold);color:var(--gold)}
+  .controls-note{display:none}
+  .btnrow{display:flex;gap:8px;margin-top:auto;padding-top:25px;flex-wrap:wrap}
+  .keyboard-pad{display:grid;grid-template-columns:46px 46px 46px;grid-template-rows:42px 42px;gap:6px;margin-top:14px;width:max-content;user-select:none}
+  .keyboard-pad button{font-size:18px;padding:0;background:#16162f;border-color:#49f4ff33;box-shadow:0 0 18px #49f4ff12}
+  .keyboard-pad .up{grid-column:2;grid-row:1}.keyboard-pad .left{grid-column:1;grid-row:2}.keyboard-pad .down{grid-column:2;grid-row:2}.keyboard-pad .right{grid-column:3;grid-row:2}
+  .keyboard-status{display:none}
+  button{appearance:none;border:none;color:white;background:#ffffff0d;border:1px solid #ffffff16;border-radius:14px;padding:10px 13px;font:700 13px Manrope,'Trebuchet MS',Arial,sans-serif;cursor:pointer;transition:.2s;box-shadow:0 7px 18px #0004}
+  button:hover{transform:translateY(-1px);background:#ffffff17}
+  button.primary{background:linear-gradient(135deg,#7a5cff,#ff4fa3);border-color:transparent;box-shadow:0 0 22px #8f6bff44}
+  .gamewrap{padding:12px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+  canvas{display:block;max-width:100%;max-height:100%;border-radius:20px;background:#080817;box-shadow:inset 0 0 50px #000,0 0 34px #49f4ff12;touch-action:none}
+  .toast{position:absolute;left:50%;top:18px;transform:translateX(-50%) translateY(-10px);opacity:0;pointer-events:none;padding:10px 16px;border-radius:999px;background:#080817e8;border:1px solid #ffffff18;font-weight:800;font-size:13px;letter-spacing:.02em;box-shadow:0 10px 30px #0008;transition:.25s;z-index:10}
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+  .toast.good{color:var(--good);border-color:#70ffbe55}.toast.bad{color:#ff8c9a;border-color:#ff6b7d55}
+  .overlay{position:absolute;inset:12px;display:none;align-items:center;justify-content:center;background:#070714bf;backdrop-filter:blur(8px);border-radius:20px;z-index:12;text-align:center;padding:24px}
+  .overlay.show{display:flex}.overlay-card{max-width:520px}
+  .overlay h2{font-family:"DM Serif Display",serif;font-size:clamp(32px,4vw,43px);margin:0 0 15px;font-weight:400}.overlay p{color:#c2c1d1;line-height:1.5}
+  .overlay-card{width:min(540px,100%)}
+  .play-cta{display:flex;align-items:center;justify-content:center;gap:18px;width:min(380px,100%);min-height:100px;margin:0 auto;padding:22px 42px;border-radius:26px;background:linear-gradient(110deg,#77fff3 0%,#49e8ff 40%,#83a3ff 100%);border:3px solid #c0ffff;color:#090f30;font:900 clamp(26px,3.3vw,38px) Manrope,Arial,sans-serif;letter-spacing:.09em;text-shadow:none;box-shadow:0 0 0 7px #49f4ff15,0 9px 45px #49f4ff77,0 2px 0 #ffffffbb inset;animation:playGlow 2.4s ease-in-out infinite;cursor:pointer}
+  .play-cta:hover,.play-cta:focus-visible{transform:translateY(-3px) scale(1.04);background:linear-gradient(110deg,#ccfff8,#75f8ff,#b0c5ff);box-shadow:0 0 38px #49f4ffb0,0 12px 30px #49f4ff55}
+  .play-cta:active{transform:scale(.98)}
+  .play-arrow{font-size:clamp(26px,3vw,36px);line-height:1}
+  @keyframes playGlow{0%,100%{box-shadow:0 0 0 5px #49f4ff15,0 9px 30px #49f4ff50}50%{box-shadow:0 0 0 9px #49f4ff1a,0 9px 48px #49f4ffaa}}
+  @media(prefers-reduced-motion:reduce){.play-cta{animation:none}}
+  .overlay-card{width:min(540px,100%)}
+  .simple-start{display:flex;align-items:center;justify-content:center;min-height:180px}
+  .overlay-actions{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:18px}
+  .section-ornament{height:2px;width:64px;background:linear-gradient(90deg,#49f4ff,#8f6bff);border-radius:2px;margin:26px 0 6px}
+
+  footer{display:none;justify-content:center;gap:8px}
+  .dpad{display:grid;grid-template-columns:54px 54px 54px;grid-template-rows:46px 46px;gap:7px;user-select:none}
+  .dpad button{font-size:19px;padding:0;background:#16162f}
+  .up{grid-column:2}.left{grid-column:1;grid-row:2}.down{grid-column:2;grid-row:2}.right{grid-column:3;grid-row:2}
+  .flash{animation:flash .38s}@keyframes flash{0%,100%{filter:none}50%{filter:brightness(1.7) saturate(1.5)}}
+  @media(max-width:860px){
+    html,body{overflow:auto}.app{min-height:100%;height:auto}.main{grid-template-columns:1fr}.quest{min-height:215px}.gamewrap{min-height:520px}footer{display:flex}.tag{display:none}
+    .quest .btnrow{margin-top:0}.quest .keyboard-pad{display:none}
+  }
+  @media(max-height:720px) and (min-width:861px){.app{padding:9px;gap:8px}.quest{padding:16px}.brand h1{font-size:29px}.keyboard-pad{margin-top:9px}}
+
+</style>
+</head>
+<body>
+<div class="app">
+  <header>
+    <div class="brand"><h1>Neon Word Chase</h1><div class="tag">A0–A1 • Mixed challenge</div></div>
+    <div class="hud">
+      <div class="pill">Score <b id="score">0</b></div>
+      <div class="pill">Lives <b id="lives">❤ ❤ ❤</b></div>
+      <div class="pill">Question <b id="progress">1 / 12</b></div>
+      <div class="pill" aria-label="Patrol bots">👻 <b id="botCount">1</b></div>
+    </div>
+  </header>
+
+  <section class="main">
+    <aside class="panel quest">
+      <div class="eyebrow" id="chapter">MIX · 01 / 28</div>
+      <div class="section-ornament"></div>
+      <div id="word" class="word">Ready?</div>
+      <div id="type" class="type">Choose the answer</div>
+      <div class="btnrow">
+        <button id="startBtn">↻ Restart</button>
+        <button id="soundBtn">Sound: ON</button>
+        <button id="pauseBtn">Pause</button>
+      </div>
+      <div class="keyboard-pad" aria-label="Movement controls">
+        <button class="up" data-dir="up" aria-label="Move up">↑</button>
+        <button class="left" data-dir="left" aria-label="Move left">←</button>
+        <button class="down" data-dir="down" aria-label="Move down">↓</button>
+        <button class="right" data-dir="right" aria-label="Move right">→</button>
+      </div>
+    </aside>
+
+    <div class="panel gamewrap" id="gamewrap">
+      <canvas id="game" width="900" height="620" tabindex="0" aria-label="Neon maze vocabulary game"></canvas>
+      <div id="toast" class="toast"></div>
+      <div id="overlay" class="overlay show"></div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="dpad">
+      <button class="up" data-dir="up">↑</button><button class="left" data-dir="left">←</button><button class="down" data-dir="down">↓</button><button class="right" data-dir="right">→</button>
+    </div>
+  </footer>
+</div>
+<script>
+(() => {
+// One mixed A0–A1 course: 3 choices per question.
+// Items are deliberately more contextual than isolated word translations.
+// Each row: [prompt, correct answer, distractor 1, distractor 2].
+const lessonSets={
+  months:[
+    ['What is month number 8?', 'August','April','October'],
+    ['Three months after January is ...', 'April','March','May'],
+    ['Two months before July is ...', 'May','June','April'],
+    ['What is the LAST month of spring?', 'May','March','April'],
+    ['What is the FIRST (первый) month of winter?', 'December','November','February'],
+    ['Month 5 is May. Month 11 is ...','November','September','December'],
+    ['Which month comes two months after October?','December','November','January'],
+    ['Which month is in autumn?','September','July','May'],
+    ['We have New Year’s Day in ...','January','December','February'],
+    ['Which month is number 4?','April','August','February'],
+    ['Four months after March is ...','July','June','August'],
+    ['What is the SECOND month of summer?','July','June','August'],
+    ['Which month is in winter?','February','October','April'],
+    ['In the UK, Christmas is in ...','December','January','November']
+  ],
+  countries:[
+    ['Marta is from Poland. She is ...','Polish','Spanish','Turkish'],
+    ['A British person is from ...','the UK','the USA','Germany'],
+    ['My friend is Chinese. He is from ...','China','Italy','Turkey'],
+    ['Leo is from Germany. He is ...','German','French','British'],
+    ['They are from Spain. They are ...','Spanish','Turkish','Italian'],
+    ['My teacher is from Argentina. She is ...','Argentinian','American','Polish'],
+    ['My cousin is Turkish. He is from ...','Turkey','Poland','France'],
+    ['An American person is from ...','the USA','the UK','Spain'],
+    ['A French girl is from ...','France','Germany','Italy'],
+    ['My brother is from Italy. He is ...','Italian','Polish','German'],
+    ['A person from the UK is ...','British','American','French'],
+    ['They are from the USA. They are ...','American','Argentinian','British'],
+    ['Which sentence is correct (правильное)?','She is from China.','She is China.','She from China.'],
+    ['Anna and Mia are from France. They are ...','French','Italian','Spanish']
+  ],
+  actions:[
+    ['I can play football, but I can’t ... a bike.','ride','play','speak'],
+    ['Can you ... Spanish?','speak','play','ride'],
+    ['My sister can ... the guitar.','play','ride','draw'],
+    ['We are in a swimming pool. We can ...','swim','cook','skateboard'],
+    ['Which sentence is correct (правильное)?','She can sing.','She cans sing.','She can to sing.'],
+    ['Choose the correct (правильный) question.','Can he draw?','Can he draws?','Is he can draw?'],
+    ['Can you ... football?','play','ride','speak'],
+    ['I have got a skateboard. I can ...','skateboard','swim','cook'],
+    ['Tom can ... pictures.','draw','ride','speak'],
+    ['My dad can ... dinner.','cook','play','skateboard'],
+    ['Which sentence tells us what you can do?','I can run.','I am Turkish.','I have got a bike.'],
+    ['You can ride a bike, but can you ...?','swim','Spanish','guitar'],
+    ['Choose the correct (правильное) sentence.','We can run.','We can running.','We cans run.'],
+    ['Which verb goes with “the guitar”?','play','speak','ride']
+  ],
+  grammar:[
+    ['Mia and Kate ... from France.','are','is','am'],
+    ['My brother ... 11 years old.','is','am','are'],
+    ['... your parents from Spain?','Are','Is','Am'],
+    ['I ... not Turkish.','am','is','are'],
+    ['Tom ... Italian, but I ... British.','is / am','are / is','am / are'],
+    ['Are you German? — No, I ...','am not','isn’t','aren’t'],
+    ['Which sentence is correct (правильное)?','He isn’t Spanish.','He aren’t Spanish.','He not Spanish.'],
+    ['Which one is a question?','Is she French?','She is French.','She isn’t French.'],
+    ['She ... two cats.','has got','have got','is got'],
+    ['My friends ... a skateboard.','have got','has got','are got'],
+    ['... he got a bike?','Has','Have','Can'],
+    ['Has Tom got a guitar? — Yes, he ...','has','have','is'],
+    ['I haven’t got a dog, but I ... a cat.','have got','has got','am'],
+    ['They ... got a guitar.','haven’t','hasn’t','isn’t'],
+    ['Which sentence is correct (правильное)?','He has got a bike.','He have got a bike.','He is got a bike.'],
+    ['She can draw, but she ... swim.','can’t','isn’t','hasn’t'],
+    ['... you play football?','Can','Have','Are'],
+    ['Can Anna sing? — No, she ...','can’t','isn’t','hasn’t'],
+    ['We can ... football.','play','plays','to play'],
+    ['He ... ride a bike.','can','cans','is can'],
+    ['They can’t ... the guitar.','play','plays','playing'],
+    ['Can he cook? — Yes, he ...','can','is','does'],
+    ['Anna has got a bike. ... she ride it?','Can','Has','Is'],
+    ['He ... from Turkey and he ... Turkish.','is / is','are / is','is / are'],
+    ['She ... a guitar, but she ... play it.','has got / can’t','have got / isn’t','can / hasn’t'],
+    ['We ... Italian, but we ... speak Spanish.','are / can','is / has got','am / are'],
+    ['Which sentence means “У неё есть гитара”?','She has got a guitar.','She can play the guitar.','She is a guitar.'],
+    ['Which sentence means “Я не умею плавать”?','I can’t swim.','I can swim.','I haven’t got a bike.']
+  ]
+};
+const MAX_LIVES=6;
+const QUESTION_COUNTS={months:6,countries:6,actions:6,grammar:10};
+let vocab=[];
+function makeQuestions(){
+  const chosen=[];
+  for(const [category,count] of Object.entries(QUESTION_COUNTS)){
+    const picked=shuffle(lessonSets[category].slice()).slice(0,count);
+    chosen.push(...picked.map(([en,ru,wrong1,wrong2])=>({en,ru,wrong:[wrong1,wrong2],category})));
+  }
+  // Shuffle topics throughout; prevent three questions of the same type in a row.
+  for(let attempt=0;attempt<40;attempt++){
+    const candidate=shuffle(chosen.slice());
+    if(candidate.every((q,i)=>i<2||!(candidate[i-1].category===q.category&&candidate[i-2].category===q.category)))return candidate;
+  }
+  return shuffle(chosen);
+}
+function menuHtml(){
+  return `<div class="overlay-card simple-start"><button class="play-cta" id="playBtn"><span class="play-arrow">▶</span> PLAY</button></div>`;
+}
+function showMenu(){
+  running=false;paused=false;
+  if(rafId){cancelAnimationFrame(rafId);rafId=0}
+  overlay.innerHTML=menuHtml();overlay.classList.add('show');
+  document.getElementById('playBtn').onclick=resetGame;
+  draw();
+}
+
+const canvas = document.getElementById('game'), ctx = canvas.getContext('2d');
+const scoreEl = document.getElementById('score'), livesEl=document.getElementById('lives'), progressEl=document.getElementById('progress'), botCountEl=document.getElementById('botCount'), wordEl=document.getElementById('word'), typeEl=document.getElementById('type');
+const toast=document.getElementById('toast'), overlay=document.getElementById('overlay'), wrap=document.getElementById('gamewrap'), chapterEl=document.getElementById('chapter');
+let score=0, streak=0, lives=MAX_LIVES, idx=0, running=false, paused=false, sound=true, last=0, invincible=0, roundLocked=false;
+let items=[], bots=[], particles=[];
+let rafId=0;
+
+// Grid: 15 x 11. 0 path, 1 wall
+const grid=[
+  [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+  [1,0,0,0,0,0,1,0,0,0,0,0,0,0,1],
+  [1,0,1,1,0,0,1,0,0,1,1,0,1,0,1],
+  [1,0,0,0,0,0,0,0,0,0,0,0,1,0,1],
+  [1,0,1,0,1,1,0,1,1,1,0,0,1,0,1],
+  [1,0,1,0,0,0,0,0,0,0,1,0,0,0,1],
+  [1,0,1,0,1,0,1,1,1,0,1,0,1,0,1],
+  [1,0,0,0,1,0,0,0,0,0,0,0,0,0,1],
+  [1,0,1,0,1,1,0,1,1,1,0,1,1,0,1],
+  [1,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+  [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
+];
+const COLS=15, ROWS=11, cw=canvas.width/COLS, ch=canvas.height/ROWS;
+const paths=[]; for(let r=0;r<ROWS;r++)for(let c=0;c<COLS;c++)if(grid[r][c]===0)paths.push({c,r});
+const player={c:1,r:1,x:0,y:0,dir:'right',next:'right',targetC:null,targetR:null,speed:205,mouth:0};
+function cellXY(c,r){return {x:(c+.5)*cw,y:(r+.5)*ch}}
+function setPlayer(c=1,r=1){player.c=c;player.r=r;const p=cellXY(c,r);player.x=p.x;player.y=p.y;player.dir='right';player.next='right';player.targetC=null;player.targetR=null}
+const dirs={left:{dc:-1,dr:0,a:Math.PI},right:{dc:1,dr:0,a:0},up:{dc:0,dr:-1,a:-Math.PI/2},down:{dc:0,dr:1,a:Math.PI/2}};
+function canMove(c,r,d){const q=dirs[d];return grid[r+q.dr] && grid[r+q.dr][c+q.dc]===0}
+function nearestCell(x,y){return {c:Math.floor(x/cw),r:Math.floor(y/ch)}}
+function centerDist(x,y,c,r){const p=cellXY(c,r);return Math.hypot(x-p.x,y-p.y)}
+
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+function keyOf(p){return p.c+','+p.r}
+function chooseCells(n, excluded=[]){
+  const ex=new Set(excluded.map(keyOf));
+  return shuffle(paths.filter(p=>!ex.has(keyOf(p)) && !(p.c<3&&p.r<3)).slice()).slice(0,n);
+}
+
+// Breadth-first search on the maze. Used to guarantee a genuinely fair round:
+// there is always at least one route from the player to the correct answer
+// that does NOT cross a wrong-answer cell.
+function findPath(start, goal){
+  const q=[start], prev=new Map(), seen=new Set([keyOf(start)]);
+  while(q.length){
+    const cur=q.shift();
+    if(cur.c===goal.c && cur.r===goal.r){
+      const path=[]; let k=keyOf(cur), node=cur;
+      while(node){path.push(node);const pk=prev.get(k);if(!pk)break;node=pk;k=keyOf(node)}
+      return path.reverse();
+    }
+    for(const d of Object.values(dirs)){
+      const nc=cur.c+d.dc,nr=cur.r+d.dr;
+      if(!grid[nr] || grid[nr][nc]!==0)continue;
+      const nxt={c:nc,r:nr}, k=keyOf(nxt);
+      if(seen.has(k))continue;
+      seen.add(k);prev.set(k,cur);q.push(nxt);
+    }
+  }
+  return [];
+}
+
+function setupRound(){
+  roundLocked=false;
+  invincible=Math.max(invincible,0.8);
+  const v=vocab[idx];
+  wordEl.textContent=v.en;
+  typeEl.textContent='Choose the correct (правильный) answer';
+  progressEl.textContent=`${idx+1} / ${vocab.length}`;
+  chapterEl.textContent=`MIXED CHALLENGE · ${idx+1}/${vocab.length}`;
+  setPlayer();
+  const start={c:1,r:1};
+  // Slightly more exploration: a real route, never a forced trap.
+  const near=shuffle(paths.filter(p=>{
+    if(p.c<3&&p.r<3)return false;
+    const length=findPath(start,p).length;
+    return length>=8 && length<=19 && p.c>=3;
+  }).slice());
+  const correctSpot=near[0]||{c:7,r:3};
+  const safePath=findPath(start,correctSpot),safeKeys=new Set(safePath.map(keyOf));
+  // Two distractors. None may sit on the shortest safe route, guard the spawn,
+  // or overlap a fellow answer capsule. The player always has a clear path.
+  const wrongCandidates=shuffle(paths.filter(p=>{
+    if(safeKeys.has(keyOf(p)))return false;
+    if(p.c<3&&p.r<3)return false;
+    if(Math.abs(p.c-correctSpot.c)+Math.abs(p.r-correctSpot.r)<4)return false;
+    if(Math.abs(p.c-start.c)+Math.abs(p.r-start.r)<5)return false;
+    const neighbors=['left','right','up','down'].filter(d=>canMove(p.c,p.r,d)).length;
+    if(neighbors<2)return false;
+    return true;
+  }).slice());
+  // A label may extend over several tiles. Keep answers several tiles apart.
+  function labelBox(p,label){
+    const x=(p.c+.5)*cw,y=(p.r+.5)*ch;
+    const fontSize=label.length>23?12:label.length>16?14:16;
+    const width=Math.min(Math.max(90,label.length*fontSize*.64+28),cw*3.7);
+    const cx=Math.max(width/2+8,Math.min(canvas.width-width/2-8,x));
+    return {l:cx-width/2,r:cx+width/2,t:y-23,b:y+23};
+  }
+  function distinctLabelPositions(p,a,alabel,blabel){
+    const x=labelBox(p,alabel),y=labelBox(a,blabel);
+    return x.r+14<y.l || y.r+14<x.l || x.b+18<y.t || y.b+18<x.t;
+  }
+  const wrongSpots=[];
+  const usedPositions=[{point:correctSpot,label:v.ru}];
+  for(const p of wrongCandidates){
+    const label=v.wrong[wrongSpots.length];
+    if(usedPositions.every(u=>distinctLabelPositions(p,u.point,label,u.label))){
+      wrongSpots.push(p);
+      usedPositions.push({point:p,label});
+      if(wrongSpots.length===2)break;
+    }
+  }
+  // Defensive fallback (the supplied maze has ample possible positions).
+  for(const p of wrongCandidates){
+    if(wrongSpots.length===2)break;
+    if(!wrongSpots.some(w=>keyOf(w)===keyOf(p)) &&
+       wrongSpots.every(w=>Math.abs(w.c-p.c)+Math.abs(w.r-p.r)>3)) wrongSpots.push(p);
+  }
+  items=[
+    {...correctSpot,...cellXY(correctSpot.c,correctSpot.r),text:v.ru,correct:true,phase:Math.random()*6},
+    ...wrongSpots.map((spot,i)=>({...spot,...cellXY(spot.c,spot.r),text:v.wrong[i],correct:false,phase:Math.random()*6}))
+  ];
+  // One visible patrol bot from round 1; two from round 5, never more.
+  const botCount=idx<4?1:2;
+  const used=new Set([start,correctSpot,...wrongSpots,...safePath].map(keyOf));
+  const botCandidates=shuffle(paths.filter(p=>{
+    if(used.has(keyOf(p)))return false;
+    const dist=findPath(start,p).length;
+    if(dist<5||dist>15)return false;
+    if(Math.abs(p.c-correctSpot.c)+Math.abs(p.r-correctSpot.r)<3)return false;
+    return wrongSpots.every(w=>Math.abs(p.c-w.c)+Math.abs(p.r-w.r)>2);
+  }).slice());
+  botCandidates.sort((a,b)=>Math.abs(findPath(start,a).length-9)-Math.abs(findPath(start,b).length-9));
+  const bspots=botCandidates.slice(0,botCount);
+  botCountEl.textContent=bspots.length;
+  bots=bspots.map((s,i)=>{
+    const p=cellXY(s.c,s.r);
+    return {c:s.c,r:s.r,x:p.x,y:p.y,dir:shuffle(['left','right','up','down'].filter(d=>canMove(s.c,s.r,d)))[0]||'left',targetC:null,targetR:null,speed:92+i*7,phase:Math.random()*6};
+  });
+}
+function resetGame(){
+  vocab=makeQuestions();
+  score=0;streak=0;lives=MAX_LIVES;idx=0;running=true;paused=false;invincible=0;roundLocked=false;particles=[];
+  document.getElementById('pauseBtn').textContent='Pause';
+  updateHUD();setupRound();overlay.classList.remove('show');
+  canvas.focus({preventScroll:true});
+  last=performance.now();if(rafId)cancelAnimationFrame(rafId);rafId=requestAnimationFrame(loop);beep(440,.05,'sine',.05);
+}
+function updateHUD(){scoreEl.textContent=score;livesEl.textContent='❤ '.repeat(lives).trim()||'—'}
+function showToast(text,good=true){toast.textContent=text;toast.className='toast show '+(good?'good':'bad');clearTimeout(showToast.t);showToast.t=setTimeout(()=>toast.className='toast',850)}
+function beep(freq,dur=.08,type='sine',vol=.04){if(!sound)return;try{const A=beep.ctx||(beep.ctx=new (window.AudioContext||window.webkitAudioContext)());const o=A.createOscillator(),g=A.createGain();o.type=type;o.frequency.value=freq;g.gain.value=vol;o.connect(g);g.connect(A.destination);o.start();g.gain.exponentialRampToValueAtTime(.001,A.currentTime+dur);o.stop(A.currentTime+dur)}catch(e){}}
+function burst(x,y,color){for(let i=0;i<16;i++){const a=Math.random()*Math.PI*2,s=40+Math.random()*130;particles.push({x,y,vx:Math.cos(a)*s,vy:Math.sin(a)*s,life:.65,color})}}
+function loseLife(msg){
+  if(invincible>0||roundLocked)return;
+  lives--;streak=0;invincible=2.0;updateHUD();showToast(msg,false);
+  wrap.classList.remove('flash');void wrap.offsetWidth;wrap.classList.add('flash');
+  beep(180,.15,'sawtooth',.045);setPlayer();
+  if(lives<=0)end(false);
+}
+function eat(item){
+  if(roundLocked)return;
+  if(item.correct){
+    roundLocked=true;score+=100+streak*10;streak++;updateHUD();
+    burst(item.x,item.y,'#70ffbe');showToast('Great! ✦',true);beep(780,.1,'triangle',.05);
+    idx++;
+    if(idx>=vocab.length)setTimeout(()=>end(true),620);
+    else setTimeout(setupRound,560);
+  }else{
+    roundLocked=true;
+    burst(item.x,item.y,'#ff4fa3');showToast('Try again!',false);
+    beep(250,.13,'triangle',.035);
+    // Wrong answers do NOT remove lives; they just send Glowbit back to start.
+    setPlayer();invincible=1.2;
+    setTimeout(()=>{roundLocked=false},450);
+  }
+}
+function end(win){
+  running=false;
+  overlay.classList.add('show');
+  overlay.innerHTML=`<div class="overlay-card"><h2>${win?'Amazing! ✨':'One more try?'}</h2><p>${win?`All ${vocab.length} questions complete! · ${score} points`:`${idx} / ${vocab.length} questions`}</p><div class="overlay-actions"><button class="play-cta" id="again"><span class="play-arrow">▶</span> PLAY AGAIN</button></div></div>`;
+  document.getElementById('again').onclick=resetGame;
+  beep(win?1040:180,.3,'triangle',.06);
+}
+
+function beginPlayerSegment(){
+  // At a cell centre: use the buffered direction if possible; otherwise keep going.
+  let d=null;
+  if(player.next && canMove(player.c,player.r,player.next)) d=player.next;
+  else if(player.dir && canMove(player.c,player.r,player.dir)) d=player.dir;
+  if(!d){player.targetC=null;player.targetR=null;return false}
+  player.dir=d;
+  const q=dirs[d];
+  player.targetC=player.c+q.dc;
+  player.targetR=player.r+q.dr;
+  return true;
+}
+function advancePlayer(dt){
+  let remaining=player.speed*dt;
+  let guard=0;
+  while(remaining>0.0001 && guard++<8){
+    if(player.targetC===null || player.targetR===null){
+      if(!beginPlayerSegment()) break;
+    }
+    const tp=cellXY(player.targetC,player.targetR);
+    const dx=tp.x-player.x, dy=tp.y-player.y;
+    const dist=Math.hypot(dx,dy);
+    if(dist<0.001){
+      player.x=tp.x;player.y=tp.y;player.c=player.targetC;player.r=player.targetR;
+      player.targetC=null;player.targetR=null;
+      continue;
+    }
+    if(remaining>=dist){
+      player.x=tp.x;player.y=tp.y;
+      remaining-=dist;
+      player.c=player.targetC;player.r=player.targetR;
+      player.targetC=null;player.targetR=null;
+    }else{
+      player.x+=dx/dist*remaining;
+      player.y+=dy/dist*remaining;
+      remaining=0;
+    }
+  }
+}
+function chooseBotDirection(b){
+  let options=['left','right','up','down'].filter(d=>canMove(b.c,b.r,d));
+  if(!options.length){b.targetC=null;b.targetR=null;return false}
+  const opp={left:'right',right:'left',up:'down',down:'up'}[b.dir];
+  if(options.length>1){const forward=options.filter(d=>d!==opp);if(forward.length)options=forward}
+  if(Math.random()<.30){
+    options.sort((a,z)=>{
+      const da=dirs[a], dz=dirs[z];
+      const pa=cellXY(b.c+da.dc,b.r+da.dr), pz=cellXY(b.c+dz.dc,b.r+dz.dr);
+      return Math.hypot(player.x-pa.x,player.y-pa.y)-Math.hypot(player.x-pz.x,player.y-pz.y);
+    });
+    b.dir=options[0];
+  }else b.dir=options[Math.floor(Math.random()*options.length)];
+  const q=dirs[b.dir];b.targetC=b.c+q.dc;b.targetR=b.r+q.dr;return true;
+}
+function advanceBot(b,dt){
+  let remaining=b.speed*dt, guard=0;
+  while(remaining>0.0001 && guard++<8){
+    if(b.targetC===null || b.targetR===null){if(!chooseBotDirection(b))break}
+    const tp=cellXY(b.targetC,b.targetR), dx=tp.x-b.x, dy=tp.y-b.y, dist=Math.hypot(dx,dy);
+    if(dist<0.001){b.x=tp.x;b.y=tp.y;b.c=b.targetC;b.r=b.targetR;b.targetC=null;b.targetR=null;continue}
+    if(remaining>=dist){b.x=tp.x;b.y=tp.y;remaining-=dist;b.c=b.targetC;b.r=b.targetR;b.targetC=null;b.targetR=null}
+    else{b.x+=dx/dist*remaining;b.y+=dy/dist*remaining;remaining=0}
+  }
+}
+function update(dt){
+  if(!running||paused)return;if(invincible>0)invincible-=dt;
+  if(!roundLocked)advancePlayer(dt);
+  player.mouth+=dt*12;
+  // item collision
+  for(const it of items){if(Math.hypot(player.x-it.x,player.y-it.y)<21){eat(it);break}}
+  // bots
+  for(const b of bots){
+    if(!running||roundLocked)break;
+    advanceBot(b,dt);b.phase+=dt*5;
+    if(Math.hypot(player.x-b.x,player.y-b.y)<27)loseLife('Watch out!');
+  }
+  particles=particles.filter(p=>{p.x+=p.vx*dt;p.y+=p.vy*dt;p.vx*=.98;p.vy*=.98;p.life-=dt;return p.life>0})
+}
+
+function roundRect(ctx,x,y,w,h,r){ctx.beginPath();ctx.roundRect(x,y,w,h,r)}
+function draw(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  const grad=ctx.createRadialGradient(canvas.width*.5,canvas.height*.45,40,canvas.width*.5,canvas.height*.5,520);grad.addColorStop(0,'#141438');grad.addColorStop(1,'#070714');ctx.fillStyle=grad;ctx.fillRect(0,0,canvas.width,canvas.height);
+  // tiny stars
+  ctx.globalAlpha=.6;for(let i=0;i<40;i++){const x=(i*173)%canvas.width,y=(i*97)%canvas.height;ctx.fillStyle=i%3?'#4af4ff':'#ff4fa3';ctx.fillRect(x,y,1.2,1.2)}ctx.globalAlpha=1;
+  // walls
+  for(let r=0;r<ROWS;r++)for(let c=0;c<COLS;c++)if(grid[r][c]){
+    const x=c*cw+4,y=r*ch+4,w=cw-8,h=ch-8;
+    ctx.shadowColor='#634cff';ctx.shadowBlur=10;ctx.fillStyle='#151535';roundRect(ctx,x,y,w,h,12);ctx.fill();ctx.shadowBlur=0;
+    const g=ctx.createLinearGradient(x,y,x+w,y+h);g.addColorStop(0,'#49f4ff55');g.addColorStop(.5,'#8f6bff40');g.addColorStop(1,'#ff4fa350');ctx.strokeStyle=g;ctx.lineWidth=1.7;roundRect(ctx,x,y,w,h,12);ctx.stroke();
+  }
+  // items as glowing capsules
+  for(const it of items){it.phase+=.02;const pulse=1+Math.sin(it.phase)*.04;ctx.save();ctx.translate(it.x,it.y);ctx.scale(pulse,pulse);const fs=it.text.length>24?12:it.text.length>17?14:it.text.length>12?16:18;ctx.font=`800 ${fs}px Manrope,Arial,sans-serif`;const tw=Math.min(ctx.measureText(it.text).width+28,cw*3.7), h=37;ctx.shadowColor='#8f6bff';ctx.shadowBlur=15;ctx.fillStyle='#0d0d22';const ox=Math.max(tw/2+9,Math.min(canvas.width-tw/2-9,it.x))-it.x;
+    roundRect(ctx,ox-tw/2,-h/2,tw,h,18);ctx.fill();ctx.shadowBlur=0;ctx.strokeStyle='#ffffff2b';ctx.stroke();ctx.fillStyle='#f6f5ff';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(it.text,ox,1,tw-14);ctx.restore()}
+  // bots
+  for(const b of bots){ctx.save();ctx.translate(b.x,b.y);const bob=Math.sin(b.phase)*3;ctx.translate(0,bob);const pulse=(Math.sin(b.phase*1.5)+1)/2;
+    ctx.strokeStyle=`rgba(255,215,90,${.25+pulse*.35})`;ctx.lineWidth=3;ctx.beginPath();ctx.arc(0,0,24+pulse*4,0,Math.PI*2);ctx.stroke();
+    ctx.shadowColor='#ffbd4b';ctx.shadowBlur=30;ctx.fillStyle='#ffda54';ctx.beginPath();ctx.arc(0,0,19,Math.PI,0);ctx.lineTo(19,15);ctx.quadraticCurveTo(12,9,6,15);ctx.quadraticCurveTo(0,9,-6,15);ctx.quadraticCurveTo(-12,9,-19,15);ctx.closePath();ctx.fill();ctx.shadowBlur=0;
+    ctx.fillStyle='#1d1531';ctx.beginPath();ctx.arc(-6,-2,3.6,0,Math.PI*2);ctx.arc(6,-2,3.6,0,Math.PI*2);ctx.fill();ctx.restore()}
+  // player Glowbit
+  ctx.save();ctx.translate(player.x,player.y);if(invincible>0)ctx.globalAlpha=.4+.5*Math.abs(Math.sin(invincible*15));ctx.shadowColor='#49f4ff';ctx.shadowBlur=22;ctx.fillStyle='#49f4ff';const a=dirs[player.dir].a,m=.22+.14*Math.abs(Math.sin(player.mouth));ctx.beginPath();ctx.moveTo(0,0);ctx.arc(0,0,18,a+m,a+Math.PI*2-m);ctx.closePath();ctx.fill();ctx.shadowBlur=0;ctx.fillStyle='#0b1023';const ex=Math.cos(a-Math.PI/2)*6,ey=Math.sin(a-Math.PI/2)*6;ctx.beginPath();ctx.arc(ex,ey-4,2.2,0,Math.PI*2);ctx.fill();ctx.restore();
+  // particles
+  for(const p of particles){ctx.globalAlpha=Math.max(0,p.life/.65);ctx.fillStyle=p.color;ctx.shadowColor=p.color;ctx.shadowBlur=8;ctx.beginPath();ctx.arc(p.x,p.y,2.5,0,Math.PI*2);ctx.fill()}ctx.globalAlpha=1;ctx.shadowBlur=0;
+  if(paused){ctx.fillStyle='#060612b8';ctx.fillRect(0,0,canvas.width,canvas.height);ctx.fillStyle='white';ctx.font='400 48px DM Serif Display';ctx.textAlign='center';ctx.fillText('Paused',canvas.width/2,canvas.height/2)}
+}
+function loop(t){if(!running){draw();rafId=0;return}const dt=Math.min(.028,(t-last)/1000||0);last=t;update(dt);draw();rafId=requestAnimationFrame(loop)}
+function setDir(d){
+  if(!dirs[d])return;
+  player.next=d;
+  const opposite={left:'right',right:'left',up:'down',down:'up'};
+  // If we are between two cells, an opposite key reverses the current segment immediately.
+  if(player.targetC!==null && player.targetR!==null && opposite[player.dir]===d){
+    const oldC=player.c, oldR=player.r;
+    player.c=player.targetC;player.r=player.targetR;
+    player.targetC=oldC;player.targetR=oldR;
+    player.dir=d;
+  }else if(player.targetC===null && player.targetR===null && canMove(player.c,player.r,d)){
+    player.dir=d;
+    beginPlayerSegment();
+  }
+  beep(220,.015,'square',.008);
+}
+function handleGameKey(e){
+  const byCode={ArrowLeft:'left',KeyA:'left',ArrowRight:'right',KeyD:'right',ArrowUp:'up',KeyW:'up',ArrowDown:'down',KeyS:'down'};
+  const byKey={ArrowLeft:'left',a:'left',A:'left',ArrowRight:'right',d:'right',D:'right',ArrowUp:'up',w:'up',W:'up',ArrowDown:'down',s:'down',S:'down'};
+  const dir=byCode[e.code]||byKey[e.key];
+  if(dir){
+    e.preventDefault();
+    e.stopPropagation();
+    if(!running)return false;
+    setDir(dir);
+    return false;
+  }
+  if(e.code==='Space'||e.key===' '){
+    e.preventDefault();
+    e.stopPropagation();
+    togglePause();
+    return false;
+  }
+}
+// Capture phase prevents the browser / embedded preview from stealing arrow keys.
+document.addEventListener('keydown',handleGameKey,true);
+canvas.addEventListener('pointerdown',()=>canvas.focus({preventScroll:true}));
+document.querySelectorAll('[data-dir]').forEach(b=>{
+  b.addEventListener('pointerdown',e=>{e.preventDefault();canvas.focus({preventScroll:true});if(running)setDir(b.dataset.dir)});
+})
+function togglePause(){if(!running)return;paused=!paused;document.getElementById('pauseBtn').textContent=paused?'Resume':'Pause';if(!paused){last=performance.now()}draw()}
+document.getElementById('pauseBtn').onclick=togglePause;
+document.getElementById('soundBtn').onclick=()=>{sound=!sound;document.getElementById('soundBtn').textContent='Sound: '+(sound?'ON':'OFF');if(sound)beep(520,.07)};
+document.getElementById('startBtn').onclick=showMenu;
+vocab=makeQuestions();setupRound();wordEl.textContent="Ready?";chapterEl.textContent="MIXED CHALLENGE";updateHUD();showMenu();draw();
+
+// Resize canvas visually while preserving pixel coordinate system
+function fit(){const box=wrap.getBoundingClientRect();const maxW=box.width-24,maxH=box.height-24,ratio=canvas.width/canvas.height;let w=maxW,h=w/ratio;if(h>maxH){h=maxH;w=h*ratio}canvas.style.width=w+'px';canvas.style.height=h+'px'}
+window.addEventListener('resize',fit);setTimeout(fit,0);
+})();
+</script>
+</body>
+</html>
